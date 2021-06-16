@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import AnadirCurso from './components/AnadirCurso';
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
           </Route>
           <Route exact path="/register">
             <RegisterPage />
+          </Route>
+          <Route path="/cursos">
+            <AnadirCurso />
           </Route>
         </Switch>
       </Router>

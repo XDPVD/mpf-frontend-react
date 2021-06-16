@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   align-items: flex-end;
   color: #ddd;
   background-image: url(https://images.unsplash.com/photo-1623602406812-10cbd27715b4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80);
-  object-fit: cover;
+  background-size: cover;
 `;
 
 const useDate = () => {

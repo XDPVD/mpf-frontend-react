@@ -1,5 +1,7 @@
-//import logo from './logo.svg';
-import './App.css';
+import React from 'react'; 
+
+import logo from './logo.svg';
+import Login from './components/Login';
 
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
@@ -20,8 +22,8 @@ function App() {
           <Route exact path="/">
             <HomePage />
           </Route>
-          <Route path="/login">
-            <LoginPage />
+          <Route exact path="/login">
+            <Login />
           </Route>
           <Route path="/register">
             <RegisterPage />

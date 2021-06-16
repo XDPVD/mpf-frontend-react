@@ -1,23 +1,26 @@
 import React from 'react'; 
 
-import logo from './logo.svg';
 import Login from './components/Login';
 
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 
 import LateralBar from "./components/LateralBar";
 import Header from "./components/Header"
+
+import UpperBanner from './components/UpperBanner';
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Header />
+        <UpperBanner />
         <LateralBar />
+
+
         <Switch>
           <Route exact path="/">
             <HomePage />

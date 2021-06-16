@@ -27,7 +27,7 @@ function App() {
   const divStyles = {
     marginLeft: "4.4%",
     width: "95.5%",
-    padding: "20px"
+    padding: "20px",
   };
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -59,13 +59,13 @@ function App() {
         <LateralBar />
         <Switch>
           <Route exact path="/">
-            <HomePage />
+            <HomePage divStyles={divStyles} />
           </Route>
           <Route exact path="/login">
             <Login />
           </Route>
           <Route path="/register">
-            <RegisterPage />
+            <RegisterPage divStyles={divStyles} />
           </Route>
           <Route path="/cursos">
             <div style={divStyles}>
@@ -87,9 +87,15 @@ function App() {
               <CoursesList></CoursesList>
             </div>
           </Route>
-          <Route path="/calendario">Calendario</Route>
-          <Route path="/grupos">Grupos</Route>
-          <Route path="/configuracion">Configuracion</Route>
+          <Route path="/calendario">
+            <div style={divStyles}>Calendario</div>
+          </Route>
+          <Route path="/grupos">
+            <div style={divStyles}>Grupos</div>
+          </Route>
+          <Route path="/configuracion">
+            <div style={divStyles}>Configuración</div>
+          </Route>
         </Switch>
       </Router>
     </div>

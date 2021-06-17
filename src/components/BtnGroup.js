@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     display: "flex",
     flexDirection: "row-reverse",
+    margin: "5px 5px",
   },
   btn: {
     margin: "5px"
@@ -19,14 +20,14 @@ export default function BtnGroup(props) {
   const classes = useStyles();
 
   return (
-    <div>
+    <>
       <div className={classes.root}>
         <Button
           className={classes.btn}
           variant="contained"
           size="small"
         >
-          <AddIcon></AddIcon> Unirse a una clase
+          <AddIcon /> Unirse a una clase
         </Button>
         <Button
           className={classes.btn}
@@ -34,9 +35,9 @@ export default function BtnGroup(props) {
           variant="contained"
           size="small"
         >
-          <AddIcon></AddIcon> Crear clase
+          <AddIcon /> Crear clase
         </Button>
       </div>
-    </div>
+    </>
   );
 }

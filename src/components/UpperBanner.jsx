@@ -11,6 +11,14 @@ const Wrapper = styled.div`
   color: #ddd;
   background-image: url(https://images.unsplash.com/photo-1623602406812-10cbd27715b4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80);
   background-size: cover;
+ 
+  @media (max-height: 500px){
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 5px 30px;
+  }
+
 `;
 
 const useDate = () => {

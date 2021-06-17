@@ -11,7 +11,7 @@ function Header() {
             <Logo src={logo} />
             {/* Email and UserIcon */}
             <UserContainer>
-                diego.vilca@unmsm.edu.pe <ProfileImage src={icon} />
+                correo@unmsm.edu.pe <ProfileImage src={icon} />
             </UserContainer>
         </Container>
     )
@@ -21,9 +21,13 @@ export default Header
 
 const Container = styled.div`
     display: flex;
-    height: 65px;
+    height: 60px;
     width: 100%;
     align-items: center;
+    
+    @media (max-width: 768px){
+        justify-content: center;
+    }
 `;
 
 const Logo = styled.img`
@@ -46,6 +50,11 @@ const UserContainer = styled.div`
 
     font-weight: bold;
     word-spacing: 15px;
+
+    @media (max-width: 768px){
+        display: none
+    }
+
 `;
 
 const ProfileImage = styled.img`

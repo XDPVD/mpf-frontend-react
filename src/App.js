@@ -1,12 +1,13 @@
 import React from "react";
 import "./App.css";
 
-import Login from "./components/Login";
+import LoginPage from "./pages/LoginPage";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
+import CoursesPage from "./pages/CoursesPage";
 
 import LateralBar from "./components/LateralBar";
 import Header from "./components/Header";
@@ -14,89 +15,71 @@ import Header from "./components/Header";
 import UpperBanner from "./components/UpperBanner";
 
 // Components
-import BtnGroup from "./components/BtnGroup";
-import CoursesList from "./components/CoursesList";
-import NewCourseForm from "./components/NewCourseForm";
 
-// Modal component
-import Modal from "react-modal";
-import { CSSTransition } from "react-transition-group";
-Modal.setAppElement("#root");
+
 
 function App() {
-  const divStyle = {
-    marginLeft: "4.4%",
-    width: "95.5%",
-    padding: "20px"
-  };
 
-  const [modalIsOpen, setIsOpen] = React.useState(false);
 
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  const modalStyle = {
-    content: {
-      position: "fixed",
-      top: "25%",
-      bottom: "auto",
-      left: "25%",
-      right: "25%",
-      padding: "25px",
-    },
+  const ContainerPageStyle = {
+    width: "100vw",
+    height: "80%",
+    display: "flex",
+    flexFlow: "column",
+    padding: "0px 25px 0px 85px"
   };
 
   return (
     <div className="App">
+
       <Router>
         <Header />
-        <UpperBanner />
-        <LateralBar />
-        <div style={divStyle}>
+        {
+          (
+            () => {
+            
+              if(false){
+                return (<>Home Page</>) ;
+              }
+              else{
+                return (<><LateralBar /> <UpperBanner /></>);
+              }
+
+            }
+          )()
+        }
+
+        <div style={ContainerPageStyle}>
           <Switch>
+
             <Route exact path="/">
               <HomePage />
             </Route>
+
             <Route exact path="/login">
-              <Login />
+              <LoginPage />
             </Route>
+
             <Route path="/register">
               <RegisterPage />
             </Route>
+
             <Route path="/cursos">
-              <div>
-                <BtnGroup openModal={openModal}></BtnGroup>
-                <Modal
-                  isOpen={modalIsOpen}
-                  style={modalStyle}
-                  closeTimeoutMS={500}
-                >
-                  <NewCourseForm
-                    closeModal={closeModal}
-                    className={modalStyle.content}
-                  >
-                    <CSSTransition timeout={500}>
-                      <div></div>
-                    </CSSTransition>
-                  </NewCourseForm>
-                </Modal>
-                <CoursesList></CoursesList>
-              </div>
+              <CoursesPage />
             </Route>
+
             <Route path="/calendario">
-              <div>Calendario</div>
+              Calendario
             </Route>
+
             <Route path="/grupos">
-              <div>Grupos</div>
+              Grupo
             </Route>
+
             <Route path="/configuracion">
-              <div>Configuración</div>
+              Configuración
             </Route>
+
           </Switch>
         </div>
       </Router>
@@ -105,3 +88,4 @@ function App() {
 }
 
 export default App;
+

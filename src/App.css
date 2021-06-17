@@ -13,3 +13,8 @@
     opacity: 0;
     transform: translateX(0px);
 }
+
+.App {
+    height: 100vh;
+    overflow: hidden;
+}

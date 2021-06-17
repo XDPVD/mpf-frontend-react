@@ -88,7 +88,7 @@ export default LateralBar
 
 
 const Container = styled.div`
-    height: 900px;
+    height: 90vh;
     width: 60px;
 
     background-color: white;

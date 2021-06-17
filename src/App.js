@@ -24,10 +24,10 @@ import { CSSTransition } from "react-transition-group";
 Modal.setAppElement("#root");
 
 function App() {
-  const divStyles = {
+  const divStyle = {
     marginLeft: "4.4%",
     width: "95.5%",
-    padding: "20px",
+    padding: "20px"
   };
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -57,46 +57,48 @@ function App() {
         <Header />
         <UpperBanner />
         <LateralBar />
-        <Switch>
-          <Route exact path="/">
-            <HomePage divStyles={divStyles} />
-          </Route>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route path="/register">
-            <RegisterPage divStyles={divStyles} />
-          </Route>
-          <Route path="/cursos">
-            <div style={divStyles}>
-              <BtnGroup openModal={openModal}></BtnGroup>
-              <Modal
-                isOpen={modalIsOpen}
-                style={modalStyle}
-                closeTimeoutMS={500}
-              >
-                <NewCourseForm
-                  closeModal={closeModal}
-                  className={modalStyle.content}
+        <div style={divStyle}>
+          <Switch>
+            <Route exact path="/">
+              <HomePage />
+            </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route path="/register">
+              <RegisterPage />
+            </Route>
+            <Route path="/cursos">
+              <div>
+                <BtnGroup openModal={openModal}></BtnGroup>
+                <Modal
+                  isOpen={modalIsOpen}
+                  style={modalStyle}
+                  closeTimeoutMS={500}
                 >
-                  <CSSTransition timeout={500}>
-                    <div></div>
-                  </CSSTransition>
-                </NewCourseForm>
-              </Modal>
-              <CoursesList></CoursesList>
-            </div>
-          </Route>
-          <Route path="/calendario">
-            <div style={divStyles}>Calendario</div>
-          </Route>
-          <Route path="/grupos">
-            <div style={divStyles}>Grupos</div>
-          </Route>
-          <Route path="/configuracion">
-            <div style={divStyles}>Configuración</div>
-          </Route>
-        </Switch>
+                  <NewCourseForm
+                    closeModal={closeModal}
+                    className={modalStyle.content}
+                  >
+                    <CSSTransition timeout={500}>
+                      <div></div>
+                    </CSSTransition>
+                  </NewCourseForm>
+                </Modal>
+                <CoursesList></CoursesList>
+              </div>
+            </Route>
+            <Route path="/calendario">
+              <div>Calendario</div>
+            </Route>
+            <Route path="/grupos">
+              <div>Grupos</div>
+            </Route>
+            <Route path="/configuracion">
+              <div>Configuración</div>
+            </Route>
+          </Switch>
+        </div>
       </Router>
     </div>
   );

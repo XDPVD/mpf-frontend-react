@@ -2,7 +2,7 @@ import React from 'react'
 
 function RegisterPage(props) {
     return (
-        <div style={props.divStyles} >
+        <div>
             Register Page
         </div>
     )

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function HomePage(props) {
     return (
-        <div style={props.divStyles}>
+        <div>
             Home Page -
             <Link to="/login">Login</Link> -
             <Link to="/register">registro</Link>

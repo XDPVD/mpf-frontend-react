@@ -1,10 +1,10 @@
 import React from 'react'
 
-function RegisterPage() {
+function RegisterPage(props) {
     return (
-        <>
+        <div>
             Register Page
-        </>
+        </div>
     )
 }
 

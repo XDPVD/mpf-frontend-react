@@ -50,7 +50,7 @@ function UpperBanner() {
   return (
     <Wrapper>
       <Typography variant="subtitle2">{date.full}</Typography>
-      <Typography variant="h4">{date.time}</Typography>
+      <Typography variant="h2">{date.time}</Typography>
     </Wrapper>
   );
 }

@@ -2,15 +2,19 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import { useState } from "react";
-import styled from "styled-components";
+import { makeStyles } from "@material-ui/core/styles";
 
-const MyTab = styled(Tab)`
-  text-transform: none;
-  min-width: 80px;
-  margin: 0 5px;
-`;
+const useStyles = makeStyles((theme) => ({
+  tab: {
+    textTransform: "none",
+    minWidth: "80px",
+    margin: "0px 5px",
+  },
+}));
 
 function CourseNav() {
+  const classes = useStyles();
+  const nav = ["Dashboard", "Clases", "Tareas", "Exámenes", "Personas"];
   const [selectedTab, setSelectedTab] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -18,13 +22,11 @@ function CourseNav() {
   };
   return (
     <>
-      <Typography variant="h4">Métodos Formales para Pruebas</Typography>
+      <Typography variant="h3">Métodos Formales para Pruebas</Typography>
       <Tabs value={selectedTab} onChange={handleChange}>
-        <MyTab label="Dashboard" />
-        <MyTab label="Clases" />
-        <MyTab label="Tareas" />
-        <MyTab label="Exámenes" />
-        <MyTab label="Personas" />
+        {nav.map((item) => (
+          <Tab disableRipple label={item} className={classes.tab} />
+        ))}
       </Tabs>
     </>
   );

@@ -16,42 +16,33 @@ import UpperBanner from "./components/UpperBanner";
 
 // Components
 
-
-
 function App() {
-
-
   const ContainerPageStyle = {
     width: "100vw",
     height: "80%",
     display: "flex",
     flexFlow: "column",
-    padding: "0px 25px 0px 85px"
+    padding: "0px 25px 0px 85px",
   };
 
   return (
     <div className="App">
-
       <Router>
         <Header />
-        {
-          (
-            () => {
-            
-              if(false){
-                return (<>Home Page</>) ;
-              }
-              else{
-                return (<><LateralBar /> <UpperBanner /></>);
-              }
-
-            }
-          )()
-        }
+        {(() => {
+          if (false) {
+            return <>Home Page</>;
+          } else {
+            return (
+              <>
+                <LateralBar /> <UpperBanner />
+              </>
+            );
+          }
+        })()}
 
         <div style={ContainerPageStyle}>
           <Switch>
-
             <Route exact path="/">
               <HomePage />
             </Route>
@@ -68,18 +59,11 @@ function App() {
               <CoursesPage />
             </Route>
 
-            <Route path="/calendario">
-              Calendario
-            </Route>
+            <Route path="/calendario">Calendario</Route>
 
-            <Route path="/grupos">
-              Grupo
-            </Route>
+            <Route path="/grupos">Grupo</Route>
 
-            <Route path="/configuracion">
-              Configuración
-            </Route>
-
+            <Route path="/configuracion">Configuración</Route>
           </Switch>
         </div>
       </Router>
@@ -88,4 +72,3 @@ function App() {
 }
 
 export default App;
-

@@ -16,8 +16,6 @@ import UpperBanner from "./components/UpperBanner";
 
 // Components
 
-
-
 function App() {
 
 

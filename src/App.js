@@ -17,58 +17,91 @@ import UpperBanner from "./components/UpperBanner";
 // Components
 
 function App() {
-  const ContainerPageStyle = {
-    width: "100vw",
-    height: "80%",
-    display: "flex",
-    flexFlow: "column",
-    padding: "0px 25px 0px 85px",
-  };
 
-  return (
-    <div className="App">
-      <Router>
-        <Header />
-        {(() => {
-          if (false) {
-            return <>Home Page</>;
-          } else {
-            return (
-              <>
-                <LateralBar /> <UpperBanner />
-              </>
-            );
-          }
-        })()}
 
-        <div style={ContainerPageStyle}>
-          <Switch>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
+    const ContainerPageStyle = {
+        width: "100vw",
+        height: "80%",
+        display: "flex",
+        flexFlow: "column",
+        padding: "0px 25px 0px 85px"
+    };
 
-            <Route exact path="/login">
-              <LoginPage />
-            </Route>
+    return ( <
+            div className = "App" >
 
-            <Route path="/register">
-              <RegisterPage />
-            </Route>
+            <
+            Router >
+            <
+            Header / > {
+                (
+                    () => {
 
-            <Route path="/cursos">
-              <CoursesPage />
-            </Route>
+                        if (false) {
+                            return ( < > Home Page < />) ;
+                            }
+                            else {
+                                return ( < > < LateralBar / > < UpperBanner / > < />);
+                                }
 
-            <Route path="/calendario">Calendario</Route>
+                            }
+                        )()
+                    }
 
-            <Route path="/grupos">Grupo</Route>
+                    <
+                    div style = { ContainerPageStyle } >
+                    <
+                    Switch >
 
-            <Route path="/configuracion">Configuración</Route>
-          </Switch>
-        </div>
-      </Router>
-    </div>
-  );
-}
+                    <
+                    Route exact path = "/" >
+                    <
+                    HomePage / >
+                    <
+                    /Route>
 
-export default App;
+                    <
+                    Route exact path = "/login" >
+                    <
+                    LoginPage / >
+                    <
+                    /Route>
+
+                    <
+                    Route path = "/register" >
+                    <
+                    RegisterPage / >
+                    <
+                    /Route>
+
+                    <
+                    Route path = "/cursos" >
+                    <
+                    CoursesPage / >
+                    <
+                    /Route>
+
+                    <
+                    Route path = "/calendario" >
+                    Calendario <
+                    /Route>
+
+                    <
+                    Route path = "/grupos" >
+                    Grupo <
+                    /Route>
+
+                    <
+                    Route path = "/configuracion" >
+                    Configuración <
+                    /Route>
+
+                    <
+                    /Switch> < /
+                    div > <
+                    /Router> < /
+                    div >
+                );
+            }
+
+            export default App;

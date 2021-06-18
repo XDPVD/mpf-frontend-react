@@ -13,6 +13,7 @@ import LateralBar from "./components/LateralBar";
 import Header from "./components/Header";
 
 import UpperBanner from "./components/UpperBanner";
+import AnadirCurso from "./components/AnadirCurso";
 
 // Components
 
@@ -27,81 +28,48 @@ function App() {
         padding: "0px 25px 0px 85px"
     };
 
-    return ( <
-            div className = "App" >
+    return ( <div className = "App" >
 
-            <
-            Router >
-            <
-            Header / > {
-                (
-                    () => {
-
+            <Router >
+            <Header /> {(() => {
                         if (false) {
-                            return ( < > Home Page < />) ;
-                            }
-                            else {
-                                return ( < > < LateralBar / > < UpperBanner / > < />);
-                                }
+                            return ( < > Home Page </>) ;}
+                        else {return ( < > <LateralBar /> < UpperBanner /> </>);
+                            }}
+                        )()}
 
-                            }
-                        )()
-                    }
+                    <div style = { ContainerPageStyle } >
+                    <Switch >
 
-                    <
-                    div style = { ContainerPageStyle } >
-                    <
-                    Switch >
+                    <Route exact path = "/" >
+                        <HomePage />
+                    </Route>
 
-                    <
-                    Route exact path = "/" >
-                    <
-                    HomePage / >
-                    <
-                    /Route>
-
-                    <
-                    Route exact path = "/login" >
-                    <
-                    LoginPage / >
-                    <
-                    /Route>
-
-                    <
-                    Route path = "/register" >
-                    <
-                    RegisterPage / >
-                    <
-                    /Route>
-
-                    <
-                    Route path = "/cursos" >
-                    <
-                    CoursesPage / >
-                    <
-                    /Route>
-
-                    <
-                    Route path = "/calendario" >
-                    Calendario <
-                    /Route>
-
-                    <
-                    Route path = "/grupos" >
-                    Grupo <
-                    /Route>
-
-                    <
-                    Route path = "/configuracion" >
-                    Configuración <
-                    /Route>
-
-                    <
-                    /Switch> < /
-                    div > <
-                    /Router> < /
-                    div >
+                    <Route exact path = "/login" >
+                        <LoginPage />
+                    </Route>
+                    <Route path = "/register" >
+                        <RegisterPage />
+                    </Route>
+                    <Route path = "/cursos" >
+                        <CoursesPage />
+                    </Route>
+                    <Route path = "/calendario" >
+                        Calendario 
+                    </Route>
+                    <Route path = "/grupos" >
+                        Grupo 
+                    </Route>
+                    <Route path = "/configuracion" >
+                        Configuración 
+                    </Route>
+                    <Route path = "/anadirCurso" >
+                        <AnadirCurso /> 
+                    </Route>
+                    </Switch> 
+                    </div > 
+                        </Router> 
+                    </div >
                 );
             }
-
             export default App;

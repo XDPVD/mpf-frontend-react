@@ -2,14 +2,17 @@ import React from "react";
 import Course from "../pages/Course";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Login from "./Login";
-import AnadirCurso from "./AnadirCurso";
+import theme from "./themes/theme";
+import ThemeProvider from "@material-ui/styles/ThemeProvider";
+
 function App() {
   return (
     <>
-      <Login />
-      <CssBaseline />
-      <Course />
-      <AnadirCurso />
+      <ThemeProvider theme={theme}>
+        <Login />
+        <CssBaseline />
+        <Course />
+      </ThemeProvider>
     </>
   );
 }

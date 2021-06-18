@@ -1,17 +1,25 @@
 import React from "react";
 import "./App.css";
 
-import LoginPage from "./pages/LoginPage";
+
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import * as config from "./config/config"
+
+import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
 import CoursesPage from "./pages/CoursesPage";
 
+import {
+
+  AppContainer as Container
+
+} from "./styles/Styles";
+
 import LateralBar from "./components/LateralBar";
 import Header from "./components/Header";
-
 import UpperBanner from "./components/UpperBanner";
 
 // Components
@@ -21,13 +29,7 @@ import UpperBanner from "./components/UpperBanner";
 function App() {
 
 
-  const ContainerPageStyle = {
-    width: "100vw",
-    height: "80%",
-    display: "flex",
-    flexFlow: "column",
-    padding: "0px 25px 0px 85px"
-  };
+
 
   return (
     <div className="App">
@@ -49,39 +51,39 @@ function App() {
           )()
         }
 
-        <div style={ContainerPageStyle}>
+        <Container>
           <Switch>
 
-            <Route exact path="/">
+            <Route exact path={config.urls.home}>
               <HomePage />
             </Route>
 
-            <Route exact path="/login">
+            <Route exact path={config.urls.login}>
               <LoginPage />
             </Route>
 
-            <Route path="/register">
+            <Route path={config.urls.register}>
               <RegisterPage />
             </Route>
 
-            <Route path="/cursos">
+            <Route path={config.urls.cursos}>
               <CoursesPage />
             </Route>
 
-            <Route path="/calendario">
+            <Route path={config.urls.calendario}>
               Calendario
             </Route>
 
-            <Route path="/grupos">
+            <Route path={config.urls.grupos}>
               Grupo
             </Route>
 
-            <Route path="/configuracion">
+            <Route path={config.urls.config}>
               Configuración
             </Route>
 
           </Switch>
-        </div>
+        </Container>
       </Router>
     </div>
   );

@@ -14,7 +14,6 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 
-
 const Carman = (props) => {
     const {classes} = props
     
@@ -83,8 +82,8 @@ const Carman = (props) => {
                     </div>
                 </div>    
             </Card>
-                    
-            <div className={classes.conten}>
+            <br></br>        
+            <div align='right'>
                 <Button className={classes.btn} size="large" variant="contained" color="secondary" onClick={()=>handleOpen()}>SALIR</Button>
             </div>
         </div>
@@ -190,7 +189,7 @@ const Carman = (props) => {
 export default withStyles({
     prin:{
         display:'flex',
-        margin: '40px',
+        margin: '40px  200px 40px 200px',
         border:'2px solid',
         borderRadius: '10px',
     },
@@ -212,7 +211,8 @@ export default withStyles({
     },
     ventana:{
         position: 'absolute',
-        width: 800,
+        width: '80%',
+        height: '80%',
         backgroundColor: 'white',
         border: '2px solid #000',
         boxShadow: '10px 5px 5px black',

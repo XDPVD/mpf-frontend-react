@@ -121,4 +121,3 @@ export const HeaderUserContainer = styled.div`
     }
 
 `;
-

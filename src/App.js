@@ -1,26 +1,22 @@
-import React from "react";
 import "./App.css";
-
-
-
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
-import * as config from "./config/config"
-
-import LoginPage from "./pages/LoginPage";
-import HomePage from "./pages/HomePage";
-import RegisterPage from "./pages/RegisterPage";
-import CoursesPage from "./pages/CoursesPage";
-
+import React from "react";
 import {
-
-  AppContainer as Container
-
-} from "./styles/Styles";
-
-import LateralBar from "./components/LateralBar";
+    BrowserRouter as Router,
+    Route,
+    Switch
+} from "react-router-dom";
 import Header from "./components/Header";
+import LateralBar from "./components/LateralBar";
 import UpperBanner from "./components/UpperBanner";
+import * as config from "./config/config";
+import CoursesPage from "./pages/CoursesPage";
+import HomePage from "./pages/HomePage";
+import LabPage from "./pages/LabPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import {
+    AppContainer as Container
+} from "./styles/Styles";
 
 // Components
 
@@ -28,11 +24,9 @@ import UpperBanner from "./components/UpperBanner";
 
 function App() {
 
+    return (
 
-
-
-  return (
-    <div className="App">
+        <div className="App">
 
       <Router>
         <Header />
@@ -82,12 +76,16 @@ function App() {
               Configuración
             </Route>
 
+            <Route path="/ourlab">
+              <LabPage />
+            </Route>
+
           </Switch>
         </Container>
       </Router>
     </div>
-  );
+
+    );
 }
 
 export default App;
-

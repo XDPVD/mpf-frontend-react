@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { 
-    HeaderContainer as Container, 
-    Logo, 
-    HeaderUserContainer as UserContainer, 
-    ProfileImage } from '../styles/Styles';
+import {
+    HeaderContainer as Container,
+    Logo,
+    HeaderUserContainer as UserContainer,
+    ProfileImage
+} from '../styles/Styles';
 
 import logo from "../assets/logo.svg";
 import icon from "../assets/profile.jpg";

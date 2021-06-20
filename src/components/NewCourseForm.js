@@ -1,5 +1,7 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import {
+    makeStyles
+} from "@material-ui/core/styles";
 
 // Card
 import Card from "@material-ui/core/Card";
@@ -16,35 +18,37 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
-import { Typography } from "@material-ui/core";
+import {
+    Typography
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: theme.spacing(0),
-    boxShadow: "none",
-  },
-  content: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-  closeIcon: {
-    width: 30,
-    height: 30,
-    cursor: "pointer",
-  },
-  btngroup: {
-    display: "flex",
-    flexDirection: "row-reverse",
-  },
-  btn: {
-    margin: "5px",
-  },
+    root: {
+        margin: theme.spacing(0),
+        boxShadow: "none",
+    },
+    content: {
+        display: "flex",
+        justifyContent: "space-between",
+    },
+    closeIcon: {
+        width: 30,
+        height: 30,
+        cursor: "pointer",
+    },
+    btngroup: {
+        display: "flex",
+        flexDirection: "row-reverse",
+    },
+    btn: {
+        margin: "5px",
+    },
 }));
 
 export default function NewCourseForm(props) {
-  const classes = useStyles();
-  return (
-    <div>
+    const classes = useStyles();
+    return (
+        <div>
       <Card className={classes.root}>
         <CardContent>
           <div className={classes.content}>
@@ -84,5 +88,5 @@ export default function NewCourseForm(props) {
         </CardActions>
       </Card>
     </div>
-  );
+    );
 }

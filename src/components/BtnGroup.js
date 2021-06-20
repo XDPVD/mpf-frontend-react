@@ -1,26 +1,28 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 
-import { makeStyles } from "@material-ui/core/styles";
+import {
+    makeStyles
+} from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: theme.spacing(2),
-    display: "flex",
-    flexDirection: "row-reverse",
-    margin: "5px 5px",
-  },
-  btn: {
-    margin: "5px"
-  },
+    root: {
+        padding: theme.spacing(2),
+        display: "flex",
+        flexDirection: "row-reverse",
+        margin: "5px 5px",
+    },
+    btn: {
+        margin: "5px"
+    },
 }));
 
 export default function BtnGroup(props) {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  return (
-    <>
+    return (
+        <>
       <div className={classes.root}>
         <Button
           className={classes.btn}
@@ -39,5 +41,5 @@ export default function BtnGroup(props) {
         </Button>
       </div>
     </>
-  );
+    );
 }

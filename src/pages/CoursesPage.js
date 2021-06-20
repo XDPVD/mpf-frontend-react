@@ -6,13 +6,19 @@ import NewCourseForm from "../components/NewCourseForm";
 
 import CoursePage from './CoursePage';
 
-import { useRouteMatch } from 'react-router-dom';
+import {
+    useRouteMatch
+} from 'react-router-dom';
 
 // Modal component
 import Modal from "react-modal";
-import { CSSTransition } from "react-transition-group";
+import {
+    CSSTransition
+} from "react-transition-group";
 
-import { Route } from "react-router-dom";
+import {
+    Route
+} from "react-router-dom";
 
 Modal.setAppElement("#root");
 
@@ -20,25 +26,27 @@ function CoursesPage() {
 
     const [modalIsOpen, setIsOpen] = React.useState(false);
 
-    const {path} = useRouteMatch();
+    const {
+        path
+    } = useRouteMatch();
 
     function openModal() {
-      setIsOpen(true);
+        setIsOpen(true);
     }
-  
+
     function closeModal() {
-      setIsOpen(false);
+        setIsOpen(false);
     }
-  
+
     const modalStyle = {
-      content: {
-        position: "fixed",
-        top: "25%",
-        bottom: "auto",
-        left: "25%",
-        right: "25%",
-        padding: "25px",
-      },
+        content: {
+            position: "fixed",
+            top: "25%",
+            bottom: "auto",
+            left: "25%",
+            right: "25%",
+            padding: "25px",
+        },
     };
 
     return (

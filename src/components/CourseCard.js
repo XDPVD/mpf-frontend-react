@@ -1,38 +1,42 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import {
+    makeStyles
+} from "@material-ui/core/styles";
 
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
+import {
+    Link
+} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    minWidth: 275,
-  },
-  card: {
-    backgroundColor: theme.palette.grey[300],
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
-  },
-  title: {
-    fontSize: 36,
-  },
-  pos: {
-    marginBottom: 12,
-  },
+    root: {
+        minWidth: 275,
+    },
+    card: {
+        backgroundColor: theme.palette.grey[300],
+    },
+    bullet: {
+        display: "inline-block",
+        margin: "0 2px",
+        transform: "scale(0.8)",
+    },
+    title: {
+        fontSize: 36,
+    },
+    pos: {
+        marginBottom: 12,
+    },
 }));
 
 export default function CourseCard(props) {
-  const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
+    const classes = useStyles();
+    const bull = <span className={classes.bullet}>•</span>;
 
-  return (
-    <div>
+    return (
+        <div>
         <Card className={classes.card}>
         <CardContent>
           <Typography
@@ -59,5 +63,5 @@ export default function CourseCard(props) {
         </CardActions>
       </Card>
     </div>
-  );
+    );
 }

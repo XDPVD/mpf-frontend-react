@@ -1,42 +1,36 @@
-import React from 'react'
-
-import {
-
-    LateralBarContainer as Container, 
-    ProfileImage, 
-    Separator, 
-    LateralBarOptionsContainer as OptionsContainer, 
-    LateralBarButton as Option
-
-} from "../styles/Styles";
-
 import BookIcon from '@material-ui/icons/Book';
 import EventIcon from '@material-ui/icons/Event';
-import GroupIcon from '@material-ui/icons/Group';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import GroupIcon from '@material-ui/icons/Group';
 import SettingsIcon from '@material-ui/icons/Settings';
+import React from 'react';
 
 import photo from '../assets/profile.jpg';
-
-import useRedirectUrl from './useRedirectUrl';
 import * as config from '../config/config';
+import {
+    LateralBarButton as Option,
+    LateralBarContainer as Container,
+    LateralBarOptionsContainer as OptionsContainer,
+    ProfileImage,
+    Separator
+} from "../styles/Styles";
+import useRedirectUrl from './useRedirectUrl';
 
 function LateralBar() {
 
-    const [url,redirectTo] = useRedirectUrl();
+    const [url, redirectTo] = useRedirectUrl();
 
     // Array of Buttons { IconComponent, url }
-    const topButtons = [
-        {
-            component: (<BookIcon />) ,
+    const topButtons = [{
+            component: (<BookIcon />),
             url: config.urls.cursos,
         },
         {
-            component: (<EventIcon />) ,
+            component: (<EventIcon />),
             url: config.urls.calendario,
         },
         {
-            component: (<GroupIcon />) ,
+            component: (<GroupIcon />),
             url: config.urls.grupos,
         }
     ];

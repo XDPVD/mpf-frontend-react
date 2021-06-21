@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-function GroupCard({ members }) {
+function GroupCard({ url }) {
   const classes = useStyles();
   return (
     <>
@@ -33,7 +33,7 @@ function GroupCard({ members }) {
         <CardHeader className={classes.header} title="Grupo 1" />
         <Divider />
         <CardContent className={classes.content} disableSpacing>
-          <MembersList members={members} />
+          <MembersList url={url} />
         </CardContent>
         <Divider />
         <CardActions className={classes.actions} disableSpacing>

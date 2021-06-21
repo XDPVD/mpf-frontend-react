@@ -9,40 +9,26 @@ import CourseMaterialPage from "./CourseMaterialPage";
 
 function CoursePage() {
 
-  const {path, url} = useRouteMatch()
-
-  const {courseId} = useParams()
-
-  
-  useEffect(() => {
-    console.log("PATH: ",path)
-    console.log("URL: ",url)
-    console.log("COURSE_ID: ",courseId)
-    return () => {
-      
-    }
-  })
-
-  
+  const {url} = useRouteMatch()
 
   return (
     <>
       <CourseNav />
       
       <Route exact path={url+config.courseUrls.dashboard}>
-        Dashboard
+        <CourseMaterialPage modo="anuncio"/>
       </Route>
 
       <Route exact path={url+config.courseUrls.material}>
-        <CourseMaterialPage />
+        <CourseMaterialPage modo="material"/>
       </Route>
 
       <Route exact path={url+config.courseUrls.tareas}>
-        Tareas
+        <CourseMaterialPage modo="tarea"/>
       </Route>
 
       <Route exact path={url+config.courseUrls.examenes}>
-        Examenes
+        <CourseMaterialPage modo="examen"/>
       </Route>
 
       <Route exact path={url+config.courseUrls.personas}>

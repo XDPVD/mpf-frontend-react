@@ -1,84 +1,147 @@
 import React, {
     useEffect,
-    useState
+    useState,
+    useRef
 } from 'react';
 
-import styled from "styled-components";
+import { useDropzone } from 'react-dropzone';
 
-function FileTray() {
+import {FileTrayContainer as Container, DropZone, FilesList, Loading} from "../styles/Styles"
 
-    const [files, addFile] = useState([]);
+import Button from '@material-ui/core/Button';
 
-    useEffect(() => {
+import FileItem from "./FileItem";
 
-        console.log("=====FileTray=====");
+import { app, db } from "../config/base";
+
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 
-        console.log("++++FileTray+++++");
+function FileTray(props) {
 
-        return () => {
+  const opc = {
+    "asignacion": "archivos_asignacion",
+    "publicacion": "archivos_publicacion",
+  }
 
-        }
-    })
+  const [success, setSuccess] = useState(false);
 
-    const onFilesAdded = (file) => {
-        addFile(
-            prevState => prevState.concat(file)
-        )
+  const [loading, setLoading] = useState(true);
+
+  const [currentFiles, setCurrentFiles] = useState([]);
+
+  const refFileList = useRef();
+
+  const { getRootProps,open, getInputProps } = useDropzone({
+    noClick: true,
+    noKeyboard: true,
+    onDrop: files => {
+        setCurrentFiles(prev => {
+          return [...prev, ...files]
+        });
     }
+  });
 
-    // https://www.youtube.com/watch?v=41vjTLb8v0Q
-    // https://react-dropzone.js.org/
+  const storageRef = app.storage().ref();
 
-    return (
-        <Upload>
-            <Title>Upload Files</Title>
-            <Content>
-                <Files />
-            </Content>
-            <Actions />
-        </Upload>
-    )
+  const fileCollection = db.collection(opc[props.opc]).doc(props.pub_id).collection("archivos");
+
+
+  useEffect(()=> {
+
+    fileCollection.get().then(snap => {
+      if (snap.docs.length > 0) {
+        let files = [];
+        snap.forEach(doc => {
+          let newFile = {
+            path: doc.data().name,
+            storeLink: doc.data().downloadUrl
+          }
+          files.push(newFile);
+        })
+        setCurrentFiles(files);
+        setLoading(false);
+        setSuccess(true);
+      }
+      else{
+        setLoading(false);
+      }
+    })
+  }, [success]);
+
+  const uploadFiles = async () => {
+    setLoading(true);
+
+    for(let i = 0; i < currentFiles.length; i++){
+      
+      let file = currentFiles[i];
+      
+      const fileRef = storageRef.child(file.name);
+      await fileRef.put(file);
+      
+      let downloadUrl = await fileRef.getDownloadURL();
+      
+      await db.collection(opc[props.opc]).doc(props.pub_id).collection("archivos").doc(i.toString()).set({
+        name: file.name,
+        downloadUrl: downloadUrl
+      });
+
+      if(props.callback) {
+        props.callback();
+      }
+
+    }
+    
+    console.log("Subida exitosa!!!!");
+    setLoading(false);
+    setCurrentFiles([]);
+    setSuccess(true);
+    
+    
+  }
+
+  useEffect(() => {
+    
+    let lastElemFile = refFileList.current.lastChild;
+    lastElemFile?.scrollIntoView({behavior: "smooth"})
+
+  }, [currentFiles])
+
+  const filesView = currentFiles.map((file) => {
+    return (<FileItem file={file} success={success}/>);
+  });
+
+  return (
+    <Container>
+
+      {
+        loading ?
+          <Loading>
+            <CircularProgress />
+          </Loading>
+        :
+          <></>
+      }
+
+      <FilesList ref={refFileList} >
+        {filesView}
+      </FilesList>
+
+      <DropZone {...getRootProps({className: 'dropzone'})}  hidden={success}>
+        <input {...getInputProps()} />
+        <p>Arrastre "n" archivos aqui</p>
+        <p>o</p>
+        <button type="button" onClick={open}>
+          Haga click aqui
+        </button>
+      </DropZone>
+      <Button hidden={success} onClick={() => uploadFiles()} variant="contained" color="primary" style={{"margin":"5px"}}>
+        Subir
+      </Button>
+    </Container>
+  );
 }
 
 export default FileTray
 
-const Upload = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    align-items: flex-start;
-    text-align: left;
-    overflow: hidden;
-`;
-
-const Content = styled.div`
-    display: flex;
-    flex-direction: row;
-    padding-top: 16px;
-    box-sizing: border-box;
-    width: 100%;
-`;
-
-const Files = styled.div`
-    margin-left: 32px;
-    align-items: flex-start;
-    justify-items: flex-start;
-    flex: 1;
-    overflow-y: auto;
-`;
-
-const Actions = styled.div`
-    display: flex;
-    flex: 1;
-    width: 100%;
-    align-items: flex-end;
-    flex-direction: column;
-    margin-top: 32px;
-`;
-
-const Title = styled.span`
-    margin-bottom: 32px;
-    color: #555;
-`;

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import IconButton from '@material-ui/core/Button';
+import { List } from "@material-ui/core";
 
 export const AppContainer = styled.div`
     width: 100vw;
@@ -120,4 +121,56 @@ export const HeaderUserContainer = styled.div`
         display: none
     }
 
+`;
+
+
+export const FileTrayContainer  = styled.div`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    text-align: left;
+    
+    background-color: whitesmoke;
+    border: 3px solid black;
+
+    height: 300px;
+`;
+
+export const DropZone = styled.div`
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    background-color: rgba(225,225,225);
+    border: 1px black;
+    
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+
+    & * {
+        margin: 0px 10px;
+    }
+    
+`;
+
+export const FilesList = styled(List)`
+    margin: 0px;
+    width: 100%;
+    flex: 6;
+    overflow-y: scroll;
+`;
+
+export const Loading = styled.div`
+  position: absolute;
+  background-color: rgba(221, 221, 221, 0.46);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
 `;

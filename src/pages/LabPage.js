@@ -5,7 +5,7 @@ import FileTray from "../components/FileTray";
 function LabPage() {
     return (
         <div>
-            <FileTray />
+            <FileTray pub_id={"id_publicacion"} opc={"publicacion"} callback={()=> console.log("Hello world")}/>
         </div>
     )
 }

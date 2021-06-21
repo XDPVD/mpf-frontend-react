@@ -30,11 +30,22 @@ export default function CoursesList() {
         useStyles();
     const
         data = [{
-            name: "Math",
-            id: 1
-        }];
+          titulo: "Software",
+          curso_id: 1,
+          nombreCreador: "[nombre]",
+        },{
+          titulo: "Software",
+          curso_id: 1,
+          nombreCreador: "[nombre]",
+        },{
+          titulo: "Software",
+          curso_id: 1,
+          nombreCreador: "[nombre]",
+        },
+      ];
 
-
+//TODO
+// Arreglar el marginBottom de cada fila de cursos (estrecharlo)
 
     return (
         <>
@@ -44,7 +55,6 @@ export default function CoursesList() {
         spacing={4}
         direction="row"
         justify="flex-start"
-        alignItems="flex-start"
       >
         {data.map((elem) => (
           <Grid item xs={12} sm={6} md={4} key={data.indexOf(elem)}>

@@ -33,7 +33,7 @@ const theme = createMuiTheme({
     MuiButton: {
       root: {
         textTransform: "none",
-        borderRadius: "20px",
+        borderRadius: "6px",
         padding: [[6, 30]],
         fontWeight: 500,
       },

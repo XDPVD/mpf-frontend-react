@@ -1,10 +1,6 @@
 import "./App.css";
 import React from "react";
-import {
-    BrowserRouter as Router,
-    Route,
-    Switch
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import LateralBar from "./components/LateralBar";
 import UpperBanner from "./components/UpperBanner";
@@ -14,77 +10,64 @@ import HomePage from "./pages/HomePage";
 import LabPage from "./pages/LabPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import {
-    AppContainer as Container
-} from "./styles/Styles";
+import { AppContainer as Container } from "./styles/Styles";
+
+import theme from "./components/themes/theme";
+import ThemeProvider from "@material-ui/styles/ThemeProvider";
 
 // Components
 
 function App() {
-
-    return (
-
+  return (
     <div className="App">
-
       <Router>
-        <Header />
-        {
-          (
-            () => {
-            
-              if(false){
-                return (<>Home Page</>) ;
-              }
-              else{
-                return (<><LateralBar /> <UpperBanner /></>);
-              }
-
+        <ThemeProvider theme={theme}>
+          <Header />
+          {(() => {
+            if (false) {
+              return <>Home Page</>;
+            } else {
+              return (
+                <>
+                  <LateralBar /> <UpperBanner />
+                </>
+              );
             }
-          )()
-        }
+          })()}
 
-        <Container>
-          <Switch>
+          <Container>
+            <Switch>
+              <Route exact path={config.urls.home}>
+                <HomePage />
+              </Route>
 
-            <Route exact path={config.urls.home}>
-              <HomePage />
-            </Route>
+              <Route exact path={config.urls.login}>
+                <LoginPage />
+              </Route>
 
-            <Route exact path={config.urls.login}>
-              <LoginPage />
-            </Route>
+              <Route path={config.urls.register}>
+                <RegisterPage />
+              </Route>
 
-            <Route path={config.urls.register}>
-              <RegisterPage />
-            </Route>
+              <Route path={config.urls.cursos}>
+                <CoursesPage />
+              </Route>
 
-            <Route path={config.urls.cursos}>
-              <CoursesPage />
-            </Route>
+              <Route path={config.urls.calendario}>Calendario</Route>
 
-            <Route path={config.urls.calendario}>
-              Calendario
-            </Route>
+              <Route path={config.urls.grupos}>Grupo</Route>
 
-            <Route path={config.urls.grupos}>
-              Grupo
-            </Route>
+              <Route path={config.urls.config}>Configuración</Route>
 
-            <Route path={config.urls.config}>
-              Configuración
-            </Route>
-
-            <Route path="/ourlab">
-              <LabPage />
-            </Route>
-
-          </Switch>
-        </Container>
+              <Route path="/ourlab">
+                <LabPage />
+              </Route>
+            </Switch>
+          </Container>
+        </ThemeProvider>
       </Router>
     </div>
-
-    );
+  );
 }
 
-export default App
-;
+export default App;

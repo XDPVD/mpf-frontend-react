@@ -9,6 +9,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core";
+import { useState } from "react";
 
 const useStyles = makeStyles({
   codeButton: {
@@ -53,7 +54,24 @@ const useStyles = makeStyles({
   },
 });
 
+function makeid(length) {
+  var result = "";
+  var characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
 export default function FormDialog({ open, setOpen }) {
+  const [code, setCode] = useState("");
+
+  const handleClick = () => {
+    setCode(makeid(6));
+  };
+
   const classes = useStyles();
   return (
     <div>
@@ -125,11 +143,12 @@ export default function FormDialog({ open, setOpen }) {
                   className={classes.codeButton}
                   variant="contained"
                   color="secondary"
+                  onClick={handleClick}
                 >
                   Generar
                 </Button>
                 <input
-                  value="ASDSAX"
+                  value={code}
                   type="text"
                   disabled
                   className={classes.codeText}

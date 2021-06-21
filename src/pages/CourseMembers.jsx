@@ -5,8 +5,9 @@ import GroupCard from "../components/GroupCard";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/styles";
 import AddIcon from "@material-ui/icons/Add";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddMemberDialog from "../components/AddMemberDialog";
+import axios from "axios";
 
 const students = [
   {
@@ -42,13 +43,44 @@ function CourseMembers() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
+  const [posts, setPosts] = useState();
+
+  const [id, setId] = useState(1);
+
+  useEffect(() => {
+    axios
+      .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
+      .then((res) => {
+        const responsePosts = res.data;
+        setPosts(responsePosts);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [id]);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   return (
     <>
-      <Grid container>
+      <input type="text" value={id} onChange={(e) => setId(e.target.value)} />
+      {posts && <div>{posts.title}</div>}
+
+      {/* <div>
+        {posts &&
+          posts.map((post) => {
+            const { id, userId, title } = post;
+            return (
+              <div key={id}>
+                <h5>{title}</h5>
+                <h6>Assigned to user: {userId}</h6>
+              </div>
+            );
+          })}
+      </div> */}
+      <Grid style={{ overflowY: "auto" }} container>
         {/*LISTA DE MIEMBROS AGRUPADOS POR TIPO************************/}
         <Grid item className={classes.wrapper} xs={12} sm={6} md={5}>
           {tipoMiembro.map((tipo) => (
@@ -75,7 +107,10 @@ function CourseMembers() {
                 )}
               </div>
 
-              <MembersList members={students} />
+              <MembersList
+                members={students}
+                url="https://jsonplaceholder.typicode.com/users"
+              />
             </>
           ))}
           <div className={classes.addMemberWrapper}>

@@ -4,6 +4,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/styles";
+import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const useStyles = makeStyles({
   userText: {
@@ -16,10 +19,31 @@ const useStyles = makeStyles({
   },
 });
 
-function MembersList({ members }) {
+function MembersList({ members, url }) {
   const classes = useStyles();
+  const [users, setUsers] = useState();
+
+  useEffect(() => {
+    axios
+      .get(url)
+      .then((res) => {
+        const resUsers = res.data;
+        setUsers(resUsers);
+        console.log(users);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [url]);
+
   return (
     <>
+      {users &&
+        users.map((user) => (
+          <>
+            <span>{user.name}</span>
+          </>
+        ))}
       <List
         style={{
           borderRadius: "10px",

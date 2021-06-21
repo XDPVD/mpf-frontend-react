@@ -1,6 +1,12 @@
 import "./App.css";
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch
+} from "react-router-dom";
+
 import Header from "./components/Header";
 import LateralBar from "./components/LateralBar";
 import UpperBanner from "./components/UpperBanner";

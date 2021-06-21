@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 function CourseNav() {
   const classes = useStyles();
 
-  const [url, redirectTo] = useRedirectUrl();
+  const [, redirectTo] = useRedirectUrl();
 
   const nav = ["Dashboard", "Materiales", "Tareas", "Exámenes", "Personas"];
   const routes = ["dash", "materiales", "tareas", "examenes", "personas"];

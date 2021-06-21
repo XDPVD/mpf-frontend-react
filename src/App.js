@@ -8,6 +8,7 @@ import {
 import Header from "./components/Header";
 import LateralBar from "./components/LateralBar";
 import UpperBanner from "./components/UpperBanner";
+<<<<<<< HEAD
 import *
 as config from "./config/config";
 import CoursesPage from "./pages/CoursesPage";
@@ -18,16 +19,17 @@ import RegisterPage from "./pages/RegisterPage";
 import {
     AppContainer as Container
 } from "./styles/Styles";
+=======
+import AnadirCurso from "./components/AnadirCurso";
+>>>>>>> master
 
 // Components
-
-
 
 function App() {
 
     return (
 
-        <div className="App">
+    <div className="App">
 
       <Router>
         <Header />

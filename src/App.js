@@ -8,9 +8,7 @@ import {
 import Header from "./components/Header";
 import LateralBar from "./components/LateralBar";
 import UpperBanner from "./components/UpperBanner";
-<<<<<<< HEAD
-import *
-as config from "./config/config";
+import * as config from "./config/config";
 import CoursesPage from "./pages/CoursesPage";
 import HomePage from "./pages/HomePage";
 import LabPage from "./pages/LabPage";
@@ -19,9 +17,6 @@ import RegisterPage from "./pages/RegisterPage";
 import {
     AppContainer as Container
 } from "./styles/Styles";
-=======
-import AnadirCurso from "./components/AnadirCurso";
->>>>>>> master
 
 // Components
 

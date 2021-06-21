@@ -1,7 +1,5 @@
 import React from 'react'
 
-import FileTray from "../components/FileTray";
-
 import PublicacionCard from "../components/PublicacionCard";
 
 function LabPage() {

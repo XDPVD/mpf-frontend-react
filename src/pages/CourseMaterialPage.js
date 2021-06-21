@@ -1,10 +1,11 @@
 import React from 'react'
-import PublicacionCard from "../components/PublicacionCard";
 
-function CourseMaterialPage() {
+import ListaPublicaciones from "../components/ListaPublicaciones";
+
+function CourseMaterialPage(props) {
     return (
         <>
-        <PublicacionCard />
+            <ListaPublicaciones modo={props.modo} />
         </>
     )
 }

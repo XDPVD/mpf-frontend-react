@@ -1,21 +1,28 @@
-import React,{useState} from 'react'
+import React from 'react'
 
 import PublicacionCard from './PublicacionCard';
 
-export const ListaPublicaciones = (props) => {
-    
-    const [modal, setModal] = useState(false);
+import styled from "styled-components";
 
-    const handleOpen = () => {
-        setModal(!modal);
-    }
- 
-    const [subir, setSubir] = useState(false);
+import { publicacion_data } from '../config/dataTest';
+
+
+const ListaPublicaciones = (props) => {
+
+    const data = publicacion_data;
 
     return ( 
-        <>
-            <PublicacionCard />
-        </>
+        <ContainerPubCard>
+            {data.map((elem) => {
+                return (<PublicacionCard modo={props.modo} publi_obj={elem}/>)
+            })
+            }
+        </ContainerPubCard>
      );
 }
- 
+
+export default ListaPublicaciones;
+
+const ContainerPubCard = styled.div`
+    overflow-y: scroll;
+`;

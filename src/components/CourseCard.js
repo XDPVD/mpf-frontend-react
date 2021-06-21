@@ -47,9 +47,6 @@ export default function CourseCard(
     const
         classes =
         useStyles();
-    const
-        bull =
-        <span className={classes.bullet}>•</span>;
 
     return (
         <div>
@@ -60,22 +57,14 @@ export default function CourseCard(
             color="textSecondary"
             gutterBottom
           >
-            {props.elem.name}
-          </Typography>
-          <Typography variant="h5" component="h2">
-            be{bull}new{bull}o{bull}lent
+            {props.elem.titulo}
           </Typography>
           <Typography className={classes.pos} color="textSecondary">
-            adjective
-          </Typography>
-          <Typography variant="body2" component="p">
-            Well meaning and kindly
-            <br />
-            {'"a benevolent smile"'}
+            {props.elem.nombreCreador}
           </Typography>
         </CardContent>
         <CardActions>
-          <Link to={`/cursos/${props.elem.id}`} >Ver</Link>
+          <Link to={`/cursos/${props.elem.curso_id}`} >Ver</Link>
         </CardActions>
       </Card>
     </div>

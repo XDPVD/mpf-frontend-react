@@ -20,34 +20,51 @@ import {
     Route
 } from "react-router-dom";
 
-Modal.setAppElement("#root");
+Modal
+    .setAppElement(
+        "#root"
+        );
 
 function CoursesPage() {
 
-    const [modalIsOpen, setIsOpen] = React.useState(false);
+    const [
+        modalIsOpen,
+        setIsOpen
+    ] =
+    React
+        .useState(
+            false
+            );
 
     const {
         path
-    } = useRouteMatch();
+    } =
+    useRouteMatch
+        ();
 
     function openModal() {
-        setIsOpen(true);
+        setIsOpen
+            (
+                true);
     }
 
     function closeModal() {
-        setIsOpen(false);
+        setIsOpen
+            (
+                false);
     }
 
-    const modalStyle = {
-        content: {
-            position: "fixed",
-            top: "25%",
-            bottom: "auto",
-            left: "25%",
-            right: "25%",
-            padding: "25px",
-        },
-    };
+    const
+        modalStyle = {
+            content: {
+                position: "fixed",
+                top: "25%",
+                bottom: "auto",
+                left: "25%",
+                right: "25%",
+                padding: "25px",
+            },
+        };
 
     return (
         <>

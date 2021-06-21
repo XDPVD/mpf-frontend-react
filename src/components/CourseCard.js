@@ -11,29 +11,45 @@ import {
     Link
 } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        minWidth: 275,
-    },
-    card: {
-        backgroundColor: theme.palette.grey[300],
-    },
-    bullet: {
-        display: "inline-block",
-        margin: "0 2px",
-        transform: "scale(0.8)",
-    },
-    title: {
-        fontSize: 36,
-    },
-    pos: {
-        marginBottom: 12,
-    },
-}));
+const
+    useStyles =
+    makeStyles(
+        (
+            theme) =>
+        ({
+            root: {
+                minWidth: 275,
+            },
+            card: {
+                backgroundColor: theme
+                    .palette
+                    .grey[
+                        300
+                        ],
+            },
+            bullet: {
+                display: "inline-block",
+                margin: "0 2px",
+                transform: "scale(0.8)",
+            },
+            title: {
+                fontSize: 36,
+            },
+            pos: {
+                marginBottom: 12,
+            },
+        })
+        );
 
-export default function CourseCard(props) {
-    const classes = useStyles();
-    const bull = <span className={classes.bullet}>•</span>;
+export default function CourseCard(
+    props
+    ) {
+    const
+        classes =
+        useStyles();
+    const
+        bull =
+        <span className={classes.bullet}>•</span>;
 
     return (
         <div>

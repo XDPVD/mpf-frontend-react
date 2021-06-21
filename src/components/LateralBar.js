@@ -6,7 +6,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import React from 'react';
 
 import photo from '../assets/profile.jpg';
-import * as config from '../config/config';
+import *
+as config from '../config/config';
 import {
     LateralBarButton as Option,
     LateralBarContainer as Container,
@@ -18,27 +19,50 @@ import useRedirectUrl from './useRedirectUrl';
 
 function LateralBar() {
 
-    const [url, redirectTo] = useRedirectUrl();
+    const [
+        url,
+        redirectTo
+    ] =
+    useRedirectUrl
+        ();
 
     // Array of Buttons { IconComponent, url }
-    const topButtons = [{
-            component: (<BookIcon />),
-            url: config.urls.cursos,
-        },
-        {
-            component: (<EventIcon />),
-            url: config.urls.calendario,
-        },
-        {
-            component: (<GroupIcon />),
-            url: config.urls.grupos,
-        }
-    ];
+    const
+        topButtons = [{
+                component: (
+                    <BookIcon />
+                    ),
+                url: config
+                    .urls
+                    .cursos,
+            },
+            {
+                component: (
+                    <EventIcon />
+                    ),
+                url: config
+                    .urls
+                    .calendario,
+            },
+            {
+                component: (
+                    <GroupIcon />
+                    ),
+                url: config
+                    .urls
+                    .grupos,
+            }
+        ];
 
-    const settingButton = {
-        component: (<SettingsIcon />),
-        url: config.urls.config
-    }
+    const
+        settingButton = {
+            component: (
+                <SettingsIcon />
+                ),
+            url: config
+                .urls
+                .config
+        }
 
     return (
         <Container>

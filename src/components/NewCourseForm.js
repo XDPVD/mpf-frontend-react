@@ -22,31 +22,44 @@ import {
     Typography
 } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        margin: theme.spacing(0),
-        boxShadow: "none",
-    },
-    content: {
-        display: "flex",
-        justifyContent: "space-between",
-    },
-    closeIcon: {
-        width: 30,
-        height: 30,
-        cursor: "pointer",
-    },
-    btngroup: {
-        display: "flex",
-        flexDirection: "row-reverse",
-    },
-    btn: {
-        margin: "5px",
-    },
-}));
+const
+    useStyles =
+    makeStyles(
+        (
+            theme) =>
+        ({
+            root: {
+                margin: theme
+                    .spacing(
+                        0
+                        ),
+                boxShadow: "none",
+            },
+            content: {
+                display: "flex",
+                justifyContent: "space-between",
+            },
+            closeIcon: {
+                width: 30,
+                height: 30,
+                cursor: "pointer",
+            },
+            btngroup: {
+                display: "flex",
+                flexDirection: "row-reverse",
+            },
+            btn: {
+                margin: "5px",
+            },
+        })
+        );
 
-export default function NewCourseForm(props) {
-    const classes = useStyles();
+export default function NewCourseForm(
+    props
+    ) {
+    const
+        classes =
+        useStyles();
     return (
         <div>
       <Card className={classes.root}>

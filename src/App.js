@@ -8,7 +8,8 @@ import {
 import Header from "./components/Header";
 import LateralBar from "./components/LateralBar";
 import UpperBanner from "./components/UpperBanner";
-import * as config from "./config/config";
+import *
+as config from "./config/config";
 import CoursesPage from "./pages/CoursesPage";
 import HomePage from "./pages/HomePage";
 import LabPage from "./pages/LabPage";
@@ -88,4 +89,5 @@ function App() {
     );
 }
 
-export default App;
+export default App
+;

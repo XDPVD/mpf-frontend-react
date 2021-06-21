@@ -6,20 +6,33 @@ import {
 } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        padding: theme.spacing(2),
-        display: "flex",
-        flexDirection: "row-reverse",
-        margin: "5px 5px",
-    },
-    btn: {
-        margin: "5px"
-    },
-}));
+const
+    useStyles =
+    makeStyles(
+        (
+            theme) =>
+        ({
+            root: {
+                padding: theme
+                    .spacing(
+                        2
+                        ),
+                display: "flex",
+                flexDirection: "row-reverse",
+                margin: "5px 5px",
+            },
+            btn: {
+                margin: "5px"
+            },
+        })
+        );
 
-export default function BtnGroup(props) {
-    const classes = useStyles();
+export default function BtnGroup(
+    props
+    ) {
+    const
+        classes =
+        useStyles();
 
     return (
         <>

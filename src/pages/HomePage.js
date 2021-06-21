@@ -3,7 +3,9 @@ import {
     Link
 } from 'react-router-dom';
 
-function HomePage(props) {
+function HomePage(
+    props
+    ) {
     return (
         <div>
             Home Page -

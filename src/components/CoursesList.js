@@ -7,23 +7,32 @@ import CourseCard from "./CourseCard";
 import Grid from "@material-ui/core/Grid";
 
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        // flexGrow: 1,
-        // padding: theme.spacing(2),
-        // color: "black",
-        background: 'lightgray',
-        flex: 4,
-        "overflow-y": "scroll",
-    },
-}));
+const
+    useStyles =
+    makeStyles(
+        (
+            theme) =>
+        ({
+            root: {
+                // flexGrow: 1,
+                // padding: theme.spacing(2),
+                // color: "black",
+                background: 'lightgray',
+                flex: 4,
+                "overflow-y": "scroll",
+            },
+        })
+        );
 
 export default function CoursesList() {
-    const classes = useStyles();
-    const data = [{
-        name: "Math",
-        id: 1
-    }];
+    const
+        classes =
+        useStyles();
+    const
+        data = [{
+            name: "Math",
+            id: 1
+        }];
 
 
 

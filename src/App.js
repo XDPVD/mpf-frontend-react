@@ -1,10 +1,12 @@
 import "./App.css";
 import React from "react";
+
 import {
     BrowserRouter as Router,
     Route,
     Switch
 } from "react-router-dom";
+
 import Header from "./components/Header";
 import LateralBar from "./components/LateralBar";
 import UpperBanner from "./components/UpperBanner";
@@ -14,6 +16,7 @@ import HomePage from "./pages/HomePage";
 import LabPage from "./pages/LabPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+
 import {
     AppContainer as Container
 } from "./styles/Styles";

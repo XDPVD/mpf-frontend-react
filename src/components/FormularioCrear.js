@@ -74,7 +74,7 @@ function FormularioCrear(props) {
 
   async function enviarDatos(event) {
     event.preventDefault();
-    const request = await axios.post("https://reqres.in/api/articles", recurso);
+    const request = await axios.post("", recurso);
     return request;
   }
 

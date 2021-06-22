@@ -68,14 +68,14 @@ function CourseMembers() {
                   position: "relative",
                 }}
               >
-                <Typography variant="h4" display="inline">
+                <Typography variant='h4' display='inline'>
                   {tipo}
                 </Typography>
                 {tipo === "Delegados" && (
                   <Button
                     className={classes.button}
                     disableRipple
-                    variant="text"
+                    variant='text'
                     endIcon={<AddIcon />}
                   >
                     Añadir
@@ -83,13 +83,13 @@ function CourseMembers() {
                 )}
               </div>
 
-              <MembersList url="https://jsonplaceholder.typicode.com/users" />
+              {tipo === "Alumnos" && <MembersList />}
             </>
           ))}
           <div className={classes.addMemberWrapper}>
             <Button
-              variant="contained"
-              color="primary"
+              variant='contained'
+              color='primary'
               onClick={handleClickOpen}
             >
               Añadir miembros
@@ -105,14 +105,14 @@ function CourseMembers() {
               padding: "5px 10px",
             }}
           >
-            <Typography variant="h4">Grupos</Typography>
+            <Typography variant='h4'>Grupos</Typography>
           </div>
           <Grid container>
             <Grid item xs={12} md={6}>
-              <GroupCard url="https://jsonplaceholder.typicode.com/users" />
+              <GroupCard url='https://jsonplaceholder.typicode.com/users' />
             </Grid>
             <Grid item xs={12} md={6}>
-              <GroupCard url="https://jsonplaceholder.typicode.com/users" />
+              <GroupCard url='https://jsonplaceholder.typicode.com/users' />
             </Grid>
           </Grid>
         </Grid>

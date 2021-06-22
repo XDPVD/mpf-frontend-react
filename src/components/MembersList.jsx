@@ -25,11 +25,11 @@ function MembersList({ url }) {
 
   useEffect(() => {
     axios
-      .get(url)
+      .get("https://2c8a1724eca4.ngrok.io/course/1")
       .then((res) => {
-        const resUsers = res.data;
+        const resUsers = res.data.users_enrolled;
         setUsers(resUsers);
-        console.log(users);
+        console.log(resUsers);
       })
       .catch((err) => {
         console.log(err);
@@ -57,7 +57,7 @@ function MembersList({ url }) {
               <ListItemAvatar className={classes.avatar}>
                 <Avatar
                   alt={user.name}
-                  src="https://images.unsplash.com/photo-1617331008613-9479b434b1e6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+                  src='https://images.unsplash.com/photo-1617331008613-9479b434b1e6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'
                 />
               </ListItemAvatar>
               <ListItemText className={classes.userText}>

@@ -18,7 +18,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { AppContainer as Container } from "./styles/Styles";
 
-import theme from "./components/themes/theme";
+import theme from "./styles/theme";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 
 // Components
@@ -28,6 +28,7 @@ function App() {
     <div className="App">
       <Router>
         <ThemeProvider theme={theme}>
+              {/* TODO: delete?? */}
           <Header />
           {(() => {
             if (false) {
@@ -43,6 +44,7 @@ function App() {
 
           <Container>
             <Switch>
+              {/* TODO: make an array for routes */}
               <Route exact path={config.urls.home}>
                 <HomePage />
               </Route>

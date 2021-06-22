@@ -21,7 +21,6 @@ import { AppContainer as Container } from "./styles/Styles";
 import theme from "./styles/theme";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 
-// Components
 
 function App() {
   return (
@@ -66,7 +65,7 @@ function App() {
               <Route path={config.urls.grupos}>Grupo</Route>
 
               <Route path={config.urls.config}>Configuración</Route>
-
+              {/* TODO: Think about changing this into something better */}
               <Route path="/ourlab">
                 <LabPage />
               </Route>

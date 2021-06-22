@@ -37,6 +37,7 @@ function CourseMembers() {
   useEffect(() => {
     async function fetchData() {
       const request = axios
+      // TODO: Change once ?? endpoint is built
         .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
         .then((res) => {
           const responsePosts = res.data;

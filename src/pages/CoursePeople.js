@@ -11,6 +11,8 @@ import Avatar from "@material-ui/core/Avatar";
 
 function CoursePeople() {
 
+    // TODO: Remove when course user list is built
+
     const students = [
         {
           name: "User 1",

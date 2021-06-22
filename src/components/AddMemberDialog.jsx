@@ -54,6 +54,7 @@ const useStyles = makeStyles({
   },
 });
 
+// TODO: This is business logic
 function makeid(length) {
   var result = "";
   var characters =

@@ -13,6 +13,8 @@ function CoursePage() {
     <>
       <CourseNav />
 
+      {/* TODO: Iterate!! */}
+
       <Route exact path={"/cursos/:id"}>
         <CourseMaterialPage modo='anuncio' />
       </Route>

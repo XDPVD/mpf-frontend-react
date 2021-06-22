@@ -1,4 +1,3 @@
-import "./App.css";
 import React from "react";
 
 import {
@@ -24,56 +23,54 @@ import ThemeProvider from "@material-ui/styles/ThemeProvider";
 
 function App() {
   return (
-    <div className="App">
-      <Router>
-        <ThemeProvider theme={theme}>
-              {/* TODO: delete?? */}
-          <Header />
-          {(() => {
-            if (false) {
-              return <>Home Page</>;
-            } else {
-              return (
-                <>
-                  <LateralBar /> <UpperBanner />
-                </>
-              );
-            }
-          })()}
+    <Router>
+      <ThemeProvider theme={theme}>
+            {/* TODO: delete?? */}
+        <Header />
+        {(() => {
+          if (false) {
+            return <>Home Page</>;
+          } else {
+            return (
+              <>
+                <LateralBar /> <UpperBanner />
+              </>
+            );
+          }
+        })()}
 
-          <Container>
-            <Switch>
-              {/* TODO: make an array for routes */}
-              <Route exact path={config.urls.home}>
-                <HomePage />
-              </Route>
+        <Container>
+          <Switch>
+            {/* TODO: make an array for routes */}
+            <Route exact path={config.urls.home}>
+              <HomePage />
+            </Route>
 
-              <Route exact path={config.urls.login}>
-                <LoginPage />
-              </Route>
+            <Route exact path={config.urls.login}>
+              <LoginPage />
+            </Route>
 
-              <Route path={config.urls.register}>
-                <RegisterPage />
-              </Route>
+            <Route path={config.urls.register}>
+              <RegisterPage />
+            </Route>
 
-              <Route path={config.urls.cursos}>
-                <CoursesPage />
-              </Route>
+            <Route path={config.urls.cursos}>
+              <CoursesPage />
+            </Route>
 
-              <Route path={config.urls.calendario}>Calendario</Route>
+            <Route path={config.urls.calendario}>Calendario</Route>
 
-              <Route path={config.urls.grupos}>Grupo</Route>
+            <Route path={config.urls.grupos}>Grupo</Route>
 
-              <Route path={config.urls.config}>Configuración</Route>
-              {/* TODO: Think about changing this into something better */}
-              <Route path="/ourlab">
-                <LabPage />
-              </Route>
-            </Switch>
-          </Container>
-        </ThemeProvider>
-      </Router>
-    </div>
+            <Route path={config.urls.config}>Configuración</Route>
+            {/* TODO: Think about changing this into something better */}
+            <Route path="/ourlab">
+              <LabPage />
+            </Route>
+          </Switch>
+        </Container>
+      </ThemeProvider>
+    </Router>
   );
 }
 

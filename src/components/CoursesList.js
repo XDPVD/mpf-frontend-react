@@ -19,28 +19,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CoursesList() {
   const classes = useStyles();
-  const data = [
-    {
-      titulo: "Software",
-      curso_id: 1,
-      nombreCreador: "[nombre]",
-    },
-    {
-      titulo: "Software",
-      curso_id: 1,
-      nombreCreador: "[nombre]",
-    },
-    {
-      titulo: "Software",
-      curso_id: 1,
-      nombreCreador: "[nombre]",
-    },
-  ];
 
   const [cursos, setCursos] = useState();
   useEffect(() => {
     axios
-      .get("https://2c8a1724eca4.ngrok.io/course/")
+      .get("http://127.0.0.1:8000/course")
       .then((res) => {
         const resCursos = res.data;
         setCursos(resCursos);

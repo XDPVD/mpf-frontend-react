@@ -7,13 +7,13 @@ import {
   DropZone,
   FilesList,
   Loading,
-} from "../styles/Styles";
+} from "@styles/Styles";
 
 import Button from "@material-ui/core/Button";
 
 import FileItem from "./FileItem";
 
-import { app, db } from "../config/base";
+import { app, db } from "@settings/base";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
 

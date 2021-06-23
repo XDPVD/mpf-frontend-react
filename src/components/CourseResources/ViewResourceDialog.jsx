@@ -13,30 +13,14 @@ const useStyles = makeStyles((theme) => ({
   btn: {
     marginLeft: "auto",
   },
-  fecha: {
-    margin: "0px 0px",
-  },
   prin: {
     display: "flex",
     padding: "8px",
     justifyContent: "space-between",
   },
-  desc: {
-    display: "flex",
-    flexDirection: "column",
-  },
   tile: {
     fontSize: 24,
     margin: "0px",
-  },
-  subTile: {
-    fontSize: 16,
-    margin: "0px",
-  },
-  item: {
-    margin: "1em",
-    borde: "1px solid",
-    boxSizing: "border-box",
   },
   cardContent: {
     display: "flex",
@@ -52,35 +36,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 50,
     margin: "10px",
   },
-  formNota: {
-    marginTop: "10px",
-    minWidth: 50,
-  },
-  horaEntrega: {
-    marginTop: "10px",
-    marginLeft: "10px",
-  },
-  formTipo: {
-    minWidth: 120,
-  },
-  guardarButton: {
-    marginTop: "10px",
-  },
-  titleSubir: {
-    fontSize: 40,
-    margin: "0px",
-  },
-  container: {
-    marginTop: "30px",
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  textField: {
-    width: 200,
-  },
-  grupal: {
-    marginTop: "20px",
-  },
   ventana: {
     position: "absolute",
     width: "80%",
@@ -95,16 +50,6 @@ const useStyles = makeStyles((theme) => ({
     FlexDirection: "column",
     "overflow-y": "scroll",
     "z-index": "10px",
-  },
-  ventanaSubir: {
-    position: "absolute",
-    width: 1000,
-    backgroundColor: "white",
-    padding: "16px 32px 24px",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%,-50%)",
-    FlexDirection: "column",
   },
 }));
 

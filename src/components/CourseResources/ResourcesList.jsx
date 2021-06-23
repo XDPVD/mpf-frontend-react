@@ -1,6 +1,6 @@
 import React from "react";
 import ResourceCard from "./ResourceCard";
-import { publicacion_data } from "../../base/settings/dataTest";
+import { publicacion_data } from "@settings/dataTest";
 import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles((theme) => ({

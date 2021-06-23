@@ -1,8 +1,8 @@
 import React from "react";
 
-import BtnGroup from "../components/CoursesList/BtnGroup";
-import CoursesList from "../components/CoursesList/CoursesList";
-import AddCourseDialog from "../components/CoursesList/AddCourseDialog";
+import BtnGroup from "@components/CoursesList/BtnGroup";
+import CoursesList from "@components/CoursesList/CoursesList";
+import AddCourseDialog from "@components/CoursesList/AddCourseDialog";
 
 import Course from "./Course";
 

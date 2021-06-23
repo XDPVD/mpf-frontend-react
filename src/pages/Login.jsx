@@ -1,4 +1,4 @@
-import Login from "../components/Login/Login";
+import LoginButton from "@components/Login/LoginButton";
 
 import React from "react";
 import {
@@ -69,7 +69,7 @@ function LoginPage() {
         </Paper>
         </Grid>
   */}
-      <Login />
+      <LoginButton />
     </>
   );
 }

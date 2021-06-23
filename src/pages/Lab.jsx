@@ -1,6 +1,6 @@
 import React from "react";
 
-import ResourceCard from "../components/CourseResources/ResourceCard";
+import ResourceCard from "@components/CourseResources/ResourceCard";
 
 function LabPage() {
   return (

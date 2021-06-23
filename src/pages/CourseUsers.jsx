@@ -1,13 +1,12 @@
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import UsersList from "../components/CourseUsers/UsersList";
-import GroupCard from "../components/CourseUsers/GroupCard";
+import UsersList from "@components/CourseUsers/UsersList";
+import GroupCard from "@components/CourseUsers/GroupCard";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/styles";
 import AddIcon from "@material-ui/icons/Add";
-import { useState, useEffect } from "react";
-import AddUserDialog from "../components/CourseUsers/AddUserDialog";
-import axios from "axios";
+import { useState } from "react";
+import AddUserDialog from "@components/CourseUsers/AddUserDialog";
 
 const useStyles = makeStyles({
   button: {
@@ -29,27 +28,6 @@ function CourseUsers() {
   const tipoMiembro = ["Profesores", "Delegados", "Alumnos"];
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-
-  const [posts, setPosts] = useState();
-
-  const [id, setId] = useState(1);
-
-  useEffect(() => {
-    async function fetchData() {
-      const request = axios
-        // TODO: Change once ?? endpoint is built
-        .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
-        .then((res) => {
-          const responsePosts = res.data;
-          setPosts(responsePosts);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      return request;
-    }
-    fetchData();
-  }, [id]);
 
   const handleClickOpen = () => {
     setOpen(true);

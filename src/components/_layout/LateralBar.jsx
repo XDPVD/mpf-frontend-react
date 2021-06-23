@@ -5,16 +5,16 @@ import GroupIcon from "@material-ui/icons/Group";
 import SettingsIcon from "@material-ui/icons/Settings";
 import React from "react";
 
-import photo from "../../assets/profile.jpg";
-import * as config from "../../base/settings/config";
+import photo from "@assets/profile.jpg";
+import * as config from "@settings/config";
 import {
   LateralBarButton as Option,
   LateralBarContainer as Container,
   LateralBarOptionsContainer as OptionsContainer,
   ProfileImage,
   Separator,
-} from "../../styles/styles";
-import useRedirectUrl from "../../base/utils/useRedirectUrl";
+} from "@styles/Styles";
+import useRedirectUrl from "@utils/useRedirectUrl";
 
 function LateralBar() {
   const [url, redirectTo] = useRedirectUrl();

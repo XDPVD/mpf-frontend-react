@@ -1,10 +1,10 @@
 import { Route, useParams, useRouteMatch } from "react-router-dom";
 import { useEffect } from "react";
 
-import * as config from "../base/settings/config";
+import * as config from "@settings/config";
 import CourseResources from "./CourseResources";
 import CourseUsers from "./CourseUsers";
-import CourseNav from "../components/_layout/CourseNav";
+import CourseNav from "@layout/CourseNav";
 
 function Course() {
   const { url } = useRouteMatch();

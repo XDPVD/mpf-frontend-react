@@ -66,7 +66,7 @@ function makeid(length) {
   return result;
 }
 
-export default function FormDialog({ open, setOpen }) {
+export default function AddUserDialog({ open, setOpen }) {
   const [code, setCode] = useState("");
 
   const handleClick = () => {
@@ -81,15 +81,15 @@ export default function FormDialog({ open, setOpen }) {
           setOpen(false);
         }}
         open={open}
-        aria-labelledby="form-dialog-title"
+        aria-labelledby='form-dialog-title'
         fullWidth
-        maxWidth="md"
+        maxWidth='md'
       >
-        <DialogTitle id="form-dialog-title">
+        <DialogTitle id='form-dialog-title'>
           Añadir nuevo miembro
           <IconButton
             className={classes.closeIcon}
-            aria-label="close"
+            aria-label='close'
             onClick={() => {
               setOpen(false);
             }}
@@ -107,25 +107,25 @@ export default function FormDialog({ open, setOpen }) {
               xs={12}
               sm={6}
             >
-              <Typography variant="subtitle1">Añadir por invitación</Typography>
-              <form action="">
+              <Typography variant='subtitle1'>Añadir por invitación</Typography>
+              <form action=''>
                 <TextField
-                  margin="dense"
-                  type="email"
-                  label="Correo electrónico"
-                  placeholder="example@example.com"
+                  margin='dense'
+                  type='email'
+                  label='Correo electrónico'
+                  placeholder='example@example.com'
                   fullWidth
                   autoFocus
                 />
               </form>
-              <Typography variant="body2">
+              <Typography variant='body2'>
                 Ingrese el correo electrónico para enviar una invitación al
                 usuario.
               </Typography>
               <Button
                 className={classes.send}
-                variant="contained"
-                color="secondary"
+                variant='contained'
+                color='secondary'
               >
                 Enviar
               </Button>
@@ -138,24 +138,24 @@ export default function FormDialog({ open, setOpen }) {
               xs={12}
               sm={6}
             >
-              <Typography variant="subtitle1">Código de acceso</Typography>
+              <Typography variant='subtitle1'>Código de acceso</Typography>
               <div className={classes.codeWrapper}>
                 <Button
                   className={classes.codeButton}
-                  variant="contained"
-                  color="secondary"
+                  variant='contained'
+                  color='secondary'
                   onClick={handleClick}
                 >
                   Generar
                 </Button>
                 <input
                   value={code}
-                  type="text"
+                  type='text'
                   disabled
                   className={classes.codeText}
                 />
               </div>
-              <Typography variant="body2">
+              <Typography variant='body2'>
                 Con el código otros usuarios pueden unirse a tu clase. Si
                 generas un nuevo código, el anterior dejará de tener validez.
               </Typography>

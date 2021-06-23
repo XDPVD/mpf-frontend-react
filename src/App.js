@@ -1,35 +1,29 @@
 import React from "react";
 
-import {
-    BrowserRouter as Router,
-    Route,
-    Switch
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import Header from "./components/Header";
-import LateralBar from "./components/LateralBar";
-import UpperBanner from "./components/UpperBanner";
-import * as config from "./config/config";
-import CoursesPage from "./pages/CoursesPage";
-import HomePage from "./pages/HomePage";
-import LabPage from "./pages/LabPage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import { AppContainer as Container } from "./styles/Styles";
+import Header from "./components/_layout/Header";
+import LateralBar from "./components/_layout/LateralBar";
+import UpperBanner from "./components/_layout/UpperBanner";
+import * as config from "./base/settings/config";
+import Courses from "./pages/Courses";
+import Home from "./pages/Home";
+import Lab from "./pages/Lab";
+import Login from "./pages/Login";
+import { AppContainer as Container } from "./styles/styles";
 
 import theme from "./styles/theme";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
-
 
 function App() {
   return (
     <Router>
       <ThemeProvider theme={theme}>
-            {/* TODO: delete?? */}
+        {/* TODO: delete?? */}
         <Header />
         {(() => {
           if (false) {
-            return <>Home Page</>;
+            return <>Home </>;
           } else {
             return (
               <>
@@ -43,19 +37,15 @@ function App() {
           <Switch>
             {/* TODO: make an array for routes */}
             <Route exact path={config.urls.home}>
-              <HomePage />
+              <Home />
             </Route>
 
             <Route exact path={config.urls.login}>
-              <LoginPage />
-            </Route>
-
-            <Route path={config.urls.register}>
-              <RegisterPage />
+              <Login />
             </Route>
 
             <Route path={config.urls.cursos}>
-              <CoursesPage />
+              <Courses />
             </Route>
 
             <Route path={config.urls.calendario}>Calendario</Route>
@@ -64,8 +54,8 @@ function App() {
 
             <Route path={config.urls.config}>Configuración</Route>
             {/* TODO: Think about changing this into something better */}
-            <Route path="/ourlab">
-              <LabPage />
+            <Route path='/ourlab'>
+              <Lab />
             </Route>
           </Switch>
         </Container>

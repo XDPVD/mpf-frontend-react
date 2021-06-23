@@ -6,8 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useParams } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
-import useRedirectUrl from "./useRedirectUrl";
-import FormularioCrear from "./FormularioCrear";
+import useRedirectUrl from "../../base/utils/useRedirectUrl";
+import AddResourceDialog from "../CourseResources/AddResourceDialog";
 
 const useStyles = makeStyles((theme) => ({
   tab: {
@@ -64,7 +64,7 @@ function CourseNav() {
           Nuevo Recurso
         </Button>
       </Tabs>
-      <FormularioCrear
+      <AddResourceDialog
         openAdd={openAddMaterial}
         setOpenAdd={setOpenAddMaterial}
       />

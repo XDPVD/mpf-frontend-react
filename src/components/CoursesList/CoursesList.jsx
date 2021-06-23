@@ -4,13 +4,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import CourseCard from "./CourseCard";
 import Grid from "@material-ui/core/Grid";
 
-import axios from "axios";
+import axios from "../../base/settings/axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // flexGrow: 1,
-    // padding: theme.spacing(2),
-    // color: "black",
     background: "#fff",
     flex: 4,
     "overflow-y": "scroll",
@@ -23,7 +20,7 @@ export default function CoursesList() {
   const [cursos, setCursos] = useState();
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/course")
+      .get("/course")
       .then((res) => {
         const resCursos = res.data;
         setCursos(resCursos);

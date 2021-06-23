@@ -1,6 +1,6 @@
 import React from "react";
 
-import ResourcesList from "../components/CourseResources/ResourcesList";
+import ResourcesList from "@components/CourseResources/ResourcesList";
 import { useParams } from "react-router";
 
 function CourseResources(props) {

@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import CourseCard from "./CourseCard";
 import Grid from "@material-ui/core/Grid";
 
-import axios from "../../base/settings/axios";
+import axios from "@settings/axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {

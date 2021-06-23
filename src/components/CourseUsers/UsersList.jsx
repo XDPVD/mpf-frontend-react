@@ -4,7 +4,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/styles";
-import axios from "axios";
+import axios from "@settings/axios";
 import { useEffect } from "react";
 import { useState } from "react";
 

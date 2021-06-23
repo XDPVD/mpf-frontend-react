@@ -1,6 +1,6 @@
 import React from "react";
 
-function Login() {
+function LoginButton() {
   return (
     <div className='container p-'>
       <div
@@ -12,4 +12,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginButton;

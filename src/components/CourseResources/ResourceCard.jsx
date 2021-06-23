@@ -37,11 +37,6 @@ const useStyles = makeStyles((theme) => ({
     margin: "0px",
     marginLeft: "10px",
   },
-  item: {
-    margin: "1em",
-    borde: "1px solid",
-    boxSizing: "border-box",
-  },
   cardContent: {
     display: "flex",
     alignContent: "center",
@@ -50,39 +45,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     width: "100%",
-  },
-  iconCon: {
-    fontSize: 50,
-    margin: "10px",
-  },
-  formNota: {
-    marginTop: "10px",
-    minWidth: 50,
-  },
-  horaEntrega: {
-    marginTop: "10px",
-    marginLeft: "10px",
-  },
-  formTipo: {
-    minWidth: 120,
-  },
-  guardarButton: {
-    marginTop: "10px",
-  },
-  titleSubir: {
-    fontSize: 40,
-    margin: "0px",
-  },
-  container: {
-    marginTop: "30px",
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  textField: {
-    width: 200,
-  },
-  grupal: {
-    marginTop: "20px",
   },
 }));
 

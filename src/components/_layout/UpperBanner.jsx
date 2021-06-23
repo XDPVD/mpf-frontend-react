@@ -1,6 +1,6 @@
 import Typography from "@material-ui/core/Typography";
-import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
+import useDate from "@utils/useDate";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -22,38 +22,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
-const useDate = () => {
-  const locale = "es";
-  const [today, setDate] = useState(new Date()); // Save the current date to be able to trigger an update
-  const options = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setDate(new Date());
-    }, 500);
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
-
-  const full = today.toLocaleDateString(locale, options).toLocaleUpperCase();
-
-  const time = today.toLocaleTimeString(locale, {
-    hour: "numeric",
-    minute: "numeric",
-  });
-
-  return {
-    full,
-    time,
-  };
-};
 
 function UpperBanner() {
   const classes = useStyles();

@@ -2,17 +2,17 @@ import React from "react";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import Header from "./components/_layout/Header";
-import LateralBar from "./components/_layout/LateralBar";
-import UpperBanner from "./components/_layout/UpperBanner";
-import * as config from "./base/settings/config";
-import Courses from "./pages/Courses";
-import Home from "./pages/Home";
-import Lab from "./pages/Lab";
-import Login from "./pages/Login";
-import { AppContainer as Container } from "./styles/styles";
+import Header from "@layout/Header";
+import LateralBar from "@layout/LateralBar";
+import UpperBanner from "@layout/UpperBanner";
+import * as config from "@settings/config";
+import Courses from "@pages/Courses";
+import Home from "@pages/Home";
+import Lab from "@pages/Lab";
+import Login from "@pages/Login";
+import { AppContainer as Container } from "@styles/Styles";
 
-import theme from "./styles/theme";
+import theme from "@styles/theme";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 
 function App() {

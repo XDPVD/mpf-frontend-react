@@ -5,10 +5,10 @@ import {
   Logo,
   HeaderUserContainer as UserContainer,
   ProfileImage,
-} from "../../styles/styles";
+} from "@styles/Styles";
 
-import logo from "../../assets/logo.svg";
-import icon from "../../assets/profile.jpg";
+import logo from "@assets/logo.svg";
+import icon from "@assets/profile.jpg";
 
 function Header() {
   return (

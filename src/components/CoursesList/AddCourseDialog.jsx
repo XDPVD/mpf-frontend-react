@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NewCourseForm(props) {
+export default function AddCourseDialog(props) {
   const classes = useStyles();
 
   const [curso, setCurso] = useState({ name: "" });

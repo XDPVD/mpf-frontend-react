@@ -1,4 +1,4 @@
-import Login from "../components/Login";
+import Login from "../components/Login/Login";
 
 import React from "react";
 import {
@@ -15,11 +15,17 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 
 function LoginPage() {
-    const paperStyle = { padding: 60, height: '100  vh', width: 500, margin: '90px auto' }
-    const avatarStyle = { backgroundColor: '#1bbd7e' }
-    const btnstyle = { margin: '8px 0' }
-    return ( <>
-        {/* <Grid>
+  const paperStyle = {
+    padding: 60,
+    height: "100  vh",
+    width: 500,
+    margin: "90px auto",
+  };
+  const avatarStyle = { backgroundColor: "#1bbd7e" };
+  const btnstyle = { margin: "8px 0" };
+  return (
+    <>
+      {/* <Grid>
 
         <Paper elevation = { 10 }
         style = { paperStyle } >
@@ -63,9 +69,9 @@ function LoginPage() {
         </Paper>
         </Grid>
   */}
-        <Login />
-        </> 
-    )
+      <Login />
+    </>
+  );
 }
 
 export default LoginPage;

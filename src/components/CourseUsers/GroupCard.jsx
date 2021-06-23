@@ -3,7 +3,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Divider from "@material-ui/core/Divider";
-import MembersList from "../components/MembersList";
+import MembersList from "./UsersList";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/styles";
 
@@ -30,7 +30,7 @@ function GroupCard({ url }) {
   return (
     <>
       <Card className={classes.root}>
-        <CardHeader className={classes.header} title="Grupo 1" />
+        <CardHeader className={classes.header} title='Grupo 1' />
         <Divider />
         <CardContent className={classes.content} disableSpacing>
           <MembersList url={url} />
@@ -38,9 +38,9 @@ function GroupCard({ url }) {
         <Divider />
         <CardActions className={classes.actions} disableSpacing>
           <Button
-            backgroundColor="#000000"
-            variant="contained"
-            color="secondary"
+            backgroundColor='#000000'
+            variant='contained'
+            color='secondary'
           >
             Unirme
           </Button>

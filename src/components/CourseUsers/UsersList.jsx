@@ -19,13 +19,13 @@ const useStyles = makeStyles({
   },
 });
 
-function MembersList({ url }) {
+function UsersList({ url }) {
   const classes = useStyles();
   const [users, setUsers] = useState();
 
   useEffect(() => {
     axios
-      .get("https://2c8a1724eca4.ngrok.io/course/1")
+      .get("/course/1")
       .then((res) => {
         const resUsers = res.data.users_enrolled;
         setUsers(resUsers);
@@ -70,4 +70,4 @@ function MembersList({ url }) {
   );
 }
 
-export default MembersList;
+export default UsersList;

@@ -1,10 +1,10 @@
 import React from "react";
 
-import BtnGroup from "../components/BtnGroup";
-import CoursesList from "../components/CoursesList";
-import NewCourseForm from "../components/NewCourseForm";
+import BtnGroup from "../components/CoursesList/BtnGroup";
+import CoursesList from "../components/CoursesList/CoursesList";
+import AddCourseDialog from "../components/CoursesList/AddCourseDialog";
 
-import CoursePage from "./CoursePage";
+import Course from "./Course";
 
 import { useRouteMatch } from "react-router-dom";
 
@@ -16,7 +16,7 @@ import { Route } from "react-router-dom";
 
 Modal.setAppElement("#root");
 
-function CoursesPage() {
+function Courses() {
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   const { path } = useRouteMatch();
@@ -46,18 +46,21 @@ function CoursesPage() {
         <BtnGroup openModal={openModal} />
 
         <Modal isOpen={modalIsOpen} style={modalStyle} closeTimeoutMS={250}>
-          <NewCourseForm closeModal={closeModal} className={modalStyle.content}>
+          <AddCourseDialog
+            closeModal={closeModal}
+            className={modalStyle.content}
+          >
             <CSSTransition timeout={100} />
-          </NewCourseForm>
+          </AddCourseDialog>
         </Modal>
 
         <CoursesList />
       </Route>
       <Route path={`${path}/:courseId`}>
-        <CoursePage />
+        <Course />
       </Route>
     </>
   );
 }
 
-export default CoursesPage;
+export default Courses;

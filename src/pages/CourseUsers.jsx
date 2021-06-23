@@ -1,12 +1,12 @@
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import MembersList from "../components/MembersList";
-import GroupCard from "../components/GroupCard";
+import UsersList from "../components/CourseUsers/UsersList";
+import GroupCard from "../components/CourseUsers/GroupCard";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/styles";
 import AddIcon from "@material-ui/icons/Add";
 import { useState, useEffect } from "react";
-import AddMemberDialog from "../components/AddMemberDialog";
+import AddUserDialog from "../components/CourseUsers/AddUserDialog";
 import axios from "axios";
 
 const useStyles = makeStyles({
@@ -19,13 +19,13 @@ const useStyles = makeStyles({
   wrapper: {
     padding: "15px 12px",
   },
-  addMemberWrapper: {
+  addUserWrapper: {
     display: "flex",
     justifyContent: "center",
   },
 });
 
-function CourseMembers() {
+function CourseUsers() {
   const tipoMiembro = ["Profesores", "Delegados", "Alumnos"];
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -37,7 +37,7 @@ function CourseMembers() {
   useEffect(() => {
     async function fetchData() {
       const request = axios
-      // TODO: Change once ?? endpoint is built
+        // TODO: Change once ?? endpoint is built
         .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
         .then((res) => {
           const responsePosts = res.data;
@@ -84,10 +84,10 @@ function CourseMembers() {
                 )}
               </div>
 
-              {tipo === "Alumnos" && <MembersList />}
+              {tipo === "Alumnos" && <UsersList />}
             </>
           ))}
-          <div className={classes.addMemberWrapper}>
+          <div className={classes.addUserWrapper}>
             <Button
               variant='contained'
               color='primary'
@@ -119,9 +119,9 @@ function CourseMembers() {
         </Grid>
       </Grid>
 
-      <AddMemberDialog open={open} setOpen={setOpen} />
+      <AddUserDialog open={open} setOpen={setOpen} />
     </>
   );
 }
 
-export default CourseMembers;
+export default CourseUsers;

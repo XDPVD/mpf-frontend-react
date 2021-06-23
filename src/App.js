@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
     BrowserRouter as Router,
@@ -21,36 +21,50 @@ import { AppContainer as Container } from "./styles/Styles";
 import theme from "./components/themes/theme";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 
+import {UsuarioProvider, useUsuario} from "./context/usuario-context"
+
+import { createBrowserHistory } from 'history';
+
 // Components
 
+export default () => (<UsuarioProvider>
+  <App></App>
+</UsuarioProvider>)
+
 function App() {
+
+  const {usuario} = useUsuario();
+
+  const history = createBrowserHistory();
+
+  const [cargar,setCargar] = useState(false);
+
+  useEffect(() => {
+    if(!usuario){
+      history.push('/login');
+    } 
+  }, [usuario, history])
+
   return (
     <div className="App">
-      <Router>
+      <Router history={history}>
         <ThemeProvider theme={theme}>
           <Header />
-          {(() => {
-            if (false) {
-              return <>Home Page</>;
-            } else {
-              return (
-                <>
-                  <LateralBar /> <UpperBanner />
-                </>
-              );
-            }
-          })()}
+          <UpperBanner />
 
-          <Container>
+          {
+            (!usuario)?
+              <><LoginPage /></>
+            :
+            <>
+            <LateralBar />
+            <Container>
             <Switch>
+
               <Route exact path={config.urls.home}>
                 <HomePage />
               </Route>
-
-              <Route exact path={config.urls.login}>
-                <LoginPage />
-              </Route>
-
+              
               <Route path={config.urls.register}>
                 <RegisterPage />
               </Route>
@@ -68,12 +82,16 @@ function App() {
               <Route path="/ourlab">
                 <LabPage />
               </Route>
+
             </Switch>
-          </Container>
+            </Container>
+            </>
+          }
+          
+
+          
         </ThemeProvider>
       </Router>
     </div>
   );
 }
-
-export default App;

@@ -50,8 +50,8 @@ function CourseNav() {
   };
   return (
     <>
-      <Typography className={classes.courseTitle} variant="h3">
-        Métodos Formales para Pruebas
+      <Typography className={classes.courseTitle} variant='h3'>
+        Curso
       </Typography>
       <Tabs value={selectedTab} onChange={handleChange}>
         {nav.map((item) => (

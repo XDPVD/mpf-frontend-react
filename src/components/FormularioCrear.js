@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -17,6 +17,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { withStyles } from "@material-ui/core/styles";
+import axios from "axios";
 
 function FormularioCrear(props) {
   const { classes } = props;
@@ -28,17 +29,29 @@ function FormularioCrear(props) {
   const [nota, setNota] = useState({
     nota: "",
   });
+  const [recurso, setRecurso] = useState({
+    tipo: 0,
+    titulo: "",
+    descripcion: "",
+    archivo: "",
+    notaMax: 20,
+    fechaEntrega: "",
+    grupal: false,
+  });
 
   const handleChangeNota = (event) => {
     setNota(event.target.value);
+    setRecurso({ ...recurso, notaMax: event.target.value });
   };
 
   const handleChangeGrupal = (event) => {
     setGrupal(event.target.value);
+    setRecurso({ ...recurso, grupal: event.target.value });
   };
 
   const handleChange = (event) => {
     setTipo(event.target.value);
+    setRecurso({ ...recurso, tipo: event.target.value });
   };
 
   const handleClose = () => {
@@ -49,11 +62,21 @@ function FormularioCrear(props) {
     setOpen(true);
   };
 
+  const handleInputChange = (event) => {
+    setRecurso({ ...recurso, [event.target.name]: event.target.value });
+  };
+
   const [subir, setSubir] = useState(false);
 
   const abrirSubir = () => {
     setSubir(!subir);
   };
+
+  async function enviarDatos(event) {
+    event.preventDefault();
+    const request = await axios.post("", recurso);
+    return request;
+  }
 
   return (
     <Dialog
@@ -78,126 +101,139 @@ function FormularioCrear(props) {
         </IconButton>
       </DialogTitle>
       <DialogContent>
-        <div>
-          <FormControl className={classes.formTipo}>
-            <InputLabel>Tipo</InputLabel>
-            <Select
-              open={open}
-              onClose={handleClose}
-              onOpen={handleOpenList}
-              value={tipo}
-              onChange={handleChange}
-            >
-              <MenuItem value={1}>Anuncio</MenuItem>
-              <MenuItem value={2}>Material</MenuItem>
-              <MenuItem value={3}>Examen</MenuItem>
-              <MenuItem value={4}>Tarea</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
-        <br />
-        <div>
-          <form noValidate autoComplete="off">
-            <TextField
-              className={classes.tituloForm}
-              fullWidth={true}
-              id="standard-basic"
-              label="Título"
-              placeholder="Ingrese un título..."
-            />
-            <TextField
-              className={classes.tituloForm}
-              fullWidth={true}
-              multiline
-              rows={4}
-              id="standard-basic"
-              label="Descripción"
-              placeholder="Ingrese una descripción..."
-            />
-          </form>
-        </div>
-
-        <div>
-          {tipo >= 2 && (
-            <div className={classes.guardarButton}>
-              <Button
-                className={classes.btn}
-                size="large"
-                variant="contained"
-                color="secondary"
-                onClick={() => abrirSubir()}
+        <form onSubmit={enviarDatos}>
+          <div>
+            <FormControl className={classes.formTipo}>
+              <InputLabel>Tipo</InputLabel>
+              <Select
+                open={open}
+                onClose={handleClose}
+                onOpen={handleOpenList}
+                value={tipo}
+                onChange={handleChange}
               >
-                Añadir archivo
-              </Button>
-            </div>
-          )}
-
-          {tipo >= 3 && (
-            <>
-              <FormControl className={classes.formNota}>
-                <InputLabel htmlFor="nota-simple">Nota Máx.</InputLabel>
-                <Select
-                  native
-                  value={nota.nota}
-                  onChange={handleChangeNota}
-                  inputProps={{
-                    name: "nota",
-                    id: "nota-simple",
-                  }}
-                >
-                  <option value={10}>10</option> <option value={20}>20</option>{" "}
-                  <option value={30}>30</option> <option value={40}>40</option>
-                  <option value={50}>50</option> <option value={60}>60</option>{" "}
-                  <option value={70}>70</option> <option value={80}>80</option>
-                  <option value={90}>90</option>{" "}
-                  <option value={100}>100</option>
-                </Select>
-              </FormControl>
+                <MenuItem value={1}>Anuncio</MenuItem>
+                <MenuItem value={2}>Material</MenuItem>
+                <MenuItem value={3}>Examen</MenuItem>
+                <MenuItem value={4}>Tarea</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+          <br />
+          <div>
+            <form noValidate autoComplete="off">
               <TextField
-                id="datetime-local"
-                label="Next appointment"
-                type="datetime-local"
-                defaultValue="2021-06-18T11:59"
-                className={classes.horaEntrega}
-                InputLabelProps={{
-                  shrink: true,
-                }}
+                name="titulo"
+                className={classes.tituloForm}
+                fullWidth={true}
+                id="standard-basic"
+                label="Título"
+                placeholder="Ingrese un título..."
+                onChange={handleInputChange}
               />
-            </>
-          )}
+              <TextField
+                name="descripcion"
+                className={classes.tituloForm}
+                fullWidth={true}
+                multiline
+                rows={4}
+                id="standard-basic"
+                label="Descripción"
+                placeholder="Ingrese una descripción..."
+                onChange={handleInputChange}
+              />
+            </form>
+          </div>
 
-          {tipo >= 4 && (
-            <div className={classes.grupal}>
-              <FormControl component="fieldset">
-                <FormLabel component="legend">Grupal/Individual</FormLabel>
-                <RadioGroup value={grupal} onChange={handleChangeGrupal}>
-                  <FormControlLabel
-                    value="Grupal"
-                    control={<Radio />}
-                    label="Grupal"
-                  />
-                  <FormControlLabel
-                    value="Individual"
-                    control={<Radio />}
-                    label="Individual"
-                  />
-                </RadioGroup>
-              </FormControl>
-            </div>
-          )}
-        </div>
+          <div>
+            {tipo >= 2 && (
+              <div className={classes.guardarButton}>
+                <Button
+                  className={classes.btn}
+                  size="large"
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => abrirSubir()}
+                >
+                  Añadir archivo
+                </Button>
+              </div>
+            )}
 
-        <div className={classes.guardarButton} align="right">
-          <Button
-            className={classes.btn}
-            size="large"
-            variant="contained"
-            color="primary"
-            onClick={() => abrirSubir()}
-          >
-            GUARDAR
-          </Button>
-        </div>
+            {tipo >= 3 && (
+              <>
+                <FormControl className={classes.formNota}>
+                  <InputLabel htmlFor="nota-simple">Nota Máx.</InputLabel>
+                  <Select
+                    native
+                    value={nota.nota}
+                    onChange={handleChangeNota}
+                    inputProps={{
+                      name: "nota",
+                      id: "nota-simple",
+                    }}
+                  >
+                    <option value={10}>10</option>{" "}
+                    <option value={20}>20</option>{" "}
+                    <option value={30}>30</option>{" "}
+                    <option value={40}>40</option>
+                    <option value={50}>50</option>{" "}
+                    <option value={60}>60</option>{" "}
+                    <option value={70}>70</option>{" "}
+                    <option value={80}>80</option>
+                    <option value={90}>90</option>{" "}
+                    <option value={100}>100</option>
+                  </Select>
+                </FormControl>
+                <TextField
+                  name="fechaEntrega"
+                  id="datetime-local"
+                  label="Fecha de entrega"
+                  type="datetime-local"
+                  defaultValue="2021-06-18T11:59"
+                  className={classes.horaEntrega}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={handleInputChange}
+                />
+              </>
+            )}
+
+            {tipo >= 4 && (
+              <div className={classes.grupal}>
+                <FormControl component="fieldset">
+                  <FormLabel component="legend">Grupal/Individual</FormLabel>
+                  <RadioGroup value={grupal} onChange={handleChangeGrupal}>
+                    <FormControlLabel
+                      value={true}
+                      control={<Radio />}
+                      label="Grupal"
+                    />
+                    <FormControlLabel
+                      value={false}
+                      control={<Radio />}
+                      label="Individual"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </div>
+            )}
+          </div>
+
+          <div className={classes.guardarButton} align="right">
+            <Button
+              className={classes.btn}
+              size="large"
+              variant="contained"
+              color="primary"
+              onClick={() => abrirSubir()}
+              type="submit"
+            >
+              GUARDAR
+            </Button>
+          </div>
+        </form>
       </DialogContent>
     </Dialog>
   );

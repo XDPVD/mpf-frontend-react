@@ -9,19 +9,6 @@ import { useState, useEffect } from "react";
 import AddMemberDialog from "../components/AddMemberDialog";
 import axios from "axios";
 
-const students = [
-  {
-    name: "Salcedo Alfaro Jhon Marco",
-    photo:
-      "https://images.unsplash.com/photo-1617331008613-9479b434b1e6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
-  },
-  {
-    name: "Salcedo Alfaro Jhon Marco",
-    photo:
-      "https://images.unsplash.com/photo-1617331008613-9479b434b1e6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
-  },
-];
-
 const useStyles = makeStyles({
   button: {
     position: "absolute",
@@ -48,15 +35,20 @@ function CourseMembers() {
   const [id, setId] = useState(1);
 
   useEffect(() => {
-    axios
-      .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
-      .then((res) => {
-        const responsePosts = res.data;
-        setPosts(responsePosts);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    async function fetchData() {
+      const request = axios
+      // TODO: Change once ?? endpoint is built
+        .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
+        .then((res) => {
+          const responsePosts = res.data;
+          setPosts(responsePosts);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      return request;
+    }
+    fetchData();
   }, [id]);
 
   const handleClickOpen = () => {
@@ -65,21 +57,6 @@ function CourseMembers() {
 
   return (
     <>
-      <input type="text" value={id} onChange={(e) => setId(e.target.value)} />
-      {posts && <div>{posts.title}</div>}
-
-      {/* <div>
-        {posts &&
-          posts.map((post) => {
-            const { id, userId, title } = post;
-            return (
-              <div key={id}>
-                <h5>{title}</h5>
-                <h6>Assigned to user: {userId}</h6>
-              </div>
-            );
-          })}
-      </div> */}
       <Grid style={{ overflowY: "auto" }} container>
         {/*LISTA DE MIEMBROS AGRUPADOS POR TIPO************************/}
         <Grid item className={classes.wrapper} xs={12} sm={6} md={5}>
@@ -92,14 +69,14 @@ function CourseMembers() {
                   position: "relative",
                 }}
               >
-                <Typography variant="h4" display="inline">
+                <Typography variant='h4' display='inline'>
                   {tipo}
                 </Typography>
                 {tipo === "Delegados" && (
                   <Button
                     className={classes.button}
                     disableRipple
-                    variant="text"
+                    variant='text'
                     endIcon={<AddIcon />}
                   >
                     Añadir
@@ -107,16 +84,13 @@ function CourseMembers() {
                 )}
               </div>
 
-              <MembersList
-                members={students}
-                url="https://jsonplaceholder.typicode.com/users"
-              />
+              {tipo === "Alumnos" && <MembersList />}
             </>
           ))}
           <div className={classes.addMemberWrapper}>
             <Button
-              variant="contained"
-              color="primary"
+              variant='contained'
+              color='primary'
               onClick={handleClickOpen}
             >
               Añadir miembros
@@ -132,14 +106,14 @@ function CourseMembers() {
               padding: "5px 10px",
             }}
           >
-            <Typography variant="h4">Grupos</Typography>
+            <Typography variant='h4'>Grupos</Typography>
           </div>
           <Grid container>
             <Grid item xs={12} md={6}>
-              <GroupCard members={students} />
+              <GroupCard url='https://jsonplaceholder.typicode.com/users' />
             </Grid>
             <Grid item xs={12} md={6}>
-              <GroupCard members={students} />
+              <GroupCard url='https://jsonplaceholder.typicode.com/users' />
             </Grid>
           </Grid>
         </Grid>

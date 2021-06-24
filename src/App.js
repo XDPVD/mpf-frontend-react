@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -15,7 +15,7 @@ import { AppContainer as Container } from "@styles/Styles";
 import theme from "@styles/theme";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 
-import {UsuarioProvider, useUsuario} from "./context/usuario-context"
+import {UsuarioProvider, useUsuario} from "./base/context/usuario-context"
 
 import { createBrowserHistory } from 'history';
 
@@ -48,7 +48,7 @@ function App() {
 
           {
             (!usuario)?
-              <><LoginPage /></>
+              <><Login /></>
             :
             <>
             <LateralBar />
@@ -56,11 +56,7 @@ function App() {
             <Switch>
 
               <Route exact path={config.urls.home}>
-                <HomePage />
-              </Route>
-              
-              <Route path={config.urls.register}>
-                <RegisterPage />
+                <Home />
               </Route>
 
             <Route exact path={config.urls.login}>
@@ -76,7 +72,7 @@ function App() {
             <Route path={config.urls.grupos}>Grupo</Route>
 
             <Route path={config.urls.config}>Configuración</Route>
-            
+
             </Switch>
           </Container>
             </>

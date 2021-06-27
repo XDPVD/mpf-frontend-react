@@ -4,8 +4,8 @@ export function fetchData(url, state, setState) {
   axios
     .get(url)
     .then((res) => {
-      const resCursos = res.data;
-      setState(resCursos);
+      const response = res.data;
+      setState(response);
       console.log(state);
     })
     .catch((err) => {

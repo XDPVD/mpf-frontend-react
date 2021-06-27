@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useEffect} from "react";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -8,7 +8,6 @@ import UpperBanner from "@layout/UpperBanner";
 import * as config from "@settings/config";
 import Courses from "@pages/Courses";
 import Home from "@pages/Home";
-import Lab from "@pages/Lab";
 import Login from "@pages/Login";
 import { AppContainer as Container } from "@styles/Styles";
 
@@ -19,25 +18,27 @@ import {UsuarioProvider, useUsuario} from "./base/context/usuario-context"
 
 import { createBrowserHistory } from 'history';
 
+
 // Components
 
-export default () => (<UsuarioProvider>
+export default function appWithContext() {return (<><UsuarioProvider>
   <App></App>
-</UsuarioProvider>)
+</UsuarioProvider></>)}
 
 function App() {
 
   const {usuario} = useUsuario();
 
+  // TODO: Redirect /login
   const history = createBrowserHistory();
 
-  const [cargar,setCargar] = useState(false);
-
   useEffect(() => {
-    if(!usuario){
+    if(false){
       history.push('/login');
     } 
   }, [usuario, history])
+
+
 
   return (
     <div className="App">
@@ -47,7 +48,7 @@ function App() {
           <UpperBanner />
 
           {
-            (!usuario)?
+            (false)?
               <><Login /></>
             :
             <>
@@ -71,7 +72,9 @@ function App() {
 
             <Route path={config.urls.grupos}>Grupo</Route>
 
-            <Route path={config.urls.config}>Configuración</Route>
+            <Route path={config.urls.config}>
+              Configuracion
+            </Route>
 
             </Switch>
           </Container>

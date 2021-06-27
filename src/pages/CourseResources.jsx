@@ -4,11 +4,11 @@ import ResourcesList from "@components/CourseResources/ResourcesList";
 import { useParams } from "react-router";
 
 function CourseResources(props) {
-  const { id } = useParams();
-  console.log(id);
+  const { id: id_course  } = useParams();
+  console.log("ID_COURSE: ",id_course);
   return (
     <>
-      <ResourcesList modo={props.modo} id={id} />
+      <ResourcesList kind={props.kind} id_course={id_course} />
     </>
   );
 }

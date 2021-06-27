@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useState, useMemo} from 'react';
 
 const UsuarioContext = React.createContext();
 
@@ -7,6 +7,8 @@ const UsuarioContext = React.createContext();
 
 export function UsuarioProvider(props){
     
+    // TODO: Guardar el usuario y (JWT)
+
     const [usuario,setUsuario] = useState(null);
     
     const [cargandoUsuario, setCargandoUsuario] = useState(true);
@@ -16,7 +18,7 @@ export function UsuarioProvider(props){
     } 
 
     async function logout() {
-        // todo
+        // todo: logout()
     } 
 
     const value = useMemo(() => {

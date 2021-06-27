@@ -1,5 +1,4 @@
-import { Route, useParams, useRouteMatch } from "react-router-dom";
-import { useEffect } from "react";
+import { Route } from "react-router-dom";
 
 import * as config from "@settings/config";
 import CourseResources from "./CourseResources";
@@ -7,7 +6,33 @@ import CourseUsers from "./CourseUsers";
 import CourseNav from "@layout/CourseNav";
 
 function Course() {
-  const { url } = useRouteMatch();
+
+  let prefix = '/cursos/:id';
+
+  const kinds =
+  [
+    {
+      kind: 'A',
+      path: prefix + config.courseUrls.dashboard,
+    },
+    {
+      kind: 'M',
+      path: prefix + config.courseUrls.material,
+    },
+    {
+      kind: 'T',
+      path: prefix + config.courseUrls.tareas,
+    },
+    {
+      kind: 'E',
+      path: prefix + config.courseUrls.examenes,
+    },
+    {
+      path: prefix + config.courseUrls.personas,
+      customComponent: <CourseUsers />
+    }
+  ]
+  
 
   return (
     <>
@@ -16,28 +41,24 @@ function Course() {
       {/* TODO: Iterate!! */}
 
       <Route exact path={"/cursos/:id"}>
-        <CourseResources modo='anuncio' />
+        <CourseResources kind='anuncio' />
       </Route>
 
-      <Route exact path={"/cursos/:id" + config.courseUrls.dashboard}>
-        <CourseResources modo='anuncio' />
-      </Route>
+     { 
+      kinds.map((elem) => {
+        if(elem.customComponent) return (
+          <Route exact path={elem.path}>
+            {elem.customComponent}
+          </Route>
+        );
 
-      <Route exact path={"/cursos/:id" + config.courseUrls.material}>
-        <CourseResources modo='material' />
-      </Route>
-
-      <Route exact path={"/cursos/:id" + config.courseUrls.tareas}>
-        <CourseResources modo='tarea' />
-      </Route>
-
-      <Route exact path={"/cursos/:id" + config.courseUrls.examenes}>
-        <CourseResources modo='examen' />
-      </Route>
-
-      <Route exact path={"/cursos/:id" + config.courseUrls.personas}>
-        <CourseUsers />
-      </Route>
+        return (
+          <Route exact path={elem.path}>
+            <CourseResources kind={elem.kind}/>
+          </Route>
+        );
+      })
+    }
     </>
   );
 }

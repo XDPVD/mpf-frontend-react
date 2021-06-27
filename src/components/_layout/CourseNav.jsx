@@ -67,6 +67,7 @@ function CourseNav() {
       <AddResourceDialog
         openAdd={openAddMaterial}
         setOpenAdd={setOpenAddMaterial}
+        
       />
     </>
   );

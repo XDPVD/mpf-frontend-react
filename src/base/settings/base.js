@@ -16,15 +16,12 @@ const
         measurementId: "G-TXBSFMK9EZ"
     };
 
-export const
-    app =
-    firebase
-    .initializeApp(
+export const app =
+    firebase.initializeApp(
         firebaseConfig
-        );
-export const
-    db =
-    app
-    .firestore();
+    );
+
+export const db =
+    app.firestore();
 
 //D25333BC-D447-42ED-8998-F2C9F5C5E1FC

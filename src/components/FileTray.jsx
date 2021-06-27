@@ -3,7 +3,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { useDropzone } from "react-dropzone";
 
 import {
-  FileTrayContainer as Container,
   DropZone,
   FilesList,
   Loading,
@@ -11,137 +10,231 @@ import {
 
 import Button from "@material-ui/core/Button";
 
-import FileItem from "./FileItem";
+
 
 import { app, db } from "@settings/base";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
+import FileItem from "./FileItem";
 
 function FileTray(props) {
-  const opc = {
-    asignacion: "archivos_asignacion",
-    publicacion: "archivos_publicacion",
-  };
 
-  const [success, setSuccess] = useState(false);
+    const mode = {
+        'a': "assignments",
+        'p': "posts",
+      };
+      
+    const previousFiles = useRef();
 
-  const [loading, setLoading] = useState(true);
+    const [currentFiles, setCurrentFiles] = useState([]);
 
-  const [currentFiles, setCurrentFiles] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-  const refFileList = useRef();
+    const [success, setSuccess] = useState(false);
 
-  const { getRootProps, open, getInputProps } = useDropzone({
-    noClick: true,
-    noKeyboard: true,
-    onDrop: (files) => {
-      setCurrentFiles((prev) => {
-        return [...prev, ...files];
+    const [editMode, setEditMode] = useState(false);
+
+    const refFileList = useRef();
+
+    const { getRootProps, open, getInputProps } = useDropzone({
+        noClick: true,
+        noKeyboard: true,
+        onDrop: (files) => {
+            //console.log(files);
+            setCurrentFiles(files);
+        },
       });
-    },
-  });
 
-  const storageRef = app.storage().ref();
+    const fileCollection = db
+        .collection(mode[props.mode]);
 
-  const fileCollection = db
-    .collection(opc[props.opc])
-    .doc(props.pub_id)
-    .collection("archivos");
+    const storageRef = app.storage().ref();
 
-  useEffect(() => {
-    fileCollection.get().then((snap) => {
-      if (snap.docs.length > 0) {
-        let files = [];
-        snap.forEach((doc) => {
-          let newFile = {
-            path: doc.data().name,
-            storeLink: doc.data().downloadUrl,
-          };
-          files.push(newFile);
+    useEffect(() => {
+
+      if(!editMode && !props.modeCreate){
+        console.log("Cargando archivos")
+        fileCollection?.doc(props.target_id).collection("files").get().then((snap) => {
+          //console.log(snap.docs.length);
+          
+          let files = [];
+          snap.forEach((doc) => {
+            let newFile = {
+              path: doc.data().name,
+              downloadUrl: doc.data().downloadUrl,
+            };
+            files.push(newFile);
+          });
+          setCurrentFiles(files)
+
+          if (snap.docs.length > 0) {
+            setSuccess(true);
+          } else {
+            setSuccess(false);
+          }
         });
-        setCurrentFiles(files);
-        setLoading(false);
-        setSuccess(true);
-      } else {
-        setLoading(false);
+
+        if(success){
+          previousFiles.current = currentFiles;
+        }
       }
+      setLoading(false);
+      
+      }, [success,editMode]);
+
+    useEffect(() => {
+        let lastElemFile = refFileList.current.lastChild;
+        lastElemFile?.scrollIntoView({
+            behavior: "smooth",
+        });
+    }, [currentFiles]);
+
+    const filesView = currentFiles.map((file) => {
+      //console.log('files: ', file)
+      return <FileItem file={file} deleteButton={false}/>;
     });
-  }, [success]);
 
-  const uploadFiles = async () => {
-    setLoading(true);
+    const uploadFiles = async () => {
+      setLoading(true);
+      
+      let target_id = props.modeCreate? await props.createIdFunction() : props.target_id;
+      console.log('SUBIENDO A: ',target_id);
+      if(editMode){
 
-    for (let i = 0; i < currentFiles.length; i++) {
-      let file = currentFiles[i];
+        let fileRef;
+        
+        fileCollection.doc(target_id).collection("files").get().then(
+          (snap) =>{
+            snap.forEach((doc) =>{
+              doc.ref.delete();
+            })
+          }
+        );
+        
 
-      const fileRef = storageRef.child(file.name);
-      await fileRef.put(file);
-
-      let downloadUrl = await fileRef.getDownloadURL();
-
-      await db
-        .collection(opc[props.opc])
-        .doc(props.pub_id)
-        .collection("archivos")
-        .doc(i.toString())
-        .set({
-          name: file.name,
-          downloadUrl: downloadUrl,
+        await previousFiles.current.forEach( (file) => {
+          fileRef =  storageRef.child(file.path);
+          fileRef.delete();
         });
 
-      if (props.callback) {
-        props.callback();
+        //
+
       }
+
+      
+
+      for (let i = 0; i < currentFiles.length; i++) {
+        let file = currentFiles[i];
+  
+        const fileRef = storageRef.child(file.name);
+        await fileRef.put(file);
+  
+        let downloadUrl = await fileRef.getDownloadURL();
+  
+        await db
+          .collection(mode[props.mode])
+          .doc(target_id)
+          .collection("files")
+          .doc(i.toString())
+          .set({
+            name: file.name,
+            downloadUrl: downloadUrl,
+        });
+  
+  
+      }
+  
+      console.log("Subida exitosa!!!!");
+
+      setCurrentFiles([]);
+      setLoading(false);
+      setSuccess(true);
+
+      if(editMode) setEditMode(false);
+
+      props.closeFunction();
+
+    };
+
+    const changeEditMode = (value) => {
+      setEditMode(value);
+      setSuccess(!value);
+
+      if(value){
+        previousFiles.current = currentFiles;
+        setCurrentFiles([]);
+      }
+      else{
+        setCurrentFiles(previousFiles.current);
+        previousFiles.current = null;
+      }
+
+      
+
     }
 
-    console.log("Subida exitosa!!!!");
-    setLoading(false);
-    setCurrentFiles([]);
-    setSuccess(true);
-  };
+    return (
+        <>
+            {loading ? (
+                <Loading>
+                <CircularProgress />
+                </Loading>
+                ) : (
+                <></>
+            )}
 
-  useEffect(() => {
-    let lastElemFile = refFileList.current.lastChild;
-    lastElemFile?.scrollIntoView({
-      behavior: "smooth",
-    });
-  }, [currentFiles]);
+            <DropZone {...getRootProps({ className: "dropzone" })} hidden={success}>
+                <input {...getInputProps()} />
+                <p>Arrastre "n" archivos aqui</p>
+                <p>o</p>
+                <button type='button' onClick={open}>
+                Haga click aqui
+                </button>
+            </DropZone>
+            
+            <Button
+                hidden={success || props.blockAllActions}
+                onClick={() => uploadFiles()}
+                variant='contained'
+                color='primary'
+                style={{ margin: "5px" }}
+            >
+                Subir
+            </Button>
 
-  const filesView = currentFiles.map((file) => {
-    return <FileItem file={file} success={success} />;
-  });
+            <Button
+                hidden={!editMode || props.blockAllActions}
+                onClick={() => changeEditMode(false)}
+                variant='contained'
+                style={{ margin: "5px" }}
+            >
+                Cancelar
+            </Button>
 
-  return (
-    <Container>
-      {loading ? (
-        <Loading>
-          <CircularProgress />
-        </Loading>
-      ) : (
-        <></>
-      )}
+            <FilesList ref={refFileList}>
+                {filesView}
+            </FilesList>
 
-      <FilesList ref={refFileList}>{filesView}</FilesList>
+            <Button
+                hidden={!success || props.blockAllActions}
+                onClick={() => changeEditMode(true)}
+                variant='contained'
+                color='primary'
+                style={{ margin: "5px" }}
+            >
+                Editar
+            </Button>
 
-      <DropZone {...getRootProps({ className: "dropzone" })} hidden={success}>
-        <input {...getInputProps()} />
-        <p>Arrastre "n" archivos aqui</p>
-        <p>o</p>
-        <button type='button' onClick={open}>
-          Haga click aqui
-        </button>
-      </DropZone>
-      <Button
-        hidden={success}
-        onClick={() => uploadFiles()}
-        variant='contained'
-        color='primary'
-        style={{ margin: "5px" }}
-      >
-        Subir
-      </Button>
-    </Container>
-  );
+
+        </>
+    )
+}
+
+FileTray.defaultProps = {
+  blockAllActions: false,
+  modeCreate: false,
+  createIdFunction: async () => {return "fake_id_from_request"},
+  closeFunction: () => {console.log('closeFunction')}
 }
 
 export default FileTray;

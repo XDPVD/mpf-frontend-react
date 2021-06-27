@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -17,7 +17,19 @@ import FormLabel from "@material-ui/core/FormLabel";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
+
+import FileTray from "@components/FileTray";
+
+import { useParams } from "react-router-dom";
+
+import { postAsignacion, postPublicacion, enviarDatos} from "@pages/logic/postPublicacion";
+import SelectTipo from "./SelectTipo";
+import GroupField from '@components/CourseResources/GroupField';
+import PostButton from "./PostButton";
+import SelectOption from "./SelectOption";
+
 import { postData } from "@utils/postData";
+
 
 const useStyles = makeStyles((theme) => ({
   btn: {
@@ -52,32 +64,40 @@ const useStyles = makeStyles((theme) => ({
 
 function AddResourceDialog(props) {
   const classes = useStyles();
+  
+  let {id_curso} = useParams();
 
-  const [grupal, setGrupal] = useState("female");
-  const [tipo, setTipo] = useState("");
-  const [open, setOpen] = useState(false);
+  const [grupal, setGrupal] = useState(false);
+
+  const [tipo, setTipo] = useState('');
+
+  const [open, setOpen] = useState(true);
 
   const [nota, setNota] = useState({
-    nota: "",
+    nota: 20,
   });
+
+  
   const [recurso, setRecurso] = useState({
-    tipo: 0,
-    titulo: "",
-    descripcion: "",
-    archivo: "",
+    tipo: '',
+    titulo: '',
+    descripcion: '',
     notaMax: 20,
-    fechaEntrega: "",
-    grupal: false,
+    fechaEntrega: '',
+    grupal: grupal,
+    id_curso: id_curso,
   });
 
   const handleChangeNota = (event) => {
-    setNota(event.target.value);
-    setRecurso({ ...recurso, notaMax: event.target.value });
+    setNota(Number(event.target.value));
+    setRecurso({ ...recurso, notaMax: Number(event.target.value) });
   };
 
   const handleChangeGrupal = (event) => {
-    setGrupal(event.target.value);
-    setRecurso({ ...recurso, grupal: event.target.value });
+    let result = event.target.value === 'true';
+
+    setGrupal(result);
+    setRecurso({...recurso , grupal: result});
   };
 
   const handleChange = (event) => {
@@ -97,21 +117,41 @@ function AddResourceDialog(props) {
     setRecurso({ ...recurso, [event.target.name]: event.target.value });
   };
 
-  const [subir, setSubir] = useState(false);
+  const simpleSubmit = async () => { await enviarDatos(recurso); props.setOpenAdd(false);}
 
-  const abrirSubir = () => {
-    setSubir(!subir);
-  };
-
-  function enviarDatos(event) {
-    console.log(recurso);
-    const data = {
-      name: "user1",
-      email: "ejemplo@ejemplo.com",
-      password: "123",
-    };
-    postData(event, "/user", data);
+  const menuItems = [
+  {
+    value: 'A',
+    title: 'Anuncio'
+  },
+  {
+    value: 'M',
+    title: 'Material'
+  },
+  {
+    value: 'T',
+    title: 'Tarea'
+  },
+  {
+    value: 'E',
+    title: 'Examen'
   }
+  ];
+
+  const textFields = [
+    {
+      label: 'Título',
+      name: 'titulo',
+      placeholder: 'Ingrese un título...', 
+      rows: '1'    
+    },
+    {
+      label: 'Descripción',
+      name: 'descripcion',
+      placeholder: 'Ingrese una descripcion...',
+      rows: 4
+    }
+  ];
 
   return (
     <Dialog
@@ -136,90 +176,38 @@ function AddResourceDialog(props) {
         </IconButton>
       </DialogTitle>
       <DialogContent>
-        <form onSubmit={enviarDatos}>
+        <form noValidate>
           <div>
-            <FormControl className={classes.formTipo}>
-              <InputLabel>Tipo</InputLabel>
-              <Select
-                open={open}
-                onClose={handleClose}
-                onOpen={handleOpenList}
-                value={tipo}
-                onChange={handleChange}
-              >
-                <MenuItem value={1}>Anuncio</MenuItem>
-                <MenuItem value={2}>Material</MenuItem>
-                <MenuItem value={3}>Examen</MenuItem>
-                <MenuItem value={4}>Tarea</MenuItem>
-              </Select>
-            </FormControl>
+            <SelectTipo open={open} handleClose={handleClose} 
+              handleOpenList={handleOpenList} tipo={tipo} handleChange={handleChange} menuItems={menuItems}/>
           </div>
           <br />
           <div>
             <form noValidate autoComplete='off'>
-              <TextField
-                name='titulo'
-                className={classes.tituloForm}
-                fullWidth={true}
-                id='standard-basic'
-                label='Título'
-                placeholder='Ingrese un título...'
-                onChange={handleInputChange}
-              />
-              <TextField
-                name='descripcion'
-                className={classes.tituloForm}
-                fullWidth={true}
-                multiline
-                rows={4}
-                id='standard-basic'
-                label='Descripción'
-                placeholder='Ingrese una descripción...'
-                onChange={handleInputChange}
-              />
+              {
+                  textFields.map((elem) => {
+                    return (<TextField
+                      name='titulo'
+                      className={classes.tituloForm}
+                      fullWidth={true}
+                      id='standard-basic'
+                      label={elem.label}
+                      multiline={elem.rows > 1? true : false}
+                      rows={elem.rows}
+                      placeholder={elem.placeholder}
+                      onChange={handleInputChange}
+                    />)
+                  })
+              }
             </form>
           </div>
 
           <div>
-            {tipo >= 2 && (
-              <div className={classes.guardarButton}>
-                <Button
-                  className={classes.btn}
-                  size='large'
-                  variant='contained'
-                  color='secondary'
-                  onClick={() => abrirSubir()}
-                >
-                  Añadir archivo
-                </Button>
-              </div>
-            )}
 
-            {tipo >= 3 && (
+            { (tipo === 'T' || tipo === 'E' ) && (
               <>
-                <FormControl className={classes.formNota}>
-                  <InputLabel htmlFor='nota-simple'>Nota Máx.</InputLabel>
-                  <Select
-                    native
-                    value={nota.nota}
-                    onChange={handleChangeNota}
-                    inputProps={{
-                      name: "nota",
-                      id: "nota-simple",
-                    }}
-                  >
-                    <option value={10}>10</option>{" "}
-                    <option value={20}>20</option>{" "}
-                    <option value={30}>30</option>{" "}
-                    <option value={40}>40</option>
-                    <option value={50}>50</option>{" "}
-                    <option value={60}>60</option>{" "}
-                    <option value={70}>70</option>{" "}
-                    <option value={80}>80</option>
-                    <option value={90}>90</option>{" "}
-                    <option value={100}>100</option>
-                  </Select>
-                </FormControl>
+                <SelectOption valueSelected={nota.nota} handleOnChange={handleChangeNota} />
+                
                 <TextField
                   name='fechaEntrega'
                   id='datetime-local'
@@ -235,39 +223,24 @@ function AddResourceDialog(props) {
               </>
             )}
 
-            {tipo >= 4 && (
-              <div className={classes.grupal}>
-                <FormControl component='fieldset'>
-                  <FormLabel component='legend'>Grupal/Individual</FormLabel>
-                  <RadioGroup value={grupal} onChange={handleChangeGrupal}>
-                    <FormControlLabel
-                      value={true}
-                      control={<Radio />}
-                      label='Grupal'
-                    />
-                    <FormControlLabel
-                      value={false}
-                      control={<Radio />}
-                      label='Individual'
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </div>
+            {(tipo === 'T' ) && (
+              <GroupField handleChangeGrupal={handleChangeGrupal} grupal={grupal}/>
             )}
           </div>
 
-          <div className={classes.guardarButton} align='right'>
-            <Button
-              className={classes.btn}
-              size='large'
-              variant='contained'
-              color='primary'
-              onClick={() => abrirSubir()}
-              type='submit'
-            >
-              GUARDAR
-            </Button>
-          </div>
+          {(tipo !== 'A' )?
+            (<>
+              <div style={{'marginTop': '20px','maxHeight':'400px', 'overflowY':'scroll'}}>
+                <FileTray modeCreate={true} mode={'p'} 
+                  createIdFunction={() => enviarDatos(recurso)} 
+                  closeFunction={() => {props.setOpenAdd(false);}}/>
+              </div>
+            </>
+            ):
+            (
+              <PostButton onClick={simpleSubmit}/>
+            )
+          }
         </form>
       </DialogContent>
     </Dialog>

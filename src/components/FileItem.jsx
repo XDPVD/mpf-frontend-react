@@ -11,7 +11,7 @@ import React from "react";
 
 import DeleteIcon from "@material-ui/icons/Delete";
 
-function FileItem({ file, success, storeLink }) {
+function FileItem({ file, deleteButton }) {
   return (
     <>
       <ListItem>
@@ -26,7 +26,7 @@ function FileItem({ file, success, storeLink }) {
         />
         <ListItemSecondaryAction>
           <IconButton edge='end' aria-label='delete'>
-            <DeleteIcon hidden={true} />
+            <DeleteIcon hidden={!deleteButton} />
           </IconButton>
           {file.storeLink ? (
             <a href={file.storeLink} target='_blank' rel='noreferrer'>

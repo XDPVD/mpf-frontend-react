@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Card, CardActions, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
+import Backdrop from '@material-ui/core/Backdrop';
 
 import ViewResourceDialog from "./ViewResourceDialog";
 
@@ -46,12 +47,13 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     width: "100%",
   },
+  backdrop:{
+    'z-index': '10',
+  }
 }));
 
 function ResourceCard(props) {
   const classes = useStyles();
-
-  console.log("Renderizado");
 
   const [modal, setModal] = useState(false);
 
@@ -60,28 +62,29 @@ function ResourceCard(props) {
   };
 
   const iconsSwitch = {
-    anuncio: <FormatAlignJustifyIcon fontSize='large' />,
-    material: <AttachFileIcon fontSize='large' />,
-    examen: <DescriptionIcon fontSize='large' />,
-    tarea: <AssignmentIcon fontSize='large' />,
+    'A': <FormatAlignJustifyIcon fontSize='large' />,
+    'M': <AttachFileIcon fontSize='large' />,
+    'E': <DescriptionIcon fontSize='large' />,
+    'T': <AssignmentIcon fontSize='large' />,
   };
 
   return (
+
     <Card className={classes.prin}>
       <div className={classes.conten}>
         <div className={classes.desc}>
-          {iconsSwitch[props.modo]}
+          {iconsSwitch[props.kind]}
           <div component='div' classNam={classes.cardContent}>
             <Typography className={classes.tile}>
-              {props.publi_obj.titulo}
+              {props.post.titulo}
             </Typography>
             <Typography variant='caption' className={classes.fecha}>
-              {props.publi_obj.fecha_creacion}
+              Fecha de publicacion: {new Date(props.post.fecha_creacion).toLocaleString()}
             </Typography>
           </div>
-          {props.modo === "tarea" || props.modo === "examen" ? (
+          {props.kind === "T" || props.kind === "E" ? (
             <div className={classes.fecha}>
-              <p>Fecha Max.: </p>
+              <p>Fecha Max.: {new Date(props.post.fecha_max).toLocaleString()}</p>
             </div>
           ) : (
             <></>
@@ -89,7 +92,7 @@ function ResourceCard(props) {
         </div>
       </div>
       <CardActions>
-        {props.asignacion ? (
+        {props.kind === "T" || props.kind === "E" ? (
           <Button
             className={classes.btn}
             size='large'
@@ -113,8 +116,10 @@ function ResourceCard(props) {
           VER
         </Button>
       </CardActions>
-      {modal ? (
-        <ViewResourceDialog closeCallback={closeCallback} pub_obj={null} />
+      {modal ? (<>
+        <Backdrop className={classes.backdrop}  open={modal}/>
+        <ViewResourceDialog closeCallback={closeCallback} post={props.post} />
+        </>
       ) : (
         <></>
       )}

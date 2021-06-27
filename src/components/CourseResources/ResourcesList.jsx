@@ -1,6 +1,10 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import ResourceCard from "./ResourceCard";
-import { publicacion_data } from "@settings/dataTest";
+
+import { 
+  getAllAnuncios, getAllMaterial, getAllTareas, getAllExamen 
+} from "@utils/getPostsByType";
+
 import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -11,12 +15,40 @@ const useStyles = makeStyles((theme) => ({
 
 const ResourcesList = (props) => {
   const classes = useStyles();
-  const data = publicacion_data;
+
+  const [posts, setPosts] = useState([]);
+
+  const fetchAnuncios = async () => {
+    let res
+    switch(props.kind){
+      case 'A':
+        res = await getAllAnuncios();
+      break;
+      case 'M':
+        res = await getAllMaterial();
+
+      break;
+      case 'T':
+        res = await getAllTareas();
+      break;
+      case 'E':
+        res = await getAllExamen();
+      break;
+      default: break;
+    }
+    console.log(res);
+    setPosts(res);
+    
+  }
+
+  useEffect(() => {
+    fetchAnuncios();
+  }, [])
 
   return (
     <div className={classes.wrapper}>
-      {data.map((elem) => {
-        return <ResourceCard modo={props.modo} publi_obj={elem} />;
+      {posts?.map((elem) => {
+        return <ResourceCard kind={props.kind} post={elem} />;
       })}
     </div>
   );

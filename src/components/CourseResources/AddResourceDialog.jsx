@@ -17,6 +17,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
+
 import FileTray from "@components/FileTray";
 
 import { useParams } from "react-router-dom";
@@ -26,6 +27,9 @@ import SelectTipo from "./SelectTipo";
 import GroupField from '@components/CourseResources/GroupField';
 import PostButton from "./PostButton";
 import SelectOption from "./SelectOption";
+
+import { postData } from "@utils/postData";
+
 
 const useStyles = makeStyles((theme) => ({
   btn: {

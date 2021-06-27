@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
-    overflowY: "scroll",
+    overflowY: "auto",
   },
 }));
 

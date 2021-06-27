@@ -60,6 +60,7 @@ function CourseNav() {
         <Button
           className={classes.buttonAddMaterial}
           onClick={handleClickOpenAddMaterial}
+          variant='contained'
         >
           Nuevo Recurso
         </Button>

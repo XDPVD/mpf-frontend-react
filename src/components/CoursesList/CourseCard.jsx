@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
   card: {
     backgroundColor: "#f5f5f5",
     height: "200px",
+    margin: "15px 15px",
   },
   bullet: {
     display: "inline-block",

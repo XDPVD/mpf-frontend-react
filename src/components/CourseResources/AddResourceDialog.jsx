@@ -17,7 +17,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
-import axios from "axios";
+import { postData } from "@utils/postData";
 
 const useStyles = makeStyles((theme) => ({
   btn: {
@@ -103,10 +103,14 @@ function AddResourceDialog(props) {
     setSubir(!subir);
   };
 
-  async function enviarDatos(event) {
-    event.preventDefault();
-    const request = await axios.post("", recurso);
-    return request;
+  function enviarDatos(event) {
+    console.log(recurso);
+    const data = {
+      name: "user1",
+      email: "ejemplo@ejemplo.com",
+      password: "123",
+    };
+    postData(event, "/user", data);
   }
 
   return (

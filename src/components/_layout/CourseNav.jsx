@@ -3,11 +3,13 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { useParams } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
 import useRedirectUrl from "@utils/useRedirectUrl";
+import { endP } from "@settings/config";
 import AddResourceDialog from "@components/CourseResources/AddResourceDialog";
+import { useEffect } from "react";
+import { fetchData } from "@utils/fetchData";
 
 const useStyles = makeStyles((theme) => ({
   tab: {
@@ -29,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CourseNav() {
+function CourseNav({ courseId }) {
   const classes = useStyles();
 
   const [, redirectTo] = useRedirectUrl();
@@ -38,8 +40,11 @@ function CourseNav() {
   const routes = ["dash", "materiales", "tareas", "examenes", "personas"];
   const [selectedTab, setSelectedTab] = useState(0);
   const [openAddMaterial, setOpenAddMaterial] = useState(false);
+  const [course, setCourse] = useState({});
 
-  const { courseId } = useParams();
+  useEffect(() => {
+    fetchData(endP({ courseId }).getCourse, setCourse);
+  }, [courseId]);
 
   const handleClickOpenAddMaterial = () => {
     setOpenAddMaterial(true);
@@ -52,7 +57,7 @@ function CourseNav() {
   return (
     <>
       <Typography className={classes.courseTitle} variant='h3'>
-        Curso
+        {course.name}
       </Typography>
       <Tabs value={selectedTab} onChange={handleChange}>
         {nav.map((item) => (

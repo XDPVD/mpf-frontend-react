@@ -1,16 +1,26 @@
 import axios from "@settings/axios";
-
-import {postsA, postsM, postsT, postsE} from '@settings/dataTest';
-
 import instance from "@settings/axios";
-
-export function fetchData(url, state, setState) {
+export function fetchData(url, setState) {
   axios
     .get(url)
     .then((res) => {
-      const resCursos = res.data;
-      setState(resCursos);
-      console.log(state);
+      const response = res.data;
+      setState(response);
+      console.log(response);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+export function fetchingData(url, setState, setIsFetching) {
+  axios
+    .get(url)
+    .then((res) => {
+      const response = res.data;
+      setState(response);
+      console.log(response);
+      setIsFetching(false);
     })
     .catch((err) => {
       console.log(err);

@@ -17,17 +17,17 @@ import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import { UsuarioProvider, useUsuario } from "./base/context/usuario-context";
 
 import { createBrowserHistory } from "history";
-
-
+import { CookiesProvider } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 // Components
 
-export default function appWithContext() {return (<><UsuarioProvider>
+export default function appWithContext() {return (<> <CookiesProvider><UsuarioProvider>
   <App></App>
-</UsuarioProvider></>)}
+</UsuarioProvider></CookiesProvider></>)}
 
 function App() {
   const { usuario } = useUsuario();
-
+  const [cookies, setCookie] = useCookies(['name','userToken']);
   // TODO: Redirect /login
   const history = createBrowserHistory();
 
@@ -39,8 +39,6 @@ function App() {
     }
   }, [usuario, history]);
 
-
-
   return (
     <div className='App'>
       <Router history={history}>
@@ -48,7 +46,7 @@ function App() {
           <Header />
           <UpperBanner />
 
-          {false ? (
+          {!cookies.name ? (
             <>
               <Login />
             </>
@@ -71,9 +69,7 @@ function App() {
 
                   <Route path={config.urls.calendario}>Calendario</Route>
 
-            <Route path={config.urls.config}>
-              Configuracion
-            </Route>
+                  <Route path={config.urls.config}>Configuracion</Route>
                   <Route path={config.urls.grupos}>Grupo</Route>
 
                   <Route path={config.urls.config}>Configuración</Route>

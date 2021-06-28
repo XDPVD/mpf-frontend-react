@@ -19,6 +19,8 @@ import Input from "@material-ui/core/Input";
 import { Typography } from "@material-ui/core";
 
 import instance from "@settings/axios";
+import { postData } from "@utils/postData";
+import { endP } from "@settings/config";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,12 +56,7 @@ export default function AddCourseDialog(props) {
 
   async function enviarDatos(event) {
     event.preventDefault();
-
-    let res = await instance({
-      'method':'POST',
-      'url': '/course/',
-      'data': curso
-    });
+    postData(endP.createCourse, curso);
   }
   return (
     <div>
@@ -88,7 +85,12 @@ export default function AddCourseDialog(props) {
                 </FormControl>
                 <FormControl>
                   <InputLabel htmlFor='asunto'>Asunto</InputLabel>
-                  <Input id='asunto' name='description' aria-describedby='my-helper-text' onChange={handleInputChange} />
+                  <Input
+                    name='description'
+                    id='asunto'
+                    onChange={handleInputChange}
+                    aria-describedby='my-helper-text'
+                  />
                 </FormControl>
               </FormGroup>
             </div>

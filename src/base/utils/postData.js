@@ -2,17 +2,14 @@ import axios from "@settings/axios";
 import instance from '@settings/axios';
 import {dateStringToObj, dateObjToString} from '@utils/convertDate';
 
-export async function postData(event, url, data) {
-  event.preventDefault();
-
-  const response = await axios
+export async function postData(url, data) {
+  await axios
     .post(url, data)
     .then((res) => {
       console.log(res);
       console.log(res.data);
     })
     .catch((error) => console.error("There was an error!", error));
-  console.log(response);
 }
 
 

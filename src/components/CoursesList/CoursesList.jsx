@@ -17,8 +17,10 @@ export default function CoursesList() {
   const classes = useStyles();
 
   const [cursos, setCursos] = useState();
+  const [isFetching, setIsFetching] = useState(true);
+
   useEffect(() => {
-    fetchData("/course", cursos, setCursos);
+    fetchData("/course", setCursos, setIsFetching);
   }, []);
 
   //TODO
@@ -26,14 +28,18 @@ export default function CoursesList() {
 
   return (
     <>
-      <Grid className={classes.root} container>
-        {cursos &&
-          cursos.map((curso) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={curso.id}>
-              <CourseCard elem={curso} />
-            </Grid>
-          ))}
-      </Grid>
+      {isFetching ? (
+        "Loading"
+      ) : (
+        <Grid className={classes.root} container>
+          {cursos &&
+            cursos.map((curso) => (
+              <Grid item xs={12} sm={6} md={4} lg={3} key={curso.id}>
+                <CourseCard elem={curso} />
+              </Grid>
+            ))}
+        </Grid>
+      )}
     </>
   );
 }

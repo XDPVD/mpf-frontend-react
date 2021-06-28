@@ -70,7 +70,7 @@ export default function AddUserDialog({ open, setOpen }) {
   const [code, setCode] = useState("");
 
   const handleClick = () => {
-    setCode(makeid(6));
+    setCode(makeid(8));
   };
 
   const classes = useStyles();

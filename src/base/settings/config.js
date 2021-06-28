@@ -16,7 +16,19 @@ export const courseUrls = {
   personas: "/personas",
 };
 
-const apiBaseUrl = 'http://127.0.0.1:8000/'
-// TODO: 
-//  array for endpoints   // they should extend API_base_url 
+export const endP = ({ courseId, userId, pubId }) => {
+  return {
+    getCourses: "/course",
+    createCourse: "/course",
+    getInscriptions: `/course/${courseId}/inscriptions`,
+    getCourse: `/course/${courseId}`,
+    getUsers: "/user",
+    createUser: "/user",
+    getUser: `/user/${userId}`,
+  };
+};
+
+const apiBaseUrl = "http://127.0.0.1:8000/";
+// TODO:
+//  array for endpoints   // they should extend API_base_url
 // 'course/'

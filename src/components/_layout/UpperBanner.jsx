@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
       "url(https://images.unsplash.com/photo-1623602406812-10cbd27715b4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80)",
     backgroundSize: "cover",
 
-    "@media (max-height: 500px)": {
+    "@media (max-width: 400px)": {
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "flex-end",

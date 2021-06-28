@@ -28,8 +28,8 @@ function FileItem({ file, deleteButton }) {
           <IconButton edge='end' aria-label='delete'>
             <DeleteIcon hidden={!deleteButton} />
           </IconButton>
-          {file.storeLink ? (
-            <a href={file.storeLink} target='_blank' rel='noreferrer'>
+          {file.downloadUrl ? (
+            <a href={file.downloadUrl} target='_blank' rel='noreferrer'>
               Descargar
             </a>
           ) : (

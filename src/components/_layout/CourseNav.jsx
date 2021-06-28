@@ -22,11 +22,12 @@ const useStyles = makeStyles((theme) => ({
     padding: [[15, 0, 5, 0]],
   },
   buttonAddMaterial: {
-    padding: [[5, 20]],
+    padding: [[5, 20,]],
     height: "36px",
     position: "absolute",
-    right: "0",
-    top: "5px",
+    right: "50px",
+    top: "0px",
+    backgroundColor:'rgba(144, 224, 94, 1)',
   },
 }));
 
@@ -67,7 +68,7 @@ function CourseNav({ courseId }) {
           onClick={handleClickOpenAddMaterial}
           variant='contained'
         >
-          Nuevo Recurso
+          <span style={{'font-size':'20px', 'marginRight':'5px'}}>+</span> Nuevo Recurso
         </Button>
       </Tabs>
       <AddResourceDialog

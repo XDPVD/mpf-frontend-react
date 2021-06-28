@@ -18,6 +18,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import { Typography } from "@material-ui/core";
 
+import instance from "@settings/axios";
 import { postData } from "@utils/postData";
 import { endP } from "@settings/config";
 
@@ -47,13 +48,13 @@ const useStyles = makeStyles((theme) => ({
 export default function AddCourseDialog(props) {
   const classes = useStyles();
 
-  const [curso, setCurso] = useState({ name: "", description: "" });
+  const [curso, setCurso] = useState({ name: "" , description: "" });
 
   const handleInputChange = (event) => {
-    setCurso({ ...curso, [event.target.name]: event.target.value });
+    setCurso({ ...curso ,[event.target.name] : event.target.value });
   };
 
-  function enviarDatos(event) {
+  async function enviarDatos(event) {
     event.preventDefault();
     postData(endP.createCourse, curso);
   }

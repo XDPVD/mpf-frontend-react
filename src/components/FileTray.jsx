@@ -38,6 +38,7 @@ function FileTray(props) {
 
     const { getRootProps, open, getInputProps } = useDropzone({
         noClick: true,
+        maxFiles:5,
         noKeyboard: true,
         onDrop: (files) => {
             //console.log(files);
@@ -90,15 +91,24 @@ function FileTray(props) {
     }, [currentFiles]);
 
     const filesView = currentFiles.map((file) => {
-      //console.log('files: ', file)
+      
       return <FileItem file={file} deleteButton={false}/>;
+
     });
 
     const uploadFiles = async () => {
       setLoading(true);
       
-      let target_id = props.modeCreate? await props.createIdFunction() : props.target_id;
+      let target_id = props.modeCreate? await props.createIdFunction() : props.target_id.toString();
+
+      if(target_id == null){
+        return props.closeFunction();
+      } 
+
+      target_id = target_id.toString();
+
       console.log('SUBIENDO A: ',target_id);
+      
       if(editMode){
 
         let fileRef;
@@ -183,12 +193,12 @@ function FileTray(props) {
                 <></>
             )}
 
-            <DropZone {...getRootProps({ className: "dropzone" })} hidden={success}>
+            <DropZone {...getRootProps({ className: "dropzone" })} hidden={success || props.blockAllActions}>
                 <input {...getInputProps()} />
                 <p>Arrastre "n" archivos aqui</p>
                 <p>o</p>
                 <button type='button' onClick={open}>
-                Haga click aqui
+                  Seleccione sus archivos
                 </button>
             </DropZone>
             
@@ -213,6 +223,7 @@ function FileTray(props) {
 
             <FilesList ref={refFileList}>
                 {filesView}
+                {props.blockAllActions && (filesView.length === 0)? <p>No hay archivos</p>:<></>}
             </FilesList>
 
             <Button

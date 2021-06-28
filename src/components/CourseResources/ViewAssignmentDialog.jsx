@@ -7,6 +7,7 @@ import FileCard from "./FileCard";
 import {useCollection} from "react-firebase-hooks/firestore";
 
 import { app, db } from "@settings/base";
+import FileTray from "@components/FileTray";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -43,8 +44,8 @@ const useStyles = makeStyles((theme) => ({
   },
   ventana: {
     position: "absolute",
-    width: "80%",
-    height: "80%",
+    width: "50%",
+    height: "60%",
     backgroundColor: "white",
     border: "2px solid #000",
     boxShadow: "10px 5px 5px black",
@@ -63,30 +64,16 @@ function ViewResourceDialog(props) {
 
   const [currentFiles, setCurrentFiles] = useState(null);
 
+  const assignment_id = "A-2W3R2";
+
   useEffect(() => {
 
-    if(props.post.type !== 1 ){
-      db.collection('posts')?.doc(props.post.id.toString())?.collection("files")?.get().then((snap) => {
-        
-        let files = [];
-        snap.forEach((doc) => {
-          let newFile = {
-            name: doc.data().name,
-            downloadUrl: doc.data().downloadUrl,
-          };
-          files.push(newFile);
-        });
-        setCurrentFiles(files);
-
-      });
-    }
-    console.log(props.post);
   }, [])
 
   return (
     <div align='center' className={classes.ventana}>
       <div className={classes.prin}>
-        <label className={classes.tile}>{props.post.title}</label>
+        <label className={classes.tile}>{props.post.id_publicacion} - Documentos entregados</label>
         <Button
           className={classes.btn}
           size='large'
@@ -97,30 +84,7 @@ function ViewResourceDialog(props) {
           x
         </Button>
       </div>
-
-      <hr />
-      <p align='left'>
-        {props.post.description}
-      </p>
-      <hr />
-
-      {props.post.type === 1? <></> :
-        !currentFiles? <CircularProgress /> : 
-          currentFiles.length > 0?  <></>: 
-            <p>No hay archivos</p> }
-
-      {
-        currentFiles?.map( (file) => {
-          return (<FileCard file={file}/>)
-        })
-      }
-
-      <hr />
-      <div align='left' style={{ "font-weight": "bold" }}>
-        Comentarios
-      </div>
-      <hr />
-      <div>No hay comentarios</div>
+      <FileTray target_id={assignment_id} mode={'a'} blockAllActions={props.maxDate < new Date()}/>
     </div>
   );
 }

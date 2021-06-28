@@ -15,10 +15,10 @@ import {
   Separator,
 } from "@styles/Styles";
 import useRedirectUrl from "@utils/useRedirectUrl";
-
+import { useCookies } from 'react-cookie';
 function LateralBar() {
   const [url, redirectTo] = useRedirectUrl();
-
+  const [cookies, setCookie, removeCookie] = useCookies(['name','userToken']);
   // Array of Buttons { IconComponent, url }
   const topButtons = [
     {
@@ -39,6 +39,11 @@ function LateralBar() {
     component: <SettingsIcon />,
     url: config.urls.config,
   };
+
+  const closeSession=()=>{
+    removeCookie("name");
+    removeCookie("userToken");
+  }
 
   return (
     <Container>
@@ -72,7 +77,7 @@ function LateralBar() {
 
         <Option
           style={{ color: "red" }}
-          onClick={() => console.log("Cerrar sesion")}
+          onClick={closeSession}
         >
           <ExitToAppIcon />
         </Option>

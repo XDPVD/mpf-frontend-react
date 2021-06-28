@@ -6,6 +6,7 @@ import CourseUsers from "./CourseUsers";
 import CourseNav from "@layout/CourseNav";
 
 function Course() {
+
   let prefix = "/cursos/:id";
   const { courseId } = useParams();
 
@@ -34,6 +35,7 @@ function Course() {
 
   return (
     <>
+
       <CourseNav courseId={courseId} />
       {/* TODO: Iterate!! */}
       <Redirect

@@ -9,8 +9,9 @@ import {
 } from "@material-ui/core";
 
 function LoginPage() {
+    
     const paperStyle = { padding: 60, height: '100  vh', width: 500, margin: '90px auto' }
-
+    
     return ( 
         <>
 
@@ -23,6 +24,7 @@ function LoginPage() {
             <h1> Inicie Sesión con una cuenta de Google </h1> 
           </Grid>
           <hr />
+           
           <Grid align = 'center'>
             <LoginButton />
           </Grid>

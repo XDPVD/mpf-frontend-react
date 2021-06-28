@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 import Backdrop from '@material-ui/core/Backdrop';
 
-import ViewResourceDialog from "./ViewResourceDialog";
+import ViewResourceDialog from "@components/CourseResources/ViewResourceDialog";
 
 import FormatAlignJustifyIcon from "@material-ui/icons/FormatAlignJustify";
 
@@ -15,9 +15,15 @@ import DescriptionIcon from "@material-ui/icons/Description";
 
 import AssignmentIcon from "@material-ui/icons/Assignment";
 
+import ViewAssignmentDialog from "@components/CourseResources/ViewAssignmentDialog";
+
 const useStyles = makeStyles((theme) => ({
   fecha: {
     margin: "5px 0px 5px 10px",
+  },
+  fechaMax:{
+    display:'flex',
+    alignItems: "center",
   },
   prin: {
     display: "flex",
@@ -33,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "flow",
     alignItems: "center",
   },
-  tile: {
-    fontSize: 36,
+  title: {
+    fontSize: '32px',
     margin: "0px",
     marginLeft: "10px",
   },
@@ -42,23 +48,35 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignContent: "center",
   },
-  conten: {
+  content: {
     display: "flex",
     flexDirection: "column",
-    width: "100%",
+    width: "40%",
   },
   backdrop:{
     'z-index': '10',
+  },
+  btnNota:{
+    'width':'100px',
+    'padding':'5px',
   }
 }));
 
 function ResourceCard(props) {
   const classes = useStyles();
 
-  const [modal, setModal] = useState(false);
+  const [modalView, setModalView] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
 
-  const closeCallback = () => {
-    setModal(false);
+  let dateMax = props.kind === 'T' ||props.kind === 'E'?
+    new Date(props.post.evaluation.date_max+" "+ props.post.evaluation.time_max) : undefined;
+
+  const closeModalView = () => {
+    setModalView(false);
+  };
+
+  const closeModalAssignment = () => {
+    setModalEdit(false);
   };
 
   const iconsSwitch = {
@@ -71,35 +89,56 @@ function ResourceCard(props) {
   return (
 
     <Card className={classes.prin}>
-      <div className={classes.conten}>
+      <div className={classes.content}>
         <div className={classes.desc}>
           {iconsSwitch[props.kind]}
           <div component='div' classNam={classes.cardContent}>
-            <Typography className={classes.tile}>
-              {props.post.titulo}
+            <Typography className={classes.title}>
+              {props.post.title}
             </Typography>
             <Typography variant='caption' className={classes.fecha}>
-              Fecha de publicacion: {new Date(props.post.fecha_creacion).toLocaleString()}
+              Fecha de publicacion: {new Date( props.post.date + " " + props.post.time ).toLocaleString('es')}
             </Typography>
           </div>
-          {props.kind === "T" || props.kind === "E" ? (
-            <div className={classes.fecha}>
-              <p>Fecha Max.: {new Date(props.post.fecha_max).toLocaleString()}</p>
+        </div>
+      </div>
+      {props.kind === "T" || props.kind === "E" ? (
+            <div className={classes.fechaMax}>
+              <p>Fecha Max.: {dateMax.toLocaleString('es')}</p>
             </div>
           ) : (
             <></>
-          )}
-        </div>
-      </div>
+      )}
       <CardActions>
-        {props.kind === "T" || props.kind === "E" ? (
+        {props.kind === "T" || props.kind === "E" ? 
+
+        (dateMax >= new Date())?
+        (
           <Button
-            className={classes.btn}
-            size='large'
+            className={classes.btnNota}
+            size='medium'
+            variant='contained'
+            disableElevation
+            onClick={() => {
+              setModalEdit(true);
+            }}
+          >
+            Subir
+          </Button>
+        )
+          :
+        (
+          <Button
+            className={classes.btnNota}
+            size='medium'
             variant='contained'
             color='primary'
+            disableElevation
+            onClick={() => {
+              setModalEdit(true);
+            }}
           >
-            Nota: -- /100
+            -- / {props.post.evaluation.score_max}
           </Button>
         ) : (
           <></>
@@ -110,19 +149,28 @@ function ResourceCard(props) {
           variant='contained'
           color='primary'
           onClick={() => {
-            setModal(true);
+            setModalView(true);
           }}
         >
           VER
         </Button>
       </CardActions>
-      {modal ? (<>
-        <Backdrop className={classes.backdrop}  open={modal}/>
-        <ViewResourceDialog closeCallback={closeCallback} post={props.post} />
-        </>
-      ) : (
-        <></>
-      )}
+      {modalView || modalEdit? <Backdrop className={classes.backdrop}  open={modalView || modalEdit}/> : <></>}
+      {modalView ? (<>
+          
+          <ViewResourceDialog closeCallback={closeModalView} post={props.post} />
+          </>
+        ) : 
+        modalEdit?
+        (
+          <ViewAssignmentDialog closeCallback={closeModalAssignment} post={props.post} 
+            maxDate={dateMax}/>
+        )
+        :
+        (
+          <></>
+        )
+      }
     </Card>
   );
 }

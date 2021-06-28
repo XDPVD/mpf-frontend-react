@@ -154,7 +154,6 @@ export const FilesList = styled(List)`
   margin: 0px;
   width: 100%;
   flex: 6;
-  overflow-y: scroll;
 `;
 
 export const Loading = styled.div`

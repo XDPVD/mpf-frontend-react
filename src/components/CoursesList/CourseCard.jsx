@@ -41,7 +41,7 @@ export default function CourseCard({ elem }) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Link to={`/cursos/${elem.id}`}>Ver</Link>
+          <Link to={`/cursos/${elem.id}/dash`}>Ver</Link>
         </CardActions>
       </Card>
     </div>

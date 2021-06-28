@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from "react";
-import { Card, CardContent, Typography, CardMedia } from "@material-ui/core";
+import { Card, CardContent, Typography, CardMedia, CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 import { Icon } from "@material-ui/core";
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     left: "50%",
     transform: "translate(-50%,-50%)",
     FlexDirection: "column",
-    "overflow-y": "scroll",
+    overflowY: "scroll",
     "z-index": "30",
   },
 }));
@@ -61,19 +61,12 @@ const useStyles = makeStyles((theme) => ({
 function ViewResourceDialog(props) {
   const classes = useStyles();
 
-  const [currentFiles, setCurrentFiles] = useState([]);
-
-  const mode = {
-    'T': "assignments",
-    'E': "assignments",
-    'M': "posts"
-  };
+  const [currentFiles, setCurrentFiles] = useState(null);
 
   useEffect(() => {
-    console.log(mode[props.post.tipo]);
-    console.log(props.post.id_publicacion);
-    if(props.post.tipo !== 'A'){
-      db.collection(mode[props.post.tipo])?.doc(props.post.id_publicacion)?.collection("files")?.get().then((snap) => {
+
+    if(props.post.type !== 1 ){
+      db.collection('posts')?.doc(props.post.id.toString())?.collection("files")?.get().then((snap) => {
         
         let files = [];
         snap.forEach((doc) => {
@@ -83,15 +76,17 @@ function ViewResourceDialog(props) {
           };
           files.push(newFile);
         });
-        setCurrentFiles(files)
+        setCurrentFiles(files);
+
       });
     }
+    console.log(props.post);
   }, [])
 
   return (
     <div align='center' className={classes.ventana}>
       <div className={classes.prin}>
-        <label className={classes.tile}>{props.post.titulo}</label>
+        <label className={classes.tile}>{props.post.title}</label>
         <Button
           className={classes.btn}
           size='large'
@@ -105,13 +100,17 @@ function ViewResourceDialog(props) {
 
       <hr />
       <p align='left'>
-        {props.post.descripcion}
+        {props.post.description}
       </p>
       <hr />
-      {currentFiles.length > 0?  <></>: <p>No hay archivos</p> }
+
+      {props.post.type === 1? <></> :
+        !currentFiles? <CircularProgress /> : 
+          currentFiles.length > 0?  <></>: 
+            <p>No hay archivos</p> }
 
       {
-        currentFiles.map( (file) => {
+        currentFiles?.map( (file) => {
           return (<FileCard file={file}/>)
         })
       }

@@ -18,7 +18,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import { Typography } from "@material-ui/core";
 
-import axios from "axios";
+import instance from "@settings/axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,18 +46,20 @@ const useStyles = makeStyles((theme) => ({
 export default function AddCourseDialog(props) {
   const classes = useStyles();
 
-  const [curso, setCurso] = useState({ name: "" });
+  const [curso, setCurso] = useState({ name: "" , description: "" });
 
   const handleInputChange = (event) => {
-    setCurso({ name: event.target.value });
+    setCurso({ ...curso ,[event.target.name] : event.target.value });
   };
 
-  function enviarDatos(event) {
+  async function enviarDatos(event) {
     event.preventDefault();
-    axios
-      .post("https://0725170f60cd.ngrok.io/course/", curso)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+
+    let res = await instance({
+      'method':'POST',
+      'url': '/course/',
+      'data': curso
+    });
   }
   return (
     <div>
@@ -86,7 +88,7 @@ export default function AddCourseDialog(props) {
                 </FormControl>
                 <FormControl>
                   <InputLabel htmlFor='asunto'>Asunto</InputLabel>
-                  <Input id='asunto' aria-describedby='my-helper-text' />
+                  <Input id='asunto' name='description' aria-describedby='my-helper-text' onChange={handleInputChange} />
                 </FormControl>
               </FormGroup>
             </div>

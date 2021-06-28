@@ -34,7 +34,7 @@ function App() {
   const [cargar, setCargar] = useState(false);
 
   useEffect(() => {
-    if (!usuario) {
+    if (false) {
       history.push("/login");
     }
   }, [usuario, history]);
@@ -48,7 +48,7 @@ function App() {
           <Header />
           <UpperBanner />
 
-          {!usuario ? (
+          {false ? (
             <>
               <Login />
             </>

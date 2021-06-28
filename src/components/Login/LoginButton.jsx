@@ -13,6 +13,7 @@ function LoginButton() {
   const history = useHistory();
 
   const responseGoogle = (response) => {
+    console.log(response);
     login(response);
     history.push("/cursos");
   }

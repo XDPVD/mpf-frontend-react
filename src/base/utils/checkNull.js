@@ -1,5 +1,5 @@
 export function checkNull(data) {
-  let isNull;
+  let isNull = true;
   if (data instanceof Array) {
     data.map((a) => {
       a === null ? (isNull = true) : (isNull = false);
@@ -8,6 +8,10 @@ export function checkNull(data) {
     return isNull;
   } else if (data === null) {
     return true;
+  } else if (data instanceof Array) {
+    if (data.length === 0) {
+      return true;
+    }
   }
   return false; //Not null
 }

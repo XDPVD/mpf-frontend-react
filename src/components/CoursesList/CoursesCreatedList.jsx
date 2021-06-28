@@ -33,7 +33,7 @@ function CoursesCreatedList({ created }) {
             >
               <ListItemText>
                 <Typography variant='h6'>{curso.name}</Typography>
-                <Typography variant='subtitle2'>{curso.name}</Typography>
+                <Typography variant='subtitle2'>{curso.description}</Typography>
               </ListItemText>
             </ListItem>
           </Link>

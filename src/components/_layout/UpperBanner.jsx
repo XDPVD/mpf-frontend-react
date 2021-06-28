@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
 
     "@media (max-width: 400px)": {
-      flexDirection: "row",
+      flexDirection: "column",
       alignItems: "center",
       justifyContent: "flex-end",
       padding: "5px 30px",

@@ -16,13 +16,20 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
-import { Typography } from "@material-ui/core";
 
 import instance from "@settings/axios";
 import { postData } from "@utils/postData";
 import { endP } from "@settings/config";
 import { useParams } from "react-router-dom";
 import useUserInfo from "@utils/useUserInfo";
+
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,27 +40,31 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
   },
-  closeIcon: {
-    width: 30,
-    height: 30,
-    cursor: "pointer",
-  },
   btngroup: {
     display: "flex",
     flexDirection: "row-reverse",
   },
   btn: {
-    margin: "5px",
+    float: "right",
+    padding: [[8, 30]],
+  },
+  closeIcon: {
+    position: "absolute",
+    right: 3,
+    top: 8,
+  },
+  input: {
+    marginBottom: "15px",
   },
 }));
 
-export default function AddCourseDialog(props) {
+export default function AddCourseDialog({ open, setOpen }) {
   const classes = useStyles();
 
-  const [curso, setCurso] = useState({ name: "" , description: "" });
+  const [curso, setCurso] = useState({ name: "", description: "" });
 
   const handleInputChange = (event) => {
-    setCurso({ ...curso ,[event.target.name] : event.target.value });
+    setCurso({ ...curso, [event.target.name]: event.target.value });
   };
 
   const {id_course} = useParams();
@@ -72,61 +83,70 @@ export default function AddCourseDialog(props) {
 
   return (
     <div>
-      <Card className={classes.root}>
-        <form onSubmit={enviarDatos}>
-          <CardContent>
-            <div className={classes.content}>
-              <Typography variant='h4'>CREAR CLASE:</Typography>
-              <CloseIcon
-                className={classes.closeIcon}
-                onClick={props.closeModal}
-              ></CloseIcon>
-            </div>
-            <div>
-              <FormGroup>
-                <FormControl>
-                  <InputLabel htmlFor='clase'>
-                    Nombre de la clase (obligatorio)
-                  </InputLabel>
-                  <Input
-                    name='name'
-                    id='clase'
-                    aria-describedby='my-helper-text'
-                    onChange={handleInputChange}
-                  />
-                </FormControl>
-                <FormControl>
-                  <InputLabel htmlFor='asunto'>Asunto</InputLabel>
-                  <Input
-                    name='description'
-                    id='asunto'
-                    onChange={handleInputChange}
-                    aria-describedby='my-helper-text'
-                  />
-                </FormControl>
-              </FormGroup>
-            </div>
-          </CardContent>
-          <CardActions className={classes.btngroup}>
-            <Button
-              variant='contained'
-              size='small'
-              className={classes.btn}
-              onClick={props.closeModal}
+      <div>
+        <Dialog
+          onClose={() => {
+            setOpen(false);
+          }}
+          open={open}
+          aria-labelledby='form-dialog-title'
+          fullWidth
+          maxWidth='md'
+        >
+          <DialogTitle id='form-dialog-title'>
+            Crear Curso
+            <IconButton
+              className={classes.closeIcon}
+              aria-label='close'
+              onClick={() => {
+                setOpen(false);
+              }}
             >
-              Cancelar
-            </Button>
-            <Button
-              type='submit'
-              variant='contained'
-              size='small'
-              className={classes.btn}
-            >
-              Crear
-            </Button>
-          </CardActions>
-        </form>
-      </Card>
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
+
+          <DialogContent className={classes.dialog} dividers>
+            <form onSubmit={enviarDatos}>
+              <div>
+                <FormGroup>
+                  <FormControl>
+                    <InputLabel htmlFor='clase'>
+                      Nombre de la clase (obligatorio)
+                    </InputLabel>
+                    <Input
+                      className={classes.input}
+                      name='name'
+                      id='clase'
+                      aria-describedby='my-helper-text'
+                      onChange={handleInputChange}
+                    />
+                  </FormControl>
+                  <FormControl>
+                    <InputLabel htmlFor='asunto'>Asunto</InputLabel>
+                    <Input
+                      className={classes.input}
+                      name='description'
+                      id='asunto'
+                      onChange={handleInputChange}
+                      aria-describedby='my-helper-text'
+                    />
+                  </FormControl>
+                </FormGroup>
+                <Button
+                  type='submit'
+                  variant='contained'
+                  size='small'
+                  className={classes.btn}
+                  color='primary'
+                >
+                  Crear
+                </Button>
+              </div>
+            </form>
+          </DialogContent>
+        </Dialog>
+      </div>
     </div>
   );
 }

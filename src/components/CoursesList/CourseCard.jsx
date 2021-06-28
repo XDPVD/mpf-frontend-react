@@ -2,10 +2,10 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,7 +14,8 @@ const useStyles = makeStyles((theme) => ({
   card: {
     backgroundColor: "#f5f5f5",
     height: "200px",
-    margin: "15px 15px",
+    margin: "0",
+    width: "100%",
   },
   bullet: {
     display: "inline-block",
@@ -24,29 +25,27 @@ const useStyles = makeStyles((theme) => ({
   pos: {
     marginBottom: 12,
   },
+  link: {
+    width: "100%",
+    textDecoration: "none",
+  },
 }));
 
 export default function CourseCard({ elem }) {
   const classes = useStyles();
   console.log(elem);
   return (
-    <div>
-      <Card className={classes.card}>
-        <CardContent>
-          <Typography variant='h4' color='textSecondary' gutterBottom>
-            {elem.name}
-          </Typography>
-          <Typography className={classes.pos} color='textSecondary'>
-            {elem.description}
-          </Typography>
-          <Typography className={classes.pos} color='textSecondary'>
-            {elem.creator?.name}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Link to={`/cursos/${elem.id}/dash`}>Ver</Link>
-        </CardActions>
-      </Card>
-    </div>
+    <Button style={{ width: "100%" }} disableRipple>
+      <Link className={classes.link} to={`/cursos/${elem.id}/dash`}>
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography variant='h4' gutterBottom>
+              {elem.name}
+            </Typography>
+            <Typography className={classes.pos}>{elem.description}</Typography>
+          </CardContent>
+        </Card>
+      </Link>
+    </Button>
   );
 }

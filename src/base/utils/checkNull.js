@@ -1,5 +1,4 @@
 export function checkNull(data) {
-  console.log(data);
   let isNull;
   if (data instanceof Array) {
     data.map((a) => {

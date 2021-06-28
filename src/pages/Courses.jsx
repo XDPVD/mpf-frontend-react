@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 
 import BtnGroup from "@components/CoursesList/BtnGroup";
 import CoursesList from "@components/CoursesList/CoursesList";
@@ -8,58 +9,57 @@ import Course from "./Course";
 
 import { useRouteMatch } from "react-router-dom";
 import * as config from "@settings/config";
+import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
 
 // Modal component
-import Modal from "react-modal";
-import { CSSTransition } from "react-transition-group";
 
 import { Route } from "react-router-dom";
 
-Modal.setAppElement("#root");
+const useStyles = makeStyles((theme) => ({
+  wrapper: {
+    padding: "15px 10px",
+    display: "flex",
+    justifyContent: "flex-end",
+  },
+  btn: {
+    margin: "0 5px",
+  },
+}));
 
 function Courses() {
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const { path } = useRouteMatch();
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  const modalStyle = {
-    content: {
-      position: "fixed",
-      top: "25%",
-      bottom: "auto",
-      left: "25%",
-      right: "25%",
-      padding: "25px",
-    },
+  const classes = useStyles();
+  const handleClickOpen = () => {
+    setOpen(true);
   };
 
   return (
     <>
       <Route exact path={config.urls.cursos}>
-        <BtnGroup openModal={openModal} />
-
-        <Modal isOpen={modalIsOpen} style={modalStyle} closeTimeoutMS={250}>
-          <AddCourseDialog
-            closeModal={closeModal}
-            className={modalStyle.content}
+        <Container maxWidth='xl' className={classes.wrapper}>
+          <Button
+            className={classes.btn}
+            variant='contained'
+            color='secondary'
+            onClick={handleClickOpen}
           >
-            <CSSTransition timeout={100} />
-          </AddCourseDialog>
-        </Modal>
+            Crear
+          </Button>
+          <Button className={classes.btn} variant='contained' color='secondary'>
+            Unirse
+          </Button>
+        </Container>
 
         <CoursesList />
       </Route>
       <Route path={`${config.urls.cursos}/:courseId`}>
         <Course />
       </Route>
+
+      <AddCourseDialog open={open} setOpen={setOpen} />
     </>
   );
 }

@@ -1,20 +1,21 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import ResourceCard from "./ResourceCard";
 
-import { 
-  getAllAnuncios, getAllMaterial, getAllTareas, getAllExamen 
+import {
+  getAllAnuncios,
+  getAllMaterial,
+  getAllTareas,
+  getAllExamen,
 } from "@utils/fetchData";
 
 import { makeStyles } from "@material-ui/styles";
 import { CircularProgress } from "@material-ui/core";
 import { useHistory, useRouteMatch } from "react-router-dom";
-
+import Loading from "@common/Loading";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
-    overflowY: "scroll",
-    maxHeight: "70vh",
-    marginTop: "15px",
+    overflowY: "hidden",
   },
 }));
 
@@ -23,47 +24,47 @@ const ResourcesList = (props) => {
 
   const [posts, setPosts] = useState([]);
 
-  const [loading,setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-  const {id} = useRouteMatch().params;
-  
+  const { id } = useRouteMatch().params;
+
   useEffect(() => {
-
     const fetchAnuncios = async () => {
-      let res
-      console.log('Kind -> ',props.kind);
-      switch(props.kind){
-        case 'A':
+      let res;
+      console.log("Kind -> ", props.kind);
+      switch (props.kind) {
+        case "A":
           res = await getAllAnuncios(id);
-        break;
-        case 'M':
+          break;
+        case "M":
           res = await getAllMaterial(id);
-        break;
-        case 'T':
+          break;
+        case "T":
           res = await getAllTareas(id);
-        break;
-        case 'E':
+          break;
+        case "E":
           res = await getAllExamen(id);
-        break;
-        default: break;
-      } 
+          break;
+        default:
+          break;
+      }
       console.log(res);
       setPosts(res.reverse());
       setLoading(false);
-    }
+    };
     fetchAnuncios();
-
-  }, [props.kind, id])
+  }, [props.kind, id]);
 
   return (
     <div className={classes.wrapper}>
-      {loading? <CircularProgress /> : posts?.map((elem) => {
-        return <ResourceCard kind={props.kind} post={elem} />;
-      })}
-      {!loading && posts.length === 0?
-        <>No hay publicaciones</>:
-        <></>
-      }
+      {loading ? (
+        <Loading />
+      ) : (
+        posts?.map((elem) => {
+          return <ResourceCard kind={props.kind} post={elem} />;
+        })
+      )}
+      {!loading && posts.length === 0 ? <>No hay publicaciones</> : <></>}
     </div>
   );
 };

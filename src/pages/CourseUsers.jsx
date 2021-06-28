@@ -31,11 +31,15 @@ function CourseUsers({ courseId }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [course, setCourse] = useState({});
+  const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
     async function getData() {
-      const request = await fetchData(endP({ courseId }).getCourse, setCourse);
-      console.log(request);
+      const request = await fetchData(
+        endP({ courseId }).getCourse,
+        setCourse,
+        setIsFetching
+      );
       return request;
     }
     getData();
@@ -79,10 +83,17 @@ function CourseUsers({ courseId }) {
               )} */}
               {/* {tipo === "Delegados" && (
                 <UsersList courseId={courseId} users={delegate} />
-              )}
-              {tipo === "Alumnos" && (
-                <UsersList courseId={courseId} users={users} />
               )} */}
+              {isFetching
+                ? "loading"
+                : () => {
+                    const users = course.inscriptions.map;
+                    return (
+                      tipo === "Alumnos" && (
+                        <UsersList courseId={courseId} users={users} />
+                      )
+                    );
+                  }}
             </>
           ))}
           <div className={classes.addUserWrapper}>

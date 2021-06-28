@@ -6,7 +6,6 @@ import CourseUsers from "./CourseUsers";
 import CourseNav from "@layout/CourseNav";
 
 function Course() {
-
   let prefix = '/cursos/:id';
 
   const kinds =
@@ -37,7 +36,6 @@ function Course() {
   return (
     <>
       <CourseNav />
-
       {/* TODO: Iterate!! */}
 
       <Route exact path={"/cursos/:id"}>

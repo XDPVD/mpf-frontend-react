@@ -8,9 +8,12 @@ import {
   Link,
 } from "@material-ui/core";
 
+import { useCookies } from 'react-cookie';
 function LoginPage() {
+    const [cookies, setCookie] = useCookies(['name','userToken']);
+    //const [userToken, setUserToken] = useCookies([]);
     const paperStyle = { padding: 60, height: '100  vh', width: 500, margin: '90px auto' }
-
+    
     return ( 
         <>
 
@@ -23,6 +26,9 @@ function LoginPage() {
             <h1> Inicie Sesión con una cuenta de Google </h1> 
           </Grid>
           <hr />
+          {cookies.name?(<div><h1>{cookies.name.email}</h1></div>):(<div><h1>No existe </h1></div>)}
+          {cookies.userToken?(<div><h2>{cookies.userToken}</h2></div>):(<div><h2>No esta</h2></div>)}
+            
           <Grid align = 'center'>
             <LoginButton />
           </Grid>

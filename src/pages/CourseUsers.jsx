@@ -39,7 +39,7 @@ function CourseUsers({ courseId }) {
   useEffect(() => {
     async function getData() {
       const request = await fetchingData(
-        endP({ courseId }).getCourse,
+        endP( {courseId} ).getCourse,
         setCourse,
         setIsFetching
       );

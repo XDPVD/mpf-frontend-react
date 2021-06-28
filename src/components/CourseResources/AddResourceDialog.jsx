@@ -19,6 +19,7 @@ import SelectTipo from "./SelectTipo";
 import GroupField from '@components/CourseResources/GroupField';
 import PostButton from "./PostButton";
 import SelectOption from "./SelectOption";
+import useUserInfo from "@utils/useUserInfo";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -67,7 +68,8 @@ function AddResourceDialog(props) {
     nota: 20,
   });
 
-  
+  const [,headers,] = useUserInfo();  
+
   const [recurso, setRecurso] = useState({
     tipo: 'A',
     titulo: '',
@@ -115,7 +117,7 @@ function AddResourceDialog(props) {
     setRecurso({ ...recurso, fechaEntrega: new Date(event.target.value) });
   };
 
-  const simpleSubmit = async () => { await postPub(recurso); props.setOpenAdd(false);}
+  const simpleSubmit = async () => { await postPub(recurso,headers); props.setOpenAdd(false);}
 
   useEffect(() => {
     //console.log(recurso);
@@ -235,7 +237,7 @@ function AddResourceDialog(props) {
             (<>
               <div style={{'marginTop': '20px','maxHeight':'400px'}}>
                 <FileTray modeCreate={true} mode={'p'} 
-                  createIdFunction={async () => await postPub(recurso)} 
+                  createIdFunction={async () => await postPub(recurso, headers)} 
                   closeFunction={() => {props.setOpenAdd(false);}}/>
               </div>
             </>

@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CourseCard({ elem }) {
   const classes = useStyles();
-
+  console.log(elem);
   return (
     <div>
       <Card className={classes.card}>
@@ -37,7 +37,10 @@ export default function CourseCard({ elem }) {
             {elem.name}
           </Typography>
           <Typography className={classes.pos} color='textSecondary'>
-            {elem.creator.name}
+            {elem.description}
+          </Typography>
+          <Typography className={classes.pos} color='textSecondary'>
+            {elem.creator?.name}
           </Typography>
         </CardContent>
         <CardActions>

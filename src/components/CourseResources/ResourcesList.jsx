@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
   wrapper: {
     overflowY: "scroll",
     maxHeight: "70vh",
+    marginTop: "15px",
   },
 }));
 

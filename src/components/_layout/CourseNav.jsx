@@ -11,6 +11,7 @@ import AddResourceDialog from "@components/CourseResources/AddResourceDialog";
 import { useEffect } from "react";
 import { fetchData } from "@utils/fetchData";
 import useUserInfo from "@utils/useUserInfo";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   tab: {
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CourseNav({ courseId }) {
+function CourseNav({courseId}) {
   const classes = useStyles();
 
   const [, redirectTo] = useRedirectUrl();
@@ -46,7 +47,7 @@ function CourseNav({ courseId }) {
   const [course, setCourse] = useState({});
 
   useEffect(() => {
-    fetchData(endP({ courseId }).getCourse, setCourse);
+    fetchData(endP(courseId).getCourse, setCourse);
   }, [courseId]);
 
   const handleClickOpenAddMaterial = () => {

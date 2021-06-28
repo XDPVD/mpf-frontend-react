@@ -21,6 +21,8 @@ import { Typography } from "@material-ui/core";
 import instance from "@settings/axios";
 import { postData } from "@utils/postData";
 import { endP } from "@settings/config";
+import { useParams } from "react-router-dom";
+import useUserInfo from "@utils/useUserInfo";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,10 +56,20 @@ export default function AddCourseDialog(props) {
     setCurso({ ...curso ,[event.target.name] : event.target.value });
   };
 
+  const {id_course} = useParams();
+
+  const [,headers,] = useUserInfo();  
+
   async function enviarDatos(event) {
+    
     event.preventDefault();
-    postData(endP.createCourse, curso);
+    
+    await postData(endP({id_course}).createCourse,curso ,headers);
+
+    props.closeModal();
+
   }
+
   return (
     <div>
       <Card className={classes.root}>

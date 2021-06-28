@@ -4,8 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import CourseCard from "./CourseCard";
 import Grid from "@material-ui/core/Grid";
 
-import { fetchingData } from "@utils/fetchData";
+import { fetchingData, getCoursesByEmail } from "@utils/fetchData";
 import Loading from "@common/Loading";
+import useUserInfo from "@utils/useUserInfo";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,8 +21,19 @@ export default function CoursesList() {
   const [cursos, setCursos] = useState();
   const [isFetching, setIsFetching] = useState(true);
 
+  const [cookies,,] = useUserInfo();
+
   useEffect(() => {
-    fetchingData("/course", setCursos, setIsFetching);
+    //fetchingData("/course", setCursos, setIsFetching);
+    console.log(cookies.name.email);
+    getCoursesByEmail(cookies.name.email).then((e) => {
+      console.log(e);
+      setCursos(e);
+      setIsFetching(false);
+    });
+    
+    
+    
   }, []);
 
   //TODO

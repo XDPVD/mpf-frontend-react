@@ -3,7 +3,7 @@ import EventIcon from "@material-ui/icons/Event";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import GroupIcon from "@material-ui/icons/Group";
 import SettingsIcon from "@material-ui/icons/Settings";
-import React from "react";
+import React, { useEffect } from "react";
 
 import photo from "@assets/profile.jpg";
 import * as config from "@settings/config";
@@ -17,6 +17,7 @@ import {
 import useRedirectUrl from "@utils/useRedirectUrl";
 import { useCookies } from 'react-cookie';
 import useUserInfo from "@utils/useUserInfo";
+import { useHistory } from "react-router-dom";
 function LateralBar() {
   const [url, redirectTo] = useRedirectUrl();
   const [cookies, setCookie, removeCookie] = useCookies(['name','userToken']);
@@ -43,11 +44,13 @@ function LateralBar() {
     url: config.urls.config,
   };
 
+  const history = useHistory();
+
   const closeSession=()=>{
     removeCookie("name");
     removeCookie("userToken");
   }
-
+  
   return (
     <Container>
       <ProfileImage src={cookiesUser.name.imageUrl} />

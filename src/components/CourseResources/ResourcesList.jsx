@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/styles";
 import { CircularProgress } from "@material-ui/core";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import Loading from "@common/Loading";
+import NotFound from "@common/NotFound";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -64,7 +65,11 @@ const ResourcesList = (props) => {
           return <ResourceCard kind={props.kind} post={elem} />;
         })
       )}
-      {!loading && posts.length === 0 ? <>No hay publicaciones</> : <></>}
+      {!loading && posts.length === 0 ? (
+        <NotFound>No hay publicaciones para mostrar</NotFound>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

@@ -13,7 +13,8 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import useUserInfo from "@utils/useUserInfo";
-
+import NotFound from "@common/NotFound";
+import { undefined } from "check-types";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +29,7 @@ export default function CoursesList() {
   const [user, setUser] = useState();
   const [isFetching, setIsFetching] = useState(true);
 
-  const [cookies,,] = useUserInfo();
+  const [cookies, ,] = useUserInfo();
 
   useEffect(() => {
     fetchingData(
@@ -44,19 +45,25 @@ export default function CoursesList() {
   function showCoursesEnrolled() {
     const inscriptions = user.inscriptions.map((x) => x.course);
     console.log(inscriptions);
-    return (
-      !checkNull(inscriptions) &&
-      inscriptions.map((inscription) => (
+    console.log(checkNull(inscriptions));
+    if (!checkNull(inscriptions)) {
+      return inscriptions.map((inscription) => (
         <Grid item xs={12} sm={12} md={6} lg={4} key={inscription.id}>
           <CourseCard elem={inscription} />
         </Grid>
-      ))
-    );
+      ));
+    } else {
+      return <NotFound>Aún no se encuentra inscrito a un curso</NotFound>;
+    }
   }
 
   function showCoursesCreated() {
     const created = user.courses_created.map((x) => x);
-    return <CoursesCreatedList created={created} />;
+    return !checkNull(created) ? (
+      <CoursesCreatedList created={created} />
+    ) : (
+      <NotFound>No tiene clases creadas</NotFound>
+    );
   }
 
   return (

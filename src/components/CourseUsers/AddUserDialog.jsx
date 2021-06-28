@@ -10,6 +10,9 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core";
 import { useState } from "react";
+import { endP } from "src/base/settings/config";
+import { postData } from "src/base/utils/postData";
+import { generateToken } from "src/base/utils/generateToken";
 
 const useStyles = makeStyles({
   codeButton: {
@@ -54,24 +57,20 @@ const useStyles = makeStyles({
   },
 });
 
-// TODO: This is business logic
-function makeid(length) {
-  var result = "";
-  var characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  var charactersLength = characters.length;
-  for (var i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-}
-
 export default function AddUserDialog({ open, setOpen }) {
   const [code, setCode] = useState("");
 
-  const handleClick = () => {
-    setCode(makeid(8));
+  function handleClick(numElements) {
+    setCode(generateToken(numElements));
   };
+
+  function addMail(courseId, data) {
+    postData(endP(courseId).enrollCourseByMail, data)
+  };
+
+  // const data = ({mail}) => {
+  //   email: mail
+  // }
 
   const classes = useStyles();
   return (
@@ -107,7 +106,7 @@ export default function AddUserDialog({ open, setOpen }) {
               xs={12}
               sm={6}
             >
-              <Typography variant='subtitle1'>Añadir por invitación</Typography>
+              <Typography variant='subtitle1'>Añadir por correo</Typography>
               <form action=''>
                 <TextField
                   margin='dense'
@@ -119,15 +118,16 @@ export default function AddUserDialog({ open, setOpen }) {
                 />
               </form>
               <Typography variant='body2'>
-                Ingrese el correo electrónico para enviar una invitación al
+                Ingrese el correo electrónico para añadir al
                 usuario.
               </Typography>
               <Button
                 className={classes.send}
                 variant='contained'
                 color='secondary'
+                // onClick={() => addMail(1, data)}
               >
-                Enviar
+                Añadir
               </Button>
             </Grid>
             <Grid
@@ -144,7 +144,7 @@ export default function AddUserDialog({ open, setOpen }) {
                   className={classes.codeButton}
                   variant='contained'
                   color='secondary'
-                  onClick={handleClick}
+                  onClick={() => handleClick(8)}
                 >
                   Generar
                 </Button>

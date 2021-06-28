@@ -20,6 +20,7 @@ export const endP = ({ courseId, userId, pubId }) => {
   return {
     getCourses: "/course",
     createCourse: "/course",
+    enrollCourseByMail: `/course/${courseId}`,
     getInscriptions: `/course/${courseId}/inscriptions`,
     getCourse: `/course/${courseId}`,
     getUsers: "/user",

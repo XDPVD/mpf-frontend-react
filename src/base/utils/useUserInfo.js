@@ -16,12 +16,18 @@ function useUserInfo(props) {
         return cookies.name.email === res.creator.email;
     }
 
+    let headers=  {
+        Authorization:`Bearer ${userToken.userToken}`
+    };
+
     useEffect(() => {
         console.log('Cookies: ',cookies);
-        console.log('userToken: ',userToken);
-    }, [])
+        console.log('userToken: ',headers);
+    }, []);
 
-    return [cookies, userToken, isCreator];
+    //console.log(userToken.userToken);
+
+    return [cookies,headers , isCreator];
 }
 
 export default useUserInfo;

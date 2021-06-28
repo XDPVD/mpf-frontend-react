@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CourseCard({ elem }) {
   const classes = useStyles();
-
+  console.log(elem);
   return (
     <Button style={{ width: "100%" }} disableRipple>
       <Link className={classes.link} to={`/cursos/${elem.id}/dash`}>

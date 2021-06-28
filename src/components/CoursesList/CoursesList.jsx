@@ -4,14 +4,16 @@ import { makeStyles } from "@material-ui/core/styles";
 import CourseCard from "./CourseCard";
 import Grid from "@material-ui/core/Grid";
 
-import { fetchingData } from "@utils/fetchData";
+import { fetchingData, getCoursesByEmail } from "@utils/fetchData";
 import Loading from "@common/Loading";
+
 import { checkNull } from "@utils/checkNull";
-import useUserInfo from "@utils/useUserInfo";
 import CoursesCreatedList from "./CoursesCreatedList";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
+import useUserInfo from "@utils/useUserInfo";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,9 +25,10 @@ const useStyles = makeStyles((theme) => ({
 export default function CoursesList() {
   const [cookiesUser] = useUserInfo();
   const classes = useStyles();
-
   const [user, setUser] = useState();
   const [isFetching, setIsFetching] = useState(true);
+
+  const [cookies,,] = useUserInfo();
 
   useEffect(() => {
     fetchingData(

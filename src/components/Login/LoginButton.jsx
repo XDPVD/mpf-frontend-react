@@ -32,7 +32,7 @@ function LoginButton() {
       setCookie('userToken', resp.data);
       console.log("resp.data")
       console.log(resp.data)
-      console.log("")
+      //console.log("")
     } catch (err) {
       // Handle Error Here
       console.error(err);
@@ -40,13 +40,14 @@ function LoginButton() {
   }
 
   const responseGoogle = async (response) => {
-    console.log(response.profileObj);
-    console.log(response.tokenId);
+    //console.log(response.profileObj);
+    //console.log(response.tokenId);
 
     setCookie('name', response.profileObj);
     await saveToken(response.tokenId);
     //login(response)
     history.push("/cursos");
+    
   }
 
   const failureGoogle = (error) => {

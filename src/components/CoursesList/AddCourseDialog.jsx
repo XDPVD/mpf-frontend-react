@@ -20,6 +20,8 @@ import Input from "@material-ui/core/Input";
 import instance from "@settings/axios";
 import { postData } from "@utils/postData";
 import { endP } from "@settings/config";
+import { useParams } from "react-router-dom";
+import useUserInfo from "@utils/useUserInfo";
 
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -65,10 +67,20 @@ export default function AddCourseDialog({ open, setOpen }) {
     setCurso({ ...curso, [event.target.name]: event.target.value });
   };
 
+  const {id_course} = useParams();
+
+  const [,headers,] = useUserInfo();  
+
   async function enviarDatos(event) {
+    
     event.preventDefault();
-    postData("/course", curso);
+    
+    await postData(endP({id_course}).createCourse,curso ,headers);
+
+    props.closeModal();
+
   }
+
   return (
     <div>
       <div>

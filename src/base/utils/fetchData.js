@@ -6,7 +6,7 @@ export function fetchData(url, setState) {
     .then((res) => {
       const response = res.data;
       setState(response);
-      console.log(response);
+      //console.log(response);
     })
     .catch((err) => {
       console.log(err);
@@ -27,8 +27,25 @@ export function fetchingData(url, setState, setIsFetching) {
     });
 }
 
+export const getCoursesByEmail = async (email) => {
+  let res = await instance({
+    'method':'GET',
+    'url':`/user/byemail/${email}`
+  });
+  let courses = [...res.data.courses_created];
+
+  res.data.inscriptions.forEach((elem) => {
+    courses.push({
+      "id": elem.course.id, 
+      "name": elem.course.name
+    })
+  })
+
+  return courses;
+}
+
 export const getCourse = async (course_id) => {
-  console.log(course_id);
+  
   let res = await instance({
     'method':'GET',
     'url':'/course/'+course_id,

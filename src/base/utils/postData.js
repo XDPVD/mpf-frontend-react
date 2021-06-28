@@ -2,23 +2,27 @@ import axios from "@settings/axios";
 import instance from '@settings/axios';
 import {dateStringToObj, dateObjToString} from '@utils/convertDate';
 
-export async function postData(url, data) {
-  await axios
-    .post(url, data)
-    .then((res) => {
-      console.log(res);
-      console.log(res.data);
-    })
-    .catch((error) => console.error("There was an error!", error));
+export async function postData(url, data, headers) {
+  console.log(headers);
+
+  let result = await instance({
+    'method':'POST',
+    'url': url,
+    'headers': headers,
+    'data': data 
+  });
+  
+
 }
 
 
 
-export async function postAnuncio(obj){
-    console.log(obj.titulo, " ", obj.descripcion, " ", obj.id_curso);
+export async function postAnuncio(obj,headers){
+    
     let result = await instance({
       'method':'POST',
       'url': '/publication/announcement/'+obj.id_curso,
+      headers,
       'data':{
         'title':obj.titulo.toString(),
         'description': obj.descripcion.toString(),
@@ -28,10 +32,11 @@ export async function postAnuncio(obj){
     return result.data;
 }
 
-export async function postMaterial(obj){
+export async function postMaterial(obj,headers){
   let result = await instance({
     'method':'POST',
     'url': '/publication/material/'+obj.id_curso,
+    headers,
     'data':{
       'title':obj.titulo.toString(),
       'description': obj.descripcion.toString(),
@@ -41,13 +46,14 @@ export async function postMaterial(obj){
   return result.data;
 }
 
-export  async function postTarea(obj){
+export  async function postTarea(obj,headers){
 
   let [date_max,time_max] = dateObjToString(obj.fechaEntrega);
   console.log('dateObjToString ', dateObjToString(obj.fechaEntrega));
   let result = await instance({
     'method':'POST',
     'url': '/publication/assignment/'+obj.id_curso,
+    headers,
     'data':{
       'title':obj.titulo,
       'description': obj.descripcion,
@@ -61,13 +67,14 @@ export  async function postTarea(obj){
   return result.data;
 }
 
-export  async function postExamen(obj){
+export  async function postExamen(obj,headers){
 
   let [date_max,time_max] = dateObjToString(obj.fechaEntrega);
 
   let result = await instance({
     'method':'POST',
     'url': '/publication/exam/'+obj.id_curso,
+    headers,
     'data':{
       'title':obj.titulo,
       'description': obj.descripcion,
@@ -79,17 +86,17 @@ export  async function postExamen(obj){
   return result.data;
 }
 
-export async function postPub(recurso) {
+export async function postPub(recurso, headers) {
     //const request = await axios.post("", recurso);
     let res;
 
     try{
       console.log(recurso);
       switch(recurso.tipo){
-        case 'A': res= await postAnuncio(recurso) ;break;
-        case 'M': res= await postMaterial(recurso) ;break;
-        case 'E': res= await postExamen(recurso); break;
-        case 'T': res= await postTarea(recurso); break;
+        case 'A': res= await postAnuncio(recurso,headers) ;break;
+        case 'M': res= await postMaterial(recurso,headers) ;break;
+        case 'E': res= await postExamen(recurso,headers); break;
+        case 'T': res= await postTarea(recurso,headers); break;
         default: break;
       }
     }

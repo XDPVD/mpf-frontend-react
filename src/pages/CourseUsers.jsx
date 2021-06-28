@@ -8,7 +8,8 @@ import AddIcon from "@material-ui/icons/Add";
 import { useEffect, useState } from "react";
 import AddUserDialog from "@components/CourseUsers/AddUserDialog";
 import { endP } from "@settings/config";
-import { fetchData } from "@utils/fetchData";
+import { fetchingData } from "@utils/fetchData";
+import Loading from "@common/Loading";
 
 const useStyles = makeStyles({
   button: {
@@ -32,10 +33,11 @@ function CourseUsers({ courseId }) {
   const [open, setOpen] = useState(false);
   const [course, setCourse] = useState({});
   const [isFetching, setIsFetching] = useState(true);
+  let users;
 
   useEffect(() => {
     async function getData() {
-      const request = await fetchData(
+      const request = await fetchingData(
         endP({ courseId }).getCourse,
         setCourse,
         setIsFetching
@@ -48,6 +50,23 @@ function CourseUsers({ courseId }) {
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+  function mostrarUsuarios(tipo) {
+    users = course.inscriptions.map((user) => user.user);
+    const teacher = new Array(course.creator);
+    const delegate = new Array(course.delegate);
+    let lista;
+
+    console.log("users");
+    if (tipo === "Profesor") {
+      lista = <UsersList courseId={courseId} users={teacher} />;
+    } else if (tipo === "Delegados") {
+      lista = <UsersList courseId={courseId} users={delegate} />;
+    } else {
+      lista = <UsersList courseId={courseId} users={users} />;
+    }
+    return lista;
+  }
 
   return (
     <>
@@ -78,22 +97,7 @@ function CourseUsers({ courseId }) {
                 )}
               </div>
 
-              {/* {tipo === "Profesor" && (
-                <UsersList courseId={courseId} users={teacher} />
-              )} */}
-              {/* {tipo === "Delegados" && (
-                <UsersList courseId={courseId} users={delegate} />
-              )} */}
-              {isFetching
-                ? "loading"
-                : () => {
-                    const users = course.inscriptions.map;
-                    return (
-                      tipo === "Alumnos" && (
-                        <UsersList courseId={courseId} users={users} />
-                      )
-                    );
-                  }}
+              {isFetching ? <Loading /> : mostrarUsuarios(tipo)}
             </>
           ))}
           <div className={classes.addUserWrapper}>
@@ -119,10 +123,10 @@ function CourseUsers({ courseId }) {
           </div>
           <Grid container>
             <Grid item xs={12} md={6}>
-              {/* <GroupCard users={users} /> */}
+              {isFetching ? <Loading /> : <GroupCard users={users} />}
             </Grid>
             <Grid item xs={12} md={6}>
-              {/* <GroupCard users={users} /> */}
+              {isFetching ? <Loading /> : <GroupCard users={users} />}
             </Grid>
           </Grid>
         </Grid>

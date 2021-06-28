@@ -8,8 +8,9 @@
       "@styles": ["src/styles/*"],
       "@utils": ["src/base/utils/*"],
       "@settings": ["src/base/settings/*"],
-      "@layout": ["src/base/components/_layout/*"]
+      "@layout": ["src/components/_layout/*"],
+      "@common": ["src/components/_common/*"]
     }
   },
-  "exclude": ["node_modules"] 
+  "exclude": ["node_modules"]
 }

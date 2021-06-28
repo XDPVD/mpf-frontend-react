@@ -4,6 +4,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/styles";
+import { checkNull } from "@utils/checkNull";
 
 const useStyles = makeStyles({
   userText: {
@@ -26,7 +27,7 @@ function UsersList({ courseId, users }) {
           borderRadius: "10px",
         }}
       >
-        {users &&
+        {!checkNull(users) &&
           users.map((user) => (
             <ListItem
               style={{

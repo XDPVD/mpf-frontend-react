@@ -13,6 +13,8 @@ const useStyles = makeStyles((theme) => ({
   },
   btn: {
     margin: "5px",
+    padding: [[5, 20]],
+    backgroundColor: "rgba(144, 224, 94, 1)",
   },
 }));
 
@@ -22,16 +24,11 @@ export default function BtnGroup(props) {
   return (
     <>
       <div className={classes.root}>
-        <Button className={classes.btn} variant='contained' size='small'>
-          <AddIcon /> Unirse a una clase
+        <Button className={classes.btn} size='small'>
+          Unirse
         </Button>
-        <Button
-          className={classes.btn}
-          onClick={props.openModal}
-          variant='contained'
-          size='small'
-        >
-          <AddIcon /> Crear clase
+        <Button className={classes.btn} onClick={props.openModal} size='small'>
+          <AddIcon /> Crear
         </Button>
       </div>
     </>

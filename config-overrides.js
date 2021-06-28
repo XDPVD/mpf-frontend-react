@@ -11,6 +11,7 @@ module.exports = {
       "@utils": "./src/base/utils",
       "@settings": "./src/base/settings",
       "@layout": "./src/components/_layout",
+      "@common": "./src/components/_common",
     })(config);
 
     return config;

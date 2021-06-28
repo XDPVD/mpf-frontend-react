@@ -42,7 +42,7 @@ function CourseNav({ courseId }) {
   const [course, setCourse] = useState({});
 
   useEffect(() => {
-    fetchData(endP({ courseId }).getCourse, course, setCourse);
+    fetchData(endP({ courseId }).getCourse, setCourse);
   }, [courseId]);
 
   const handleClickOpenAddMaterial = () => {

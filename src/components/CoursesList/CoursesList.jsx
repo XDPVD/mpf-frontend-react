@@ -4,7 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import CourseCard from "./CourseCard";
 import Grid from "@material-ui/core/Grid";
 
-import { fetchData } from "@utils/fetchData";
+import { fetchingData } from "@utils/fetchData";
+import Loading from "@common/Loading";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,7 +21,7 @@ export default function CoursesList() {
   const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
-    fetchData("/course", setCursos, setIsFetching);
+    fetchingData("/course", setCursos, setIsFetching);
   }, []);
 
   //TODO
@@ -29,7 +30,7 @@ export default function CoursesList() {
   return (
     <>
       {isFetching ? (
-        "Loading"
+        <Loading />
       ) : (
         <Grid className={classes.root} container>
           {cursos &&

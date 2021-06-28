@@ -19,6 +19,7 @@ import Input from "@material-ui/core/Input";
 import { Typography } from "@material-ui/core";
 
 import { postData } from "@utils/postData";
+import { endP } from "@settings/config";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,7 +55,7 @@ export default function AddCourseDialog(props) {
 
   function enviarDatos(event) {
     event.preventDefault();
-    postData("/course", curso);
+    postData(endP.createCourse, curso);
   }
   return (
     <div>

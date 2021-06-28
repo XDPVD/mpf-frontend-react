@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddCourseDialog({ open, setOpen }) {
+export default function AddCourseDialog({ open, setOpen }, props) {
   const classes = useStyles();
 
   const [curso, setCurso] = useState({ name: "", description: "" });

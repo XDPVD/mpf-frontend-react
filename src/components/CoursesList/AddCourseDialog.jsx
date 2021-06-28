@@ -55,7 +55,7 @@ export default function AddCourseDialog(props) {
 
   function enviarDatos(event) {
     event.preventDefault();
-    postData(endP.createCourse, curso);
+    postData("/course", curso);
   }
   return (
     <div>

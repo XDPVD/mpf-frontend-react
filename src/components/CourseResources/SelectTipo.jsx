@@ -41,6 +41,7 @@ function SelectTipo({open, handleClose, handleOpenList, tipo, handleChange, menu
           <FormControl className={classes.formTipo}>
               <InputLabel>Tipo</InputLabel>
               <Select
+              name='tipo'
               open={open}
               onClose={handleClose}
               onOpen={handleOpenList}

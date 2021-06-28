@@ -10,6 +10,7 @@ import { endP } from "@settings/config";
 import AddResourceDialog from "@components/CourseResources/AddResourceDialog";
 import { useEffect } from "react";
 import { fetchData } from "@utils/fetchData";
+import useUserInfo from "@utils/useUserInfo";
 
 const useStyles = makeStyles((theme) => ({
   tab: {
@@ -22,11 +23,12 @@ const useStyles = makeStyles((theme) => ({
     padding: [[15, 0, 5, 0]],
   },
   buttonAddMaterial: {
-    padding: [[5, 20]],
+    padding: [[5, 20,]],
     height: "36px",
     position: "absolute",
-    right: "0",
-    top: "5px",
+    right: "50px",
+    top: "0px",
+    backgroundColor:'rgba(144, 224, 94, 1)',
   },
 }));
 
@@ -34,6 +36,8 @@ function CourseNav({ courseId }) {
   const classes = useStyles();
 
   const [, redirectTo] = useRedirectUrl();
+
+  const [,,isCreator] = useUserInfo();
 
   const nav = ["Dashboard", "Materiales", "Tareas", "Exámenes", "Personas"];
   const routes = ["dash", "materiales", "tareas", "examenes", "personas"];
@@ -63,14 +67,15 @@ function CourseNav({ courseId }) {
           <Tab disableRipple label={item} className={classes.tab} />
         ))}
         <Button
+          hidden={!isCreator(courseId)}
           className={classes.buttonAddMaterial}
           onClick={handleClickOpenAddMaterial}
           variant='contained'
         >
-          Nuevo Recurso
+          <span style={{'font-size':'20px', 'marginRight':'5px'}}>+</span> Nuevo Recurso
         </Button>
       </Tabs>
-      <AddResourceDialog
+      <AddResourceDialog 
         openAdd={openAddMaterial}
         setOpenAdd={setOpenAddMaterial}
       />

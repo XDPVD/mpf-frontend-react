@@ -37,9 +37,9 @@ export const ProfileImage = styled.img`
   height: 40px;
   width: 40px;
   display: block;
-
+  
   background-color: lightcoral;
-  margin: 20px 0px;
+  margin: 20px 10px;
   border-radius: 50px;
 `;
 
@@ -154,7 +154,6 @@ export const FilesList = styled(List)`
   margin: 0px;
   width: 100%;
   flex: 6;
-  overflow-y: scroll;
 `;
 
 export const Loading = styled.div`

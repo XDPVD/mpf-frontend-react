@@ -22,9 +22,49 @@ export const postsA = [
         'descripcion': 'Descripcion',
         'id_curso':'123',
         'fecha_creacion': (new Date()).toJSON(),
+    },
+    {
+        'id_publicacion':'1w1w2w4',
+        'titulo':'a3',
+        'tipo': 'A',
+        'descripcion': 'Descripcion',
+        'id_curso':'123',
+        'fecha_creacion': (new Date()).toJSON(),
+    },
+    {
+        'id_publicacion':'1w1w2w4',
+        'titulo':'a3',
+        'tipo': 'A',
+        'descripcion': 'Descripcion',
+        'id_curso':'123',
+        'fecha_creacion': (new Date()).toJSON(),
+    },
+    {
+        'id_publicacion':'1w1w2w4',
+        'titulo':'a3',
+        'tipo': 'A',
+        'descripcion': 'Descripcion',
+        'id_curso':'123',
+        'fecha_creacion': (new Date()).toJSON(),
+    },
+    {
+        'id_publicacion':'1w1w2w4',
+        'titulo':'a3',
+        'tipo': 'A',
+        'descripcion': 'Descripcion',
+        'id_curso':'123',
+        'fecha_creacion': (new Date()).toJSON(),
+    },
+    {
+        'id_publicacion':'1w1w2w4',
+        'titulo':'a3',
+        'tipo': 'A',
+        'descripcion': 'Descripcion',
+        'id_curso':'123',
+        'fecha_creacion': (new Date()).toJSON(),
     }
 ];
-
+// 1 A   2 M    3 T     4 E
 export const postsM = [
     {
         'id_publicacion':'1w1w2w2',
@@ -61,7 +101,7 @@ export const postsE = [
         'id_curso':'123',
         'fecha_creacion': (new Date()).toJSON(),
         'nota_max':20,
-        'fecha_max': (new Date(2021,6,31,10,23)).toJSON(),
+        'date_max': (new Date(2021,6,31,10,23)).toJSON(),
     },
     {
         'id_publicacion':'3w1w2w3',
@@ -71,7 +111,7 @@ export const postsE = [
         'id_curso':'123',
         'fecha_creacion': (new Date()).toJSON(),
         'nota_max':40,
-        'fecha_max': (new Date(2021,6,31,10,23)).toJSON(),
+        'date_max': (new Date(2021,6,31,10,23)).toJSON(),
     },
     {
         'id_publicacion':'3w1w2w4',
@@ -81,7 +121,7 @@ export const postsE = [
         'id_curso':'123',
         'fecha_creacion': (new Date()).toJSON(),
         'nota_max':60,
-        'fecha_max': (new Date(2021,6,31,10,23)).toJSON(),
+        'date_max': (new Date(2020,5,31,10,23)).toJSON(),
     }
 ]
 
@@ -104,7 +144,7 @@ export const postsT = [
         'id_curso':'123',
         'fecha_creacion': (new Date()).toJSON(),
         'nota_max':20,
-        'fecha_max': (new Date(2021,6,31,10,23)).toJSON(),
+        'fecha_max': (new Date(2021,4,31,10,23)).toJSON(),
     },
     {
         'id_publicacion':'3w1w2w4',

@@ -3,13 +3,17 @@ import ResourceCard from "./ResourceCard";
 
 import { 
   getAllAnuncios, getAllMaterial, getAllTareas, getAllExamen 
-} from "@utils/getPostsByType";
+} from "@utils/fetchData";
 
 import { makeStyles } from "@material-ui/styles";
+import { CircularProgress } from "@material-ui/core";
+import { useHistory, useRouteMatch } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
-    overflowY: "auto",
+    overflowY: "scroll",
+    maxHeight: "70vh",
   },
 }));
 
@@ -18,38 +22,47 @@ const ResourcesList = (props) => {
 
   const [posts, setPosts] = useState([]);
 
-  const fetchAnuncios = async () => {
-    let res
-    switch(props.kind){
-      case 'A':
-        res = await getAllAnuncios();
-      break;
-      case 'M':
-        res = await getAllMaterial();
+  const [loading,setLoading] = useState(true);
 
-      break;
-      case 'T':
-        res = await getAllTareas();
-      break;
-      case 'E':
-        res = await getAllExamen();
-      break;
-      default: break;
-    }
-    console.log(res);
-    setPosts(res);
-    
-  }
-
+  const {id} = useRouteMatch().params;
+  
   useEffect(() => {
+
+    const fetchAnuncios = async () => {
+      let res
+      console.log('Kind -> ',props.kind);
+      switch(props.kind){
+        case 'A':
+          res = await getAllAnuncios(id);
+        break;
+        case 'M':
+          res = await getAllMaterial(id);
+        break;
+        case 'T':
+          res = await getAllTareas(id);
+        break;
+        case 'E':
+          res = await getAllExamen(id);
+        break;
+        default: break;
+      } 
+      console.log(res);
+      setPosts(res.reverse());
+      setLoading(false);
+    }
     fetchAnuncios();
-  }, [])
+
+  }, [props.kind, id])
 
   return (
     <div className={classes.wrapper}>
-      {posts?.map((elem) => {
+      {loading? <CircularProgress /> : posts?.map((elem) => {
         return <ResourceCard kind={props.kind} post={elem} />;
       })}
+      {!loading && posts.length === 0?
+        <>No hay publicaciones</>:
+        <></>
+      }
     </div>
   );
 };

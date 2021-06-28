@@ -10,6 +10,7 @@ import AddUserDialog from "@components/CourseUsers/AddUserDialog";
 import { endP } from "@settings/config";
 import { fetchingData } from "@utils/fetchData";
 import Loading from "@common/Loading";
+import useUserInfo from "@utils/useUserInfo";
 
 const useStyles = makeStyles({
   button: {
@@ -46,6 +47,8 @@ function CourseUsers({ courseId }) {
     }
     getData();
   }, []);
+  
+  const [,,isCreator] = useUserInfo();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -87,6 +90,7 @@ function CourseUsers({ courseId }) {
                 </Typography>
                 {tipo === "Delegados" && (
                   <Button
+                    hidden={!isCreator(courseId)}
                     className={classes.button}
                     disableRipple
                     variant='text'
@@ -102,6 +106,7 @@ function CourseUsers({ courseId }) {
           ))}
           <div className={classes.addUserWrapper}>
             <Button
+              hidden={!isCreator(courseId)}
               variant='contained'
               color='primary'
               onClick={handleClickOpen}

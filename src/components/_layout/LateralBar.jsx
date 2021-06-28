@@ -16,9 +16,12 @@ import {
 } from "@styles/Styles";
 import useRedirectUrl from "@utils/useRedirectUrl";
 import { useCookies } from 'react-cookie';
+import useUserInfo from "@utils/useUserInfo";
 function LateralBar() {
   const [url, redirectTo] = useRedirectUrl();
   const [cookies, setCookie, removeCookie] = useCookies(['name','userToken']);
+  
+  const [cookiesUser,isCreator] = useUserInfo();
   // Array of Buttons { IconComponent, url }
   const topButtons = [
     {
@@ -47,7 +50,7 @@ function LateralBar() {
 
   return (
     <Container>
-      <ProfileImage src={photo} />
+      <ProfileImage src={cookiesUser.name.imageUrl} />
 
       <Separator />
 

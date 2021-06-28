@@ -19,12 +19,22 @@ export function fetchingData(url, setState, setIsFetching) {
     .then((res) => {
       const response = res.data;
       setState(response);
-      console.log(response);
+      //console.log(response);
       setIsFetching(false);
     })
     .catch((err) => {
       console.log(err);
     });
+}
+
+export const getCourse = async (course_id) => {
+  console.log(course_id);
+  let res = await instance({
+    'method':'GET',
+    'url':'/course/'+course_id,
+  });
+
+  return res.data;
 }
 
 export const getAllAnuncios = async (course_id) => {

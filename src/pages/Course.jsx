@@ -5,11 +5,15 @@ import CourseResources from "./CourseResources";
 import CourseUsers from "./CourseUsers";
 import CourseNav from "@layout/CourseNav";
 
+import useUserInfo from '@utils/useUserInfo';
+import { useEffect } from "react";
+
 function Course() {
 
   let prefix = "/cursos/:id";
   const { courseId } = useParams();
 
+  
   const kinds = [
     {
       kind: "A",

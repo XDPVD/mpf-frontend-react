@@ -18,12 +18,17 @@ import { UsuarioProvider, useUsuario } from "./base/context/usuario-context";
 
 import { createBrowserHistory } from "history";
 
-
 // Components
 
-export default function appWithContext() {return (<><UsuarioProvider>
-  <App></App>
-</UsuarioProvider></>)}
+export default function appWithContext() {
+  return (
+    <>
+      <UsuarioProvider>
+        <App></App>
+      </UsuarioProvider>
+    </>
+  );
+}
 
 function App() {
   const { usuario } = useUsuario();
@@ -34,12 +39,10 @@ function App() {
   const [cargar, setCargar] = useState(false);
 
   useEffect(() => {
-    if (!usuario) {
+    if (false) {
       history.push("/login");
     }
   }, [usuario, history]);
-
-
 
   return (
     <div className='App'>
@@ -48,7 +51,7 @@ function App() {
           <Header />
           <UpperBanner />
 
-          {!usuario ? (
+          {false ? (
             <>
               <Login />
             </>
@@ -71,9 +74,7 @@ function App() {
 
                   <Route path={config.urls.calendario}>Calendario</Route>
 
-            <Route path={config.urls.config}>
-              Configuracion
-            </Route>
+                  <Route path={config.urls.config}>Configuracion</Route>
                   <Route path={config.urls.grupos}>Grupo</Route>
 
                   <Route path={config.urls.config}>Configuración</Route>

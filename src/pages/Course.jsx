@@ -1,4 +1,4 @@
-import { Route } from "react-router-dom";
+import { Redirect, Route, useParams } from "react-router-dom";
 
 import * as config from "@settings/config";
 import CourseResources from "./CourseResources";
@@ -7,6 +7,7 @@ import CourseNav from "@layout/CourseNav";
 
 function Course() {
   let prefix = "/cursos/:id";
+  const { courseId } = useParams();
 
   const kinds = [
     {
@@ -27,18 +28,17 @@ function Course() {
     },
     {
       path: prefix + config.courseUrls.personas,
-      customComponent: <CourseUsers />,
+      customComponent: <CourseUsers courseId={courseId} />,
     },
   ];
 
   return (
     <>
-      <CourseNav />
-
+      <CourseNav courseId={courseId} />
       {/* TODO: Iterate!! */}
-      <Route exact path={"/cursos/:id"}>
-        <CourseResources kind='anuncio' />
-      </Route>
+      <Redirect
+        to={config.urls.cursos + "/" + courseId + config.courseUrls.dashboard}
+      />
 
       {kinds.map((elem) => {
         if (elem.customComponent)

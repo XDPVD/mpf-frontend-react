@@ -18,7 +18,7 @@ export default function CoursesList() {
 
   const [cursos, setCursos] = useState();
   useEffect(() => {
-    fetchData("/course", cursos, setCursos);
+    fetchData("/course", setCursos);
   }, []);
 
   //TODO

@@ -5,8 +5,10 @@ import GroupCard from "@components/CourseUsers/GroupCard";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/styles";
 import AddIcon from "@material-ui/icons/Add";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddUserDialog from "@components/CourseUsers/AddUserDialog";
+import { endP } from "@settings/config";
+import { fetchData } from "@utils/fetchData";
 
 const useStyles = makeStyles({
   button: {
@@ -24,10 +26,20 @@ const useStyles = makeStyles({
   },
 });
 
-function CourseUsers() {
-  const tipoMiembro = ["Profesores", "Delegados", "Alumnos"];
+function CourseUsers({ courseId }) {
+  const tipoMiembro = ["Profesor", "Delegados", "Alumnos"];
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [course, setCourse] = useState({});
+
+  useEffect(() => {
+    async function getData() {
+      const request = await fetchData(endP({ courseId }).getCourse, setCourse);
+      console.log(request);
+      return request;
+    }
+    getData();
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -62,7 +74,15 @@ function CourseUsers() {
                 )}
               </div>
 
-              {tipo === "Alumnos" && <UsersList />}
+              {/* {tipo === "Profesor" && (
+                <UsersList courseId={courseId} users={teacher} />
+              )} */}
+              {/* {tipo === "Delegados" && (
+                <UsersList courseId={courseId} users={delegate} />
+              )}
+              {tipo === "Alumnos" && (
+                <UsersList courseId={courseId} users={users} />
+              )} */}
             </>
           ))}
           <div className={classes.addUserWrapper}>
@@ -88,16 +108,16 @@ function CourseUsers() {
           </div>
           <Grid container>
             <Grid item xs={12} md={6}>
-              <GroupCard url='https://jsonplaceholder.typicode.com/users' />
+              {/* <GroupCard users={users} /> */}
             </Grid>
             <Grid item xs={12} md={6}>
-              <GroupCard url='https://jsonplaceholder.typicode.com/users' />
+              {/* <GroupCard users={users} /> */}
             </Grid>
           </Grid>
         </Grid>
       </Grid>
 
-      <AddUserDialog open={open} setOpen={setOpen} />
+      <AddUserDialog open={open} setOpen={setOpen} courseId={courseId} />
     </>
   );
 }

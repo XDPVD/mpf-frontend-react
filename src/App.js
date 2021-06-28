@@ -34,12 +34,10 @@ function App() {
   const [cargar, setCargar] = useState(false);
 
   useEffect(() => {
-    if (!usuario) {
+    if (false) {
       history.push("/login");
     }
   }, [usuario, history]);
-
-
 
   return (
     <div className='App'>
@@ -71,9 +69,7 @@ function App() {
 
                   <Route path={config.urls.calendario}>Calendario</Route>
 
-            <Route path={config.urls.config}>
-              Configuracion
-            </Route>
+                  <Route path={config.urls.config}>Configuracion</Route>
                   <Route path={config.urls.grupos}>Grupo</Route>
 
                   <Route path={config.urls.config}>Configuración</Route>

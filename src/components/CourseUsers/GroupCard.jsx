@@ -3,7 +3,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Divider from "@material-ui/core/Divider";
-import MembersList from "./UsersList";
+import UsersList from "./UsersList";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/styles";
 
@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-function GroupCard({ url }) {
+function GroupCard({ users }) {
   const classes = useStyles();
   return (
     <>
@@ -33,7 +33,7 @@ function GroupCard({ url }) {
         <CardHeader className={classes.header} title='Grupo 1' />
         <Divider />
         <CardContent className={classes.content} disableSpacing>
-          <MembersList url={url} />
+          <UsersList users={users} />
         </CardContent>
         <Divider />
         <CardActions className={classes.actions} disableSpacing>

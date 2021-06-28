@@ -7,6 +7,7 @@ import AddCourseDialog from "@components/CoursesList/AddCourseDialog";
 import Course from "./Course";
 
 import { useRouteMatch } from "react-router-dom";
+import * as config from "@settings/config";
 
 // Modal component
 import Modal from "react-modal";
@@ -42,7 +43,7 @@ function Courses() {
 
   return (
     <>
-      <Route exact path={`${path}`}>
+      <Route exact path={config.urls.cursos}>
         <BtnGroup openModal={openModal} />
 
         <Modal isOpen={modalIsOpen} style={modalStyle} closeTimeoutMS={250}>
@@ -56,7 +57,7 @@ function Courses() {
 
         <CoursesList />
       </Route>
-      <Route path={`${path}/:courseId`}>
+      <Route path={`${config.urls.cursos}/:courseId`}>
         <Course />
       </Route>
     </>

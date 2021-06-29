@@ -73,7 +73,6 @@ export default function AddUserDialog({ open, setOpen }) {
 
   const {id} = useParams();
   const [,headers,] = useUserInfo();  
-  console.log("este es el " + id)
   async function addMail(event) {
     event.preventDefault();
 

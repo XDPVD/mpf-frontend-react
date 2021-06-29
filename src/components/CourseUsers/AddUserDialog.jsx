@@ -9,6 +9,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core";
+import { useParams } from "react-router-dom";
+import useUserInfo from "src/base/utils/useUserInfo"
 import { useState } from "react";
 import { endP } from "src/base/settings/config";
 import { postData } from "src/base/utils/postData";
@@ -59,13 +61,23 @@ const useStyles = makeStyles({
 
 export default function AddUserDialog({ open, setOpen }) {
   const [code, setCode] = useState("");
+  const [mail, setMail] = useState({ email: "" });
 
   function handleClick(numElements) {
     setCode(generateToken(numElements));
   };
 
-  function addMail(courseId, data) {
-    postData(endP(courseId).enrollCourseByMail, data)
+  const handleMailChange = (event) => {
+    setMail({ ...mail, [event.target.email]: event.target.value });
+  };
+
+  const {courseId} = useParams();
+  const [,headers,] = useUserInfo();  
+
+  async function addMail(event) {
+    event.preventDefault();
+
+    await postData(endP({courseId}).enrollCourseByMail, mail, headers);
   };
 
   // const data = ({mail}) => {
@@ -107,28 +119,31 @@ export default function AddUserDialog({ open, setOpen }) {
               sm={6}
             >
               <Typography variant='subtitle1'>Añadir por correo</Typography>
-              <form action=''>
+              <form onSubmit={addMail}>
                 <TextField
                   margin='dense'
                   type='email'
                   label='Correo electrónico'
                   placeholder='example@example.com'
                   fullWidth
+                  onChange={handleMailChange}
                   autoFocus
                 />
+              
+                <Typography variant='body2'>
+                  Ingrese el correo electrónico para añadir al
+                  usuario.
+                </Typography>
+                <Button
+                  type='submit'
+                  className={classes.send}
+                  variant='contained'
+                  color='secondary'
+                  // onClick={() => addMail(1, data)}
+                >
+                  Añadir
+                </Button>
               </form>
-              <Typography variant='body2'>
-                Ingrese el correo electrónico para añadir al
-                usuario.
-              </Typography>
-              <Button
-                className={classes.send}
-                variant='contained'
-                color='secondary'
-                // onClick={() => addMail(1, data)}
-              >
-                Añadir
-              </Button>
             </Grid>
             <Grid
               style={{

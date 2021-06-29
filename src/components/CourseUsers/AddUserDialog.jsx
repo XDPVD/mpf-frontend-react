@@ -68,16 +68,16 @@ export default function AddUserDialog({ open, setOpen }) {
   };
 
   const handleMailChange = (event) => {
-    setMail({ ...mail, [event.target.email]: event.target.value });
+    setMail({ ...mail, [event.target.name]: event.target.value });
   };
 
-  const {courseId} = useParams();
+  const {id} = useParams();
   const [,headers,] = useUserInfo();  
-
+  console.log("este es el " + id)
   async function addMail(event) {
     event.preventDefault();
 
-    await postData(endP({courseId:18}).enrollCourseByMail, mail, headers);
+    await postData(endP({courseId:id}).enrollCourseByMail, mail, headers);
   };
 
   const classes = useStyles();
@@ -117,6 +117,7 @@ export default function AddUserDialog({ open, setOpen }) {
               <Typography variant='subtitle1'>Añadir por correo</Typography>
               <form onSubmit={addMail}>
                 <TextField
+                  name='email'
                   margin='dense'
                   type='email'
                   label='Correo electrónico'

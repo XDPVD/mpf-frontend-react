@@ -28,7 +28,4 @@ export const endP = ({ courseId, userId, pubId }) => {
   };
 };
 
-const apiBaseUrl = "http://127.0.0.1:8000/";
-// TODO:
-//  array for endpoints   // they should extend API_base_url
-// 'course/'
+

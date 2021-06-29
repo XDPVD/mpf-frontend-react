@@ -5,8 +5,7 @@ import "firebase/app-check";
 import 'firebase/storage';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const
-    firebaseConfig = {
+const firebaseConfig = {
         apiKey: "AIzaSyCj5_u6rxiCYjPQhJmJoAu0I_cy5zueEgI",
         authDomain: "mfp-storage.firebaseapp.com",
         projectId: "mfp-storage",
@@ -16,8 +15,7 @@ const
         measurementId: "G-TXBSFMK9EZ"
     };
 
-export const app =
-    firebase.initializeApp(
+export const app = firebase.initializeApp(
         firebaseConfig
     );
 

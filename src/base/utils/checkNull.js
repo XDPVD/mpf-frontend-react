@@ -1,3 +1,5 @@
+//TODO: comment checkNull (maybe checkNotNullAndNotUndefined)
+
 export function checkNull(data) {
   let isNull;
   if (data instanceof Array) {
@@ -11,3 +13,4 @@ export function checkNull(data) {
   }
   return false; //Not null
 }
+

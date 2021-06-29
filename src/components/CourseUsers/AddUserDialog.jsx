@@ -80,10 +80,6 @@ export default function AddUserDialog({ open, setOpen }) {
     await postData(endP({courseId}).enrollCourseByMail, mail, headers);
   };
 
-  // const data = ({mail}) => {
-  //   email: mail
-  // }
-
   const classes = useStyles();
   return (
     <div>

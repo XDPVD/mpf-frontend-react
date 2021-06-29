@@ -77,7 +77,7 @@ export default function AddUserDialog({ open, setOpen }) {
   async function addMail(event) {
     event.preventDefault();
 
-    await postData(endP({courseId}).enrollCourseByMail, mail, headers);
+    await postData(endP({courseId:18}).enrollCourseByMail, mail, headers);
   };
 
   const classes = useStyles();
@@ -135,7 +135,6 @@ export default function AddUserDialog({ open, setOpen }) {
                   className={classes.send}
                   variant='contained'
                   color='secondary'
-                  // onClick={() => addMail(1, data)}
                 >
                   Añadir
                 </Button>

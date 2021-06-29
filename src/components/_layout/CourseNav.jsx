@@ -24,23 +24,23 @@ const useStyles = makeStyles((theme) => ({
     padding: [[15, 0, 5, 0]],
   },
   buttonAddMaterial: {
-    padding: [[5, 20,]],
+    padding: [[5, 20]],
     height: "36px",
     position: "absolute",
     right: "50px",
     top: "0px",
-    backgroundColor:'rgba(144, 224, 94, 1)',
+    backgroundColor: "rgba(144, 224, 94, 1)",
   },
 }));
 
-function CourseNav({courseId}) {
+function CourseNav({ courseId }) {
   const classes = useStyles();
 
   const [, redirectTo] = useRedirectUrl();
 
-  const [,,isCreator] = useUserInfo();
+  const [, , isCreator] = useUserInfo();
 
-  const nav = ["Dashboard", "Materiales", "Tareas", "Exámenes", "Personas"];
+  const nav = ["Anuncios", "Materiales", "Tareas", "Exámenes", "Personas"];
   const routes = ["dash", "materiales", "tareas", "examenes", "personas"];
   const [selectedTab, setSelectedTab] = useState(0);
   const [openAddMaterial, setOpenAddMaterial] = useState(false);
@@ -73,10 +73,11 @@ function CourseNav({courseId}) {
           onClick={handleClickOpenAddMaterial}
           variant='contained'
         >
-          <span style={{'font-size':'20px', 'marginRight':'5px'}}>+</span> Nuevo Recurso
+          <span style={{ "font-size": "20px", marginRight: "5px" }}>+</span>{" "}
+          Nuevo Recurso
         </Button>
       </Tabs>
-      <AddResourceDialog 
+      <AddResourceDialog
         openAdd={openAddMaterial}
         setOpenAdd={setOpenAddMaterial}
       />

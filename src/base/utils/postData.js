@@ -15,6 +15,8 @@ export async function postData(url, data, headers) {
 
 }
 
+
+
 export async function postAnuncio(obj,headers){
     
     let result = await instance({
@@ -47,7 +49,7 @@ export async function postMaterial(obj,headers){
 export  async function postTarea(obj,headers){
 
   let [date_max,time_max] = dateObjToString(obj.fechaEntrega);
-  
+  console.log('dateObjToString ', dateObjToString(obj.fechaEntrega));
   let result = await instance({
     'method':'POST',
     'url': '/publication/assignment/'+obj.id_curso,
@@ -84,7 +86,6 @@ export  async function postExamen(obj,headers){
   return result.data;
 }
 
-// p
 export async function postPub(recurso, headers) {
     //const request = await axios.post("", recurso);
     let res;
@@ -107,4 +108,4 @@ export async function postPub(recurso, headers) {
     console.log(res);
 
     return res.id;
-}
+  }

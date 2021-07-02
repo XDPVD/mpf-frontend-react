@@ -5,6 +5,7 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/styles";
 import { checkNull } from "@utils/checkNull";
+import NotFound from "@common/NotFound";
 
 const useStyles = makeStyles({
   userText: {
@@ -27,7 +28,7 @@ function UsersList({ courseId, users }) {
           borderRadius: "10px",
         }}
       >
-        {!checkNull(users) &&
+        {!checkNull(users) ? (
           users.map((user) => (
             <ListItem
               style={{
@@ -48,7 +49,10 @@ function UsersList({ courseId, users }) {
                 {user.name}
               </ListItemText>
             </ListItem>
-          ))}
+          ))
+        ) : (
+          <NotFound>No hay alumnos para mostrar</NotFound>
+        )}
       </List>
     </>
   );

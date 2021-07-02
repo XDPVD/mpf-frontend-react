@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddCourseDialog({ open, setOpen }, props){
+export default function AddCourseDialog({ open, setOpen }, props) {
   const classes = useStyles();
 
   const [curso, setCurso] = useState({ name: "", description: "" });
@@ -67,19 +67,23 @@ export default function AddCourseDialog({ open, setOpen }, props){
     setCurso({ ...curso, [event.target.name]: event.target.value });
   };
 
-  const {id_course} = useParams();
+  const { id_course } = useParams();
 
-  const [,headers,] = useUserInfo();  
+  const [, headers] = useUserInfo();
 
   async function enviarDatos(event) {
-    
     event.preventDefault();
     
     await postData(endP({id_course}).createCourse,curso ,headers);
 
     // props.closeModal();
 
+    await postData(endP({ id_course }).createCourse, curso, headers);
+    setOpen(false);
+    window.location.reload();
   }
+
+  // TODO: Cambiar la forma de reload
 
   return (
     <div>

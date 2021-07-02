@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -16,11 +16,10 @@ import { useParams } from "react-router-dom";
 
 import { postPub } from "@utils/postData";
 import SelectTipo from "./SelectTipo";
-import GroupField from '@components/CourseResources/GroupField';
+import GroupField from "@components/CourseResources/GroupField";
 import PostButton from "./PostButton";
 import SelectOption from "./SelectOption";
 import useUserInfo from "@utils/useUserInfo";
-
 
 const useStyles = makeStyles((theme) => ({
   btn: {
@@ -55,12 +54,12 @@ const useStyles = makeStyles((theme) => ({
 
 function AddResourceDialog(props) {
   const classes = useStyles();
-  
-  const {courseId} = useParams();
-  
+
+  const { courseId } = useParams();
+
   const [grupal, setGrupal] = useState(false);
 
-  const [tipo, setTipo] = useState('A');
+  const [tipo, setTipo] = useState("A");
 
   const [open, setOpen] = useState(true);
 
@@ -68,12 +67,12 @@ function AddResourceDialog(props) {
     nota: 20,
   });
 
-  const [,headers,] = useUserInfo();  
+  const [, headers] = useUserInfo();
 
   const [recurso, setRecurso] = useState({
-    tipo: 'A',
-    titulo: '',
-    descripcion: '',
+    tipo: "A",
+    titulo: "",
+    descripcion: "",
     notaMax: 20,
     fechaEntrega: new Date(),
     grupal: grupal,
@@ -86,17 +85,15 @@ function AddResourceDialog(props) {
   };
 
   const handleChangeGrupal = (event) => {
-    let result = event.target.value === 'true';
+    let result = event.target.value === "true";
 
     setGrupal(result);
-    setRecurso({...recurso , grupal: result});
+    setRecurso({ ...recurso, grupal: result });
   };
 
   const handleChange = (event) => {
-    
     setTipo(event.target.value);
     setRecurso({ ...recurso, tipo: event.target.value });
-    
   };
 
   const handleClose = () => {
@@ -109,52 +106,56 @@ function AddResourceDialog(props) {
 
   const handleTextInputChange = (event) => {
     setRecurso({ ...recurso, [event.target.name]: event.target.value });
-  }
+  };
 
   const handleDateChange = (event) => {
     console.log(event.target.value);
-    
+
     setRecurso({ ...recurso, fechaEntrega: new Date(event.target.value) });
   };
 
-  const simpleSubmit = async () => { await postPub(recurso,headers); props.setOpenAdd(false);}
+  const simpleSubmit = async () => {
+    await postPub(recurso, headers);
+    props.setOpenAdd(false);
+    window.location.reload();
+  };
 
   useEffect(() => {
     //console.log(recurso);
-  })
+  });
 
   const menuItems = [
     {
-      value: 'A',
-      title: 'Anuncio'
+      value: "A",
+      title: "Anuncio",
     },
     {
-      value: 'M',
-      title: 'Material'
+      value: "M",
+      title: "Material",
     },
     {
-      value: 'T',
-      title: 'Tarea'
+      value: "T",
+      title: "Tarea",
     },
     {
-      value: 'E',
-      title: 'Examen'
-    }
+      value: "E",
+      title: "Examen",
+    },
   ];
 
   const textFields = [
     {
-      label: 'Título',
-      name: 'titulo',
-      placeholder: 'Ingrese un título...', 
-      rows: 1
+      label: "Título",
+      name: "titulo",
+      placeholder: "Ingrese un título...",
+      rows: 1,
     },
     {
-      label: 'Descripción',
-      name: 'descripcion',
-      placeholder: 'Ingrese una descripcion...',
-      rows: 4
-    }
+      label: "Descripción",
+      name: "descripcion",
+      placeholder: "Ingrese una descripcion...",
+      rows: 4,
+    },
   ];
 
   return (
@@ -182,36 +183,44 @@ function AddResourceDialog(props) {
       <DialogContent>
         <form noValidate>
           <div>
-            <SelectTipo open={open} handleClose={handleClose} 
-              handleOpenList={handleOpenList} tipo={tipo} handleChange={handleChange} menuItems={menuItems}/>
+            <SelectTipo
+              open={open}
+              handleClose={handleClose}
+              handleOpenList={handleOpenList}
+              tipo={tipo}
+              handleChange={handleChange}
+              menuItems={menuItems}
+            />
           </div>
           <br />
           <div>
             <form noValidate autoComplete='off'>
-              {
-                  textFields.map((elem) => {
-                    return (<TextField
-                      name={elem.name}
-                      className={classes.tituloForm}
-                      fullWidth={true}
-                      id='standard-basic'
-                      label={elem.label}
-                      multiline={elem.rows > 1? true : false}
-                      rows={elem.rows}
-                      placeholder={elem.placeholder}
-                      onChange={handleTextInputChange}
-                    />)
-                  })
-              }
+              {textFields.map((elem) => {
+                return (
+                  <TextField
+                    name={elem.name}
+                    className={classes.tituloForm}
+                    fullWidth={true}
+                    id='standard-basic'
+                    label={elem.label}
+                    multiline={elem.rows > 1 ? true : false}
+                    rows={elem.rows}
+                    placeholder={elem.placeholder}
+                    onChange={handleTextInputChange}
+                  />
+                );
+              })}
             </form>
           </div>
 
           <div>
-
-            { (tipo === 'T' || tipo === 'E' ) && (
+            {(tipo === "T" || tipo === "E") && (
               <>
-                <SelectOption valueSelected={nota.nota} handleOnChange={handleChangeNota} />
-                
+                <SelectOption
+                  valueSelected={nota.nota}
+                  handleOnChange={handleChangeNota}
+                />
+
                 <TextField
                   name='fechaEntrega'
                   id='datetime-local'
@@ -228,24 +237,30 @@ function AddResourceDialog(props) {
               </>
             )}
 
-            {(tipo === 'T') && (
-              <GroupField handleChangeGrupal={handleChangeGrupal} grupal={grupal}/>
+            {tipo === "T" && (
+              <GroupField
+                handleChangeGrupal={handleChangeGrupal}
+                grupal={grupal}
+              />
             )}
           </div>
 
-          {(tipo !== 'A' )?
-            (<>
-              <div style={{'marginTop': '20px','maxHeight':'400px'}}>
-                <FileTray modeCreate={true} mode={'p'} 
-                  createIdFunction={async () => await postPub(recurso, headers)} 
-                  closeFunction={() => {props.setOpenAdd(false);}}/>
+          {tipo !== "A" ? (
+            <>
+              <div style={{ marginTop: "20px", maxHeight: "400px" }}>
+                <FileTray
+                  modeCreate={true}
+                  mode={"p"}
+                  createIdFunction={async () => await postPub(recurso, headers)}
+                  closeFunction={() => {
+                    props.setOpenAdd(false);
+                  }}
+                />
               </div>
             </>
-            ):
-            (
-              <PostButton onClick={simpleSubmit}/>
-            )
-          }
+          ) : (
+            <PostButton onClick={simpleSubmit} />
+          )}
         </form>
       </DialogContent>
     </Dialog>

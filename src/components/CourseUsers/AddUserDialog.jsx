@@ -9,7 +9,12 @@ import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core";
+import { useParams } from "react-router-dom";
+import useUserInfo from "src/base/utils/useUserInfo"
 import { useState } from "react";
+import { endP } from "src/base/settings/config";
+import { postData } from "src/base/utils/postData";
+import { generateToken } from "src/base/utils/generateToken";
 
 const useStyles = makeStyles({
   codeButton: {
@@ -54,23 +59,24 @@ const useStyles = makeStyles({
   },
 });
 
-// TODO: This is business logic
-function makeid(length) {
-  var result = "";
-  var characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  var charactersLength = characters.length;
-  for (var i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-}
-
 export default function AddUserDialog({ open, setOpen }) {
   const [code, setCode] = useState("");
+  const [mail, setMail] = useState({ email: "" });
 
-  const handleClick = () => {
-    setCode(makeid(8));
+  function handleClick(numElements) {
+    setCode(generateToken(numElements));
+  };
+
+  const handleMailChange = (event) => {
+    setMail({ ...mail, [event.target.name]: event.target.value });
+  };
+
+  const {id} = useParams();
+  const [,headers,] = useUserInfo();  
+  async function addMail(event) {
+    event.preventDefault();
+
+    await postData(endP({courseId:id}).enrollCourseByMail, mail, headers);
   };
 
   const classes = useStyles();
@@ -107,28 +113,32 @@ export default function AddUserDialog({ open, setOpen }) {
               xs={12}
               sm={6}
             >
-              <Typography variant='subtitle1'>Añadir por invitación</Typography>
-              <form action=''>
+              <Typography variant='subtitle1'>Añadir por correo</Typography>
+              <form onSubmit={addMail}>
                 <TextField
+                  name='email'
                   margin='dense'
                   type='email'
                   label='Correo electrónico'
                   placeholder='example@example.com'
                   fullWidth
+                  onChange={handleMailChange}
                   autoFocus
                 />
+              
+                <Typography variant='body2'>
+                  Ingrese el correo electrónico para añadir al
+                  usuario.
+                </Typography>
+                <Button
+                  type='submit'
+                  className={classes.send}
+                  variant='contained'
+                  color='secondary'
+                >
+                  Añadir
+                </Button>
               </form>
-              <Typography variant='body2'>
-                Ingrese el correo electrónico para enviar una invitación al
-                usuario.
-              </Typography>
-              <Button
-                className={classes.send}
-                variant='contained'
-                color='secondary'
-              >
-                Enviar
-              </Button>
             </Grid>
             <Grid
               style={{
@@ -144,7 +154,7 @@ export default function AddUserDialog({ open, setOpen }) {
                   className={classes.codeButton}
                   variant='contained'
                   color='secondary'
-                  onClick={handleClick}
+                  onClick={() => handleClick(8)}
                 >
                   Generar
                 </Button>

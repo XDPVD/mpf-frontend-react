@@ -75,10 +75,6 @@ export default function AddCourseDialog({ open, setOpen }, props) {
     event.preventDefault();
     
     await postData(endP({id_course}).createCourse,curso ,headers);
-
-    // props.closeModal();
-
-    await postData(endP({ id_course }).createCourse, curso, headers);
     setOpen(false);
     window.location.reload();
   }

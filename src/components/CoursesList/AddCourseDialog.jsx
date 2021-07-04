@@ -79,8 +79,6 @@ export default function AddCourseDialog({ open, setOpen }, props) {
     window.location.reload();
   }
 
-  // TODO: Cambiar la forma de reload
-
   return (
     <div>
       <div>

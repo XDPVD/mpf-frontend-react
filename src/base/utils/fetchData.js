@@ -1,6 +1,5 @@
 import axios from "@settings/axios";
 import instance from "@settings/axios";
-
 export function fetchData(url, setState) {
   axios
     .get(url)
@@ -14,8 +13,6 @@ export function fetchData(url, setState) {
     });
 }
 
-
-//TODO: change fetchData
 export function fetchingData(url, setState, setIsFetching) {
   axios
     .get(url)
@@ -23,20 +20,18 @@ export function fetchingData(url, setState, setIsFetching) {
       const response = res.data;
       setState(response);
       //console.log(response);
-      setIsFetching?.(false);
+      setIsFetching(false);
     })
     .catch((err) => {
       console.log(err);
     });
 }
 
-//TODO: Usar una funcion generica y extenderla
 export const getCoursesByEmail = async (email) => {
   let res = await instance({
     'method':'GET',
     'url':`/user/byemail/${email}`
   });
-
   let courses = [...res.data.courses_created];
 
   res.data.inscriptions.forEach((elem) => {
@@ -49,8 +44,6 @@ export const getCoursesByEmail = async (email) => {
   return courses;
 }
 
-
-// TODO: Me fui en yara (convertir en una funcion generica)
 export const getCourse = async (course_id) => {
   
   let res = await instance({

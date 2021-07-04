@@ -37,7 +37,7 @@ export const ProfileImage = styled.img`
   height: 40px;
   width: 40px;
   display: block;
-  
+
   background-color: lightcoral;
   margin: 20px 10px;
   border-radius: 50px;
@@ -101,7 +101,7 @@ export const HeaderUserContainer = styled.div`
   background: #f5f2ec;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 
   height: 100%;
   width: 350px;

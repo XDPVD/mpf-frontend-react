@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import BtnGroup from "@components/CoursesList/BtnGroup";
 import CoursesList from "@components/CoursesList/CoursesList";
 import AddCourseDialog from "@components/CoursesList/AddCourseDialog";
+import JoinCourseDialog from "@components/CoursesList/JoinCourseDialog";
 
 import Course from "./Course";
 
@@ -28,12 +29,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Courses() {
-  const [open, setOpen] = useState(false);
+  const [openAdd, setOpenAdd] = useState(false);
+  const [openJoin, setOpenJoin] = useState(false);
 
   const { path } = useRouteMatch();
   const classes = useStyles();
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpenAdd = () => {
+    setOpenAdd(true);
+  };
+  const handleClickOpenJoin = () => {
+    setOpenJoin(true);
   };
 
   return (
@@ -44,11 +49,16 @@ function Courses() {
             className={classes.btn}
             variant='contained'
             color='secondary'
-            onClick={handleClickOpen}
+            onClick={handleClickOpenAdd}
           >
             Crear
           </Button>
-          <Button className={classes.btn} variant='contained' color='secondary'>
+          <Button
+            className={classes.btn}
+            variant='contained'
+            color='secondary'
+            onClick={handleClickOpenJoin}
+          >
             Unirse
           </Button>
         </Container>
@@ -59,7 +69,8 @@ function Courses() {
         <Course />
       </Route>
 
-      <AddCourseDialog open={open} setOpen={setOpen} />
+      <AddCourseDialog open={openAdd} setOpen={setOpenAdd} />
+      <JoinCourseDialog open={openJoin} setOpen={setOpenJoin} />
     </>
   );
 }

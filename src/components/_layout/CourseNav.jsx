@@ -46,6 +46,9 @@ function CourseNav({ courseId }) {
   const [openAddMaterial, setOpenAddMaterial] = useState(false);
   const [course, setCourse] = useState({});
 
+  const [hiddenButton, setHiddenButton] = useState(false);
+
+
   useEffect(() => {
     fetchData(endP(courseId).getCourse, setCourse);
   }, [courseId]);
@@ -58,6 +61,12 @@ function CourseNav({ courseId }) {
     redirectTo("/cursos/" + courseId + "/" + routes[newValue]);
     setSelectedTab(newValue);
   };
+
+
+  useEffect(() => {
+    isCreator(courseId).then((res)=> setHiddenButton(!res));
+  },[isCreator, courseId])
+
   return (
     <>
       <Typography className={classes.courseTitle} variant='h3'>
@@ -68,7 +77,7 @@ function CourseNav({ courseId }) {
           <Tab disableRipple label={item} className={classes.tab} />
         ))}
         <Button
-          hidden={!isCreator(courseId)}
+          hidden={hiddenButton}
           className={classes.buttonAddMaterial}
           onClick={handleClickOpenAddMaterial}
           variant='contained'

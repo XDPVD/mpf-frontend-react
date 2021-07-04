@@ -34,6 +34,14 @@ function CourseUsers({ courseId }) {
   const [open, setOpen] = useState(false);
   const [course, setCourse] = useState({});
   const [isFetching, setIsFetching] = useState(true);
+
+  const [,,isCreator] = useUserInfo();
+  const [hiddenButton, setHiddenButton] = useState(false);
+  useEffect(() => {
+    isCreator(courseId).then((res)=> setHiddenButton(!res));
+  },[isCreator, courseId])
+
+
   let users;
 
   useEffect(() => {
@@ -48,7 +56,7 @@ function CourseUsers({ courseId }) {
     getData();
   }, []);
   
-  const [,,isCreator] = useUserInfo();
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -90,7 +98,7 @@ function CourseUsers({ courseId }) {
                 </Typography>
                 {tipo === "Delegados" && (
                   <Button
-                    hidden={!isCreator(courseId)}
+                    hidden={hiddenButton}
                     className={classes.button}
                     disableRipple
                     variant='text'
@@ -106,7 +114,7 @@ function CourseUsers({ courseId }) {
           ))}
           <div className={classes.addUserWrapper}>
             <Button
-              hidden={!isCreator(courseId)}
+              hidden={hiddenButton}
               variant='contained'
               color='primary'
               onClick={handleClickOpen}

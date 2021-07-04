@@ -73,8 +73,8 @@ export default function AddCourseDialog({ open, setOpen }, props) {
 
   async function enviarDatos(event) {
     event.preventDefault();
-
-    await postData(endP({ id_course }).createCourse, curso, headers);
+    
+    await postData(endP({id_course}).createCourse,curso ,headers);
     setOpen(false);
     window.location.reload();
   }

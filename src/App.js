@@ -34,10 +34,8 @@ function App() {
   const [cargar, setCargar] = useState(false);
 
   useEffect(() => {
-    if (false) {
-      history.push("/login");
-    }
-  }, [usuario, history]);
+
+  }, [usuario, history, cookies]);
 
   return (
     <div className='App'>

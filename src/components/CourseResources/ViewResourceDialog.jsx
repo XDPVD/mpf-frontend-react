@@ -84,7 +84,7 @@ function ViewResourceDialog(props) {
   }, [])
 
   return (
-    <div align='center' className={classes.ventana}>
+    <div className={classes.ventana}>
       <div className={classes.prin}>
         <label className={classes.tile}>{props.post.title}</label>
         <Button
@@ -114,8 +114,8 @@ function ViewResourceDialog(props) {
           return (<FileCard file={file}/>)
         })
       }
-
-      <Comments/>
+      <hr />
+      <Comments post={props.post}/>
 
     </div>
   );

@@ -3,7 +3,8 @@ import instance from '@settings/axios';
 import {dateStringToObj, dateObjToString} from '@utils/convertDate';
 
 export async function postData(url, data, headers) {
-  console.log(headers);
+
+  
 
   let result = await instance({
     'method':'POST',
@@ -12,6 +13,7 @@ export async function postData(url, data, headers) {
     'data': data 
   });
   
+  console.log(url, " result POST -> ",result);
 
 }
 

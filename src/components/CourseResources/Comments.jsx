@@ -1,66 +1,50 @@
-import React,{ useState,useEffect} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import {ProfileImage} from "@styles/Styles";
-import Button from '@material-ui/core/Button';
-import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    root: {
-        flexGrow: 1,
-      },
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.primary,
-  },
-}));
+import { useEffect, useState } from "react";
+import SingleComment from "./SingleComment";
+import { Button, CircularProgress, Grid, makeStyles, TextField } from "@material-ui/core";
+import {endP} from "@settings/config";
+import {fetchingData} from '@utils/fetchData';
+import ReplyForm from "./ReplyForm";
 
-export default function Comments() {
-  const [com, setCom] = useState({
-    
-  });
+const useStyles = makeStyles({
+  actions: {
+    display: 'flex',
+    flexFlow: 'row',
+    alignContent: 'center',
+    '& > p':{
+      flex: 6
+    }
+  }
+});
+
+export default function Comments(props) {
+
   const classes = useStyles();
 
+  const [comments, setComments] = useState([]);
+  const [isFetching, setFetching] = useState(true);
+
+  const [openForm, setOpenForm] = useState(false);
+
+  const [isReload, setReload] = useState(false);
+
+  useEffect(()=>{
+    if(isFetching) fetchingData(endP({pubId: props.post.id}).getComments, setComments, setFetching);
+  },[props.post.id, isFetching]);
+
   return (
-    <>
-      <hr/>
-      <div align='left' style={{ "font-weight": "bold" }}>
-        Comentarios
+    <div>
+      <div className={classes.actions}>
+        <p>Comentarios</p>
+        <Button disabled={openForm} color="primary" onClick={()=>setOpenForm(true)}>Anadir comentario</Button>
+        
       </div>
-      <hr/>
-      {com ?
-            <div>
-                    <div className={classes.root}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} sm={12} direction="row" alignItems="center"
-                        justify="center">
-                            <Grid xs={12} sm={12}>
-                                <Paper className={classes.paper}>
-                                    <Grid xs={3} sm={3}><ProfileImage /></Grid>
-                                    <Grid xs={9} sm={9} direction="column">
-                                        <Grid xs={12} sm={12}><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, expedita </p></Grid>
-                                        <Grid xs={12} sm={12} direction="row" >
-                                            <Button variant="contained" endIcon={<ThumbUpAltIcon />} />
-                                            <Button variant="contained" endIcon={<ThumbDownAltIcon />}/>
-                                            <Button><h7>Responder</h7></Button>
-                                        </Grid>
-                                    </Grid>
-                                </Paper>
-                            </Grid>
-                        </Grid>
-                        
-                    </Grid>
-                    </div>
-            </div>
-            :
-            <div>
-                <Grid item xs={12} sm={12}>
-                    <Paper className={classes.paper}><Button variant="contained">Comentar</Button></Paper>
-                </Grid>
-            </div>
-      }
-    </>
+      {openForm? <ReplyForm isReplyMode={false} pub_id={props.post.id} offReplyMode={()=>{setOpenForm(false); setFetching(true);}}/> : <></>}
+
+      {isFetching? <CircularProgress /> :comments.length > 0? comments.map((elem)=>{
+        return <SingleComment comment={elem}/>
+      }):
+      <p>No hay comentarios</p>}
+      
+    </div>
   );
 }

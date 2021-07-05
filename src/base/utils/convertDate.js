@@ -4,7 +4,7 @@ export const dateStringToObj = (date, time) => {
     const [year, month, day] = date.split('-');
     const [hour, minutes,] =  time.split(':');
 
-    return new Date(Number(year), Number(month), Number(day), Number(hour), Number(minutes));
+    return new Date(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minutes));
 }
 
 export const dateObjToString = (date) => {

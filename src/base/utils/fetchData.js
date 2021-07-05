@@ -20,9 +20,10 @@ export function fetchingData(url, setState, setIsFetching) {
   axios
     .get(url)
     .then((res) => {
-      const response = res.data;
+      let response = res.data;
+      if(Array.isArray(response)) response=response.reverse();
       setState(response);
-      //console.log(response);
+      console.log("GET " + url +" response ->",response);
       setIsFetching?.(false);
     })
     .catch((err) => {

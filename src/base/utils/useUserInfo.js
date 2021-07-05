@@ -16,7 +16,7 @@ function useUserInfo(props) {
         Authorization:`Bearer ${userToken.userToken}`
     };
 
-    return [cookies,headers , isCreator];
+    return [cookies, headers, isCreator];
 }
 
 export default useUserInfo;

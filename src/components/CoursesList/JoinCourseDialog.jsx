@@ -14,21 +14,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function JoinCourseDialog({ open, setOpen }) {
-  const [code, setCode] = useState("");
+function JoinCourseDialog({ open, setOpen, setOpenSB }) {
+  var code = "";
 
   const [, headers] = useUserInfo();
   const classes = useStyles();
 
   const handleCodeChange = (event) => {
-    setCode(event.target.value);
+    code = event.target.value;
     console.log(code);
   };
 
   async function joinCourse(event) {
     event.preventDefault();
 
-    await postData("", code, headers);
+    setOpen(false);
+    await postData(`/course/${code}`, {}, headers);
+    setOpenSB(true);
   }
 
   return (
@@ -48,7 +50,7 @@ function JoinCourseDialog({ open, setOpen }) {
             margin='dense'
             type='text'
             label='Código'
-            placeholder='ASD-SDAS-SADA'
+            placeholder='1AABBCC'
             fullWidth
             onChange={handleCodeChange}
             autoFocus

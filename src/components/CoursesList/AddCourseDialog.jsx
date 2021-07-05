@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddCourseDialog({ open, setOpen }, props) {
+export default function AddCourseDialog({ open, setOpen, setOpenSB }, props) {
   const classes = useStyles();
 
   const [curso, setCurso] = useState({ name: "", description: "" });
@@ -65,10 +65,9 @@ export default function AddCourseDialog({ open, setOpen }, props) {
 
   async function enviarDatos(event) {
     event.preventDefault();
-
-    await postData(endP({ id_course }).createCourse, curso, headers);
     setOpen(false);
-    window.location.reload();
+    await postData(endP({ id_course }).createCourse, curso, headers);
+    setOpenSB(true);
   }
 
   return (

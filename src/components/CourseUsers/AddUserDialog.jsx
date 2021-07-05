@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -10,11 +10,13 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core";
 import { useParams } from "react-router-dom";
-import useUserInfo from "src/base/utils/useUserInfo"
+import useUserInfo from "src/base/utils/useUserInfo";
 import { useState } from "react";
 import { endP } from "src/base/settings/config";
 import { postData } from "src/base/utils/postData";
 import { generateToken } from "src/base/utils/generateToken";
+import { fetchData } from "@utils/fetchData";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles({
   codeButton: {
@@ -60,24 +62,36 @@ const useStyles = makeStyles({
 });
 
 export default function AddUserDialog({ open, setOpen }) {
+  const { id } = useParams();
+
   const [code, setCode] = useState("");
   const [mail, setMail] = useState({ email: "" });
+  const [isFetching, setIsFetching] = useState(false);
 
-  function handleClick(numElements) {
-    setCode(generateToken(numElements));
-  };
+  useEffect(() => {
+    fetchData(`/course/${id}/code`, setCode);
+  }, []);
+
+  useEffect(() => {
+    setIsFetching(false);
+  }, [code]);
+
+  async function handleClick() {
+    setIsFetching(true);
+    await fetchData(`/course/${id}/new_code`, setCode);
+    // setCode(generateToken(numElements));
+  }
 
   const handleMailChange = (event) => {
     setMail({ ...mail, [event.target.name]: event.target.value });
   };
 
-  const {id} = useParams();
-  const [,headers,] = useUserInfo();  
+  const [, headers] = useUserInfo();
   async function addMail(event) {
     event.preventDefault();
 
-    await postData(endP({courseId:id}).enrollCourseByMail, mail, headers);
-  };
+    await postData(endP({ courseId: id }).enrollCourseByMail, mail, headers);
+  }
 
   const classes = useStyles();
   return (
@@ -125,10 +139,9 @@ export default function AddUserDialog({ open, setOpen }) {
                   onChange={handleMailChange}
                   autoFocus
                 />
-              
+
                 <Typography variant='body2'>
-                  Ingrese el correo electrónico para añadir al
-                  usuario.
+                  Ingrese el correo electrónico para añadir al usuario.
                 </Typography>
                 <Button
                   type='submit'
@@ -151,12 +164,17 @@ export default function AddUserDialog({ open, setOpen }) {
               <Typography variant='subtitle1'>Código de acceso</Typography>
               <div className={classes.codeWrapper}>
                 <Button
+                  disabled={isFetching ? true : false}
                   className={classes.codeButton}
                   variant='contained'
                   color='secondary'
-                  onClick={() => handleClick(8)}
+                  onClick={handleClick}
                 >
-                  Generar
+                  {isFetching ? (
+                    <CircularProgress size={25} />
+                  ) : (
+                    <span>Generar</span>
+                  )}
                 </Button>
                 <input
                   value={code}
@@ -166,8 +184,9 @@ export default function AddUserDialog({ open, setOpen }) {
                 />
               </div>
               <Typography variant='body2'>
-                Con el código otros usuarios pueden unirse a tu clase. Si
-                generas un nuevo código, el anterior dejará de tener validez.
+                Comparte el código con otros usuarios para que puedan unirse a
+                tu clase. Si generas un nuevo código, el anterior dejará de
+                tener validez.
               </Typography>
             </Grid>
           </Grid>

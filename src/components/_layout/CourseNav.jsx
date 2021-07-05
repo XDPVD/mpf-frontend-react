@@ -48,9 +48,8 @@ function CourseNav({ courseId }) {
 
   const [hiddenButton, setHiddenButton] = useState(false);
 
-
   useEffect(() => {
-    fetchData(endP(courseId).getCourse, setCourse);
+    fetchData(endP({ courseId }).getCourse, setCourse);
   }, [courseId]);
 
   const handleClickOpenAddMaterial = () => {
@@ -62,10 +61,9 @@ function CourseNav({ courseId }) {
     setSelectedTab(newValue);
   };
 
-
   useEffect(() => {
-    isCreator(courseId).then((res)=> setHiddenButton(!res));
-  },[isCreator, courseId])
+    isCreator(courseId).then((res) => setHiddenButton(!res));
+  }, [isCreator, courseId]);
 
   return (
     <>

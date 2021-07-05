@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
       marginTop: "10px",
       marginLeft: "10px",
     },
-    formTipo: {
+    formType: {
       minWidth: 120,
     },
     guardarButton: {
@@ -34,18 +34,18 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function SelectTipo({open, handleClose, handleOpenList, tipo, handleChange, menuItems}) {
+function SelectType({open, handleClose, handleOpenList, type, handleChange, menuItems}) {
     const classes = useStyles();
     return (
         <>
-          <FormControl className={classes.formTipo}>
-              <InputLabel>Tipo</InputLabel>
+          <FormControl className={classes.formType}>
+              <InputLabel>Type</InputLabel>
               <Select
-              name='tipo'
+              name='type'
               open={open}
               onClose={handleClose}
               onOpen={handleOpenList}
-              value={tipo}
+              value={type}
               onChange={handleChange}
               >
                 {
@@ -59,4 +59,4 @@ function SelectTipo({open, handleClose, handleOpenList, tipo, handleChange, menu
     )
 }
 
-export default SelectTipo
+export default SelectType;

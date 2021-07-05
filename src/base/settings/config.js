@@ -30,7 +30,11 @@ export const endP = ({ courseId, userId, pubId, commentId}) => {
     getComments: `/comment/publication/${pubId}`,
     getAnswers:`/comment/sub/${commentId}`,
     postComment: `/publication/${pubId}/comment`,
-    postAnswer: `/comment/${commentId}`
+    postAnswer: `/comment/${commentId}`,
+    postAnnounce: `/publication/exam/${courseId}`,
+    postMaterial: `/publication/material/${courseId}`,
+    postTask:`/publication/assignment/${courseId}`,
+    postExam:`/publication/exam/${courseId}`
   };
 };
 

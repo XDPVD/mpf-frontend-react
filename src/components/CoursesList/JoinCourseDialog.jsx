@@ -29,7 +29,7 @@ function JoinCourseDialog({ open, setOpen, setOpenSB }) {
     event.preventDefault();
 
     setOpen(false);
-    await postData(`/course/${code}`, {}, headers);
+    await postData(`/course/${code}/enroll_me`, {}, headers);
     setOpenSB(true);
   }
 

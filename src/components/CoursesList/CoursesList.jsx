@@ -44,8 +44,8 @@ export default function CoursesList() {
 
   function showCoursesEnrolled() {
     const inscriptions = user.inscriptions.map((x) => x.course);
-    console.log(inscriptions);
-    console.log(checkNull(inscriptions));
+    
+    
     if (!checkNull(inscriptions)) {
       return inscriptions.map((inscription) => (
         <Grid item xs={12} sm={12} md={6} lg={4} key={inscription.id}>

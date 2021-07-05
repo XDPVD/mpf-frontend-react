@@ -22,6 +22,8 @@ function LateralBar() {
   const [url, redirectTo] = useRedirectUrl();
   const [cookies, setCookie, removeCookie] = useCookies(['name','userToken']);
   
+  const history = useHistory()
+
   const [cookiesUser,isCreator] = useUserInfo();
   // Array of Buttons { IconComponent, url }
   const topButtons = [
@@ -44,11 +46,10 @@ function LateralBar() {
     url: config.urls.config,
   };
 
-  const history = useHistory();
-
   const closeSession=()=>{
     removeCookie("name");
     removeCookie("userToken");
+    history.push('/login');
   }
   
   return (

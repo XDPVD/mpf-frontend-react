@@ -20,14 +20,7 @@ function useUserInfo(props) {
         Authorization:`Bearer ${userToken.userToken}`
     };
 
-    useEffect(() => {
-        console.log('Cookies: ',cookies);
-        console.log('userToken: ',headers);
-    }, []);
-
-    //console.log(userToken.userToken);
-
-    return [cookies,headers , isCreator];
+    return [cookies, headers, isCreator];
 }
 
 export default useUserInfo;

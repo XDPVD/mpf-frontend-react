@@ -5,7 +5,7 @@ import { Button } from "@material-ui/core";
 import { Icon } from "@material-ui/core";
 import FileCard from "./FileCard";
 import {useCollection} from "react-firebase-hooks/firestore";
-
+import Comments from "./Comments";
 import { app, db } from "@settings/base";
 
 const useStyles = makeStyles((theme) => ({
@@ -84,7 +84,7 @@ function ViewResourceDialog(props) {
   }, [])
 
   return (
-    <div align='center' className={classes.ventana}>
+    <div className={classes.ventana}>
       <div className={classes.prin}>
         <label className={classes.tile}>{props.post.title}</label>
         <Button
@@ -114,13 +114,9 @@ function ViewResourceDialog(props) {
           return (<FileCard file={file}/>)
         })
       }
+      <hr />
+      <Comments post={props.post}/>
 
-      <hr />
-      <div align='left' style={{ "font-weight": "bold" }}>
-        Comentarios
-      </div>
-      <hr />
-      <div>No hay comentarios</div>
     </div>
   );
 }

@@ -34,8 +34,10 @@ function App() {
   const [cargar, setCargar] = useState(false);
 
   useEffect(() => {
+    console.log(cookies.name);
+  });
 
-  }, [usuario, history, cookies]);
+  
 
   return (
     <div className='App'>

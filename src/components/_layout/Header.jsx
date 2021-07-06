@@ -8,12 +8,11 @@ import {
 } from "@styles/Styles";
 
 import logo from "@assets/logo.svg";
-import icon from "@assets/profile.jpg";
 
 import useUserInfo from "@utils/useUserInfo";
 
 function Header() {
-  const [cookiesUser, isCreator] = useUserInfo();
+  const [cookiesUser] = useUserInfo();
   return (
     <Container>
       <Logo src={logo} />

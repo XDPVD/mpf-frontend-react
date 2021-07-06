@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-function UsersList({ courseId, users }) {
+function UsersList({ users }) {
   const classes = useStyles();
 
   return (

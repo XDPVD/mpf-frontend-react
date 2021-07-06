@@ -1,15 +1,10 @@
-import React,{useState, useEffect} from "react";
-import { Card, CardContent, Typography, CardMedia, CircularProgress } from "@material-ui/core";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
-import { Icon } from "@material-ui/core";
-import FileCard from "./FileCard";
-import {useCollection} from "react-firebase-hooks/firestore";
 
-import { app, db } from "@settings/base";
 import FileTray from "@components/FileTray";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   card: {
     display: "flex",
     justifyContent: "space-between",
@@ -17,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
   btn: {
     marginLeft: "auto",
-    fontSize: '20px',
+    fontSize: "20px",
   },
   prin: {
     display: "flex",
@@ -57,23 +52,19 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "scroll",
     "z-index": "30",
   },
-}));
+});
 
 function ViewResourceDialog(props) {
   const classes = useStyles();
 
-  const [currentFiles, setCurrentFiles] = useState(null);
-
   const assignment_id = "A-2W3R2";
-
-  useEffect(() => {
-
-  }, [])
 
   return (
     <div align='center' className={classes.ventana}>
       <div className={classes.prin}>
-        <label className={classes.tile}>{props.post.id_publicacion} - Documentos entregados</label>
+        <label className={classes.tile}>
+          {props.post.id_publicacion} - Documentos entregados
+        </label>
         <Button
           className={classes.btn}
           size='large'
@@ -84,7 +75,11 @@ function ViewResourceDialog(props) {
           x
         </Button>
       </div>
-      <FileTray target_id={assignment_id} mode={'a'} blockAllActions={props.maxDate < new Date()}/>
+      <FileTray
+        target_id={assignment_id}
+        mode={"a"}
+        blockAllActions={props.maxDate < new Date()}
+      />
     </div>
   );
 }

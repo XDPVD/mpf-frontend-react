@@ -9,16 +9,15 @@ import {
 } from "@utils/fetchData";
 
 import { makeStyles } from "@material-ui/styles";
-import { CircularProgress } from "@material-ui/core";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 import Loading from "@common/Loading";
 import NotFound from "@common/NotFound";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   wrapper: {
     overflowY: "hidden",
   },
-}));
+});
 
 const ResourcesList = (props) => {
   const classes = useStyles();

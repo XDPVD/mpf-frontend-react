@@ -1,14 +1,12 @@
-import React,{useState, useEffect} from "react";
-import { Card, CardContent, Typography, CardMedia, CircularProgress } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import { CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
-import { Icon } from "@material-ui/core";
 import FileCard from "./FileCard";
-import {useCollection} from "react-firebase-hooks/firestore";
 import Comments from "./Comments";
-import { app, db } from "@settings/base";
+import { db } from "@settings/base";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   card: {
     display: "flex",
     justifyContent: "space-between",
@@ -16,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
   btn: {
     marginLeft: "auto",
-    fontSize: '20px',
+    fontSize: "20px",
   },
   prin: {
     display: "flex",
@@ -56,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "scroll",
     "z-index": "30",
   },
-}));
+});
 
 function ViewResourceDialog(props) {
   const classes = useStyles();
@@ -64,24 +62,25 @@ function ViewResourceDialog(props) {
   const [currentFiles, setCurrentFiles] = useState(null);
 
   useEffect(() => {
-
-    if(props.post.type !== 1 ){
-      db.collection('posts')?.doc(props.post.id.toString())?.collection("files")?.get().then((snap) => {
-        
-        let files = [];
-        snap.forEach((doc) => {
-          let newFile = {
-            name: doc.data().name,
-            downloadUrl: doc.data().downloadUrl,
-          };
-          files.push(newFile);
+    if (props.post.type !== 1) {
+      db.collection("posts")
+        ?.doc(props.post.id.toString())
+        ?.collection("files")
+        ?.get()
+        .then((snap) => {
+          let files = [];
+          snap.forEach((doc) => {
+            let newFile = {
+              name: doc.data().name,
+              downloadUrl: doc.data().downloadUrl,
+            };
+            files.push(newFile);
+          });
+          setCurrentFiles(files);
         });
-        setCurrentFiles(files);
-
-      });
     }
     console.log(props.post);
-  }, [])
+  }, []);
 
   return (
     <div className={classes.ventana}>
@@ -99,24 +98,24 @@ function ViewResourceDialog(props) {
       </div>
 
       <hr />
-      <p align='left'>
-        {props.post.description}
-      </p>
+      <p align='left'>{props.post.description}</p>
       <hr />
 
-      {props.post.type === 1? <></> :
-        !currentFiles? <CircularProgress /> : 
-          currentFiles.length > 0?  <></>: 
-            <p>No hay archivos</p> }
+      {props.post.type === 1 ? (
+        <></>
+      ) : !currentFiles ? (
+        <CircularProgress />
+      ) : currentFiles.length > 0 ? (
+        <></>
+      ) : (
+        <p>No hay archivos</p>
+      )}
 
-      {
-        currentFiles?.map( (file) => {
-          return (<FileCard file={file}/>)
-        })
-      }
+      {currentFiles?.map((file) => {
+        return <FileCard file={file} />;
+      })}
       <hr />
-      <Comments post={props.post}/>
-
+      <Comments post={props.post} />
     </div>
   );
 }

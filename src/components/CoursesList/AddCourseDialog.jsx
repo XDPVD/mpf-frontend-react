@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
-// import Typography from "@material-ui/core/Typography";
 
 // Icons
 import CloseIcon from "@material-ui/icons/Close";
@@ -50,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddCourseDialog({ open, setOpen, setOpenSB }, props) {
+export default function AddCourseDialog({ open, setOpen, setOpenSB }) {
   const classes = useStyles();
 
   const [curso, setCurso] = useState({ name: "", description: "" });

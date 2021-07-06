@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import FormDialog from "@common/FormDialog";
 import TextField from "@material-ui/core/TextField";
@@ -7,12 +6,12 @@ import { postData } from "@utils/postData";
 import useUserInfo from "@utils/useUserInfo";
 import Button from "@material-ui/core/Button";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   btn: {
     float: "right",
     padding: [[8, 30]],
   },
-}));
+});
 
 function JoinCourseDialog({ open, setOpen, setOpenSB }) {
   var code = "";

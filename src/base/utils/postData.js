@@ -1,6 +1,5 @@
-import axios from "@settings/axios";
 import instance from "@settings/axios";
-import { dateStringToObj, dateObjToString } from "@utils/convertDate";
+import { dateObjToString } from "@utils/convertDate";
 
 export async function postData(url, data, headers) {
   console.log(url, data, headers);
@@ -10,8 +9,8 @@ export async function postData(url, data, headers) {
     headers: headers,
     data: data,
   });
-  
-  console.log(url, " result POST -> ",result);
+
+  console.log(url, " result POST -> ", result);
   return result.data;
 }
 

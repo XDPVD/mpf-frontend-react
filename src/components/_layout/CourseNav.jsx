@@ -11,7 +11,6 @@ import AddResourceDialog from "@components/CourseResources/AddResourceDialog";
 import { useEffect } from "react";
 import { fetchData } from "@utils/fetchData";
 import useUserInfo from "@utils/useUserInfo";
-import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   tab: {

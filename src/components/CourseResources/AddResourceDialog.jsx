@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -119,10 +119,6 @@ function AddResourceDialog(props) {
     props.setOpenAdd(false);
     window.location.reload();
   };
-
-  useEffect(() => {
-    //console.log(recurso);
-  });
 
   const menuItems = [
     {

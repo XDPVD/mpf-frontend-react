@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Grid, IconButton } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
 import { dateStringToObj } from "@utils/convertDate";
@@ -12,35 +12,35 @@ const useStyles = makeStyles({
   answerCard: {
     marginLeft: "25px",
     marginBottom: "15px",
-    background: 'whitesmoke',
+    background: "whitesmoke",
   },
-  username:{
+  username: {
     fontSize: "0.75em",
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
-  dateTime:{
+  dateTime: {
     fontSize: "0.80em",
-    fontStyle: 'italic',
+    fontStyle: "italic",
   },
   userComment: {
-    padding: "10px"
+    padding: "10px",
   },
   userIcon: {
     width: "40px",
     height: "40px",
-    objectFit: "contain"
+    objectFit: "contain",
   },
   contAct: {
-    padding: "10px"
+    padding: "10px",
   },
   content: {
     marginBottom: "5px",
-    textAlign: 'left',
+    textAlign: "left",
   },
   actions: {},
   thumbButton: {
-    margin: "0px 5px"
-  }
+    margin: "0px 5px",
+  },
 });
 
 function CommentCard(props) {
@@ -58,12 +58,12 @@ function CommentCard(props) {
           container
           item
           xs={1}
-          justify="center"
+          justify='center'
         >
           <img
             className={classes.userIcon}
-            src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fpluspng.com%2Fimg-png%2Fpng-user-icon-circled-user-icon-2240.png&f=1&nofb=1"
-            alt="userIcon"
+            src='https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fpluspng.com%2Fimg-png%2Fpng-user-icon-circled-user-icon-2240.png&f=1&nofb=1'
+            alt='userIcon'
           />
         </Grid>
         <Grid className={classes.contAct} container item xs={11}>
@@ -71,21 +71,23 @@ function CommentCard(props) {
             {props.comment.user.name}
           </Grid>
           <Grid className={classes.dateTime} item xs={12}>
-            {dateStringToObj(props.comment.date,props.comment.time).toLocaleString()}
+            {dateStringToObj(
+              props.comment.date,
+              props.comment.time
+            ).toLocaleString()}
           </Grid>
           <Grid className={classes.content} item xs={12}>
             {props.comment.content}
           </Grid>
           {!props.isAnswer ? (
-          <Grid className={classes.actions} container item xs={12}>
-
+            <Grid className={classes.actions} container item xs={12}>
               <Button disabled={props.isReplyMode} onClick={props.onReplyMode}>
                 Responder
               </Button>
-          </Grid>
-            ) : (
-              <></>
-            )}
+            </Grid>
+          ) : (
+            <></>
+          )}
         </Grid>
       </Grid>
     </>
@@ -93,7 +95,7 @@ function CommentCard(props) {
 }
 
 CommentCard.defaultProps = {
-  isAnswer: false
+  isAnswer: false,
 };
 
 export default CommentCard;

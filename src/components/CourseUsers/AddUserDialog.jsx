@@ -14,7 +14,6 @@ import useUserInfo from "src/base/utils/useUserInfo";
 import { useState } from "react";
 import { endP } from "src/base/settings/config";
 import { postData } from "src/base/utils/postData";
-import { generateToken } from "src/base/utils/generateToken";
 import { fetchData } from "@utils/fetchData";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
@@ -79,7 +78,6 @@ export default function AddUserDialog({ open, setOpen }) {
   async function handleClick() {
     setIsFetching(true);
     await fetchData(`/course/${id}/new_code`, setCode);
-    // setCode(generateToken(numElements));
   }
 
   const handleMailChange = (event) => {

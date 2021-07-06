@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function HomePage(props) {
+function HomePage() {
   return (
     <div>
       Home Page -<Link to='/login'>Login</Link> -

@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
     minWidth: 275,
   },
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     textDecoration: "none",
   },
-}));
+});
 
 export default function CourseCard({ elem }) {
   const classes = useStyles();

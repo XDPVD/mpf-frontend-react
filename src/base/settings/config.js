@@ -16,26 +16,26 @@ export const courseUrls = {
   personas: "/personas",
 };
 
-export const endP = ({ courseId, userId, pubId, commentId}) => {
-  console.log("endP commentId ",{courseId, userId, pubId, commentId});
+export const endP = ({ courseId, userId, pubId, commentId, email, code }) => {
+  console.log("endP commentId ", { courseId, userId, pubId, commentId });
   return {
     getCourses: "/course",
     createCourse: "/course",
-    enrollCourseByMail: `/course/${courseId}`,
+    enrollCourseByMail: `/course/${courseId}/enroll/by_email/${email}`,
+    enrollMeByCode: `/course/${code}/enroll_me`,
+    delegateUser: `/course/${courseId}/delegate/${userId}`,
     getInscriptions: `/course/${courseId}/inscriptions`,
     getCourse: `/course/${courseId}`,
     getUsers: "/user",
     createUser: "/user",
     getUser: `/user/${userId}`,
     getComments: `/comment/publication/${pubId}`,
-    getAnswers:`/comment/sub/${commentId}`,
+    getAnswers: `/comment/sub/${commentId}`,
     postComment: `/publication/${pubId}/comment`,
     postAnswer: `/comment/${commentId}`,
     postAnnounce: `/publication/exam/${courseId}`,
     postMaterial: `/publication/material/${courseId}`,
-    postTask:`/publication/assignment/${courseId}`,
-    postExam:`/publication/exam/${courseId}`
+    postTask: `/publication/assignment/${courseId}`,
+    postExam: `/publication/exam/${courseId}`,
   };
 };
-
-

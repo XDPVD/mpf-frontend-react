@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { postData } from "@utils/postData";
 import useUserInfo from "@utils/useUserInfo";
 import Button from "@material-ui/core/Button";
+import { endP } from "@settings/config";
 
 const useStyles = makeStyles({
   btn: {
@@ -28,7 +29,7 @@ function JoinCourseDialog({ open, setOpen, setOpenSB }) {
     event.preventDefault();
 
     setOpen(false);
-    await postData(`/course/${code}/enroll_me`, {}, headers);
+    await postData(endP({ code: code }).enrollMeByCode, {}, headers);
     setOpenSB(true);
   }
 

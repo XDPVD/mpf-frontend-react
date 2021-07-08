@@ -10,10 +10,10 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core";
 import { useParams } from "react-router-dom";
-import useUserInfo from "src/base/utils/useUserInfo";
+import useUserInfo from "@utils/useUserInfo";
 import { useState } from "react";
-import { endP } from "src/base/settings/config";
-import { postData } from "src/base/utils/postData";
+import { endP } from "@settings/config";
+import { postData } from "@utils/postData";
 import { fetchData } from "@utils/fetchData";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
@@ -88,7 +88,11 @@ export default function AddUserDialog({ open, setOpen }) {
   async function addMail(event) {
     event.preventDefault();
 
-    await postData(endP({ courseId: id }).enrollCourseByMail, mail, headers);
+    await postData(
+      endP({ courseId: id, email: mail.email }).enrollCourseByMail,
+      {},
+      headers
+    );
   }
 
   const classes = useStyles();

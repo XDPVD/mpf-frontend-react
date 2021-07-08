@@ -63,12 +63,13 @@ function CourseUsers({ courseId }) {
   };
 
   function mostrarUsuarios(tipo) {
-    users = course.inscriptions.map((user) => user.user);
+    users = course.inscriptions.map(
+              (inscription) => inscription.user
+            );
     const teacher = new Array(course.creator);
     const delegate = new Array(course.delegate);
     let lista;
 
-    console.log("users");
     if (tipo === "Profesor") {
       lista = <UsersList courseId={courseId} users={teacher} />;
     } else if (tipo === "Delegados") {

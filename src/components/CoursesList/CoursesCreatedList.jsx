@@ -21,7 +21,7 @@ function CoursesCreatedList({ created }) {
     <List>
       {!checkNull(created) &&
         created.map((curso) => (
-          <Link className={classes.link} to={`/cursos/${curso.id}/dash`}>
+          <Link key={curso.id} className={classes.link} to={`/cursos/${curso.id}/dash`}>
             <ListItem
               style={{
                 padding: "10px 8px",

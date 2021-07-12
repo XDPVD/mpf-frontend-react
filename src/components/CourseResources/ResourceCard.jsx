@@ -44,10 +44,6 @@ const useStyles = makeStyles((theme) => ({
     margin: "0px",
     marginLeft: "10px",
   },
-  cardContent: {
-    display: "flex",
-    alignContent: "center",
-  },
   content: {
     display: "flex",
     flexDirection: "column",
@@ -92,7 +88,7 @@ function ResourceCard(props) {
       <div className={classes.content}>
         <div className={classes.desc}>
           {iconsSwitch[props.kind]}
-          <div component='div' classNam={classes.cardContent}>
+          <div component='div'>
             <Typography className={classes.title}>
               {props.post.title}
             </Typography>

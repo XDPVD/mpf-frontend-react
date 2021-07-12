@@ -49,13 +49,13 @@ function Course() {
       {kinds.map((elem) => {
         if (elem.customComponent)
           return (
-            <Route exact path={elem.path}>
+            <Route key={elem.path} exact path={elem.path}>
               {elem.customComponent}
             </Route>
           );
 
         return (
-          <Route exact path={elem.path}>
+          <Route key={elem.kind} exact path={elem.path}>
             <CourseResources kind={elem.kind} />
           </Route>
         );

@@ -74,7 +74,7 @@ function CourseNav({ courseId }) {
       </Typography>
       <Tabs value={selectedTab} onChange={handleChange}>
         {nav.map((item) => (
-          <Tab disableRipple label={item} className={classes.tab} />
+          <Tab key={item} disableRipple label={item} className={classes.tab} />
         ))}
         <Button
           hidden={hiddenButton}
@@ -82,7 +82,7 @@ function CourseNav({ courseId }) {
           onClick={handleClickOpenAddMaterial}
           variant='contained'
         >
-          <span style={{ "font-size": "20px", marginRight: "5px" }}>+</span>{" "}
+          <span style={{ "fontSize": "20px", marginRight: "5px" }}>+</span>{" "}
           Nuevo Recurso
         </Button>
       </Tabs>

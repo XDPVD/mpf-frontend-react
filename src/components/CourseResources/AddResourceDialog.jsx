@@ -198,6 +198,7 @@ function AddResourceDialog(props) {
               {textFields.map((elem) => {
                 return (
                   <TextField
+                    key={elem.titulo}
                     name={elem.name}
                     className={classes.tituloForm}
                     fullWidth={true}

@@ -79,7 +79,6 @@ export default function AddUserDialog({ open, setOpen }) {
   async function handleClick() {
     setIsFetching(true);
     await fetchData(`/course/${id}/new_code`, setCode);
-    // setCode(generateToken(numElements));
   }
 
   const handleMailChange = (event) => {
@@ -90,7 +89,7 @@ export default function AddUserDialog({ open, setOpen }) {
   async function addMail(event) {
     event.preventDefault();
 
-    await postData(endP({ courseId: id }).enrollCourseByMail, mail, headers);
+    await postData(endP({ courseId: id, email: mail.email }).enrollCourseByMail, {}, headers);
   }
 
   const classes = useStyles();

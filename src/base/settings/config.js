@@ -16,12 +16,12 @@ export const courseUrls = {
   personas: "/personas",
 };
 
-export const endP = ({ courseId, userId, pubId, commentId}) => {
-  console.log("endP commentId ",{courseId, userId, pubId, commentId});
+export const endP = ({ courseId, userId, pubId, commentId, email}) => {
+  console.log("endP commentId ",{courseId, userId, pubId, commentId, email});
   return {
     getCourses: "/course",
     createCourse: "/course",
-    enrollCourseByMail: `/course/${courseId}`,
+    enrollCourseByMail: `/course/${courseId}/enroll/by_email/${email}`,
     getInscriptions: `/course/${courseId}/inscriptions`,
     getCourse: `/course/${courseId}`,
     getUsers: "/user",

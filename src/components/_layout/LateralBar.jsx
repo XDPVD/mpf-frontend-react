@@ -32,10 +32,6 @@ function LateralBar() {
       url: config.urls.cursos,
     },
     {
-      component: <EventIcon />,
-      url: config.urls.calendario,
-    },
-    {
       component: <GroupIcon />,
       url: config.urls.grupos,
     },
@@ -60,10 +56,11 @@ function LateralBar() {
 
       {/* Display buttons */}
       <OptionsContainer>
-        {topButtons.map((e) => {
+        {topButtons.map((e,index) => {
           return (
             <>
               <Option
+                key={index}
                 disabled={url === e.url}
                 onClick={() => redirectTo(e.url)}
               >

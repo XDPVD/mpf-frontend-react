@@ -62,7 +62,7 @@ const ResourcesList = (props) => {
         <Loading />
       ) : (
         posts?.map((elem) => {
-          return <ResourceCard kind={props.kind} post={elem} />;
+          return <ResourceCard key={elem.id} kind={props.kind} post={elem} />;
         })
       )}
       {!loading && posts.length === 0 ? (

@@ -1,14 +1,7 @@
 import React, { useState } from "react";
-
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
-import { makeStyles } from "@material-ui/core/styles";
+import { useStyles } from "./_styles";
 
 import FileTray from "@components/FileTray";
 
@@ -20,37 +13,7 @@ import GroupField from "@components/CourseResources/GroupField";
 import PostButton from "./PostButton";
 import SelectOption from "./SelectOption";
 import useUserInfo from "@utils/useUserInfo";
-
-const useStyles = makeStyles((theme) => ({
-  btn: {
-    margin: "5px",
-  },
-  formNota: {
-    marginTop: "10px",
-    minWidth: 50,
-  },
-  horaEntrega: {
-    marginTop: "10px",
-    marginLeft: "10px",
-  },
-  formTipo: {
-    minWidth: 120,
-  },
-  guardarButton: {
-    marginTop: "10px",
-  },
-  grupal: {
-    marginTop: "20px",
-  },
-  tituloForm: {
-    marginTop: "20px",
-  },
-  closeIcon: {
-    position: "absolute",
-    right: 5,
-    top: 8,
-  },
-}));
+import FormDialog from "@common/FormDialog";
 
 function AddResourceDialog(props) {
   const classes = useStyles();
@@ -155,111 +118,94 @@ function AddResourceDialog(props) {
   ];
 
   return (
-    <Dialog
-      onClose={() => {
-        props.setOpenAdd(false);
-      }}
+    <FormDialog
+      setOpen={props.setOpenAdd}
       open={props.openAdd}
-      aria-labelledby='form-dialog-title'
-      fullWidth
-      maxWidth='md'
+      size='md'
+      title='Nuevo Recurso'
     >
-      <DialogTitle>
-        <Typography variant='h3'>Nuevo Recurso</Typography>
-        <IconButton
-          className={classes.closeIcon}
-          aria-label='close'
-          onClick={() => {
-            props.setOpenAdd(false);
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-      </DialogTitle>
-      <DialogContent>
-        <form noValidate>
-          <div>
-            <SelectTipo
-              open={open}
-              handleClose={handleClose}
-              handleOpenList={handleOpenList}
-              tipo={tipo}
-              handleChange={handleChange}
-              menuItems={menuItems}
-            />
-          </div>
-          <br />
-          <div>
-            <form noValidate autoComplete='off'>
-              {textFields.map((elem) => {
-                return (
-                  <TextField
-                    name={elem.name}
-                    className={classes.tituloForm}
-                    fullWidth={true}
-                    id='standard-basic'
-                    label={elem.label}
-                    multiline={elem.rows > 1 ? true : false}
-                    rows={elem.rows}
-                    placeholder={elem.placeholder}
-                    onChange={handleTextInputChange}
-                  />
-                );
-              })}
-            </form>
-          </div>
-
-          <div>
-            {(tipo === "T" || tipo === "E") && (
-              <>
-                <SelectOption
-                  valueSelected={nota.nota}
-                  handleOnChange={handleChangeNota}
-                />
-
+      <form noValidate>
+        <div>
+          <SelectTipo
+            open={open}
+            handleClose={handleClose}
+            handleOpenList={handleOpenList}
+            tipo={tipo}
+            handleChange={handleChange}
+            menuItems={menuItems}
+          />
+        </div>
+        <br />
+        <div>
+          <form noValidate autoComplete='off'>
+            {textFields.map((elem) => {
+              return (
                 <TextField
-                  name='fechaEntrega'
-                  id='datetime-local'
-                  label='Fecha de entrega'
-                  type='datetime-local'
-                  format='yyyy-MM-ddThh:mm'
-                  defaultValue={new Date().toString()}
-                  className={classes.horaEntrega}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  onChange={handleDateChange}
+                  name={elem.name}
+                  className={classes.tituloForm}
+                  fullWidth={true}
+                  id='standard-basic'
+                  label={elem.label}
+                  multiline={elem.rows > 1 ? true : false}
+                  rows={elem.rows}
+                  placeholder={elem.placeholder}
+                  onChange={handleTextInputChange}
                 />
-              </>
-            )}
+              );
+            })}
+          </form>
+        </div>
 
-            {tipo === "T" && (
-              <GroupField
-                handleChangeGrupal={handleChangeGrupal}
-                grupal={grupal}
-              />
-            )}
-          </div>
-
-          {tipo !== "A" ? (
+        <div>
+          {(tipo === "T" || tipo === "E") && (
             <>
-              <div style={{ marginTop: "20px", maxHeight: "400px" }}>
-                <FileTray
-                  modeCreate={true}
-                  mode={"p"}
-                  createIdFunction={async () => await postPub(recurso, headers)}
-                  closeFunction={() => {
-                    props.setOpenAdd(false);
-                  }}
-                />
-              </div>
+              <SelectOption
+                valueSelected={nota.nota}
+                handleOnChange={handleChangeNota}
+              />
+
+              <TextField
+                name='fechaEntrega'
+                id='datetime-local'
+                label='Fecha de entrega'
+                type='datetime-local'
+                format='yyyy-MM-ddThh:mm'
+                defaultValue={new Date().toString()}
+                className={classes.horaEntrega}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={handleDateChange}
+              />
             </>
-          ) : (
-            <PostButton onClick={simpleSubmit} />
           )}
-        </form>
-      </DialogContent>
-    </Dialog>
+
+          {tipo === "T" && (
+            <GroupField
+              handleChangeGrupal={handleChangeGrupal}
+              grupal={grupal}
+            />
+          )}
+        </div>
+
+        {tipo !== "A" ? (
+          <>
+            <div style={{ marginTop: "20px", maxHeight: "400px" }}>
+              <FileTray
+                modeCreate={true}
+                mode={"p"}
+                createIdFunction={async () => await postPub(recurso, headers)}
+                closeFunction={() => {
+                  props.setOpenAdd(false);
+                }}
+              />
+            </div>
+          </>
+        ) : (
+          <PostButton onClick={simpleSubmit} />
+        )}
+      </form>
+    </FormDialog>
   );
 }
 

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 
 import CourseCard from "./CourseCard";
 import Grid from "@material-ui/core/Grid";
@@ -15,16 +14,8 @@ import Divider from "@material-ui/core/Divider";
 import useUserInfo from "@utils/useUserInfo";
 import NotFound from "@common/NotFound";
 
-const useStyles = makeStyles({
-  root: {
-    background: "#fff",
-    "overflow-y": "auto",
-  },
-});
-
 export default function CoursesList() {
   const [cookiesUser] = useUserInfo();
-  const classes = useStyles();
   const [user, setUser] = useState();
   const [isFetching, setIsFetching] = useState(true);
 
@@ -73,9 +64,7 @@ export default function CoursesList() {
               Cursos Inscritos
             </Typography>
             <Divider style={{ width: "95%" }} />
-            <Grid className={classes.root} container>
-              {showCoursesEnrolled()}
-            </Grid>
+            <Grid container>{showCoursesEnrolled()}</Grid>
           </Grid>
           <Grid item xs={12} sm={6} md={4} lg={3}>
             <Paper style={{ padding: "10px 20px" }} elevation={1}>

@@ -1,47 +1,8 @@
 import React from "react";
 import { Button, Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
+import { useStyles } from "./_styles";
 
 import { dateStringToObj } from "@utils/convertDate";
-
-const useStyles = makeStyles({
-  commentCard: {
-    borderRadius: "20px",
-    boxShadow: "0 3px 10px rgba(0,0,0,0.25)",
-  },
-  answerCard: {
-    marginLeft: "25px",
-    marginBottom: "15px",
-    background: "whitesmoke",
-  },
-  username: {
-    fontSize: "0.75em",
-    fontWeight: "bold",
-  },
-  dateTime: {
-    fontSize: "0.80em",
-    fontStyle: "italic",
-  },
-  userComment: {
-    padding: "10px",
-  },
-  userIcon: {
-    width: "40px",
-    height: "40px",
-    objectFit: "contain",
-  },
-  contAct: {
-    padding: "10px",
-  },
-  content: {
-    marginBottom: "5px",
-    textAlign: "left",
-  },
-  actions: {},
-  thumbButton: {
-    margin: "0px 5px",
-  },
-});
 
 function CommentCard(props) {
   const classes = useStyles();

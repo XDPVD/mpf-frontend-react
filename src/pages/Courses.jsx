@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-import BtnGroup from "@components/CoursesList/BtnGroup";
 import CoursesList from "@components/CoursesList/CoursesList";
 import AddCourseDialog from "@components/CoursesList/AddCourseDialog";
 import JoinCourseDialog from "@components/CoursesList/JoinCourseDialog";
@@ -10,7 +9,6 @@ import MuiAlert from "@material-ui/lab/Alert";
 
 import Course from "./Course";
 
-import { useRouteMatch } from "react-router-dom";
 import * as config from "@settings/config";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
@@ -23,7 +21,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   wrapper: {
     padding: "15px 10px",
     display: "flex",
@@ -32,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   btn: {
     margin: "0 5px",
   },
-}));
+});
 
 function Courses() {
   const [openAdd, setOpenAdd] = useState(false);
@@ -40,7 +38,6 @@ function Courses() {
   const [openSBCreate, setOpenSBCreate] = useState(false);
   const [openSBJoin, setOpenSBJoin] = useState(false);
 
-  const { path } = useRouteMatch();
   const classes = useStyles();
   const handleClickOpenAdd = () => {
     setOpenAdd(true);

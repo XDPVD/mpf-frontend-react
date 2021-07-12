@@ -3,22 +3,11 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import { makeStyles } from "@material-ui/styles";
+import { useStyles } from "./_styles";
 import { checkNull } from "@utils/checkNull";
 import NotFound from "@common/NotFound";
 
-const useStyles = makeStyles({
-  userText: {
-    "& span": {
-      fontSize: "15px",
-    },
-  },
-  avatar: {
-    minWidth: "50px",
-  },
-});
-
-function UsersList({ courseId, users }) {
+function UsersList({ users }) {
   const classes = useStyles();
 
   return (
@@ -42,7 +31,7 @@ function UsersList({ courseId, users }) {
               <ListItemAvatar className={classes.avatar}>
                 <Avatar
                   alt={user.name}
-                  src='https://images.unsplash.com/photo-1617331008613-9479b434b1e6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'
+                  src='https://happytravel.viajes/wp-content/uploads/2020/04/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'
                 />
               </ListItemAvatar>
               <ListItemText className={classes.userText}>

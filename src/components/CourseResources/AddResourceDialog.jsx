@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from "react";
-
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Typography from "@material-ui/core/Typography";
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
-
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
-import { makeStyles } from "@material-ui/core/styles";
+import { DialogTitle, DialogContent, Typography, IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import { useStyles } from "./_styles";
 
 import FileTray from "@components/FileTray";
 
@@ -20,41 +14,10 @@ import GroupField from "@components/CourseResources/GroupField";
 import PostButton from "./PostButton";
 import SelectOption from "./SelectOption";
 import useUserInfo from "@utils/useUserInfo";
-
-const useStyles = makeStyles((theme) => ({
-  btn: {
-    margin: "5px",
-  },
-  formNota: {
-    marginTop: "10px",
-    minWidth: 50,
-  },
-  horaEntrega: {
-    marginTop: "10px",
-    marginLeft: "10px",
-  },
-  formTipo: {
-    minWidth: 120,
-  },
-  guardarButton: {
-    marginTop: "10px",
-  },
-  grupal: {
-    marginTop: "20px",
-  },
-  tituloForm: {
-    marginTop: "20px",
-  },
-  closeIcon: {
-    position: "absolute",
-    right: 5,
-    top: 8,
-  },
-}));
+import FormDialog from "@common/FormDialog";
 
 function AddResourceDialog(props) {
   const classes = useStyles();
-
   const { courseId } = useParams();
 
   const [grupal, setGrupal] = useState(false);
@@ -120,10 +83,6 @@ function AddResourceDialog(props) {
     window.location.reload();
   };
 
-  useEffect(() => {
-    //console.log(recurso);
-  });
-
   const menuItems = [
     {
       value: "A",
@@ -157,16 +116,12 @@ function AddResourceDialog(props) {
       rows: 4,
     },
   ];
-
   return (
-    <Dialog
-      onClose={() => {
-        props.setOpenAdd(false);
-      }}
+    <FormDialog
+      setOpen={props.setOpenAdd}
       open={props.openAdd}
-      aria-labelledby='form-dialog-title'
-      fullWidth
-      maxWidth='md'
+      size='md'
+      title='Nuevo Recurso'
     >
       <DialogTitle>
         <Typography variant='h3'>Nuevo Recurso</Typography>
@@ -182,39 +137,39 @@ function AddResourceDialog(props) {
       </DialogTitle>
       <DialogContent>
         <form noValidate>
-          <div>
-            <SelectTipo
-              open={open}
-              handleClose={handleClose}
-              handleOpenList={handleOpenList}
-              tipo={tipo}
-              handleChange={handleChange}
-              menuItems={menuItems}
-            />
-          </div>
-          <br />
-          <div>
-            <form noValidate autoComplete='off'>
-              {textFields.map((elem) => {
-                return (
-                  <TextField
-                    key={elem.titulo}
-                    name={elem.name}
-                    className={classes.tituloForm}
-                    fullWidth={true}
-                    id='standard-basic'
-                    label={elem.label}
-                    multiline={elem.rows > 1 ? true : false}
-                    rows={elem.rows}
-                    placeholder={elem.placeholder}
-                    onChange={handleTextInputChange}
-                  />
-                );
-              })}
-            </form>
-          </div>
+            <div>
+              <SelectTipo
+                open={open}
+                handleClose={handleClose}
+                handleOpenList={handleOpenList}
+                tipo={tipo}
+                handleChange={handleChange}
+                menuItems={menuItems}
+              />
+            </div>
+            <br />
+            <div>
+              <form noValidate autoComplete='off'>
+                {textFields.map((elem) => {
+                  return (
+                    <TextField
+                      key={elem.titulo}
+                      name={elem.name}
+                      className={classes.tituloForm}
+                      fullWidth={true}
+                      id='standard-basic'
+                      label={elem.label}
+                      multiline={elem.rows > 1 ? true : false}
+                      rows={elem.rows}
+                      placeholder={elem.placeholder}
+                      onChange={handleTextInputChange}
+                    />
+                  );
+                })}
+              </form>
+            </div>
 
-          <div>
+            <div>
             {(tipo === "T" || tipo === "E") && (
               <>
                 <SelectOption
@@ -237,7 +192,6 @@ function AddResourceDialog(props) {
                 />
               </>
             )}
-
             {tipo === "T" && (
               <GroupField
                 handleChangeGrupal={handleChangeGrupal}
@@ -264,7 +218,10 @@ function AddResourceDialog(props) {
           )}
         </form>
       </DialogContent>
-    </Dialog>
+
+    </FormDialog>
+    
+      
   );
 }
 

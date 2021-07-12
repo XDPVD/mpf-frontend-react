@@ -3,9 +3,8 @@ import EventIcon from "@material-ui/icons/Event";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import GroupIcon from "@material-ui/icons/Group";
 import SettingsIcon from "@material-ui/icons/Settings";
-import React, { useEffect } from "react";
+import React from "react";
 
-import photo from "@assets/profile.jpg";
 import * as config from "@settings/config";
 import {
   LateralBarButton as Option,
@@ -15,16 +14,16 @@ import {
   Separator,
 } from "@styles/Styles";
 import useRedirectUrl from "@utils/useRedirectUrl";
-import { useCookies } from 'react-cookie';
+import { useCookies } from "react-cookie";
 import useUserInfo from "@utils/useUserInfo";
 import { useHistory } from "react-router-dom";
 function LateralBar() {
   const [url, redirectTo] = useRedirectUrl();
-  const [cookies, setCookie, removeCookie] = useCookies(['name','userToken']);
-  
-  const history = useHistory()
+  const [, , removeCookie] = useCookies(["name", "userToken"]);
 
-  const [cookiesUser,isCreator] = useUserInfo();
+  const history = useHistory();
+
+  const [cookiesUser] = useUserInfo();
   // Array of Buttons { IconComponent, url }
   const topButtons = [
     {
@@ -42,12 +41,12 @@ function LateralBar() {
     url: config.urls.config,
   };
 
-  const closeSession=()=>{
+  const closeSession = () => {
     removeCookie("name");
     removeCookie("userToken");
-    history.push('/login');
-  }
-  
+    history.push("/login");
+  };
+
   return (
     <Container>
       <ProfileImage src={cookiesUser.name.imageUrl} />
@@ -79,10 +78,7 @@ function LateralBar() {
           {settingButton.component}
         </Option>
 
-        <Option
-          style={{ color: "red" }}
-          onClick={closeSession}
-        >
+        <Option style={{ color: "red" }} onClick={closeSession}>
           <ExitToAppIcon />
         </Option>
       </OptionsContainer>

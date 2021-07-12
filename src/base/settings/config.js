@@ -22,20 +22,20 @@ export const endP = ({ courseId, userId, pubId, commentId, email}) => {
     getCourses: "/course",
     createCourse: "/course",
     enrollCourseByMail: `/course/${courseId}/enroll/by_email/${email}`,
+    enrollMeByCode: `/course/${code}/enroll_me`,
+    delegateUser: `/course/${courseId}/delegate/${userId}`,
     getInscriptions: `/course/${courseId}/inscriptions`,
     getCourse: `/course/${courseId}`,
     getUsers: "/user",
     createUser: "/user",
     getUser: `/user/${userId}`,
     getComments: `/comment/publication/${pubId}`,
-    getAnswers:`/comment/sub/${commentId}`,
+    getAnswers: `/comment/sub/${commentId}`,
     postComment: `/publication/${pubId}/comment`,
     postAnswer: `/comment/${commentId}`,
     postAnnounce: `/publication/exam/${courseId}`,
     postMaterial: `/publication/material/${courseId}`,
-    postTask:`/publication/assignment/${courseId}`,
-    postExam:`/publication/exam/${courseId}`
+    postTask: `/publication/assignment/${courseId}`,
+    postExam: `/publication/exam/${courseId}`,
   };
 };
-
-

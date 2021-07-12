@@ -8,21 +8,11 @@ import {
   getAllExamen,
 } from "@utils/fetchData";
 
-import { makeStyles } from "@material-ui/styles";
-import { CircularProgress } from "@material-ui/core";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 import Loading from "@common/Loading";
 import NotFound from "@common/NotFound";
 
-const useStyles = makeStyles((theme) => ({
-  wrapper: {
-    overflowY: "hidden",
-  },
-}));
-
 const ResourcesList = (props) => {
-  const classes = useStyles();
-
   const [posts, setPosts] = useState([]);
 
   const [loading, setLoading] = useState(true);
@@ -57,7 +47,7 @@ const ResourcesList = (props) => {
   }, [props.kind, id]);
 
   return (
-    <div className={classes.wrapper}>
+    <div style={{ overflowY: "hidden" }}>
       {loading ? (
         <Loading />
       ) : (

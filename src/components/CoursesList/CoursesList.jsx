@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 
 import CourseCard from "./CourseCard";
 import Grid from "@material-ui/core/Grid";
 
-import { fetchingData, getCoursesByEmail } from "@utils/fetchData";
+import { fetchingData } from "@utils/fetchData";
 import Loading from "@common/Loading";
 
 import { checkNull } from "@utils/checkNull";
@@ -14,22 +13,11 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import useUserInfo from "@utils/useUserInfo";
 import NotFound from "@common/NotFound";
-import { undefined } from "check-types";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    background: "#fff",
-    "overflow-y": "auto",
-  },
-}));
 
 export default function CoursesList() {
   const [cookiesUser] = useUserInfo();
-  const classes = useStyles();
   const [user, setUser] = useState();
   const [isFetching, setIsFetching] = useState(true);
-
-  const [cookies, ,] = useUserInfo();
 
   useEffect(() => {
     fetchingData(
@@ -44,8 +32,7 @@ export default function CoursesList() {
 
   function showCoursesEnrolled() {
     const inscriptions = user.inscriptions.map((x) => x.course);
-    
-    
+
     if (!checkNull(inscriptions)) {
       return inscriptions.map((inscription) => (
         <Grid item xs={12} sm={12} md={6} lg={4} key={inscription.id}>
@@ -77,9 +64,7 @@ export default function CoursesList() {
               Cursos Inscritos
             </Typography>
             <Divider style={{ width: "95%" }} />
-            <Grid className={classes.root} container>
-              {showCoursesEnrolled()}
-            </Grid>
+            <Grid container>{showCoursesEnrolled()}</Grid>
           </Grid>
           <Grid item xs={12} sm={6} md={4} lg={3}>
             <Paper style={{ padding: "10px 20px" }} elevation={1}>

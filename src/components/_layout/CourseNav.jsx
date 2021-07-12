@@ -2,7 +2,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { useStyles } from "./_styles";
 import Button from "@material-ui/core/Button";
 
 import useRedirectUrl from "@utils/useRedirectUrl";
@@ -11,27 +11,6 @@ import AddResourceDialog from "@components/CourseResources/AddResourceDialog";
 import { useEffect } from "react";
 import { fetchData } from "@utils/fetchData";
 import useUserInfo from "@utils/useUserInfo";
-import { useParams } from "react-router-dom";
-
-const useStyles = makeStyles((theme) => ({
-  tab: {
-    textTransform: "none",
-    minWidth: "80px",
-    margin: "0px 5px",
-  },
-  courseTitle: {
-    marginLeft: "10px",
-    padding: [[15, 0, 5, 0]],
-  },
-  buttonAddMaterial: {
-    padding: [[5, 20]],
-    height: "36px",
-    position: "absolute",
-    right: "50px",
-    top: "0px",
-    backgroundColor: "rgba(144, 224, 94, 1)",
-  },
-}));
 
 function CourseNav({ courseId }) {
   const classes = useStyles();
@@ -48,9 +27,8 @@ function CourseNav({ courseId }) {
 
   const [hiddenButton, setHiddenButton] = useState(false);
 
-
   useEffect(() => {
-    fetchData(endP(courseId).getCourse, setCourse);
+    fetchData(endP({ courseId }).getCourse, setCourse);
   }, [courseId]);
 
   const handleClickOpenAddMaterial = () => {
@@ -62,10 +40,9 @@ function CourseNav({ courseId }) {
     setSelectedTab(newValue);
   };
 
-
   useEffect(() => {
-    isCreator(courseId).then((res)=> setHiddenButton(!res));
-  },[isCreator, courseId])
+    isCreator(courseId).then((res) => setHiddenButton(!res));
+  }, [isCreator, courseId]);
 
   return (
     <>

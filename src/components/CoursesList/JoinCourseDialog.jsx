@@ -1,18 +1,11 @@
-import { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { useStyles } from "./_styles";
 import FormDialog from "@common/FormDialog";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { postData } from "@utils/postData";
 import useUserInfo from "@utils/useUserInfo";
 import Button from "@material-ui/core/Button";
-
-const useStyles = makeStyles((theme) => ({
-  btn: {
-    float: "right",
-    padding: [[8, 30]],
-  },
-}));
+import { endP } from "@settings/config";
 
 function JoinCourseDialog({ open, setOpen, setOpenSB }) {
   var code = "";
@@ -29,7 +22,7 @@ function JoinCourseDialog({ open, setOpen, setOpenSB }) {
     event.preventDefault();
 
     setOpen(false);
-    await postData(`/course/${code}`, {}, headers);
+    await postData(endP({ code: code }).enrollMeByCode, {}, headers);
     setOpenSB(true);
   }
 
@@ -62,7 +55,7 @@ function JoinCourseDialog({ open, setOpen, setOpenSB }) {
             type='submit'
             variant='contained'
             size='small'
-            className={classes.btn}
+            className={classes.btnCreate}
             color='primary'
           >
             Unirse

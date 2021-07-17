@@ -33,14 +33,14 @@ function CourseUsers({ courseId }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [course, setCourse] = useState({});
+  const [groups, setGroups] = useState({});
   const [isFetching, setIsFetching] = useState(true);
-
   const [,,isCreator] = useUserInfo();
   const [hiddenButton, setHiddenButton] = useState(false);
+
   useEffect(() => {
     isCreator(courseId).then((res)=> setHiddenButton(!res));
   },[isCreator, courseId])
-
 
   let users;
 
@@ -107,6 +107,7 @@ function CourseUsers({ courseId }) {
                   >
                     Añadir
                   </Button>
+                  
                 )}
               </div>
 

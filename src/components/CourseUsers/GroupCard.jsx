@@ -44,6 +44,13 @@ function GroupCard({ users }) {
           >
             Unirme
           </Button>
+          <Button
+            backgroundColor='#000000'
+            variant='contained'
+            color='secondary'
+          >
+            Bloquear grupo
+          </Button>
         </CardActions>
       </Card>
     </>

@@ -135,12 +135,7 @@ function CourseUsers({ courseId }) {
             <Typography variant='h4'>Grupos</Typography>
           </div>
           <Grid container>
-            <Grid item xs={12} md={6}>
-              {isFetching ? <Loading /> : <GroupCard users={users} />}
-            </Grid>
-            <Grid item xs={12} md={6}>
-              {isFetching ? <Loading /> : <GroupCard users={users} />}
-            </Grid>
+            {/* TODO: Iterar lista de grupos que e HAY */}
           </Grid>
         </Grid>
       </Grid>

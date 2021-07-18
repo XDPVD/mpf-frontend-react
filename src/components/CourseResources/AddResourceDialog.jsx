@@ -123,18 +123,6 @@ function AddResourceDialog(props) {
       size='md'
       title='Nuevo Recurso'
     >
-      <DialogTitle>
-        <Typography variant='h3'>Nuevo Recurso</Typography>
-        <IconButton
-          className={classes.closeIcon}
-          aria-label='close'
-          onClick={() => {
-            props.setOpenAdd(false);
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-      </DialogTitle>
       <DialogContent>
         <form noValidate>
             <div>

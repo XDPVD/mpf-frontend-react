@@ -5,32 +5,20 @@ import { Button } from "@material-ui/core";
 import FileCard from "./FileCard";
 import Comments from "./Comments";
 import { db } from "@settings/base";
+import useFiles from "@utils/useFiles";
 
 function ViewResourceDialog(props) {
   const classes = useStyles();
 
   const [currentFiles, setCurrentFiles] = useState(null);
 
+  const [loadFiles] = useFiles({target_id: props.post.id.toString(), mode:'p'});
+
   useEffect(() => {
-    if (props.post.type !== 1) {
-      db.collection("posts")
-        ?.doc(props.post.id.toString())
-        ?.collection("files")
-        ?.get()
-        .then((snap) => {
-          let files = [];
-          snap.forEach((doc) => {
-            let newFile = {
-              name: doc.data().name,
-              downloadUrl: doc.data().downloadUrl,
-            };
-            files.push(newFile);
-          });
-          setCurrentFiles(files);
-        });
+    if (props.post.type !== 1 && !currentFiles) {
+      loadFiles().then((files) => {setCurrentFiles(files)});
     }
-    console.log(props.post);
-  }, []);
+  });
 
   return (
     <div className={classes.ventana}>

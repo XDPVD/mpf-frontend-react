@@ -6,82 +6,78 @@ import { DropZone, FilesList, Loading } from "@styles/Styles";
 
 import Button from "@material-ui/core/Button";
 
-import { app, db } from "@settings/base";
+import { app } from "@settings/base";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
 import FileItem from "./FileItem";
+import useFiles from "@utils/useFiles";
+
 
 function FileTray(props) {
-  const mode = {
-    a: "assignments",
-    p: "posts",
-  };
 
+  // useFiles hook
+  const [loadFiles, deleteAllFiles, insertFileRegister, getDownloadURL] = useFiles(props);
+
+  // reference pointing to an array (now null) 
+  // that stores the previous files before editing
   const previousFiles = useRef();
 
+  // list of current files in the tray
   const [currentFiles, setCurrentFiles] = useState([]);
 
+  // flag to indicate charging status
   const [loading, setLoading] = useState(true);
 
+  // flag indicating the status of finished
   const [success, setSuccess] = useState(false);
 
+  // flag indicating the edition status
   const [editMode, setEditMode] = useState(false);
 
+  // reference for tray file list
   const refFileList = useRef();
 
+  // modeCreate state variable
+  const modeCreate = useState(props.modeCreate)[0];
+
+  // Settings for the Drop Zone third-party component
   const { getRootProps, open, getInputProps } = useDropzone({
     noClick: true,
     maxFiles: 5,
     noKeyboard: true,
     onDrop: (files) => {
-      //console.log(files);
       setCurrentFiles(files);
     },
   });
 
-  const fileCollection = db.collection(mode[props.mode]);
-
+  // Reference to firestore
   const storageRef = app.storage().ref();
 
+
   useEffect(() => {
-    if (!editMode && !props.modeCreate) {
-      console.log("Cargando archivos");
-      fileCollection
-        ?.doc(props.target_id)
-        .collection("files")
-        .get()
-        .then((snap) => {
-          //console.log(snap.docs.length);
-
-          let files = [];
-          snap.forEach((doc) => {
-            let newFile = {
-              path: doc.data().name,
-              downloadUrl: doc.data().downloadUrl,
-            };
-            files.push(newFile);
-          });
-          setCurrentFiles(files);
-
-          if (snap.docs.length > 0) {
-            setSuccess(true);
-          } else {
-            setSuccess(false);
-          }
+    console.log('useEffect loadFiles');
+    if (!editMode && !modeCreate) {
+      loadFiles()
+        .then((res) => {
+          setCurrentFiles(res);
+          setSuccess(res.length > 0)
+          setLoading(false);
         });
-
-      if (success) {
-        previousFiles.current = currentFiles;
-      }
     }
-    setLoading(false);
-  }, [success, editMode]);
+    else{
+      setLoading(false);
+      console.log('loading -> false');
+    }
+    
+  }, [editMode, loadFiles, modeCreate]);
+
+  useEffect(() => {
+    if (success) previousFiles.current = currentFiles;
+  },[success, currentFiles]);
 
   useEffect(() => {
     let lastElemFile = refFileList.current.lastChild;
-    lastElemFile?.scrollIntoView({
-      behavior: "smooth",
-    });
+    lastElemFile?.scrollIntoView({ behavior: "smooth" });
   }, [currentFiles]);
 
   const filesView = currentFiles.map((file) => {
@@ -89,69 +85,41 @@ function FileTray(props) {
   });
 
   const uploadFiles = async () => {
+    console.log("--- uploadFiles Begin ---");
     setLoading(true);
+    
+    console.log("loading : ",loading);
 
+    // set target_id
     let target_id = props.modeCreate
       ? await props.createIdFunction()
-      : props.target_id.toString();
+      : props.target_id;
 
-    if (target_id == null) {
-      return props.closeFunction();
-    }
-
+    // target_id (announcement) direct to close method
+    if (target_id == null) return props.closeFunction();
     target_id = target_id.toString();
 
-    console.log("SUBIENDO A: ", target_id);
-
     if (editMode) {
-      let fileRef;
-
-      fileCollection
-        .doc(target_id)
-        .collection("files")
-        .get()
-        .then((snap) => {
-          snap.forEach((doc) => {
-            doc.ref.delete();
-          });
-        });
-
-      await previousFiles.current.forEach((file) => {
-        fileRef = storageRef.child(file.path);
-        fileRef.delete();
-      });
-
-      //
+      deleteAllFiles()
+      await Promise.all(previousFiles.current.map(async(file) => {
+        let fileRef = await storageRef.child(file.path);
+        await fileRef.delete();
+      }));
     }
 
-    for (let i = 0; i < currentFiles.length; i++) {
-      let file = currentFiles[i];
+    await Promise.all(currentFiles.map( async (file, i) => {
+      let downloadUrl = await getDownloadURL(file);
+      await insertFileRegister(i, file.name, downloadUrl, target_id);
+    }));
 
-      const fileRef = storageRef.child(file.name);
-      await fileRef.put(file);
-
-      let downloadUrl = await fileRef.getDownloadURL();
-
-      await db
-        .collection(mode[props.mode])
-        .doc(target_id)
-        .collection("files")
-        .doc(i.toString())
-        .set({
-          name: file.name,
-          downloadUrl: downloadUrl,
-        });
-    }
-
-    console.log("Subida exitosa!!!!");
-
+    // TODO: Find better ways to change status
     setCurrentFiles([]);
     setLoading(false);
     setSuccess(true);
 
     if (editMode) setEditMode(false);
-
     props.closeFunction();
+
   };
 
   const changeEditMode = (value) => {
@@ -166,7 +134,7 @@ function FileTray(props) {
       previousFiles.current = null;
     }
   };
-
+  //console.log('RE-RENDER:' , {loading});
   return (
     <>
       {loading ? (

@@ -47,15 +47,15 @@ function GroupCard(props) {
                 color='secondary'
                 // onClick={handleClickOpen}
               >
-                Unirme
+                Bloquear grupo
               </Button>
             : <Button
                 backgroundColor='#000000'
                 variant='contained'
-                color='primary'
+                color='secondary'
                 // onClick={handleClickOpen}
               >
-                  Bloquear grupo
+                Unirme
               </Button>
         }
       </CardActions>

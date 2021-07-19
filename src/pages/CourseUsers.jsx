@@ -11,6 +11,7 @@ import { endP } from "@settings/config";
 import { fetchingData } from "@utils/fetchData";
 import Loading from "@common/Loading";
 import useUserInfo from "@utils/useUserInfo";
+import { checkNull } from "@utils/checkNull";
 
 const useStyles = makeStyles({
   button: {
@@ -51,36 +52,52 @@ function CourseUsers({ courseId }) {
         setCourse,
         setIsFetching
       );
+      
       return request;
     }
     getData();
   }, []);
   
-
+  // useEffect(() => {
+  //   async function getData() {
+  //     const request = await fetchingData(
+  //       endP( {courseId} ).getGroups,
+  //       setGroups,
+  //       setIsFetching
+  //     );
+  //     return request;
+  //   }
+  //   getData();
+  // }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   function mostrarUsuarios(tipo) {
-    users = course.inscriptions.map(
-              (inscription) => inscription.user
-            );
-    const teacher = new Array(course.creator);
-    const delegate = new Array(course.delegate);
-    let lista;
+    if (checkNull(course.inscriptions)) {
+      users = course.inscriptions.map(
+        (inscription) => inscription.user
+      );
+      const teacher = new Array(course.creator);
+      const delegate = new Array(course.delegate);
+      let lista;
 
-    if (tipo === "Profesor") {
-      lista = <UsersList courseId={courseId} users={teacher} />;
-    } else if (tipo === "Delegados") {
-      lista = <UsersList courseId={courseId} users={delegate} />;
-    } else {
-      lista = <UsersList courseId={courseId} users={users} />;
+      if (tipo === "Profesor") {
+        lista = <UsersList courseId={courseId} users={teacher} />;
+      } else if (tipo === "Delegados") {
+        lista = <UsersList courseId={courseId} users={delegate} />;
+      } else {
+        lista = <UsersList courseId={courseId} users={users} />;
+      }
+
+      return lista;
     }
-    return lista;
+    return "";
+      
   }
 
-  return (
+  return !checkNull(tipoMiembro) ? (
     <>
       <Grid style={{ overflowY: "auto" }} container>
         {/*LISTA DE MIEMBROS AGRUPADOS POR TIPO************************/}
@@ -145,6 +162,7 @@ function CourseUsers({ courseId }) {
             <Grid item xs={12} md={6}>
               {isFetching ? <Loading /> : <GroupCard users={users} isAdmin={true} />}
             </Grid>
+           
             <Grid item xs={12} md={6}>
               {isFetching ? <Loading /> : <GroupCard users={users} isAdmin={false} />}
             </Grid>
@@ -154,6 +172,8 @@ function CourseUsers({ courseId }) {
 
       <AddUserDialog open={open} setOpen={setOpen} courseId={courseId} />
     </>
+  ) : (
+    <>No tiene miembros</>
   );
 }
 

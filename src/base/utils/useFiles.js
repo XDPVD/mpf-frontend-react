@@ -2,8 +2,6 @@ import React, { useCallback, useState } from 'react';
 
 import { app, db } from "@settings/base";
 
-import { useCollection, useDocument, useDocumentOnce } from "react-firebase-hooks/firestore";
-
 function useFiles(props) {
 
     // two modes for the component
@@ -14,21 +12,14 @@ function useFiles(props) {
 
      // Reference to the firestore collection, 
      // varies according to the established mode
-    const [fileCollection,,] = useCollection(
-        db.collection(mode[props.mode])
-    );
-
-    
-
+    const fileCollection = db.collection(mode[props.mode]);
+    console.log(fileCollection);
     // Reference to firestore
     const storageRef = app.storage().ref();
-    
+    // store the target_id
     const target_id = useState(props.target_id)[0];
 
-    const [document]= useDocumentOnce(db.doc(`${mode[props.mode]}/${props.target_id}`));
-
-    console.log(`${mode[props.mode]}/${props.target_id}`);
-    console.log('document ',document);
+    // function loadFiles
     const loadFiles = useCallback(
         async () =>{
 
@@ -38,28 +29,28 @@ function useFiles(props) {
                 try{
                     await Promise.all(snap?.map(async (doc) => {
                         let newFile = {
-                            path: doc.data().name,
+                            name: doc.data().name,
                             downloadUrl: doc.data().downloadUrl,
                         };
                         await files.push(newFile);
                     }));
-                    console.log('Promise.all is executed');
                 }
-                catch(e){
-                    console.log('Promise.all param is undefined');
+                catch(e){  
                     files = null;
                 }
             }
+            console.log('fileCollection ',fileCollection)
 
-            // let snap = await fileCollection?.doc(target_id)
-            //     .collection("files")
-            //     .get();
-                
-            //await snapForEach(snap);
-            console.log(files);
+            let snap = await fileCollection?.doc(target_id)
+                .collection("files")
+                .get();
+
+            await snapForEach(snap.docs);
+
             return files;
         },[fileCollection, target_id]);
 
+    // remove all the files related to a pub with target_id
     const deleteAllFiles = useCallback(
         () => {
             fileCollection
@@ -74,7 +65,7 @@ function useFiles(props) {
         },[fileCollection, target_id]);
 
 
-
+    // function to register a file desc on firestore (i = index, name, dowloadUrl is the related link)
     const insertFileRegister = async (i, name, downloadUrl, target_id) =>{
         await db
             .collection(mode[props.mode])
@@ -88,6 +79,7 @@ function useFiles(props) {
         console.log("insertFileRegister END");
     }
 
+    // this is a function that retrieve the download url of a file
     const getDownloadURL = async (file) => {
         const fileRef = storageRef.child(file.name);
         await fileRef.put(file);

@@ -159,8 +159,8 @@ export const useStyles = makeStyles({
   },
   ventana: {
     position: "absolute",
-    width: "50%",
-    height: "60%",
+    width: "85%",
+    height: "80%",
     backgroundColor: "white",
     border: "2px solid #000",
     boxShadow: "10px 5px 5px black",

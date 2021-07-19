@@ -85,10 +85,8 @@ function FileTray(props) {
   });
 
   const uploadFiles = async () => {
-    console.log("--- uploadFiles Begin ---");
+
     setLoading(true);
-    
-    console.log("loading : ",loading);
 
     // set target_id
     let target_id = props.modeCreate

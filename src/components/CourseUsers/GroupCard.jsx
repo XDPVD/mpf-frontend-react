@@ -25,35 +25,41 @@ const useStyles = makeStyles({
   },
 });
 
-function GroupCard({ users }) {
+function GroupCard(props) {
   const classes = useStyles();
+  const users = props.users;
+  const isAdmin = props.isAdmin;
+
   return (
-    <>
-      <Card className={classes.root}>
-        <CardHeader className={classes.header} title='Grupo 1' />
-        <Divider />
-        <CardContent className={classes.content} disableSpacing>
-          <UsersList users={users} />
-        </CardContent>
-        <Divider />
-        <CardActions className={classes.actions} disableSpacing>
-          <Button
-            backgroundColor='#000000'
-            variant='contained'
-            color='secondary'
-          >
-            Unirme
-          </Button>
-          <Button
-            backgroundColor='#000000'
-            variant='contained'
-            color='secondary'
-          >
-            Bloquear grupo
-          </Button>
-        </CardActions>
-      </Card>
-    </>
+    <Card className={classes.root}>
+      <CardHeader className={classes.header} title='Grupo 1' />
+      <Divider />
+      <CardContent className={classes.content} disableSpacing>
+        <UsersList users={users} />
+      </CardContent>
+      <Divider />
+      <CardActions className={classes.actions} disableSpacing>
+        {
+          (isAdmin)
+            ? <Button
+                backgroundColor='#000000'
+                variant='contained'
+                color='secondary'
+                // onClick={handleClickOpen}
+              >
+                Unirme
+              </Button>
+            : <Button
+                backgroundColor='#000000'
+                variant='contained'
+                color='primary'
+                // onClick={handleClickOpen}
+              >
+                  Bloquear grupo
+              </Button>
+        }
+      </CardActions>
+    </Card>
   );
 }
 

@@ -97,33 +97,38 @@ function CourseUsers({ courseId }) {
                 <Typography variant='h4' display='inline'>
                   {tipo}
                 </Typography>
-                {tipo === "Delegados" && (
-                  <Button
-                    hidden={hiddenButton}
-                    className={classes.button}
-                    disableRipple
-                    variant='text'
-                    endIcon={<AddIcon />}
-                  >
-                    Añadir
-                  </Button>
-                  
-                )}
+                  {tipo === "Delegados" && (
+                    <Button
+                      hidden={hiddenButton}
+                      className={classes.button}
+                      disableRipple
+                      variant='text'
+                      endIcon={<AddIcon />}
+                    >
+                      Añadir
+                    </Button>
+                    
+                  )}
               </div>
 
               {isFetching ? <Loading /> : mostrarUsuarios(tipo)}
             </>
           ))}
-          <div className={classes.addUserWrapper}>
-            <Button
-              hidden={hiddenButton}
-              variant='contained'
-              color='primary'
-              onClick={handleClickOpen}
-            >
-              Añadir miembros
-            </Button>
-          </div>
+          {
+            (isCreator)
+              ? <div className={classes.addUserWrapper}>
+                  <Button
+                    hidden={hiddenButton}
+                    variant='contained'
+                    color='primary'
+                    onClick={handleClickOpen}
+                  >
+                    Añadir miembros
+                  </Button>
+                </div>
+              : ""
+          }
+          
         </Grid>
 
         {/*LISTA DE GRUPOS************************/}
@@ -138,10 +143,10 @@ function CourseUsers({ courseId }) {
           </div>
           <Grid container>
             <Grid item xs={12} md={6}>
-              {isFetching ? <Loading /> : <GroupCard users={users} />}
+              {isFetching ? <Loading /> : <GroupCard users={users} isAdmin={true} />}
             </Grid>
             <Grid item xs={12} md={6}>
-              {isFetching ? <Loading /> : <GroupCard users={users} />}
+              {isFetching ? <Loading /> : <GroupCard users={users} isAdmin={false} />}
             </Grid>
           </Grid>
         </Grid>

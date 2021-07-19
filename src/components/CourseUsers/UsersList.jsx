@@ -18,17 +18,14 @@ const useStyles = makeStyles({
   },
 });
 
-function UsersList({ users }) {
+function UsersList(props) {
   const classes = useStyles();
+  const users = props.users
 
-  return (
-    <>
-      <List
-        style={{
-          borderRadius: "10px",
-        }}
-      >
-        {!checkNull(users) ? (
+  if (!checkNull(users)){
+    return (
+      <List style={{ borderRadius: "10px" }}>
+        {
           users.map((user) => (
             <ListItem
               style={{
@@ -50,12 +47,12 @@ function UsersList({ users }) {
               </ListItemText>
             </ListItem>
           ))
-        ) : (
-          <NotFound>No hay alumnos para mostrar</NotFound>
-        )}
+        }
       </List>
-    </>
-  );
+    );
+  }
+  return <NotFound>No hay alumnos para mostrar.</NotFound>
+  
 }
 
 export default UsersList;

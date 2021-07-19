@@ -58,123 +58,104 @@ function CourseUsers({ courseId }) {
     getData();
   }, []);
   
-  // useEffect(() => {
-  //   async function getData() {
-  //     const request = await fetchingData(
-  //       endP( {courseId} ).getGroups,
-  //       setGroups,
-  //       setIsFetching
-  //     );
-  //     return request;
-  //   }
-  //   getData();
-  // }, []);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   function mostrarUsuarios(tipo) {
-    if (checkNull(course.inscriptions)) {
-      users = course.inscriptions.map(
-        (inscription) => inscription.user
-      );
-      const teacher = new Array(course.creator);
-      const delegate = new Array(course.delegate);
-      let lista;
+    users = course.inscriptions?.map(
+      (inscription) => inscription.user
+    );
+    const teacher = new Array(course.creator);
+    const delegate = new Array(course.delegate);
+    let lista;
 
-      if (tipo === "Profesor") {
-        lista = <UsersList courseId={courseId} users={teacher} />;
-      } else if (tipo === "Delegados") {
-        lista = <UsersList courseId={courseId} users={delegate} />;
-      } else {
-        lista = <UsersList courseId={courseId} users={users} />;
-      }
-
-      return lista;
+    if (tipo === "Profesor") {
+      lista = <UsersList courseId={courseId} users={teacher} />;
+    } else if (tipo === "Delegados") {
+      lista = <UsersList courseId={courseId} users={delegate} />;
+    } else {
+      lista = <UsersList courseId={courseId} users={users} />;
     }
-    return "";
+
+    return lista;
       
   }
 
-  return !checkNull(tipoMiembro) ? (
-    <>
-      <Grid style={{ overflowY: "auto" }} container>
-        {/*LISTA DE MIEMBROS AGRUPADOS POR TIPO************************/}
-        <Grid item className={classes.wrapper} xs={12} sm={6} md={5}>
-          {tipoMiembro.map((tipo) => (
-            <>
-              <div
-                style={{
-                  borderBottom: "2px solid #ddd",
-                  padding: "5px 10px",
-                  position: "relative",
-                }}
-              >
-                <Typography variant='h4' display='inline'>
-                  {tipo}
-                </Typography>
-                  {tipo === "Delegados" && (
-                    <Button
-                      hidden={hiddenButton}
-                      className={classes.button}
-                      disableRipple
-                      variant='text'
-                      endIcon={<AddIcon />}
-                    >
-                      Añadir
-                    </Button>
-                    
-                  )}
-              </div>
-
-              {isFetching ? <Loading /> : mostrarUsuarios(tipo)}
-            </>
-          ))}
-          {
-            (isCreator)
-              ? <div className={classes.addUserWrapper}>
-                  <Button
-                    hidden={hiddenButton}
-                    variant='contained'
-                    color='primary'
-                    onClick={handleClickOpen}
-                  >
-                    Añadir miembros
-                  </Button>
-                </div>
-              : ""
-          }
-          
-        </Grid>
-
-        {/*LISTA DE GRUPOS************************/}
-        <Grid item className={classes.wrapper} xs={12} sm={6} md={7}>
+  return <>
+  <Grid style={{ overflowY: "auto" }} container>
+    {/*LISTA DE MIEMBROS AGRUPADOS POR TIPO************************/}
+    <Grid item className={classes.wrapper} xs={12} sm={6} md={5}>
+      {tipoMiembro?.map((tipo) => (
+        <>
           <div
             style={{
               borderBottom: "2px solid #ddd",
               padding: "5px 10px",
+              position: "relative",
             }}
           >
-            <Typography variant='h4'>Grupos</Typography>
+            <Typography variant='h4' display='inline'>
+              {tipo}
+            </Typography>
+              {tipo === "Delegados" && (
+                <Button
+                  hidden={hiddenButton}
+                  className={classes.button}
+                  disableRipple
+                  variant='text'
+                  endIcon={<AddIcon />}
+                >
+                  Añadir
+                </Button>
+                
+              )}
           </div>
-          <Grid container>
-            <Grid item xs={12} md={6}>
-              {isFetching ? <Loading /> : <GroupCard users={users} isAdmin={true} />}
-            </Grid>
-           
-            <Grid item xs={12} md={6}>
-              {isFetching ? <Loading /> : <GroupCard users={users} isAdmin={false} />}
-            </Grid>
-          </Grid>
+
+          {isFetching ? <Loading /> : mostrarUsuarios(tipo)}
+        </>
+      ))}
+      {
+        (isCreator)
+          ? <div className={classes.addUserWrapper}>
+              <Button
+                hidden={hiddenButton}
+                variant='contained'
+                color='primary'
+                onClick={handleClickOpen}
+              >
+                Añadir miembros
+              </Button>
+            </div>
+          : ""
+      }
+      
+    </Grid>
+
+    {/*LISTA DE GRUPOS************************/}
+    <Grid item className={classes.wrapper} xs={12} sm={6} md={7}>
+      <div
+        style={{
+          borderBottom: "2px solid #ddd",
+          padding: "5px 10px",
+        }}
+      >
+        <Typography variant='h4'>Grupos</Typography>
+      </div>
+      <Grid container>
+        <Grid item xs={12} md={6}>
+          {isFetching ? <Loading /> : <GroupCard users={users} isAdmin={true} />}
+        </Grid>
+       
+        <Grid item xs={12} md={6}>
+          {isFetching ? <Loading /> : <GroupCard users={users} isAdmin={false} />}
         </Grid>
       </Grid>
+    </Grid>
+  </Grid>
 
-      <AddUserDialog open={open} setOpen={setOpen} courseId={courseId} />
-    </>
-  ) : (
-    <>No tiene miembros</>
-  );
+  <AddUserDialog open={open} setOpen={setOpen} courseId={courseId} />
+  </>
 }
 
 export default CourseUsers;

@@ -2,21 +2,21 @@ import React, { useEffect, useState, useRef } from "react";
 
 import { useDropzone } from "react-dropzone";
 
-import { DropZone, FilesList, Loading } from "@styles/Styles";
+import { FilesList, Loading } from "@styles/Styles";
 
 import Button from "@material-ui/core/Button";
 
 import { app } from "@settings/base";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
-import FileItem from "./FileItem";
+import FileItem from "@components/_common/FileItem";
 import useFiles from "@utils/useFiles";
-
+import DropZoneComp from "@components/_common/DropZoneComp";
 
 function FileTray(props) {
 
   // useFiles hook
-  const [loadFiles, deleteAllFiles, insertFileRegister, getDownloadURL] = useFiles(props);
+  const [loadFiles, , , ,uploadFiles] = useFiles(props);
 
   // reference pointing to an array (now null) 
   // that stores the previous files before editing
@@ -40,22 +40,7 @@ function FileTray(props) {
   // modeCreate state variable
   const modeCreate = useState(props.modeCreate)[0];
 
-  // Settings for the Drop Zone third-party component
-  const { getRootProps, open, getInputProps } = useDropzone({
-    noClick: true,
-    maxFiles: 5,
-    noKeyboard: true,
-    onDrop: (files) => {
-      setCurrentFiles(files);
-    },
-  });
-
-  // Reference to firestore
-  const storageRef = app.storage().ref();
-
-
   useEffect(() => {
-    console.log('useEffect loadFiles');
     if (!editMode && !modeCreate) {
       loadFiles()
         .then((res) => {
@@ -84,31 +69,11 @@ function FileTray(props) {
     return <FileItem file={file} deleteButton={false} />;
   });
 
-  const uploadFiles = async () => {
+  const uploadEvent = async () => {
 
     setLoading(true);
 
-    // set target_id
-    let target_id = props.modeCreate
-      ? await props.createIdFunction()
-      : props.target_id;
-
-    // target_id (announcement) direct to close method
-    if (target_id == null) return props.closeFunction();
-    target_id = target_id.toString();
-
-    if (editMode) {
-      deleteAllFiles()
-      await Promise.all(previousFiles.current.map(async(file) => {
-        let fileRef = await storageRef.child(file.path);
-        await fileRef.delete();
-      }));
-    }
-
-    await Promise.all(currentFiles.map( async (file, i) => {
-      let downloadUrl = await getDownloadURL(file);
-      await insertFileRegister(i, file.name, downloadUrl, target_id);
-    }));
+    await uploadFiles({editMode, currentFiles, previousFiles});
 
     // TODO: Find better ways to change status
     setCurrentFiles([]);
@@ -132,7 +97,7 @@ function FileTray(props) {
       previousFiles.current = null;
     }
   };
-  //console.log('RE-RENDER:' , {loading});
+  
   return (
     <>
       {loading ? (
@@ -143,21 +108,11 @@ function FileTray(props) {
         <></>
       )}
 
-      <DropZone
-        {...getRootProps({ className: "dropzone" })}
-        hidden={success || props.blockAllActions}
-      >
-        <input {...getInputProps()} />
-        <p>Arrastre "n" archivos aqui</p>
-        <p>o</p>
-        <button type='button' onClick={open}>
-          Seleccione sus archivos
-        </button>
-      </DropZone>
+      <DropZoneComp />
 
       <Button
         hidden={success || props.blockAllActions}
-        onClick={() => uploadFiles()}
+        onClick={() => uploadEvent()}
         variant='contained'
         color='primary'
         style={{ margin: "5px" }}

@@ -13,7 +13,7 @@ function useFiles(props) {
      // Reference to the firestore collection, 
      // varies according to the established mode
     const fileCollection = db.collection(mode[props.mode]);
-    console.log(fileCollection);
+    
     // Reference to firestore
     const storageRef = app.storage().ref();
     // store the target_id
@@ -86,9 +86,33 @@ function useFiles(props) {
     
         let downloadUrl = await fileRef.getDownloadURL();
         return downloadUrl;
-      }
+    }
 
-    return [loadFiles, deleteAllFiles, insertFileRegister, getDownloadURL];
+    const uploadFiles = async ({editMode, currentFiles, previousFiles}) => {
+        // set target_id
+        let target_id = props.modeCreate
+        ? await props.createIdFunction()
+        : props.target_id;
+
+        // target_id (announcement) direct to close method
+        if (target_id == null) return props.closeFunction();
+        target_id = target_id.toString();
+
+        if (editMode) {
+            deleteAllFiles()
+            await Promise.all(previousFiles.current.map(async(file) => {
+            let fileRef = await storageRef.child(file.path);
+            await fileRef.delete();
+            }));
+        }
+
+        await Promise.all(currentFiles.map( async (file, i) => {
+            let downloadUrl = await getDownloadURL(file);
+            await insertFileRegister(i, file.name, downloadUrl, target_id);
+        }));
+    }
+
+    return [loadFiles, deleteAllFiles, insertFileRegister, getDownloadURL, uploadFiles];
 }
 
 export default useFiles;

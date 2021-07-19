@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
-import { DialogTitle, DialogContent, Typography, IconButton } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+import {DialogContent} from '@material-ui/core';
 import { useStyles } from "./_styles";
 
-import FileTray from "@components/FileTray";
+import FileTray from "@components/_common/FileTray";
 
 import { useParams } from "react-router-dom";
 

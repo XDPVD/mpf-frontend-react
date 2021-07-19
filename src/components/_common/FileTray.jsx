@@ -1,19 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
 
-import { useDropzone } from "react-dropzone";
-
-import { FilesList, Loading } from "@styles/Styles";
-
 import Button from "@material-ui/core/Button";
-
-import { app } from "@settings/base";
-
 import CircularProgress from "@material-ui/core/CircularProgress";
-import FileItem from "@components/_common/FileItem";
+
 import useFiles from "@utils/useFiles";
 import DropZoneComp from "@components/_common/DropZoneComp";
+import FileList from "@components/_common/FileList";
+import { useStyles } from "@components/_common/_styles";
 
 function FileTray(props) {
+  const classes = useStyles();
 
   // useFiles hook
   const [loadFiles, , , ,uploadFiles] = useFiles(props);
@@ -34,14 +30,8 @@ function FileTray(props) {
   // flag indicating the edition status
   const [editMode, setEditMode] = useState(false);
 
-  // reference for tray file list
-  const refFileList = useRef();
-
-  // modeCreate state variable
-  const modeCreate = useState(props.modeCreate)[0];
-
   useEffect(() => {
-    if (!editMode && !modeCreate) {
+    if (!editMode && !props.modeCreate) {
       loadFiles()
         .then((res) => {
           setCurrentFiles(res);
@@ -54,28 +44,27 @@ function FileTray(props) {
       console.log('loading -> false');
     }
     
-  }, [editMode, loadFiles, modeCreate]);
+  }, [editMode, loadFiles, props.modeCreate]);
 
   useEffect(() => {
     if (success) previousFiles.current = currentFiles;
   },[success, currentFiles]);
 
-  useEffect(() => {
-    let lastElemFile = refFileList.current.lastChild;
-    lastElemFile?.scrollIntoView({ behavior: "smooth" });
-  }, [currentFiles]);
-
-  const filesView = currentFiles.map((file) => {
-    return <FileItem file={file} deleteButton={false} />;
-  });
-
   const uploadEvent = async () => {
 
     setLoading(true);
 
-    await uploadFiles({editMode, currentFiles, previousFiles});
+    // set target_id
+    let target_id = props.modeCreate
+    ? await props.createIdFunction()
+    : props.target_id;
 
-    // TODO: Find better ways to change status
+    // target_id (announcement) direct to close method
+    if (target_id == null) return props.closeFunction();
+    target_id = target_id.toString();
+
+    await uploadFiles({editMode, currentFiles, previousFiles, id: target_id});
+
     setCurrentFiles([]);
     setLoading(false);
     setSuccess(true);
@@ -101,14 +90,14 @@ function FileTray(props) {
   return (
     <>
       {loading ? (
-        <Loading>
+        <div className={classes.loading}>
           <CircularProgress />
-        </Loading>
+        </div>
       ) : (
         <></>
       )}
 
-      <DropZoneComp />
+      <DropZoneComp {...{ setCurrentFiles, success, blockAllActions:props.blockAllActions }}/>
 
       <Button
         hidden={success || props.blockAllActions}
@@ -129,14 +118,7 @@ function FileTray(props) {
         Cancelar
       </Button>
 
-      <FilesList ref={refFileList}>
-        {filesView}
-        {props.blockAllActions && filesView.length === 0 ? (
-          <p>No hay archivos</p>
-        ) : (
-          <></>
-        )}
-      </FilesList>
+      <FileList {... {blockAllActions: props.blockAllActions, currentFiles}} />
 
       <Button
         hidden={!success || props.blockAllActions}

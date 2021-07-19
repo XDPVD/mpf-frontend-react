@@ -66,17 +66,16 @@ function useFiles(props) {
 
 
     // function to register a file desc on firestore (i = index, name, dowloadUrl is the related link)
-    const insertFileRegister = async (i, name, downloadUrl, target_id) =>{
+    const insertFileRegister = async (i, name, downloadUrl, id) =>{
         await db
             .collection(mode[props.mode])
-            .doc(target_id)
+            .doc(id)
             .collection("files")
             .doc(i.toString())
             .set({
                 name: name,
                 downloadUrl: downloadUrl,
             });
-        console.log("insertFileRegister END");
     }
 
     // this is a function that retrieve the download url of a file
@@ -88,27 +87,18 @@ function useFiles(props) {
         return downloadUrl;
     }
 
-    const uploadFiles = async ({editMode, currentFiles, previousFiles}) => {
-        // set target_id
-        let target_id = props.modeCreate
-        ? await props.createIdFunction()
-        : props.target_id;
-
-        // target_id (announcement) direct to close method
-        if (target_id == null) return props.closeFunction();
-        target_id = target_id.toString();
-
+    const uploadFiles = async ({editMode, currentFiles, previousFiles, id}) => {
         if (editMode) {
-            deleteAllFiles()
+            deleteAllFiles() // possible error
             await Promise.all(previousFiles.current.map(async(file) => {
-            let fileRef = await storageRef.child(file.path);
-            await fileRef.delete();
+                let fileRef = await storageRef.child(file.path);
+                await fileRef.delete();
             }));
         }
 
         await Promise.all(currentFiles.map( async (file, i) => {
             let downloadUrl = await getDownloadURL(file);
-            await insertFileRegister(i, file.name, downloadUrl, target_id);
+            await insertFileRegister(i, file.name, downloadUrl, id);
         }));
     }
 

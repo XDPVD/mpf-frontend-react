@@ -36,7 +36,7 @@ function CourseUsers({ courseId }) {
   const [isFetching, setIsFetching] = useState(true);
 
   const [,,isCreator] = useUserInfo();
-  const [hiddenButton, setHiddenButton] = useState(false);
+  const [hiddenButton, setHiddenButton] = useState(true);
   useEffect(() => {
     isCreator(courseId).then((res)=> setHiddenButton(!res));
   },[isCreator, courseId])

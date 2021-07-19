@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -9,16 +9,17 @@ import * as config from "@settings/config";
 import Courses from "@pages/Courses";
 import Home from "@pages/Home";
 import Login from "@pages/Login";
-import { AppContainer as Container } from "@styles/Styles";
 
 import theme from "@styles/theme";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 
-import { UsuarioProvider, useUsuario } from "./base/context/usuario-context";
+import { UsuarioProvider } from "./base/context/usuario-context";
 
 import { createBrowserHistory } from "history";
 import { CookiesProvider } from 'react-cookie';
 import { useCookies } from 'react-cookie';
+
+import { useStyles } from "@styles/Styles";
 // Components
 
 export default function appWithContext() {return (<> <CookiesProvider><UsuarioProvider>
@@ -26,21 +27,18 @@ export default function appWithContext() {return (<> <CookiesProvider><UsuarioPr
 </UsuarioProvider></CookiesProvider></>)}
 
 function App() {
-  const { usuario } = useUsuario();
-  const [cookies, setCookie] = useCookies(['name','userToken']);
-  // TODO: Redirect /login
-  const history = createBrowserHistory();
+  const classes = useStyles();
 
-  const [cargar, setCargar] = useState(false);
+  const [cookies, ] = useCookies(['name','userToken']);
+  
+  const history = createBrowserHistory();
 
   useEffect(() => {
     console.log(cookies.name);
   });
 
-  
-
   return (
-    <div className='App'>
+    <div className="App">
       <Router history={history}>
         <ThemeProvider theme={theme}>
           <Header />
@@ -53,7 +51,7 @@ function App() {
           ) : (
             <>
               <LateralBar />
-              <Container>
+              <div className={classes.root}>
                 <Switch>
                   <Route exact path={config.urls.home}>
                     <Home />
@@ -74,7 +72,7 @@ function App() {
 
                   <Route path={config.urls.config}>Configuración</Route>
                 </Switch>
-              </Container>
+              </div>
             </>
           )}
         </ThemeProvider>

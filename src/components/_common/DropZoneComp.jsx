@@ -1,8 +1,10 @@
 import React from 'react'
-import { DropZone } from '@styles/Styles.js';
 import { useDropzone } from 'react-dropzone'
+import { useStyles } from "@components/_common/_styles";
 
 function DropZoneComp({ setCurrentFiles, success, blockAllActions }) {
+    const classes = useStyles();
+    
     // Settings for the Drop Zone third-party component
     const { getRootProps, open, getInputProps } = useDropzone({
         noClick: true,
@@ -14,7 +16,8 @@ function DropZoneComp({ setCurrentFiles, success, blockAllActions }) {
     });
 
     return (
-        <DropZone
+        <div
+            className={classes.dropZone}
             {...getRootProps({ className: "dropzone" })}
             hidden={success || blockAllActions}
         >
@@ -24,7 +27,7 @@ function DropZoneComp({ setCurrentFiles, success, blockAllActions }) {
             <button type='button' onClick={open}>
             Seleccione sus archivos
             </button>
-        </DropZone>
+        </div>
     )
 }
 

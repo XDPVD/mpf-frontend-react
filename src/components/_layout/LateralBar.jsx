@@ -17,7 +17,11 @@ import useRedirectUrl from "@utils/useRedirectUrl";
 import { useCookies } from "react-cookie";
 import useUserInfo from "@utils/useUserInfo";
 import { useHistory } from "react-router-dom";
+import { useStyles } from "@components/_layout/_styles";
+import { Button, IconButton } from "@material-ui/core";
 function LateralBar() {
+  const classes = useStyles();
+
   const [url, redirectTo] = useRedirectUrl();
   const [, , removeCookie] = useCookies(["name", "userToken"]);
 
@@ -48,41 +52,39 @@ function LateralBar() {
   };
 
   return (
-    <Container>
-      <ProfileImage src={cookiesUser.name.imageUrl} />
+    <div className={classes.lateralBar}>
+      <img className={classes.profileImage} alt={"user"} src={cookiesUser.name.imageUrl} />
 
-      <Separator />
+      <div className={classes.separator} />
 
       {/* Display buttons */}
-      <OptionsContainer>
+      <div className={classes.lateralBarOptions}>
         {topButtons.map((e,index) => {
           return (
-            <>
-              <Option
-                key={index}
-                disabled={url === e.url}
-                onClick={() => redirectTo(e.url)}
-              >
-                {e.component}
-              </Option>
-            </>
+            <Button className={classes.lateralBarButton}
+              key={index}
+              disabled={url === e.url}
+              onClick={() => redirectTo(e.url)}
+            >
+              {e.component}
+            </Button>
           );
         })}
-      </OptionsContainer>
+      </div>
 
-      <OptionsContainer>
-        <Option
+      <div className={classes.lateralBarOptions}>
+        <Button className={classes.lateralBarButton}
           disabled={url === settingButton.url}
           onClick={() => redirectTo(settingButton.url)}
         >
           {settingButton.component}
-        </Option>
+        </Button>
 
-        <Option style={{ color: "red" }} onClick={closeSession}>
+        <Button style={{ color: "red" }} onClick={closeSession}>
           <ExitToAppIcon />
-        </Option>
-      </OptionsContainer>
-    </Container>
+        </Button>
+      </div>
+    </div>
   );
 }
 

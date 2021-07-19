@@ -1,7 +1,7 @@
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useStyles } from "./_styles";
 import Button from "@material-ui/core/Button";
 
@@ -25,7 +25,7 @@ function CourseNav({ courseId }) {
   const [openAddMaterial, setOpenAddMaterial] = useState(false);
   const [course, setCourse] = useState({});
 
-  const [hiddenButton, setHiddenButton] = useState(false);
+  const [hiddenButton, setHiddenButton] = useState(true);
 
   useEffect(() => {
     fetchData(endP({ courseId }).getCourse, setCourse);
@@ -39,8 +39,8 @@ function CourseNav({ courseId }) {
     redirectTo("/cursos/" + courseId + "/" + routes[newValue]);
     setSelectedTab(newValue);
   };
-
-  useEffect(() => {
+  
+  useLayoutEffect(() => {
     isCreator(courseId).then((res) => setHiddenButton(!res));
   }, [isCreator, courseId]);
 

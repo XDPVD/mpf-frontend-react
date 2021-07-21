@@ -22,25 +22,25 @@ function GroupCard(props) {
       </CardContent>
       <Divider />
       <CardActions className={classes.cardActions} disableSpacing>
-        { (isAdmin)
-            ? <Button
-                  backgroundColor='#000000'
-                  variant='contained'
-                  color='secondary'
-                  // onClick={handleClickOpen}
-              >
-                Bloquear grupo
-              </Button>
+      { (isAdmin)
+          ? <Button
+              backgroundColor='#000000'
+              variant='contained'
+              color='secondary'
+              // onClick={handleClickOpen}
+            >
+              Bloquear grupo
+            </Button>
 
-            : <Button
-                backgroundColor='#000000'
-                variant='contained'
-                color='secondary'
-                // onClick={handleClickOpen}
-              >
-                Unirme
-              </Button>
-        }
+          : <Button
+              backgroundColor='#000000'
+              variant='contained'
+              color='secondary'
+              // onClick={handleClickOpen}
+            >
+              Unirme
+            </Button>
+      }
       </CardActions>
     </Card>
   );

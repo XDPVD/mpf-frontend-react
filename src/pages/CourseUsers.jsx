@@ -172,6 +172,7 @@ function CourseUsers({ courseId }) {
         <Typography variant='h4'>Grupos</Typography>
         {(isCreator) 
           &&  <Button
+                  hidden={hiddenButton}
                   backgroundColor='#000000'
                   variant='contained'
                   color='secondary'
@@ -182,22 +183,14 @@ function CourseUsers({ courseId }) {
         }
       </div>
       <Grid container>
-          { isFetching 
-            ? <Loading /> 
-            : groups?.map((group) => (
-              <Grid item xs={12} md={6}>
-                <GroupCard users={group.inscriptions} group={group} isAdmin={isCreator} />
-              </Grid>
-              )) 
-          }
-        
-        <Grid item xs={12} md={6}>
-          {isFetching ? <Loading /> : <GroupCard users={users} isAdmin={isCreator} />}
-        </Grid>
-       
-        <Grid item xs={12} md={6}>
-          {isFetching ? <Loading /> : <GroupCard users={users} isAdmin={false} />}
-        </Grid>
+      { isFetching 
+        ? <Loading /> 
+        : groups?.map((group) => (
+          <Grid item xs={12} md={6}>
+            <GroupCard users={group.inscriptions} group={group} isAdmin={!hiddenButton} />
+          </Grid>
+          )) 
+      }
       </Grid>
     </Grid>
   </Grid>

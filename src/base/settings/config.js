@@ -16,8 +16,9 @@ export const courseUrls = {
   personas: "/personas",
 };
 
-export const endP = ({ courseId, userId, pubId, commentId, email, code, groupId }) => {
-  console.log("endP commentId ", { courseId, userId, pubId, commentId });
+// API endpoints
+export const endP = ({ courseId, userId, pubId, commentId, groupId, email, code }) => {
+  console.log("endP commentId ", { courseId, userId, pubId, commentId, groupId });
   return {
     blockAllGroups: `/group/lock_all/${courseId}`,
     blockGroup: `/group/lock/${groupId}`,

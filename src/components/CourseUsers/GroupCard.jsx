@@ -7,11 +7,14 @@ import Divider from "@material-ui/core/Divider";
 import UsersList from "./UsersList";
 import { useStyles } from "./_styles.js";
 import { endP } from "@settings/config";
-import { postData } from "@utils/postData";
+import { putData } from "@utils/putData";
 
 
 function GroupCard(props) {
+  // We call styles
   const classes = useStyles();
+
+  // We name needed vars
   const users = props.users;
   const isAdmin = props.isAdmin;
   const name = props.group?.name;
@@ -19,7 +22,7 @@ function GroupCard(props) {
 
   async function blockGroup(event) {
     event.preventDefault();
-    await postData(endP({ groupId }).blockGroup);
+    await putData(endP({ groupId }).blockGroup);
   }
 
   return (
@@ -31,7 +34,7 @@ function GroupCard(props) {
       </CardContent>
       <Divider />
       <CardActions className={classes.cardActions} disableSpacing>
-      { (isAdmin)
+      { (isAdmin) // Verificamos permisos
           ? <Button
               backgroundColor='#000000'
               variant='contained'

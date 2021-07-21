@@ -38,6 +38,7 @@ function CourseUsers({ courseId }) {
     "Alumnos",
   ];
   const classes = useStyles();
+  // Constantes de estado
   const [open, setOpen] = useState(false);
   const [course, setCourse] = useState({});
   const [groups, setGroups] = useState({});
@@ -52,6 +53,7 @@ function CourseUsers({ courseId }) {
   let users;
 
   useEffect(() => {
+    // Funciones para llamar a los cursos y grupos
     async function getData() {
       const requestCourses = await fetchingData(
         endP( {courseId} ).getCourse,
@@ -74,16 +76,19 @@ function CourseUsers({ courseId }) {
     setOpen(true);
   };
 
+  // Función crear grupo
   async function addNewGroup(event) {
     event.preventDefault();
     await postData(endP({ courseId }).createGroup);
   }
 
+  // Función que nos permite bloquear TODOS los grupos
   async function blockAllGroups(event) {
     event.preventDefault();
     await postData(endP({ courseId }).blockAllGroups);
   }
 
+  // Mostramos usuarios por tipo
   function mostrarUsuarios(tipo) {
     const inscriptions = course.inscriptions
     let lista = null;
@@ -189,7 +194,7 @@ function CourseUsers({ courseId }) {
       { isFetching 
         ?
           <Loading />
-        :
+        : // Ordenamos las inscripciones en un grupo
           groups?.map((group) => 
           <Grid item xs={12} md={6}>
             <GroupCard users={group.inscriptions} group={group} isAdmin={!hiddenButton} />

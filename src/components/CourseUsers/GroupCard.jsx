@@ -13,24 +13,24 @@ function GroupCard(props) {
   const isAdmin = props.isAdmin;
 
   return (
-    <Card className={classes.root}>
-      <CardHeader className={classes.header} title='Grupo 1' />
+    <Card className={classes.card}>
+      <CardHeader className={classes.cardHeader} title='Grupo 1' />
       <Divider />
-      <CardContent className={classes.content} disableSpacing>
+      <CardContent className={classes.cardContent} disableSpacing>
         <UsersList users={users} />
       </CardContent>
       <Divider />
-      <CardActions className={classes.actions} disableSpacing>
-        {
-          (isAdmin)
+      <CardActions className={classes.cardActions} disableSpacing>
+        { (isAdmin)
             ? <Button
-                backgroundColor='#000000'
-                variant='contained'
-                color='secondary'
-                // onClick={handleClickOpen}
+                  backgroundColor='#000000'
+                  variant='contained'
+                  color='secondary'
+                  // onClick={handleClickOpen}
               >
                 Bloquear grupo
               </Button>
+
             : <Button
                 backgroundColor='#000000'
                 variant='contained'

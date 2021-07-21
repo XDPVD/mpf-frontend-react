@@ -9,9 +9,11 @@ import { useEffect, useState } from "react";
 import AddUserDialog from "@components/CourseUsers/AddUserDialog";
 import { endP } from "@settings/config";
 import { fetchingData } from "@utils/fetchData";
+import { postData } from "@utils/postData";
 import Loading from "@common/Loading";
 import useUserInfo from "@utils/useUserInfo";
-import { checkNull } from "@utils/checkNull";
+import { Divider } from "@material-ui/core";
+
 
 const useStyles = makeStyles({
   button: {
@@ -65,6 +67,11 @@ function CourseUsers({ courseId }) {
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+  async function addNewGroup(event) {
+    event.preventDefault();
+    await postData(endP({ courseId }).createGroup);
+  }
 
   function mostrarUsuarios(tipo) {
     const inscriptions = course.inscriptions
@@ -132,6 +139,16 @@ function CourseUsers({ courseId }) {
               >
                 Añadir miembros
               </Button>
+              <Divider />
+              <Button
+                hidden={hiddenButton}
+                variant='contained'
+                color='primary'
+                onClick={addNewGroup}
+              >
+                Añadir grupo
+              </Button>
+
             </div>
           : ""
       }
@@ -147,10 +164,20 @@ function CourseUsers({ courseId }) {
         }}
       >
         <Typography variant='h4'>Grupos</Typography>
+        {(isCreator) 
+          &&  <Button
+                  backgroundColor='#000000'
+                  variant='contained'
+                  color='secondary'
+                  // onClick={handleClickOpen}
+              >
+                Bloquear todos los grupos
+              </Button>
+        }
       </div>
       <Grid container>
         <Grid item xs={12} md={6}>
-          {isFetching ? <Loading /> : <GroupCard users={users} isAdmin={true} />}
+          {isFetching ? <Loading /> : <GroupCard users={users} isAdmin={isCreator} />}
         </Grid>
        
         <Grid item xs={12} md={6}>

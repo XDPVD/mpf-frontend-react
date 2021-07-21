@@ -30,7 +30,11 @@ const useStyles = makeStyles({
 });
 
 function CourseUsers({ courseId }) {
-  const tipoMiembro = ["Profesor", "Delegados", "Alumnos"];
+  const tipoMiembro = [
+    "Profesor", 
+    "Delegados", 
+    "Alumnos",
+  ];
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [course, setCourse] = useState({});
@@ -65,22 +69,21 @@ function CourseUsers({ courseId }) {
   function mostrarUsuarios(tipo) {
     const inscriptions = course.inscriptions
     let lista = null;
-    if (checkNull(inscriptions)){
-      users = inscriptions.map(
-        (inscription) => inscription.user
-      );
-      const teacher = new Array(course.creator);
-      const delegate = new Array(course.delegate);
-  
-      if (tipo === "Profesor") {
-        lista = <UsersList courseId={courseId} users={teacher} />;
-      } else if (tipo === "Delegados") {
-        lista = <UsersList courseId={courseId} users={delegate} />;
-      } else {
-        lista = <UsersList courseId={courseId} users={users} />;
-      }
-    }
+    
+    users = inscriptions?.map(
+      (inscription) => inscription.user
+    );
+    const teacher = new Array(course.creator);
+    const delegate = new Array(course.delegate);
 
+    if (tipo === "Profesor") {
+      lista = <UsersList courseId={courseId} users={teacher} />;
+    } else if (tipo === "Delegados") {
+      lista = <UsersList courseId={courseId} users={delegate} />;
+    } else {
+      lista = <UsersList courseId={courseId} users={users} />;
+    }
+    
     return lista;
       
   }

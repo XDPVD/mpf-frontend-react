@@ -134,9 +134,9 @@ function CourseUsers({ courseId }) {
           {isFetching ? <Loading /> : mostrarUsuarios(tipo)}
         </>
       ))}
-      {
-        (isCreator)
-          ? <div className={classes.addUserWrapper}>
+      { (isCreator)
+          &&
+            <div className={classes.addUserWrapper}>
               <Button
                 hidden={hiddenButton}
                 variant='contained'
@@ -154,9 +154,7 @@ function CourseUsers({ courseId }) {
               >
                 Añadir grupo
               </Button>
-
             </div>
-          : ""
       }
       
     </Grid>
@@ -184,12 +182,14 @@ function CourseUsers({ courseId }) {
       </div>
       <Grid container>
       { isFetching 
-        ? <Loading /> 
-        : groups?.map((group) => (
+        ?
+          <Loading />
+        :
+          groups?.map((group) => 
           <Grid item xs={12} md={6}>
             <GroupCard users={group.inscriptions} group={group} isAdmin={!hiddenButton} />
           </Grid>
-          )) 
+          )
       }
       </Grid>
     </Grid>

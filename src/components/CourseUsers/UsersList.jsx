@@ -3,7 +3,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import { makeStyles } from "@material-ui/styles";
+import { useStyles } from "./_styles";
 import { checkNull } from "@utils/checkNull";
 import NotFound from "@common/NotFound";
 

@@ -1,20 +1,10 @@
 import { useEffect, useState } from "react";
 import SingleComment from "./SingleComment";
-import { Button, CircularProgress, makeStyles } from "@material-ui/core";
+import { Button, CircularProgress } from "@material-ui/core";
+import { useStyles } from "./_styles";
 import { endP } from "@settings/config";
 import { fetchingData } from "@utils/fetchData";
 import ReplyForm from "./ReplyForm";
-
-const useStyles = makeStyles({
-  actions: {
-    display: "flex",
-    flexFlow: "row",
-    alignContent: "center",
-    "& > p": {
-      flex: 6,
-    },
-  },
-});
 
 export default function Comments(props) {
   const classes = useStyles();

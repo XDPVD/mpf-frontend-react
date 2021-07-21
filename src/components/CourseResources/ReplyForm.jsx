@@ -1,34 +1,9 @@
 import React, { useState } from "react";
-import {
-  Button,
-  CircularProgress,
-  Grid,
-  makeStyles,
-  TextField,
-} from "@material-ui/core";
+import { Button, CircularProgress, Grid, TextField } from "@material-ui/core";
+import { useStyles } from "./_styles";
 import { postData } from "@utils/postData";
 import { endP } from "@settings/config";
 import useUserInfo from "@utils/useUserInfo";
-
-const useStyles = makeStyles({
-  textField: {
-    width: "100%",
-    margin: "10px 0px",
-  },
-  actions: {
-    "& button": {
-      margin: "0px 5px",
-    },
-  },
-  loading: {
-    position: "absolute",
-    top: "25px",
-    right: "50%",
-  },
-  formDiv: {
-    position: "relative",
-  },
-});
 
 function ReplyForm(props) {
   const classes = useStyles();
@@ -78,7 +53,7 @@ function ReplyForm(props) {
         onChange={handleInputChange}
         disabled={isFetching}
       />
-      <Grid container justify='flex-end' className={classes.actions}>
+      <Grid container justify='flex-end' className={classes.actionsReply}>
         <Button
           variant='contained'
           color='primary'

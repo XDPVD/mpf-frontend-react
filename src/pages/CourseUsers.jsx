@@ -10,6 +10,7 @@ import AddUserDialog from "@components/CourseUsers/AddUserDialog";
 import { endP } from "@settings/config";
 import { fetchingData } from "@utils/fetchData";
 import { postData } from "@utils/postData";
+import { putData } from "@utils/putData";
 import Loading from "@common/Loading";
 import useUserInfo from "@utils/useUserInfo";
 import { Divider } from "@material-ui/core";
@@ -85,7 +86,7 @@ function CourseUsers({ courseId }) {
   // Función que nos permite bloquear TODOS los grupos
   async function blockAllGroups(event) {
     event.preventDefault();
-    await postData(endP({ courseId }).blockAllGroups);
+    await putData(endP({ courseId }).blockAllGroups);
   }
 
   // Mostramos usuarios por tipo

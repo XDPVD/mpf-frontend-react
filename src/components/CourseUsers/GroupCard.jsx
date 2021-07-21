@@ -11,10 +11,9 @@ import { putData } from "@utils/putData";
 
 
 function GroupCard(props) {
-  // We call styles
   const classes = useStyles();
 
-  // We name needed vars
+  // Variables que llamamos desde los props
   const users = props.users;
   const isAdmin = props.isAdmin;
   const name = props.group?.name;
@@ -48,7 +47,7 @@ function GroupCard(props) {
               backgroundColor='#000000'
               variant='contained'
               color='secondary'
-              // onClick={handleClickOpen}
+              // TODO: onClick={handleClickOpen}
             >
               Unirme
             </Button>

@@ -84,9 +84,9 @@ function CourseUsers({ courseId }) {
   }
 
   // Función que nos permite bloquear TODOS los grupos
-  async function blockAllGroups(event) {
+  async function lockAllGroups(event) {
     event.preventDefault();
-    await putData(endP({ courseId }).blockAllGroups);
+    await putData(endP({ courseId }).lockAllGroups);
   }
 
   // Mostramos usuarios por tipo
@@ -185,7 +185,7 @@ function CourseUsers({ courseId }) {
                   backgroundColor='#000000'
                   variant='contained'
                   color='secondary'
-                  onClick={blockAllGroups}
+                  onClick={lockAllGroups}
               >
                 Bloquear todos los grupos
               </Button>

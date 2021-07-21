@@ -20,8 +20,6 @@ export const courseUrls = {
 export const endP = ({ courseId, userId, pubId, commentId, groupId, email, code }) => {
   console.log("endP commentId ", { courseId, userId, pubId, commentId, groupId });
   return {
-    blockAllGroups: `/group/lock_all/${courseId}`,
-    blockGroup: `/group/lock/${groupId}`,
     createCourse: "/course",
     createGroup: `/group/create/${courseId}/default`,
     createUser: "/user",
@@ -36,6 +34,8 @@ export const endP = ({ courseId, userId, pubId, commentId, groupId, email, code 
     getUsers: "/user",
     getComments: `/comment/publication/${pubId}`,
     getAnswers: `/comment/sub/${commentId}`,
+    lockAllGroups: `/group/lock_all/${courseId}`,
+    lockGroup: `/group/lock/${groupId}`,
     postAnnounce: `/publication/exam/${courseId}`,
     postAnswer: `/comment/${commentId}`,
     postComment: `/publication/${pubId}/comment`,

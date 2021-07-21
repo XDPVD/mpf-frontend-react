@@ -18,10 +18,11 @@ function GroupCard(props) {
   const isAdmin = props.isAdmin;
   const name = props.group?.name;
   const groupId = props.group?.id;
+  const isLocked = props.group?.locked
 
   async function blockGroup(event) {
     event.preventDefault();
-    await putData(endP({ groupId }).blockGroup);
+    await putData(endP({ groupId }).lockGroup);
   }
 
   return (
@@ -41,9 +42,11 @@ function GroupCard(props) {
               onClick={blockGroup}
             >
               Bloquear grupo
-            </Button>
+            </Button> // TODO: Habilitar un desbloquear
 
-          : <Button
+          : (!isLocked) 
+            && 
+            <Button
               backgroundColor='#000000'
               variant='contained'
               color='secondary'

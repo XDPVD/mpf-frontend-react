@@ -24,7 +24,7 @@ function UsersList(props) {
               <ListItemAvatar className={classes.avatar}>
                 <Avatar
                   alt={user?.name}
-                  src='happytravel.viajes/wp-content/uploads/2020/04/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'
+                  src='https://happytravel.viajes/wp-content/uploads/2020/04/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'
                 />
               </ListItemAvatar>
               <ListItemText className={classes.userText}>

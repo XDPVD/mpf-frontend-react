@@ -79,6 +79,11 @@ function CourseUsers({ courseId }) {
     await postData(endP({ courseId }).createGroup);
   }
 
+  async function blockAllGroups(event) {
+    event.preventDefault();
+    await postData(endP({ courseId }).blockAllGroups);
+  }
+
   function mostrarUsuarios(tipo) {
     const inscriptions = course.inscriptions
     let lista = null;
@@ -174,7 +179,7 @@ function CourseUsers({ courseId }) {
                   backgroundColor='#000000'
                   variant='contained'
                   color='secondary'
-                  // onClick={handleClickOpen}
+                  onClick={blockAllGroups}
               >
                 Bloquear todos los grupos
               </Button>

@@ -63,19 +63,22 @@ function CourseUsers({ courseId }) {
   };
 
   function mostrarUsuarios(tipo) {
-    users = course.inscriptions?.map(
-      (inscription) => inscription.user
-    );
-    const teacher = new Array(course.creator);
-    const delegate = new Array(course.delegate);
-    let lista;
-
-    if (tipo === "Profesor") {
-      lista = <UsersList courseId={courseId} users={teacher} />;
-    } else if (tipo === "Delegados") {
-      lista = <UsersList courseId={courseId} users={delegate} />;
-    } else {
-      lista = <UsersList courseId={courseId} users={users} />;
+    const inscriptions = course.inscriptions
+    let lista = null;
+    if (checkNull(inscriptions)){
+      users = inscriptions.map(
+        (inscription) => inscription.user
+      );
+      const teacher = new Array(course.creator);
+      const delegate = new Array(course.delegate);
+  
+      if (tipo === "Profesor") {
+        lista = <UsersList courseId={courseId} users={teacher} />;
+      } else if (tipo === "Delegados") {
+        lista = <UsersList courseId={courseId} users={delegate} />;
+      } else {
+        lista = <UsersList courseId={courseId} users={users} />;
+      }
     }
 
     return lista;
@@ -86,7 +89,7 @@ function CourseUsers({ courseId }) {
   <Grid style={{ overflowY: "auto" }} container>
     {/*LISTA DE MIEMBROS AGRUPADOS POR TIPO************************/}
     <Grid item className={classes.wrapper} xs={12} sm={6} md={5}>
-      {tipoMiembro?.map((tipo) => (
+      {tipoMiembro.map((tipo) => (
         <>
           <div
             style={{

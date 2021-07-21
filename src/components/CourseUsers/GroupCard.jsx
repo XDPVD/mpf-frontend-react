@@ -11,10 +11,11 @@ function GroupCard(props) {
   const classes = useStyles();
   const users = props.users;
   const isAdmin = props.isAdmin;
+  const name = props.group?.name
 
   return (
     <Card className={classes.card}>
-      <CardHeader className={classes.cardHeader} title='Grupo 1' />
+      <CardHeader className={classes.cardHeader} title={name} />
       <Divider />
       <CardContent className={classes.cardContent} disableSpacing>
         <UsersList users={users} />

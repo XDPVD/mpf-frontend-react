@@ -53,13 +53,19 @@ function CourseUsers({ courseId }) {
 
   useEffect(() => {
     async function getData() {
-      const request = await fetchingData(
+      const requestCourses = await fetchingData(
         endP( {courseId} ).getCourse,
         setCourse,
         setIsFetching
       );
+
+      const requestGroups = await fetchingData(
+        endP( {courseId} ).getGroups,
+        setGroups,
+        setIsFetching
+      );
       
-      return request;
+      return requestCourses, requestGroups;
     }
     getData();
   }, []);
@@ -176,6 +182,15 @@ function CourseUsers({ courseId }) {
         }
       </div>
       <Grid container>
+          { isFetching 
+            ? <Loading /> 
+            : groups?.map((group) => (
+              <Grid item xs={12} md={6}>
+                <GroupCard users={group.inscriptions} group={group} isAdmin={isCreator} />
+              </Grid>
+              )) 
+          }
+        
         <Grid item xs={12} md={6}>
           {isFetching ? <Loading /> : <GroupCard users={users} isAdmin={isCreator} />}
         </Grid>

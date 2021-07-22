@@ -29,6 +29,7 @@ export const endP = ({ courseId, userId, pubId, commentId, email, code }) => {
     getUsers: "/user",
     createUser: "/user",
     getUser: `/user/${userId}`,
+    getUserByEmail:`/user/byemail/${email}`,
     getComments: `/comment/publication/${pubId}`,
     getAnswers: `/comment/sub/${commentId}`,
     postComment: `/publication/${pubId}/comment`,

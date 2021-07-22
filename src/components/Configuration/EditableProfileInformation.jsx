@@ -27,10 +27,17 @@ export default function EditableProfileInformation(props){
   const {cookies}=props;
   const [telefono,setTelefono]=useState();
   const [linkFacebook,setLinkFacebook]=useState("");
-  const [obj,setObj]=useState();
+  const [obj,setObj]=useState([]);
   const {register,handleSubmit,formState: { errors },} = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data)
+
+  };
   
+  useEffect(() => {
+    //fetchData(`/user/byemail/${cookies.name.email}`, setObj);
+    fetchData(endP({email:cookies.name.email}).getUserByEmail, setObj);
+  },[]);
 
   return (
     <div>
@@ -45,7 +52,7 @@ export default function EditableProfileInformation(props){
           </IconButton>
           </Grid>
           <Grid item>
-            <TextField {...register('telefono', { pattern: /\d+/ })}/>
+            <TextField {...register('telefono', { pattern: /\d+/ })} placeholder={obj.phone}/>
             {errors.telefono && <p>Solo admite numeros.</p>}
           </Grid>
         </Grid>
@@ -60,7 +67,7 @@ export default function EditableProfileInformation(props){
           </IconButton>
           </Grid>
           <Grid item>
-            <TextField {...register('facebook')}/>
+            <TextField {...register('facebook')} placeholder={obj.link}/>
           </Grid>
         </Grid>
         <br></br>

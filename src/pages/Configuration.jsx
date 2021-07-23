@@ -22,7 +22,7 @@ export default function Configuration() {
         CONFIGURACION DEL USUARIO
       </Typography>
       <NotEditableProfileInformation cookies={cookies}/>
-      <EditableProfileInformation cookies={cookies}/>
+      <EditableProfileInformation cookies={cookies} headers={headers}/>
     </div>
   );
 }

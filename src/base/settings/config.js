@@ -24,6 +24,7 @@ export const endP = ({ courseId, userId, pubId, commentId, groupId, email, code 
     createGroup: `/group/create/${courseId}/default`,
     createUser: "/user",
     delegateUser: `/course/${courseId}/delegate/${userId}`,
+    editUser:`user/${email}`,
     enrollCourseByMail: `/course/${courseId}/enroll/by_email/${email}`,
     enrollMeByCode: `/course/${code}/enroll_me`,
     getInscriptions: `/course/${courseId}/inscriptions`,

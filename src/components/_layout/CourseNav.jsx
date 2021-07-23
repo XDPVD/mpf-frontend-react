@@ -4,6 +4,8 @@ import Typography from "@material-ui/core/Typography";
 import { useState } from "react";
 import { useStyles } from "./_styles";
 import Button from "@material-ui/core/Button";
+import Grid from '@material-ui/core/Grid';
+import EditIcon from '@material-ui/icons/Edit';
 
 import useRedirectUrl from "@utils/useRedirectUrl";
 import { endP } from "@settings/config";
@@ -46,9 +48,26 @@ function CourseNav({ courseId }) {
 
   return (
     <>
-      <Typography className={classes.courseTitle} variant='h3'>
-        {course.name}
-      </Typography>
+      <Grid container
+            direction="row"
+            
+            alignItems="center" 
+            spacing={2}>
+        <Grid item >
+        <Typography className={classes.courseTitle} variant='h3'>
+          {course.name}
+        </Typography>
+        </Grid>
+        <Grid item >
+          <Button
+            variant='contained'
+            color='#b2ff59'
+            startIcon={<EditIcon />}
+          >
+            Editar
+          </Button>
+        </Grid>
+      </Grid>
       <Tabs value={selectedTab} onChange={handleChange}>
         {nav.map((item) => (
           <Tab disableRipple label={item} className={classes.tab} />
@@ -58,6 +77,7 @@ function CourseNav({ courseId }) {
           className={classes.buttonAddMaterial}
           onClick={handleClickOpenAddMaterial}
           variant='contained'
+          color='#b2ff59'
         >
           <span style={{ "font-size": "20px", marginRight: "5px" }}>+</span>{" "}
           Nuevo Recurso

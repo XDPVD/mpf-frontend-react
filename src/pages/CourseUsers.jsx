@@ -14,7 +14,7 @@ import { putData } from "@utils/putData";
 import Loading from "@common/Loading";
 import useUserInfo from "@utils/useUserInfo";
 import { Divider } from "@material-ui/core";
-
+import { checkNull } from "@utils/checkNull";
 
 const useStyles = makeStyles({
   button: {
@@ -33,23 +33,19 @@ const useStyles = makeStyles({
 });
 
 function CourseUsers({ courseId }) {
-  const tipoMiembro = [
-    "Profesor", 
-    "Delegados", 
-    "Alumnos",
-  ];
+  const tipoMiembro = ["Profesor", "Delegados", "Alumnos"];
   const classes = useStyles();
   // Constantes de estado
   const [open, setOpen] = useState(false);
   const [course, setCourse] = useState({});
   const [groups, setGroups] = useState({});
   const [isFetching, setIsFetching] = useState(true);
-  const [,,isCreator] = useUserInfo();
+  const [, , isCreator] = useUserInfo();
   const [hiddenButton, setHiddenButton] = useState(false);
 
   useEffect(() => {
-    isCreator(courseId).then((res)=> setHiddenButton(!res));
-  },[isCreator, courseId])
+    isCreator(courseId).then((res) => setHiddenButton(!res));
+  }, [isCreator, courseId]);
 
   let users;
 
@@ -57,22 +53,22 @@ function CourseUsers({ courseId }) {
     // Funciones para llamar a los cursos y grupos
     async function getData() {
       const requestCourses = await fetchingData(
-        endP( {courseId} ).getCourse,
+        endP({ courseId }).getCourse,
         setCourse,
         setIsFetching
       );
 
       const requestGroups = await fetchingData(
-        endP( {courseId} ).getGroups,
+        endP({ courseId }).getGroups,
         setGroups,
         setIsFetching
       );
-      
+
       return requestCourses, requestGroups;
     }
     getData();
   }, []);
-  
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -91,12 +87,10 @@ function CourseUsers({ courseId }) {
 
   // Mostramos usuarios por tipo
   function mostrarUsuarios(tipo) {
-    const inscriptions = course.inscriptions
+    const inscriptions = course.inscriptions;
     let lista = null;
-    
-    users = inscriptions?.map(
-      (inscription) => inscription.user
-    );
+
+    users = inscriptions?.map((inscription) => inscription.user);
     const teacher = new Array(course.creator);
     const delegate = new Array(course.delegate);
 
@@ -107,46 +101,44 @@ function CourseUsers({ courseId }) {
     } else {
       lista = <UsersList courseId={courseId} users={users} />;
     }
-    
+
     return lista;
-      
   }
 
-  return <>
-  <Grid style={{ overflowY: "auto" }} container>
-    {/*LISTA DE MIEMBROS AGRUPADOS POR TIPO************************/}
-    <Grid item className={classes.wrapper} xs={12} sm={6} md={5}>
-      {tipoMiembro.map((tipo) => (
-        <>
-          <div
-            style={{
-              borderBottom: "2px solid #ddd",
-              padding: "5px 10px",
-              position: "relative",
-            }}
-          >
-            <Typography variant='h4' display='inline'>
-              {tipo}
-            </Typography>
-              {tipo === "Delegados" && (
-                <Button
-                  hidden={hiddenButton}
-                  className={classes.button}
-                  disableRipple
-                  variant='text'
-                  endIcon={<AddIcon />}
-                >
-                  Añadir
-                </Button>
-                
-              )}
-          </div>
+  return (
+    <>
+      <Grid style={{ overflowY: "auto" }} container>
+        {/*LISTA DE MIEMBROS AGRUPADOS POR TIPO************************/}
+        <Grid item className={classes.wrapper} xs={12} sm={6} md={5}>
+          {tipoMiembro.map((tipo) => (
+            <>
+              <div
+                style={{
+                  borderBottom: "2px solid #ddd",
+                  padding: "5px 10px",
+                  position: "relative",
+                }}
+              >
+                <Typography variant='h4' display='inline'>
+                  {tipo}
+                </Typography>
+                {tipo === "Delegados" && (
+                  <Button
+                    hidden={hiddenButton}
+                    className={classes.button}
+                    disableRipple
+                    variant='text'
+                    endIcon={<AddIcon />}
+                  >
+                    Añadir
+                  </Button>
+                )}
+              </div>
 
-          {isFetching ? <Loading /> : mostrarUsuarios(tipo)}
-        </>
-      ))}
-      { (isCreator)
-          &&
+              {isFetching ? <Loading /> : mostrarUsuarios(tipo)}
+            </>
+          ))}
+          {isCreator && (
             <div className={classes.addUserWrapper}>
               <Button
                 hidden={hiddenButton}
@@ -166,48 +158,53 @@ function CourseUsers({ courseId }) {
                 Añadir grupo
               </Button>
             </div>
-      }
-      
-    </Grid>
+          )}
+        </Grid>
 
-    {/*LISTA DE GRUPOS************************/}
-    <Grid item className={classes.wrapper} xs={12} sm={6} md={7}>
-      <div
-        style={{
-          borderBottom: "2px solid #ddd",
-          padding: "5px 10px",
-        }}
-      >
-        <Typography variant='h4'>Grupos</Typography>
-        {(isCreator) 
-          &&  <Button
-                  hidden={hiddenButton}
-                  backgroundColor='#000000'
-                  variant='contained'
-                  color='secondary'
-                  onClick={lockAllGroups}
+        {/*LISTA DE GRUPOS************************/}
+        <Grid item className={classes.wrapper} xs={12} sm={6} md={7}>
+          <div
+            style={{
+              borderBottom: "2px solid #ddd",
+              padding: "5px 10px",
+            }}
+          >
+            <Typography variant='h4'>Grupos</Typography>
+            {isCreator && (
+              <Button
+                hidden={hiddenButton}
+                backgroundColor='#000000'
+                variant='contained'
+                color='secondary'
+                onClick={lockAllGroups}
               >
                 Bloquear todos los grupos
               </Button>
-        }
-      </div>
-      <Grid container>
-      { isFetching 
-        ?
-          <Loading />
-        : // Ordenamos las inscripciones en un grupo
-          groups?.map((group) => 
-          <Grid item xs={12} md={6}>
-            <GroupCard users={group.inscriptions} group={group} isAdmin={!hiddenButton} />
+            )}
+          </div>
+          <Grid container>
+            {isFetching ? (
+              <Loading />
+            ) : (
+              // Ordenamos las inscripciones en un grupo
+              !checkNull(groups) &&
+              groups?.map((group) => (
+                <Grid item xs={12} md={6}>
+                  <GroupCard
+                    users={group.inscriptions}
+                    group={group}
+                    isAdmin={!hiddenButton}
+                  />
+                </Grid>
+              ))
+            )}
           </Grid>
-          )
-      }
+        </Grid>
       </Grid>
-    </Grid>
-  </Grid>
 
-  <AddUserDialog open={open} setOpen={setOpen} courseId={courseId} />
-  </>
+      <AddUserDialog open={open} setOpen={setOpen} courseId={courseId} />
+    </>
+  );
 }
 
 export default CourseUsers;

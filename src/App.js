@@ -19,6 +19,7 @@ import { UsuarioProvider, useUsuario } from "./base/context/usuario-context";
 import { createBrowserHistory } from "history";
 import { CookiesProvider } from 'react-cookie';
 import { useCookies } from 'react-cookie';
+import Configuration from "@pages/Configuration";
 // Components
 
 export default function appWithContext() {return (<> <CookiesProvider><UsuarioProvider>
@@ -69,10 +70,11 @@ function App() {
 
                   <Route path={config.urls.calendario}>Calendario</Route>
 
-                  <Route path={config.urls.config}>Configuracion</Route>
+                  <Route path={config.urls.config}>
+                    <Configuration/>
+                  </Route>
                   <Route path={config.urls.grupos}>Grupo</Route>
 
-                  <Route path={config.urls.config}>Configuración</Route>
                 </Switch>
               </Container>
             </>

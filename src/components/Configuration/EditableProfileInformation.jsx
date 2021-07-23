@@ -10,19 +10,29 @@ import Button from '@material-ui/core/Button';
 import { endP } from "@settings/config";
 import { fetchData } from "@utils/fetchData";
 import { putData } from "@utils/putData";
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles((theme) => ({
+  textField: {
+    width: '35ch',
+  },
+}));
 
 export default function EditableProfileInformation(props){
-
+  const classes = useStyles();
   const {cookies,headers}=props;
   const [obj,setObj]=useState([]);
   const {register,handleSubmit,formState: { errors },} = useForm();
   const onSubmit = (data,e) => {
     putData(endP({email:cookies.name.email}).editUser,{phone:data.phone,link:data.facebook},headers);
-    e.target[0].value='';
-    e.target[1].value='';
-    e.target[0].placeholder=data.phone;
-    e.target[1].placeholder=data.facebook;
+    if(data.phone){
+      e.target[0].value='';
+      e.target[0].placeholder=data.phone;
+    }
+    if(data.facebook){
+      e.target[1].value='';
+      e.target[1].placeholder=data.facebook;
+    }
   };
   
   useEffect(() => {
@@ -57,7 +67,7 @@ export default function EditableProfileInformation(props){
           </IconButton>
           </Grid>
           <Grid item>
-            <TextField {...register('facebook')} placeholder={obj.link}/>
+            <TextField {...register('facebook')} className={classes.textField} placeholder={obj.link}/>
           </Grid>
         </Grid>
         <br></br>

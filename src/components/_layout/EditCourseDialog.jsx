@@ -29,7 +29,7 @@ export default function EditCourseDialog(props) {
   };
   
   useEffect(() => {
-    //fetchData(endP({email:cookies.name.email}).getUserByEmail, setObj);
+    fetchData(endP({courseId:courseId}).getCourse, setObj);
   },[]);
 
   return (
@@ -39,7 +39,7 @@ export default function EditCourseDialog(props) {
         <DialogTitle id="form-dialog-title">Editar Curso</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Ya que ustedes es creador, tiene la opción de editar el nombre de la clase  y asunto del curso.
+            Ya que usted es creador, tiene la opción de editar el nombre de la clase  y asunto del curso.
           </DialogContentText>
           <TextField
             autoFocus
@@ -48,7 +48,7 @@ export default function EditCourseDialog(props) {
             label="Nombre de la clase"
             type="text"
             fullWidth
-            placeholder="casi"           
+            placeholder={obj.name}           
           />
           <TextField
             autoFocus
@@ -57,15 +57,15 @@ export default function EditCourseDialog(props) {
             label="Asunto"
             type="text"
             fullWidth
-            placeholder="casi"            
+            placeholder={obj.description}            
           />
         </DialogContent>       
         <DialogActions>
           <Button onClick={onClose} color="primary">
-            Cancel
+            Cancelar
           </Button>
           <Button type="submit" color="primary">
-            Subscribe
+            Editar
           </Button>
         </DialogActions>
         </form>

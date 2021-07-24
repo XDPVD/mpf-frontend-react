@@ -14,7 +14,7 @@ import PostButton from "./PostButton";
 import SelectOption from "./SelectOption";
 import useUserInfo from "@utils/useUserInfo";
 import FormDialog from "@common/FormDialog";
-import { resourceIsValid } from "@utils/useValidation";
+import { dateIsValid, resourceIsValid } from "@utils/useValidation";
 
 function AddResourceDialog(props) {
   const classes = useStyles();
@@ -33,7 +33,7 @@ function AddResourceDialog(props) {
 
   const [, headers] = useUserInfo();
 
-  const [recurso, setRecurso] = useState({
+  const initialResource = {
     tipo: "A",
     titulo: "",
     descripcion: "",
@@ -41,7 +41,9 @@ function AddResourceDialog(props) {
     fechaEntrega: new Date(),
     grupal: grupal,
     id_curso: Number(courseId),
-  });
+  };
+
+  const [recurso, setRecurso] = useState(initialResource);
 
   const [errorTitle, setErrorTitle] = useState(false);
   const [errorDesc, setErrorDesc] = useState(false);
@@ -86,8 +88,9 @@ function AddResourceDialog(props) {
 
   const handleDateChange = (event) => {
     console.log(event.target.value);
+    let date = new Date(event.target.value);
 
-    setRecurso({ ...recurso, fechaEntrega: new Date(event.target.value) });
+    dateIsValid() && setRecurso({ ...recurso, fechaEntrega: date });
   };
 
   const simpleSubmit = async () => {
@@ -146,9 +149,14 @@ function AddResourceDialog(props) {
     },
   ];
 
+  const openDialog = () => {
+    setRecurso(initialResource);
+    props.setOpenAdd();
+  };
+
   return (
     <FormDialog
-      setOpen={props.setOpenAdd}
+      setOpen={openDialog}
       open={props.openAdd}
       size='md'
       title='Nuevo Recurso'

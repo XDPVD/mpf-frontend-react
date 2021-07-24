@@ -151,8 +151,7 @@ function FileTray(props) {
     setSuccess(true);
 
     if (editMode) setEditMode(false);
-
-    props.closeFunction();
+    window.location.reload();
   };
 
   const changeEditMode = (value) => {
@@ -193,13 +192,7 @@ function FileTray(props) {
       <Button
         hidden={success || props.blockAllActions}
         onClick={
-          resourceIsValid(
-            props.recurso,
-            props.setErrorTitle,
-            props.setErrorDesc,
-            props.setHelperTitle,
-            props.setHelperDesc
-          )
+          props.recurso && resourceIsValid(props.recurso, props.setters)
             ? uploadFiles
             : () => {}
         }

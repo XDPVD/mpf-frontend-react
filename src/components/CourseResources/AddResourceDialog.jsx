@@ -38,7 +38,7 @@ function AddResourceDialog(props) {
     titulo: "",
     descripcion: "",
     notaMax: 20,
-    fechaEntrega: new Date(),
+    fechaEntrega: null,
     grupal: grupal,
     id_curso: Number(courseId),
   };
@@ -47,8 +47,19 @@ function AddResourceDialog(props) {
 
   const [errorTitle, setErrorTitle] = useState(false);
   const [errorDesc, setErrorDesc] = useState(false);
+  const [errorDate, setErrorDate] = useState(false);
   const [helperTitle, setHelperTitle] = useState("");
   const [helperDesc, setHelperDesc] = useState("");
+  const [helperDate, setHelperDate] = useState("");
+
+  const setters = {
+    setErrorTitle: setErrorTitle,
+    setErrorDesc: setErrorDesc,
+    setErrorDate: setErrorDate,
+    setHelperTitle: setHelperTitle,
+    setHelperDesc: setHelperDesc,
+    setHelperDate: setHelperDate,
+  };
 
   const handleChangeNota = (event) => {
     setNota(Number(event.target.value));
@@ -84,25 +95,18 @@ function AddResourceDialog(props) {
       setErrorDesc(false);
       setHelperDesc("");
     }
+    resourceIsValid(recurso, setters);
   };
 
   const handleDateChange = (event) => {
-    console.log(event.target.value);
-    let date = new Date(event.target.value);
-
-    dateIsValid() && setRecurso({ ...recurso, fechaEntrega: date });
+    setRecurso({ ...recurso, fechaEntrega: new Date(event.target.value) });
+    console.log(recurso.fechaEntrega);
+    setErrorDate(false);
+    setHelperDate("");
   };
 
   const simpleSubmit = async () => {
-    if (
-      resourceIsValid(
-        recurso,
-        setErrorTitle,
-        setErrorDesc,
-        setHelperTitle,
-        setHelperDesc
-      )
-    ) {
+    if (resourceIsValid(recurso, setters)) {
       await postPub(recurso, headers);
       props.setOpenAdd(false);
       window.location.reload();
@@ -211,12 +215,13 @@ function AddResourceDialog(props) {
                 label='Fecha de entrega'
                 type='datetime-local'
                 format='yyyy-MM-ddThh:mm'
-                defaultValue={new Date().toString()}
                 className={classes.horaEntrega}
                 InputLabelProps={{
                   shrink: true,
                 }}
                 onChange={handleDateChange}
+                helperText={helperDate}
+                error={errorDate}
               />
             </>
           )}
@@ -236,14 +241,8 @@ function AddResourceDialog(props) {
                 modeCreate={true}
                 mode={"p"}
                 recurso={recurso}
-                setErrorTitle={setErrorTitle}
-                setErrorDesc={setErrorDesc}
-                setHelperTitle={setHelperTitle}
-                setHelperDesc={setHelperDesc}
+                setters={setters}
                 createIdFunction={async () => await postPub(recurso, headers)}
-                closeFunction={() => {
-                  props.setOpenAdd(false);
-                }}
               />
             </div>
           </>

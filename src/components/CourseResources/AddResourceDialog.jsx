@@ -108,12 +108,14 @@ function AddResourceDialog(props) {
       name: "titulo",
       placeholder: "Ingrese un título...",
       rows: 1,
+      maxlength: 30,
     },
     {
       label: "Descripción",
       name: "descripcion",
       placeholder: "Ingrese una descripcion...",
       rows: 4,
+      maxlength: 500,
     },
   ];
 
@@ -138,6 +140,7 @@ function AddResourceDialog(props) {
         <br />
         <div>
           <form noValidate autoComplete='off'>
+            {/* Map título y descripción */}
             {textFields.map((elem) => {
               return (
                 <TextField
@@ -145,11 +148,12 @@ function AddResourceDialog(props) {
                   className={classes.tituloForm}
                   fullWidth={true}
                   id='standard-basic'
-                  label={elem.label}
+                  label={`${elem.label} (Máx. caracteres: ${elem.maxlength})`}
                   multiline={elem.rows > 1 ? true : false}
                   rows={elem.rows}
                   placeholder={elem.placeholder}
                   onChange={handleTextInputChange}
+                  inputProps={{ maxlength: elem.maxlength }}
                 />
               );
             })}

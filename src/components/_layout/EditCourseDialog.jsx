@@ -35,11 +35,11 @@ export default function EditCourseDialog(props) {
   return (
     <div>
       <Dialog open={openEditCourse} onClose={onClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Editar Curso</DialogTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
+        <DialogTitle id="form-dialog-title">Editar Curso</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Usted tiene la opción de editar el nombre de la clase  y asunto del curso.
+            Ya que ustedes es creador, tiene la opción de editar el nombre de la clase  y asunto del curso.
           </DialogContentText>
           <TextField
             autoFocus

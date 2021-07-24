@@ -14,21 +14,32 @@ import { useEffect } from "react";
 import { fetchData } from "@utils/fetchData";
 import useUserInfo from "@utils/useUserInfo";
 
+//mis imports
+import EditCourseDialog from "./EditCourseDialog";
+
 function CourseNav({ courseId }) {
   const classes = useStyles();
 
   const [, redirectTo] = useRedirectUrl();
-
-  const [, , isCreator] = useUserInfo();
+  //le agregue cookies y  headers aqui
+  const [cookies,headers, isCreator] = useUserInfo();
 
   const nav = ["Anuncios", "Materiales", "Tareas", "Exámenes", "Personas"];
   const routes = ["dash", "materiales", "tareas", "examenes", "personas"];
   const [selectedTab, setSelectedTab] = useState(0);
   const [openAddMaterial, setOpenAddMaterial] = useState(false);
   const [course, setCourse] = useState({});
-
   const [hiddenButton, setHiddenButton] = useState(false);
-
+  //mi parte
+  const [openEditCourse, setOpenEditCourse] = useState(false);
+  const [hiddenButtonEditCourse, setHiddenButtonEditCourse] = useState(false);
+  const handleClickOpenEditCourse = () => {
+    setOpenEditCourse(true);
+  };
+  const handleCloseOpenEditCourse = () => {
+    setOpenEditCourse(false);
+  };
+  //hasta aca
   useEffect(() => {
     fetchData(endP({ courseId }).getCourse, setCourse);
   }, [courseId]);
@@ -41,16 +52,18 @@ function CourseNav({ courseId }) {
     redirectTo("/cursos/" + courseId + "/" + routes[newValue]);
     setSelectedTab(newValue);
   };
-
+  //aqui le agregue el sethiddenbuttoneditcourse
   useEffect(() => {
-    isCreator(courseId).then((res) => setHiddenButton(!res));
+    isCreator(courseId).then((res) => {
+      setHiddenButton(!res);
+      setHiddenButtonEditCourse(!res);
+    });
   }, [isCreator, courseId]);
 
   return (
     <>
       <Grid container
             direction="row"
-            
             alignItems="center" 
             spacing={2}>
         <Grid item >
@@ -61,9 +74,10 @@ function CourseNav({ courseId }) {
         <Grid item >
           <Button
             variant='contained'
-            color='#b2ff59'
+            color='primary'
+            hidden={hiddenButtonEditCourse}
             startIcon={<EditIcon />}
-          >
+            onClick={handleClickOpenEditCourse}>
             Editar
           </Button>
         </Grid>
@@ -87,6 +101,8 @@ function CourseNav({ courseId }) {
         openAdd={openAddMaterial}
         setOpenAdd={setOpenAddMaterial}
       />
+      <EditCourseDialog courseId={courseId} openEditCourse={openEditCourse} onClose={handleCloseOpenEditCourse} cookies={cookies} headers={headers} />
+      
     </>
   );
 }

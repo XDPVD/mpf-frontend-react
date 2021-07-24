@@ -227,6 +227,11 @@ function AddResourceDialog(props) {
               <FileTray
                 modeCreate={true}
                 mode={"p"}
+                recurso={recurso}
+                setErrorTitle={setErrorTitle}
+                setErrorDesc={setErrorDesc}
+                setHelperTitle={setHelperTitle}
+                setHelperDesc={setHelperDesc}
                 createIdFunction={async () => await postPub(recurso, headers)}
                 closeFunction={() => {
                   props.setOpenAdd(false);

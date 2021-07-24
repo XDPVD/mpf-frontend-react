@@ -12,8 +12,10 @@ export function resourceIsValid(
 ) {
   if (recurso.titulo && recurso.descripcion) return true;
   else {
-    !recurso.titulo && validate(setErrorTitle, setHelperTitle);
-    !recurso.descripcion && validate(setErrorDesc, setHelperDesc);
+    recurso.titulo === "" && validate(setErrorTitle, setHelperTitle);
+    recurso.descripcion === "" && validate(setErrorDesc, setHelperDesc);
     return false;
   }
 }
+
+export function dateIsValid() {}

@@ -14,6 +14,7 @@ import PostButton from "./PostButton";
 import SelectOption from "./SelectOption";
 import useUserInfo from "@utils/useUserInfo";
 import FormDialog from "@common/FormDialog";
+import { resourceIsValid } from "@utils/useValidation";
 
 function AddResourceDialog(props) {
   const classes = useStyles();
@@ -42,6 +43,11 @@ function AddResourceDialog(props) {
     id_curso: Number(courseId),
   });
 
+  const [errorTitle, setErrorTitle] = useState(false);
+  const [errorDesc, setErrorDesc] = useState(false);
+  const [helperTitle, setHelperTitle] = useState("");
+  const [helperDesc, setHelperDesc] = useState("");
+
   const handleChangeNota = (event) => {
     setNota(Number(event.target.value));
     setRecurso({ ...recurso, notaMax: Number(event.target.value) });
@@ -69,6 +75,13 @@ function AddResourceDialog(props) {
 
   const handleTextInputChange = (event) => {
     setRecurso({ ...recurso, [event.target.name]: event.target.value });
+    if (event.target.name === "titulo") {
+      setErrorTitle(false);
+      setHelperTitle("");
+    } else {
+      setErrorDesc(false);
+      setHelperDesc("");
+    }
   };
 
   const handleDateChange = (event) => {
@@ -78,9 +91,19 @@ function AddResourceDialog(props) {
   };
 
   const simpleSubmit = async () => {
-    await postPub(recurso, headers);
-    props.setOpenAdd(false);
-    window.location.reload();
+    if (
+      resourceIsValid(
+        recurso,
+        setErrorTitle,
+        setErrorDesc,
+        setHelperTitle,
+        setHelperDesc
+      )
+    ) {
+      await postPub(recurso, headers);
+      props.setOpenAdd(false);
+      window.location.reload();
+    }
   };
 
   const menuItems = [
@@ -109,6 +132,8 @@ function AddResourceDialog(props) {
       placeholder: "Ingrese un título...",
       rows: 1,
       maxlength: 30,
+      helper: helperTitle,
+      error: errorTitle,
     },
     {
       label: "Descripción",
@@ -116,6 +141,8 @@ function AddResourceDialog(props) {
       placeholder: "Ingrese una descripcion...",
       rows: 4,
       maxlength: 500,
+      helper: helperDesc,
+      error: errorDesc,
     },
   ];
 
@@ -144,6 +171,7 @@ function AddResourceDialog(props) {
             {textFields.map((elem) => {
               return (
                 <TextField
+                  error={elem.error}
                   name={elem.name}
                   className={classes.tituloForm}
                   fullWidth={true}
@@ -154,6 +182,7 @@ function AddResourceDialog(props) {
                   placeholder={elem.placeholder}
                   onChange={handleTextInputChange}
                   inputProps={{ maxlength: elem.maxlength }}
+                  helperText={elem.helper}
                 />
               );
             })}

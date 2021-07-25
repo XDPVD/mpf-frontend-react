@@ -21,9 +21,8 @@ function CourseNav({ courseId }) {
   const classes = useStyles();
 
   const [, redirectTo] = useRedirectUrl();
-  //le agregue cookies y  headers aqui(inicio)
+  //le agregue aqui(inicio)
   const [,headers, isCreator] = useUserInfo();
-
   const nav = ["Anuncios", "Materiales", "Tareas", "Exámenes", "Personas"];
   const routes = ["dash", "materiales", "tareas", "examenes", "personas"];
   const [selectedTab, setSelectedTab] = useState(0);
@@ -35,6 +34,7 @@ function CourseNav({ courseId }) {
   const [hiddenButtonEditCourse, setHiddenButtonEditCourse] = useState(false);
   const [courseUpdated,setCourseUpdated]=useState(0);
   const editCourse=()=>{
+    console.log("cuc"+courseUpdated)
     setCourseUpdated(courseUpdated+1);
   }
   const handleClickOpenEditCourse = () => {
@@ -43,11 +43,13 @@ function CourseNav({ courseId }) {
   const handleCloseOpenEditCourse = () => {
     setOpenEditCourse(false);
   };
-  
+  useEffect(() => {
+    fetchData(endP({ courseId }).getCourse, setCourse);
+  }, [courseUpdated]);
   
   useEffect(() => {
     fetchData(endP({ courseId }).getCourse, setCourse);
-  }, [courseId,courseUpdated]);
+  }, [courseId]);
 
   const handleClickOpenAddMaterial = () => {
     setOpenAddMaterial(true);
@@ -106,7 +108,7 @@ function CourseNav({ courseId }) {
         openAdd={openAddMaterial}
         setOpenAdd={setOpenAddMaterial}
       />
-      <EditCourseDialog courseId={courseId} editCourse={editCourse} courseUpdated={courseUpdated} openEditCourse={openEditCourse} onClose={handleCloseOpenEditCourse} headers={headers} />
+      <EditCourseDialog courseId={courseId} courseUpdated={courseUpdated} setCourseUpdated={setCourseUpdated} openEditCourse={openEditCourse} onClose={handleCloseOpenEditCourse} headers={headers} />
       
     </>
   );

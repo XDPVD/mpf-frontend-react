@@ -12,32 +12,41 @@ import { putData } from "@utils/putData";
 import { useForm } from 'react-hook-form';
 
 export default function EditCourseDialog(props) {
-  const {courseId,courseUpdated,headers,onClose,openEditCourse,editCourse } = props;
+  const {courseId,courseUpdated,setCourseUpdated,headers,onClose,openEditCourse } = props;
   const [obj,setObj]=useState([]);
   const {register,handleSubmit,reset,formState: { errors },} = useForm();
-  
+  const [courseUpdatedDialog,setCourseUpdatedDialog]=useState(0);
+
+  const resetState=async ()=>{
+    await setCourseUpdated(courseUpdated+1);
+    await setCourseUpdatedDialog(courseUpdatedDialog+1);
+  }
   const onSubmit = (data,e) => {
     e.preventDefault();
-    putData(endP({courseId:courseId}).editCourse,{name:data.name,description:data.description}/*,headers*/);
-    console.log(data)
-    console.log(e.target[0].value)
-    console.log(e.target[1].value)
-    if(data.name){
-      e.target[0].value='';
-      e.target[0].placeholder=data.name;
+    var nameObj=e.target[0].value;
+    var descriptionObj=e.target[1].value;
+    if(e.target[0].value===''){
+      nameObj=obj.name;
     }
-    if(data.description){
-      e.target[1].value='';
-      e.target[1].placeholder=data.description;
+    if(e.target[1].value===''){
+      descriptionObj=obj.description;
     }
-    editCourse()
-    reset()
-    onClose()
+    putData(endP({courseId:courseId}).editCourse,{name:nameObj,description:descriptionObj},headers);
+    console.log(nameObj);
+    console.log(descriptionObj);
+    e.target[0].value='';
+    e.target[1].value='';
+    e.target[0].placeholder=nameObj;
+    e.target[1].placeholder=descriptionObj;
+    reset();
+    resetState();
+    onClose();
   };
   
+
   useEffect(() => {
     fetchData(endP({courseId:courseId}).getCourse, setObj);
-  },[courseUpdated]);
+  },[courseUpdatedDialog]);
 
   return (
     <div>

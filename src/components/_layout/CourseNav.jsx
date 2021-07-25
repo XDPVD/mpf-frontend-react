@@ -21,8 +21,8 @@ function CourseNav({ courseId }) {
   const classes = useStyles();
 
   const [, redirectTo] = useRedirectUrl();
-  //le agregue cookies y  headers aqui
-  const [cookies,headers, isCreator] = useUserInfo();
+  //le agregue cookies y  headers aqui(inicio)
+  const [,headers, isCreator] = useUserInfo();
 
   const nav = ["Anuncios", "Materiales", "Tareas", "Exámenes", "Personas"];
   const routes = ["dash", "materiales", "tareas", "examenes", "personas"];
@@ -30,19 +30,24 @@ function CourseNav({ courseId }) {
   const [openAddMaterial, setOpenAddMaterial] = useState(false);
   const [course, setCourse] = useState({});
   const [hiddenButton, setHiddenButton] = useState(false);
-  //mi parte
+  //mi parte(fin)
   const [openEditCourse, setOpenEditCourse] = useState(false);
   const [hiddenButtonEditCourse, setHiddenButtonEditCourse] = useState(false);
+  const [courseUpdated,setCourseUpdated]=useState(0);
+  const editCourse=()=>{
+    setCourseUpdated(courseUpdated+1);
+  }
   const handleClickOpenEditCourse = () => {
     setOpenEditCourse(true);
   };
   const handleCloseOpenEditCourse = () => {
     setOpenEditCourse(false);
   };
-  //hasta aca
+  
+  
   useEffect(() => {
     fetchData(endP({ courseId }).getCourse, setCourse);
-  }, [courseId]);
+  }, [courseId,courseUpdated]);
 
   const handleClickOpenAddMaterial = () => {
     setOpenAddMaterial(true);
@@ -59,7 +64,7 @@ function CourseNav({ courseId }) {
       setHiddenButtonEditCourse(!res);
     });
   }, [isCreator, courseId]);
-
+  //solo el grid es mio y el ultimo dialog
   return (
     <>
       <Grid container
@@ -101,7 +106,7 @@ function CourseNav({ courseId }) {
         openAdd={openAddMaterial}
         setOpenAdd={setOpenAddMaterial}
       />
-      <EditCourseDialog courseId={courseId} openEditCourse={openEditCourse} onClose={handleCloseOpenEditCourse} cookies={cookies} headers={headers} />
+      <EditCourseDialog courseId={courseId} editCourse={editCourse} courseUpdated={courseUpdated} openEditCourse={openEditCourse} onClose={handleCloseOpenEditCourse} headers={headers} />
       
     </>
   );

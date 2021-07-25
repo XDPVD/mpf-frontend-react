@@ -12,25 +12,32 @@ import { putData } from "@utils/putData";
 import { useForm } from 'react-hook-form';
 
 export default function EditCourseDialog(props) {
-  const {courseId,cookies,headers,onClose,openEditCourse } = props;
+  const {courseId,courseUpdated,headers,onClose,openEditCourse,editCourse } = props;
   const [obj,setObj]=useState([]);
-  const {register,handleSubmit,formState: { errors },} = useForm();
+  const {register,handleSubmit,reset,formState: { errors },} = useForm();
+  
   const onSubmit = (data,e) => {
-    /*e.preventDefault();
-    //putData(endP({email:cookies.name.email}).editUser,{phone:data.phone,link:data.facebook},headers);
-    if(data){
-        console.log("a")
-        console.log(e.target[0].value)
-        console.log(e.target[1].value)
-        console.log(data.nombre)
-        console.log(data.asunto)
-    }*/
+    e.preventDefault();
+    putData(endP({courseId:courseId}).editCourse,{name:data.name,description:data.description}/*,headers*/);
+    console.log(data)
+    console.log(e.target[0].value)
+    console.log(e.target[1].value)
+    if(data.name){
+      e.target[0].value='';
+      e.target[0].placeholder=data.name;
+    }
+    if(data.description){
+      e.target[1].value='';
+      e.target[1].placeholder=data.description;
+    }
+    editCourse()
+    reset()
     onClose()
   };
   
   useEffect(() => {
     fetchData(endP({courseId:courseId}).getCourse, setObj);
-  },[]);
+  },[courseUpdated]);
 
   return (
     <div>
@@ -44,7 +51,7 @@ export default function EditCourseDialog(props) {
           <TextField
             autoFocus
             margin="dense"
-            {...register('nombre')}
+            {...register('name')}
             label="Nombre de la clase"
             type="text"
             fullWidth
@@ -53,14 +60,15 @@ export default function EditCourseDialog(props) {
           <TextField
             autoFocus
             margin="dense"
-            {...register('asunto')}
+            {...register('description')}
             label="Asunto"
             type="text"
             fullWidth
             placeholder={obj.description}            
           />
         </DialogContent>       
-        <DialogActions>
+    
+        <DialogActions>  
           <Button onClick={onClose} color="primary">
             Cancelar
           </Button>
@@ -68,7 +76,7 @@ export default function EditCourseDialog(props) {
             Editar
           </Button>
         </DialogActions>
-        </form>
+        </form> 
       </Dialog>
     </div>
   );

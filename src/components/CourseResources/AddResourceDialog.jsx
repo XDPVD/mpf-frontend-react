@@ -15,6 +15,7 @@ import SelectOption from "./SelectOption";
 
 import FormDialog from "@common/FormDialog";
 import { useUser } from "src/base/context/userContext";
+import { dateIsValid, resourceIsValid } from "@utils/useValidation";
 
 function AddResourceDialog(props) {
   const classes = useStyles();
@@ -33,15 +34,33 @@ function AddResourceDialog(props) {
 
   const actions = useUser()[1];
 
-  const [recurso, setRecurso] = useState({
+  const initialResource = {
     tipo: "A",
     titulo: "",
     descripcion: "",
     notaMax: 20,
-    fechaEntrega: new Date(),
+    fechaEntrega: null,
     grupal: grupal,
     id_curso: Number(courseId),
-  });
+  };
+
+  const [recurso, setRecurso] = useState(initialResource);
+
+  const [errorTitle, setErrorTitle] = useState(false);
+  const [errorDesc, setErrorDesc] = useState(false);
+  const [errorDate, setErrorDate] = useState(false);
+  const [helperTitle, setHelperTitle] = useState("");
+  const [helperDesc, setHelperDesc] = useState("");
+  const [helperDate, setHelperDate] = useState("");
+
+  const setters = {
+    setErrorTitle: setErrorTitle,
+    setErrorDesc: setErrorDesc,
+    setErrorDate: setErrorDate,
+    setHelperTitle: setHelperTitle,
+    setHelperDesc: setHelperDesc,
+    setHelperDate: setHelperDate,
+  };
 
   const handleChangeNota = (event) => {
     setNota(Number(event.target.value));
@@ -70,18 +89,29 @@ function AddResourceDialog(props) {
 
   const handleTextInputChange = (event) => {
     setRecurso({ ...recurso, [event.target.name]: event.target.value });
+    if (event.target.name === "titulo") {
+      setErrorTitle(false);
+      setHelperTitle("");
+    } else {
+      setErrorDesc(false);
+      setHelperDesc("");
+    }
+    resourceIsValid(recurso, setters);
   };
 
   const handleDateChange = (event) => {
-    console.log(event.target.value);
-
     setRecurso({ ...recurso, fechaEntrega: new Date(event.target.value) });
+    console.log(recurso.fechaEntrega);
+    setErrorDate(false);
+    setHelperDate("");
   };
 
   const simpleSubmit = async () => {
-    await postPub(recurso, actions.getHeader());
-    props.setOpenAdd(false);
-    window.location.reload();
+    if (resourceIsValid(recurso, setters)) {
+      await postPub(recurso, actions.getHeader());
+      props.setOpenAdd(false);
+      window.location.reload();
+    }
   };
 
   const menuItems = [
@@ -109,108 +139,119 @@ function AddResourceDialog(props) {
       name: "titulo",
       placeholder: "Ingrese un título...",
       rows: 1,
+      maxlength: 30,
+      helper: helperTitle,
+      error: errorTitle,
     },
     {
       label: "Descripción",
       name: "descripcion",
       placeholder: "Ingrese una descripcion...",
       rows: 4,
+      maxlength: 500,
+      helper: helperDesc,
+      error: errorDesc,
     },
   ];
+
+  const openDialog = () => {
+    setRecurso(initialResource);
+    props.setOpenAdd();
+  };
+
   return (
     <FormDialog
-      setOpen={props.setOpenAdd}
+      setOpen={openDialog}
       open={props.openAdd}
       size='md'
       title='Nuevo Recurso'
     >
-      <DialogContent>
-        <form noValidate>
-            <div>
-              <SelectTipo
-                open={open}
-                handleClose={handleClose}
-                handleOpenList={handleOpenList}
-                tipo={tipo}
-                handleChange={handleChange}
-                menuItems={menuItems}
-              />
-            </div>
-            <br />
-            <div>
-              <form noValidate autoComplete='off'>
-                {textFields.map((elem) => {
-                  return (
-                    <TextField
-                      key={elem.titulo}
-                      name={elem.name}
-                      className={classes.tituloForm}
-                      fullWidth={true}
-                      id='standard-basic'
-                      label={elem.label}
-                      multiline={elem.rows > 1 ? true : false}
-                      rows={elem.rows}
-                      placeholder={elem.placeholder}
-                      onChange={handleTextInputChange}
-                    />
-                  );
-                })}
-              </form>
-            </div>
-
-            <div>
-            {(tipo === "T" || tipo === "E") && (
-              <>
-                <SelectOption
-                  valueSelected={nota.nota}
-                  handleOnChange={handleChangeNota}
-                />
-
+      <form noValidate>
+        <div>
+          <SelectTipo
+            open={open}
+            handleClose={handleClose}
+            handleOpenList={handleOpenList}
+            tipo={tipo}
+            handleChange={handleChange}
+            menuItems={menuItems}
+          />
+        </div>
+        <br />
+        <div>
+          <form noValidate autoComplete='off'>
+            {/* Map título y descripción */}
+            {textFields.map((elem) => {
+              return (
                 <TextField
-                  name='fechaEntrega'
-                  id='datetime-local'
-                  label='Fecha de entrega'
-                  type='datetime-local'
-                  format='yyyy-MM-ddThh:mm'
-                  defaultValue={new Date().toString()}
-                  className={classes.horaEntrega}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  onChange={handleDateChange}
+                  error={elem.error}
+                  name={elem.name}
+                  className={classes.tituloForm}
+                  fullWidth={true}
+                  id='standard-basic'
+                  label={`${elem.label} (Máx. caracteres: ${elem.maxlength})`}
+                  multiline={elem.rows > 1 ? true : false}
+                  rows={elem.rows}
+                  placeholder={elem.placeholder}
+                  onChange={handleTextInputChange}
+                  inputProps={{ maxlength: elem.maxlength }}
+                  helperText={elem.helper}
                 />
-              </>
-            )}
-            {tipo === "T" && (
-              <GroupField
-                handleChangeGrupal={handleChangeGrupal}
-                grupal={grupal}
-              />
-            )}
-          </div>
+              );
+            })}
+          </form>
+        </div>
 
-          {tipo !== "A" ? (
+        <div>
+          {(tipo === "T" || tipo === "E") && (
             <>
-              <div style={{ marginTop: "20px", maxHeight: "400px" }}>
-                <FileTray
-                  modeCreate={true}
-                  mode={"p"}
-                  createIdFunction={async () => await postPub(recurso, actions.getHeader())}
-                  closeFunction={() => {
-                    props.setOpenAdd(false);
-                  }}
-                />
-              </div>
-            </>
-          ) : (
-            <PostButton onClick={simpleSubmit} />
-          )}
-        </form>
-      </DialogContent>
+              <SelectOption
+                valueSelected={nota.nota}
+                handleOnChange={handleChangeNota}
+              />
 
+              <TextField
+                name='fechaEntrega'
+                id='datetime-local'
+                label='Fecha de entrega'
+                type='datetime-local'
+                format='yyyy-MM-ddThh:mm'
+                className={classes.horaEntrega}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={handleDateChange}
+                helperText={helperDate}
+                error={errorDate}
+              />
+            </>
+          )}
+
+          {tipo === "T" && (
+            <GroupField
+              handleChangeGrupal={handleChangeGrupal}
+              grupal={grupal}
+            />
+          )}
+        </div>
+
+        {tipo !== "A" ? (
+          <>
+            <div style={{ marginTop: "20px", maxHeight: "400px" }}>
+              <FileTray
+                modeCreate={true}
+                mode={"p"}
+                recurso={recurso}
+                setters={setters}
+                createIdFunction={async () => await postPub(recurso, actions.getHeader())}
+              />
+            </div>
+          </>
+        ) : (
+          <PostButton onClick={simpleSubmit} />
+        )}
+      </form>
     </FormDialog>
-    
-      
   );
 }
 

@@ -13,7 +13,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import FormDialog from "@common/FormDialog";
 import { useUser } from "src/base/context/userContext";
 
-export default function AddUserDialog({ open, setOpen }) {
+export default function AddUserDialog({ open, setOpen, course, reloadFunc }) {
   const { id } = useParams();
 
   const [code, setCode] = useState("");
@@ -42,11 +42,42 @@ export default function AddUserDialog({ open, setOpen }) {
   async function addMail(event) {
     event.preventDefault();
 
+    let flag = course.creator.email === mail.email;
+    console.log(course);
+    if(mail.email === ''){
+      alert('Por favor, ingrese un email');
+      return;
+    }
+
+    if (flag){
+      alert('No puede agregarse asi mismo, ingrese un correo de algun alumno que no pertenezca a su curso');
+      return;
+    }
+
+    course.inscriptions.forEach(elem => {
+        flag = (elem.user.email === mail.email);
+    });
+
+    if(flag){
+      alert('No puede agregar a un alumno ya inscrito, vuelva a poner otro correo');
+      return;
+    }
+
+    await fetchData(`/user/byemail/${mail.email}`, (res) => { flag = (res.status === 404) ; console.log(res.status)});
+    
+    if(flag){
+      alert('El usuario no tiene un email registrado en nuestro sistema, ingrese otro o solicite al usuario registrarse en el sistema');
+      return;
+    }
+
     await postData(
       endP({ courseId: id, email: mail.email }).enrollCourseByMail,
       {},
-      actions.getHeader()
+      actions.getHeader() 
     );
+    
+    setOpen(false);
+    reloadFunc();
   }
 
   const classes = useStyles();

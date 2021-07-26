@@ -12,6 +12,9 @@ import { postData } from "@utils/postData";
 import { putData } from "@utils/putData";
 import Loading from "@common/Loading";
 import { useUser } from "src/base/context/userContext";
+import { Divider } from "@material-ui/core";
+import { checkNull } from "@utils/checkNull";
+import GroupCard from "@components/CourseUsers/GroupCard";
 
 const useStyles = makeStyles({
   button: {
@@ -38,36 +41,35 @@ function CourseUsers({ courseId }) {
   const [groups, setGroups] = useState({});
   const [isFetching, setIsFetching] = useState(true);
   const actions = useUser()[1];
-  const [hiddenButton, setHiddenButton] = useState(true);
+  const [adminMode, setAdminMode] = useState(false);
   useEffect(() => {
-    actions.isCreator(courseId).then((res)=> setHiddenButton(!res));
+    actions.isCreator(courseId).then((res)=> {setAdminMode(res) });
   },[actions, courseId])
-
-  useEffect(() => {
-    isCreator(courseId).then((res) => setHiddenButton(!res));
-  }, [isCreator, courseId]);
 
   let users;
 
   useEffect(() => {
     // Funciones para llamar a los cursos y grupos
     async function getData() {
-      const requestCourses = await fetchingData(
+      await fetchingData(
         endP({ courseId }).getCourse,
         setCourse,
         setIsFetching
       );
 
-      const requestGroups = await fetchingData(
+      await fetchingData(
         endP({ courseId }).getGroups,
         setGroups,
         setIsFetching
       );
-
-      return requestCourses, requestGroups;
     }
     getData();
-  }, [courseId]);
+  }, [courseId, open]);
+
+  const reloadCourseUsers = () => {
+    setIsFetching(true);
+  }
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -121,9 +123,8 @@ function CourseUsers({ courseId }) {
                 <Typography variant='h4' display='inline'>
                   {tipo}
                 </Typography>
-                {tipo === "Delegados" && (
+                {tipo === "Delegados" && adminMode && (
                   <Button
-                    hidden={hiddenButton}
                     className={classes.button}
                     disableRipple
                     variant='text'
@@ -137,10 +138,9 @@ function CourseUsers({ courseId }) {
               {isFetching ? <Loading /> : mostrarUsuarios(tipo)}
             </>
           ))}
-          {isCreator && (
+          {adminMode && (
             <div className={classes.addUserWrapper}>
               <Button
-                hidden={hiddenButton}
                 variant='contained'
                 color='primary'
                 onClick={handleClickOpen}
@@ -149,7 +149,6 @@ function CourseUsers({ courseId }) {
               </Button>
               <Divider />
               <Button
-                hidden={hiddenButton}
                 variant='contained'
                 color='primary'
                 onClick={addNewGroup}
@@ -169,9 +168,8 @@ function CourseUsers({ courseId }) {
             }}
           >
             <Typography variant='h4'>Grupos</Typography>
-            {isCreator && (
+            {adminMode && (
               <Button
-                hidden={hiddenButton}
                 backgroundColor='#000000'
                 variant='contained'
                 color='secondary'
@@ -192,7 +190,7 @@ function CourseUsers({ courseId }) {
                   <GroupCard
                     users={group.inscriptions}
                     group={group}
-                    isAdmin={!hiddenButton}
+                    isAdmin={adminMode}
                   />
                 </Grid>
               ))
@@ -201,7 +199,7 @@ function CourseUsers({ courseId }) {
         </Grid>
       </Grid>
 
-      <AddUserDialog open={open} setOpen={setOpen} courseId={courseId} />
+      <AddUserDialog reloadFunc={reloadCourseUsers} open={open} setOpen={setOpen} course={course} />
     </>
   );
 }

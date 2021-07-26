@@ -15,7 +15,7 @@ import Divider from "@material-ui/core/Divider";
 import NotFound from "@common/NotFound";
 import { useUser } from "src/base/context/userContext";
 
-export default function CoursesList() {
+export default function CoursesList(props) {
   const user = useUser()[0];
   const [enrollInfo, setEnrollInfo] = useState();
   const [isFetching, setIsFetching] = useState(true);
@@ -26,7 +26,7 @@ export default function CoursesList() {
       setEnrollInfo,
       setIsFetching
     );
-  }, [user]);
+  }, [user, props.statusDialog]);
 
   //TODO
   // Arreglar el marginBottom de cada fila de cursos (estrecharlo)

@@ -13,6 +13,7 @@ function LoginButton() {
   const responseGoogle = async ({ profileObj, tokenId }) => {
     await userActions.saveUser(profileObj);
     await userActions.saveToken(tokenId, true);
+    
   };
 
   // nothing for now, but prefer change

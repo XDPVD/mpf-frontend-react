@@ -16,6 +16,8 @@ function LateralBar() {
 
   const [user,actions] = useUser();
 
+  
+
   // Array of Buttons { IconComponent, url }
   const topButtons = [
     {
@@ -66,7 +68,7 @@ function LateralBar() {
           {settingButton.component}
         </Button>
 
-        <Button style={{ color: "red" }} onClick={closeSession}>
+        <Button style={{ color: "red" }} onClick={() => closeSession()}>
           <ExitToAppIcon />
         </Button>
       </div>

@@ -70,6 +70,7 @@ function FileTray(props) {
     setSuccess(true);
 
     if (editMode) setEditMode(false);
+    
     props.closeFunction();
 
   };

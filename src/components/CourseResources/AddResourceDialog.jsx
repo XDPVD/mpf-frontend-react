@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
-import {DialogContent} from '@material-ui/core';
 import { useStyles } from "./_styles";
 
 import FileTray from "@components/_common/FileTray";
@@ -15,7 +14,7 @@ import SelectOption from "./SelectOption";
 
 import FormDialog from "@common/FormDialog";
 import { useUser } from "src/base/context/userContext";
-import { dateIsValid, resourceIsValid } from "@utils/useValidation";
+import { resourceIsValid } from "@utils/useValidation";
 
 function AddResourceDialog(props) {
   const classes = useStyles();
@@ -244,6 +243,7 @@ function AddResourceDialog(props) {
                 recurso={recurso}
                 setters={setters}
                 createIdFunction={async () => await postPub(recurso, actions.getHeader())}
+                closeFunction={() => props.setOpenAdd(false)}
               />
             </div>
           </>

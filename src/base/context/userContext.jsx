@@ -75,12 +75,13 @@ export function useUser(){
             setCookie(cookieNames.TOKEN, token);
             context.setUser(prev => ({ ...prev, token }));
         },
-        removeUser: async () => {
+        removeUser: () => {
             removeCookie(cookieNames.USER);
             removeCookie(cookieNames.TOKEN);
             context.setUser(null);
         },
         getHeader: () => ({
+            'Access-Control-Allow-Origin': '*',
             Authorization: `Bearer ${context.user.token}`,
         }),
         isCreator: async (course_id) => {

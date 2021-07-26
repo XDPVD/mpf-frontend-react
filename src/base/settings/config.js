@@ -16,7 +16,7 @@ export const courseUrls = {
   personas: "/personas",
 };
 
-export const endP = ({ courseId, userId, pubId, commentId, email}) => {
+export const endP = ({ courseId, userId, pubId, commentId, email, groupId}) => {
   console.log("endP commentId ",{courseId, userId, pubId, commentId, email});
   return {
     createCourse: "/course",
@@ -26,7 +26,6 @@ export const endP = ({ courseId, userId, pubId, commentId, email}) => {
     editUser: `user/${email}`,
     enrollCourseByMail: `/course/${courseId}/enroll/by_email/${email}`,
     enrollMeByCode: `/course/${courseId}/enroll_me`,
-    delegateUser: `/course/${courseId}/delegate/${userId}`,
     getInscriptions: `/course/${courseId}/inscriptions`,
     getCourse: `/course/${courseId}`,
     getCourses: "/course",

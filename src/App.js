@@ -37,21 +37,21 @@ function App() {
   useEffect(() => {
     const checkCookies = async () =>{
       let [userCookie, tokenCookie] = actions.getCookies();
-
+      console.log('checkCookies');
       if (userCookie || tokenCookie) {
         actions.removeUser();
         await actions.saveUser(userCookie);
         await actions.saveToken(tokenCookie);
       }
+      
     }
     
-    console.log('recargando la pagina');
-
+    console.log(user);
     if(!user) checkCookies();
   },[user, actions])
 
   useEffect(() => {
-    console.log("current user: ",user);
+    console.log('rerender app')
   })
 
   return (

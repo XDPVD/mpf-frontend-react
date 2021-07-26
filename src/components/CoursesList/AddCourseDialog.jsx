@@ -51,8 +51,9 @@ export default function AddCourseDialog({ open, setOpen, setOpenSB }) {
 
 
 
-    setOpen(false);
+    
     await postData(endP({ id_course }).createCourse, curso, actions.getHeader());
+    setOpen(false);
     setOpenSB(true);
   }
 

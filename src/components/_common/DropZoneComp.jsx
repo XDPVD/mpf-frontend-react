@@ -9,16 +9,28 @@ function DropZoneComp({ setCurrentFiles, success, blockAllActions }) {
     const { getRootProps, open, getInputProps } = useDropzone({
         noClick: true,
         maxFiles: 5,
-        noKeyboard: true,
+        noKeyboard: true,   
         onDrop: (files) => {
+
+            let size = files.reduce((acc, currentVal ) => {
+                return acc + currentVal.size;
+            }, 0)
+
+            size *=  9.537*Math.pow(10,-7);  
+
+            if (size > 30.0){
+                alert('El peso de los archivos no debe superar mas de los 30MB');
+                alert('Por favor, comprima sus archivos');
+                return;
+            }
             setCurrentFiles(files);
         },
     });
 
     return (
         <div
-            className={classes.dropZone}
             {...getRootProps({ className: "dropzone" })}
+            className={classes.dropZone}
             hidden={success || blockAllActions}
         >
             <input {...getInputProps()} />

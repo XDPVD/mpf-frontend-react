@@ -1,7 +1,7 @@
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
-import { useLayoutEffect, useState } from "react";
+import { useState } from "react";
 import { useStyles } from "./_styles";
 import Button from "@material-ui/core/Button";
 
@@ -10,14 +10,14 @@ import { endP } from "@settings/config";
 import AddResourceDialog from "@components/CourseResources/AddResourceDialog";
 import { useEffect } from "react";
 import { fetchData } from "@utils/fetchData";
-import useUserInfo from "@utils/useUserInfo";
+import { useUser } from "src/base/context/userContext";
 
 function CourseNav({ courseId }) {
   const classes = useStyles();
 
   const [, redirectTo] = useRedirectUrl();
 
-  const [, , isCreator] = useUserInfo();
+  const actions = useUser()[1];
 
   const nav = ["Anuncios", "Materiales", "Tareas", "Exámenes", "Personas"];
   const routes = ["dash", "materiales", "tareas", "examenes", "personas"];
@@ -40,29 +40,30 @@ function CourseNav({ courseId }) {
     setSelectedTab(newValue);
   };
   
-  useLayoutEffect(() => {
-    isCreator(courseId).then((res) => setHiddenButton(!res));
-  }, [isCreator, courseId]);
+  useEffect(() => {
+    actions.isCreator(courseId).then((res) => setHiddenButton(!res));
+  }, [actions, courseId]);
 
   return (
     <>
       <Typography className={classes.courseTitle} variant='h3'>
         {course.name}
       </Typography>
-      <Tabs value={selectedTab} onChange={handleChange}>
-        {nav.map((item) => (
-          <Tab key={item} disableRipple label={item} className={classes.tab} />
-        ))}
+      <div className={classes.options}>
+        <Tabs  value={selectedTab} onChange={handleChange} >
+          {nav.map((item) => (
+            <Tab key={item} disableRipple label={item} className={classes.tab} />
+          ))}
+        </Tabs>
         <Button
-          hidden={hiddenButton}
-          className={classes.buttonAddMaterial}
-          onClick={handleClickOpenAddMaterial}
-          variant='contained'
-        >
-          <span style={{ "fontSize": "20px", marginRight: "5px" }}>+</span>{" "}
-          Nuevo Recurso
+            hidden={hiddenButton}
+            className={classes.buttonAddMaterial}
+            onClick={handleClickOpenAddMaterial}
+          >
+            <span style={{ "fontSize": "20px", marginRight: "5px" }}>+</span>{" "}
+            Nuevo Recurso
         </Button>
-      </Tabs>
+      </div>
       <AddResourceDialog
         openAdd={openAddMaterial}
         setOpenAdd={setOpenAddMaterial}

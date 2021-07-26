@@ -1,7 +1,6 @@
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import UsersList from "@components/CourseUsers/UsersList";
-import GroupCard from "@components/CourseUsers/GroupCard";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/styles";
 import AddIcon from "@material-ui/icons/Add";
@@ -10,7 +9,7 @@ import AddUserDialog from "@components/CourseUsers/AddUserDialog";
 import { endP } from "@settings/config";
 import { fetchingData } from "@utils/fetchData";
 import Loading from "@common/Loading";
-import useUserInfo from "@utils/useUserInfo";
+import { useUser } from "src/base/context/userContext";
 
 const useStyles = makeStyles({
   button: {
@@ -35,11 +34,11 @@ function CourseUsers({ courseId }) {
   const [course, setCourse] = useState({});
   const [isFetching, setIsFetching] = useState(true);
 
-  const [,,isCreator] = useUserInfo();
+  const actions = useUser()[1];
   const [hiddenButton, setHiddenButton] = useState(true);
   useEffect(() => {
-    isCreator(courseId).then((res)=> setHiddenButton(!res));
-  },[isCreator, courseId])
+    actions.isCreator(courseId).then((res)=> setHiddenButton(!res));
+  },[actions, courseId])
 
 
   let users;
@@ -54,10 +53,8 @@ function CourseUsers({ courseId }) {
       return request;
     }
     getData();
-  }, []);
+  }, [courseId]);
   
-
-
   const handleClickOpen = () => {
     setOpen(true);
   };

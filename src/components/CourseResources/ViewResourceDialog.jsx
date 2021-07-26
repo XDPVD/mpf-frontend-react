@@ -4,7 +4,6 @@ import { useStyles } from "./_styles";
 import { Button } from "@material-ui/core";
 import FileCard from "./FileCard";
 import Comments from "./Comments";
-import { db } from "@settings/base";
 import useFiles from "@utils/useFiles";
 
 function ViewResourceDialog(props) {

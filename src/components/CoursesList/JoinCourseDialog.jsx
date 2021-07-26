@@ -3,14 +3,14 @@ import FormDialog from "@common/FormDialog";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { postData } from "@utils/postData";
-import useUserInfo from "@utils/useUserInfo";
 import Button from "@material-ui/core/Button";
 import { endP } from "@settings/config";
+import { useUser } from "src/base/context/userContext";
 
 function JoinCourseDialog({ open, setOpen, setOpenSB }) {
-  var code = "";
+  let code = "";
 
-  const [, headers] = useUserInfo();
+  const actions = useUser()[1];
   const classes = useStyles();
 
   const handleCodeChange = (event) => {
@@ -22,7 +22,7 @@ function JoinCourseDialog({ open, setOpen, setOpenSB }) {
     event.preventDefault();
 
     setOpen(false);
-    await postData(endP({ code: code }).enrollMeByCode, {}, headers);
+    await postData(endP({ code: code }).enrollMeByCode, {}, actions.getHeader());
     setOpenSB(true);
   }
 

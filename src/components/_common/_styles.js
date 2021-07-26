@@ -36,7 +36,7 @@ export const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
-    backgroundColor: "rgba(225, 225, 225)",
+    backgroundColor: "rgba(245, 245, 245)",
     border: "1px black",
     padding: "8px",
     width: "100%",
@@ -48,7 +48,8 @@ export const useStyles = makeStyles({
   fileList: {
     margin: "0px",
     width: "100%",
-    flex: 6
+    flex: 6,
+    "list-style-type": 'none',
   },
   loading:{
     position: "absolute",

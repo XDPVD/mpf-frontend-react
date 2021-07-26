@@ -3,12 +3,12 @@ import { Button, CircularProgress, Grid, TextField } from "@material-ui/core";
 import { useStyles } from "./_styles";
 import { postData } from "@utils/postData";
 import { endP } from "@settings/config";
-import useUserInfo from "@utils/useUserInfo";
+import { useUser } from "src/base/context/userContext";
 
 function ReplyForm(props) {
   const classes = useStyles();
 
-  const [, headers] = useUserInfo();
+  const actions = useUser()[1];
 
   const [formValues, setFormValues] = useState({
     content: "",
@@ -34,7 +34,7 @@ function ReplyForm(props) {
     console.log("postAnswer urlPost ", urlPost);
 
     setFetching((prev) => true);
-    await postData(urlPost, formValues, headers);
+    await postData(urlPost, formValues, actions.getHeader());
     setFetching((prev) => false);
     setFormValues({ content: "" });
     props.offReplyMode();

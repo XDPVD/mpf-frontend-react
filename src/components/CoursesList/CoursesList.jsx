@@ -11,27 +11,28 @@ import CoursesCreatedList from "./CoursesCreatedList";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
-import useUserInfo from "@utils/useUserInfo";
+
 import NotFound from "@common/NotFound";
+import { useUser } from "src/base/context/userContext";
 
 export default function CoursesList() {
-  const [cookiesUser] = useUserInfo();
-  const [user, setUser] = useState();
+  const user = useUser()[0];
+  const [enrollInfo, setEnrollInfo] = useState();
   const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
     fetchingData(
-      `/user/byemail/${cookiesUser.name.email}`,
-      setUser,
+      `/user/byemail/${user.email}`,
+      setEnrollInfo,
       setIsFetching
     );
-  }, []);
+  }, [user]);
 
   //TODO
   // Arreglar el marginBottom de cada fila de cursos (estrecharlo)
 
   function showCoursesEnrolled() {
-    const inscriptions = user.inscriptions.map((x) => x.course);
+    const inscriptions = enrollInfo.inscriptions.map((x) => x.course);
 
     if (!checkNull(inscriptions)) {
       return inscriptions.map((inscription) => (
@@ -45,7 +46,7 @@ export default function CoursesList() {
   }
 
   function showCoursesCreated() {
-    const created = user.courses_created.map((x) => x);
+    const created = enrollInfo.courses_created.map((x) => x);
     return !checkNull(created) ? (
       <CoursesCreatedList created={created} />
     ) : (

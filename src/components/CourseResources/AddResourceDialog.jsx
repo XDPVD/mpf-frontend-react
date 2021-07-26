@@ -12,11 +12,13 @@ import SelectTipo from "./SelectTipo";
 import GroupField from "@components/CourseResources/GroupField";
 import PostButton from "./PostButton";
 import SelectOption from "./SelectOption";
-import useUserInfo from "@utils/useUserInfo";
+
 import FormDialog from "@common/FormDialog";
+import { useUser } from "src/base/context/userContext";
 
 function AddResourceDialog(props) {
   const classes = useStyles();
+  
   const { courseId } = useParams();
 
   const [grupal, setGrupal] = useState(false);
@@ -29,7 +31,7 @@ function AddResourceDialog(props) {
     nota: 20,
   });
 
-  const [, headers] = useUserInfo();
+  const actions = useUser()[1];
 
   const [recurso, setRecurso] = useState({
     tipo: "A",
@@ -77,7 +79,7 @@ function AddResourceDialog(props) {
   };
 
   const simpleSubmit = async () => {
-    await postPub(recurso, headers);
+    await postPub(recurso, actions.getHeader());
     props.setOpenAdd(false);
     window.location.reload();
   };
@@ -193,7 +195,7 @@ function AddResourceDialog(props) {
                 <FileTray
                   modeCreate={true}
                   mode={"p"}
-                  createIdFunction={async () => await postPub(recurso, headers)}
+                  createIdFunction={async () => await postPub(recurso, actions.getHeader())}
                   closeFunction={() => {
                     props.setOpenAdd(false);
                   }}

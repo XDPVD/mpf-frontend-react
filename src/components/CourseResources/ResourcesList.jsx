@@ -39,7 +39,6 @@ const ResourcesList = (props) => {
         default:
           break;
       }
-      console.log(res);
       setPosts(res.reverse());
       setLoading(false);
     };

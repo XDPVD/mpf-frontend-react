@@ -1,14 +1,13 @@
 import React, { useEffect, useRef } from 'react'
 import FileItem from "@components/_common/FileItem"
-import { useStyles } from "@components/_common/_styles";
+import { useStyles } from "./_styles";
 
 function FileList({blockAllActions, currentFiles}) {
     const classes = useStyles();
 
     // reference for tray file list
     const refFileList = useRef();
-    console.log('current files in file list >>> ',currentFiles)
-
+    
     const fileItems = currentFiles?.map((file) => {
         return <FileItem file={file} deleteButton={false} />;
     });
@@ -18,8 +17,9 @@ function FileList({blockAllActions, currentFiles}) {
         lastElemFile?.scrollIntoView({ behavior: "smooth" });
     }, [currentFiles]);
 
+    
     return (
-        <li className={classes.fileList} ref={refFileList}>
+        <li ref={refFileList} className={classes.fileList} >
             {fileItems}
             {blockAllActions && fileItems?.length === 0 ? (
                 <p>No hay archivos</p>

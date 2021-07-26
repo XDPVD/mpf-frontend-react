@@ -5,13 +5,13 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { useStyles } from "./_styles";
 import { useParams } from "react-router-dom";
-import useUserInfo from "@utils/useUserInfo";
 import { useState } from "react";
 import { endP } from "@settings/config";
 import { postData } from "@utils/postData";
 import { fetchData } from "@utils/fetchData";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import FormDialog from "@common/FormDialog";
+import { useUser } from "src/base/context/userContext";
 
 export default function AddUserDialog({ open, setOpen }) {
   const { id } = useParams();
@@ -20,9 +20,11 @@ export default function AddUserDialog({ open, setOpen }) {
   const [mail, setMail] = useState({ email: "" });
   const [isFetching, setIsFetching] = useState(false);
 
+  const actions = useUser()[1];
+
   useEffect(() => {
     fetchData(`/course/${id}/code`, setCode);
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     setIsFetching(false);
@@ -37,14 +39,13 @@ export default function AddUserDialog({ open, setOpen }) {
     setMail({ ...mail, [event.target.name]: event.target.value });
   };
 
-  const [, headers] = useUserInfo();
   async function addMail(event) {
     event.preventDefault();
 
     await postData(
       endP({ courseId: id, email: mail.email }).enrollCourseByMail,
       {},
-      headers
+      actions.getHeader()
     );
   }
 

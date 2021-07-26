@@ -13,42 +13,55 @@ import Login from "@pages/Login";
 import theme from "@styles/theme";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 
-import { UsuarioProvider } from "./base/context/usuario-context";
-
-import { createBrowserHistory } from "history";
+import { UserProvider } from "./base/context/userContext";
 import { CookiesProvider } from 'react-cookie';
-import { useCookies } from 'react-cookie';
-
 import { useStyles } from "@styles/Styles";
+import { useUser } from "./base/context/userContext";
 // Components
 
-export default function appWithContext() {return (<> <CookiesProvider><UsuarioProvider>
-  <App></App>
-</UsuarioProvider></CookiesProvider></>)}
+export default function appWithContext() {
+  return (
+  <CookiesProvider>
+    <UserProvider>
+      <App></App>
+    </UserProvider>
+  </CookiesProvider>
+)
+}
 
 function App() {
   const classes = useStyles();
-
-  const [cookies, ] = useCookies(['name','userToken']);
   
-  const history = createBrowserHistory();
+  const [user, actions] = useUser();
 
   useEffect(() => {
-    console.log(cookies.name);
-  });
+    const checkCookies = async () =>{
+      let [userCookie, tokenCookie] = actions.getCookies();
+
+      if (userCookie || tokenCookie) {
+        actions.removeUser();
+        await actions.saveUser(userCookie);
+        await actions.saveToken(tokenCookie);
+      }
+    }
+    
+    console.log('recargando la pagina');
+
+    if(!user) checkCookies();
+  },[user, actions])
+
+  useEffect(() => {
+    console.log("current user: ",user);
+  })
 
   return (
     <div className="App">
-      <Router history={history}>
+      <Router>
         <ThemeProvider theme={theme}>
           <Header />
           <UpperBanner />
 
-          {!cookies.name ? (
-            <>
-              <Login />
-            </>
-          ) : (
+          { !user ? (<Login />) : (
             <>
               <LateralBar />
               <div className={classes.root}>
@@ -56,21 +69,18 @@ function App() {
                   <Route exact path={config.urls.home}>
                     <Home />
                   </Route>
-
                   <Route exact path={config.urls.login}>
                     <Login />
                   </Route>
-
                   <Route path={config.urls.cursos}>
                     <Courses />
                   </Route>
-
-                  <Route path={config.urls.calendario}>Calendario</Route>
-
-                  <Route path={config.urls.config}>Configuracion</Route>
-                  <Route path={config.urls.grupos}>Grupo</Route>
-
-                  <Route path={config.urls.config}>Configuración</Route>
+                  <Route path={config.urls.config}>
+                    Configuracion
+                  </Route>
+                  <Route path={config.urls.grupos}>
+                    Grupo
+                  </Route>
                 </Switch>
               </div>
             </>

@@ -6,7 +6,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import useFiles from "@utils/useFiles";
 import DropZoneComp from "@components/_common/DropZoneComp";
 import FileList from "@components/_common/FileList";
-import { useStyles } from "@components/_common/_styles";
+import { useStyles } from "./_styles";
 
 function FileTray(props) {
   const classes = useStyles();
@@ -41,7 +41,7 @@ function FileTray(props) {
     }
     else{
       setLoading(false);
-      console.log('loading -> false');
+      //console.log('loading -> false');
     }
     
   }, [editMode, loadFiles, props.modeCreate]);

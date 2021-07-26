@@ -1,10 +1,6 @@
-import styled from "styled-components";
-
-import IconButton from "@material-ui/core/Button";
-
 import { makeStyles } from "@material-ui/core";
 
-export const useStyles = makeStyles( (theme) => ({
+export const useStyles = makeStyles({
   root: {
     height: "80%",
     display: "flex",
@@ -14,5 +10,5 @@ export const useStyles = makeStyles( (theme) => ({
   logo: {
     marginLeft: "30px",
   },
-}));
+});
 

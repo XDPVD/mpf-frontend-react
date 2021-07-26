@@ -6,6 +6,7 @@ import CourseUsers from "./CourseUsers";
 import CourseNav from "@layout/CourseNav";
 
 function Course() {
+  console.log('course ');
   let prefix = "/cursos/:id";
   const { courseId } = useParams();
 

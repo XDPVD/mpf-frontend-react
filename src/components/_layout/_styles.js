@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/styles";
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles(({
   tab: {
     textTransform: "none",
     minWidth: "80px",
@@ -13,10 +13,9 @@ export const useStyles = makeStyles((theme) => ({
   buttonAddMaterial: {
     padding: [[5, 20]],
     height: "36px",
-    position: "absolute",
     right: "50px",
     top: "0px",
-    backgroundColor: "rgba(144, 224, 94, 1)",
+    backgroundColor: "rgb(144, 224, 92) !important",
   },
   wrapper: {
     backgroundColor: "#131313",
@@ -29,12 +28,12 @@ export const useStyles = makeStyles((theme) => ({
       "url(https://images.unsplash.com/photo-1623602406812-10cbd27715b4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80)",
     backgroundSize: "cover",
 
-    "@media (max-width: 400px)": {
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "flex-end",
-      padding: "5px 30px",
-    },
+    // "@media (max-width: 400px)": {
+    //   flexDirection: "column",
+    //   alignItems: "center",
+    //   justifyContent: "flex-end",
+    //   padding: "5px 30px",
+    // },
   },
   profileImage:{
     height: "40px",
@@ -51,9 +50,9 @@ export const useStyles = makeStyles((theme) => ({
     width: "100%",
     alignItems: "center",
   
-    [theme.breakpoints.down(768)]: {
-      justifyContent: "center",
-    }
+    // [theme.breakpoints.down(768)]: {
+    //   justifyContent: "center",
+    // }
   },
   separator: {
     height: "5px",
@@ -104,9 +103,9 @@ export const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     wordSpacing: "15px",
   
-    [theme.breakpoints.down(768)]: {
-      display: "none"
-    }
+    // [theme.breakpoints.down(768)]: {
+    //   display: "none"
+    // }
   },
   lateralBar:{
     height: "90vh",
@@ -125,5 +124,9 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexFlow: "column",
     alignItems: "center",
+  },
+  options:{
+    display: "flex",
+    justifyContent: "space-between",
   },
 }));

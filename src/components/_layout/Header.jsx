@@ -2,25 +2,22 @@ import React from "react";
 
 import logo from "@assets/logo.svg";
 
-import useUserInfo from "@utils/useUserInfo";
-
 import { useStyles } from "@components/_layout/_styles";
+import { useUser } from "src/base/context/userContext";
 
 function Header() {
-  const [cookiesUser] = useUserInfo();
+  const user = useUser()[0];
 
   const classes = useStyles();
   return (
     <div className={classes.header}>
       <img className={classes.headerLogo} alt="" src={logo} />
       {/* Email and UserIcon */}
-      {cookiesUser.name ? (
+      {user && (
         <div className={classes.headerUser}>
-          {cookiesUser.name.givenName}{" "}
-          <img className={classes.profileImage} alt="" src={cookiesUser.name.imageUrl} />
+          {user.givenName}{" "}
+          <img className={classes.profileImage} alt="" src={user.imageUrl} />
         </div>
-      ) : (
-        <></>
       )}
     </div>
   );

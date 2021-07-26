@@ -4,12 +4,12 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@assets/*": ["src/assets/*"],
-      "@pages": ["src/pages/*"],
-      "@styles": ["src/styles/*"],
-      "@utils": ["src/base/utils/*"],
-      "@settings": ["src/base/settings/*"],
-      "@layout": ["src/components/_layout/*"],
-      "@common": ["src/components/_common/*"]
+      "@pages/*": ["src/pages/*"],
+      "@styles/*": ["src/styles/*"],
+      "@utils/*": ["src/base/utils/*"],
+      "@settings/*": ["src/base/settings/*"],
+      "@layout/*": ["src/components/_layout/*"],
+      "@common/*": ["src/components/_common/*"]
     }
   },
   "exclude": ["node_modules"]

@@ -4,12 +4,13 @@ import * as config from "@settings/config";
 import CourseResources from "./CourseResources";
 import CourseUsers from "./CourseUsers";
 import CourseNav from "@layout/CourseNav";
+import useUserInfo from "@utils/useUserInfo";
 
 function Course() {
   console.log('course ');
   let prefix = "/cursos/:id";
   const { courseId } = useParams();
-
+  const [cookies, headers] = useUserInfo();
   const kinds = [
     {
       kind: "A",
@@ -35,6 +36,7 @@ function Course() {
 
   return (
     <>
+      {!cookies.name ? <Redirect to="/login" /> : <></>}
       <CourseNav courseId={courseId} />
       {/* TODO: Iterate!! */}
       <Redirect

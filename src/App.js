@@ -9,6 +9,7 @@ import * as config from "@settings/config";
 import Courses from "@pages/Courses";
 import Home from "@pages/Home";
 import Login from "@pages/Login";
+import Configuration from "@pages/Configuration";
 
 import theme from "@styles/theme";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
@@ -76,7 +77,7 @@ function App() {
                     <Courses />
                   </Route>
                   <Route path={config.urls.config}>
-                    Configuracion
+                    <Configuration/>
                   </Route>
                   <Route path={config.urls.grupos}>
                     Grupo

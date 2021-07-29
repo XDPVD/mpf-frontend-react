@@ -46,7 +46,7 @@ export default function EditCourseDialog(props) {
 
   useEffect(() => {
     fetchData(endP({courseId:courseId}).getCourse, setObj);
-  },[courseUpdatedDialog]);
+  },[courseUpdatedDialog, courseId]);
 
   return (
     <div>

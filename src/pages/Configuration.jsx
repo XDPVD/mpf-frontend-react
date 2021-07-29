@@ -2,8 +2,9 @@ import React from "react";
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import NotEditableProfileInformation from "@components/Configuration/NotEditableProfileInformation";
-import useUserInfo from "@utils/useUserInfo";
 import EditableProfileInformation from "@components/Configuration/EditableProfileInformation";
+import { useUser } from "src/base/context/userContext";
+
 
 const useStyles = makeStyles({
   root: {
@@ -14,15 +15,15 @@ const useStyles = makeStyles({
 
 export default function Configuration() {
   const classes = useStyles();
-  const [cookies, headers] = useUserInfo();
+  const [user, actions] = useUser();
 
   return (
     <div>
       <Typography variant="h6"  gutterBottom>
         CONFIGURACION DEL USUARIO
       </Typography>
-      <NotEditableProfileInformation cookies={cookies}/>
-      <EditableProfileInformation cookies={cookies} headers={headers}/>
+      <NotEditableProfileInformation user={user}/>
+      <EditableProfileInformation user={user} headers={actions.getHeader()}/>
     </div>
   );
 }

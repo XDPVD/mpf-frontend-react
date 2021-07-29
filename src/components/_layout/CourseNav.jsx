@@ -29,8 +29,6 @@ function CourseNav({ courseId }) {
 
   const actions = useUser()[1];
 
-  //le agregue aqui(inicio)
-  const [,headers, isCreator] = useUserInfo();
   const nav = ["Anuncios", "Materiales", "Tareas", "Exámenes", "Personas"];
   const routes = ["dash", "materiales", "tareas", "examenes", "personas"];
   const [selectedTab, setSelectedTab] = useState("dash");
@@ -53,7 +51,7 @@ function CourseNav({ courseId }) {
   };
   useEffect(() => {
     fetchData(endP({ courseId }).getCourse, setCourse);
-  }, [courseUpdated]);
+  }, [courseUpdated, courseId]);
   
   useEffect(() => {
     fetchData(endP({ courseId }).getCourse, setCourse);
@@ -69,11 +67,11 @@ function CourseNav({ courseId }) {
   };
   //aqui le agregue el sethiddenbuttoneditcourse
   useEffect(() => {
-    isCreator(courseId).then((res) => {
+    actions.isCreator(courseId).then((res) => {
       setHiddenButton(!res);
       setHiddenButtonEditCourse(!res);
     });
-  }, [isCreator, courseId]);
+  }, [actions, courseId]);
   //solo el grid es mio y el ultimo dialog
   return (
     <>
@@ -111,12 +109,12 @@ function CourseNav({ courseId }) {
           <span style={{ "font-size": "20px", marginRight: "5px" }}>+</span>{" "}
           Nuevo Recurso
         </Button>
-      </div>
+      </Tabs>
       <AddResourceDialog
         openAdd={openAddMaterial}
         setOpenAdd={setOpenAddMaterial}
       />
-      <EditCourseDialog courseId={courseId} courseUpdated={courseUpdated} setCourseUpdated={setCourseUpdated} openEditCourse={openEditCourse} onClose={handleCloseOpenEditCourse} headers={headers} />
+      <EditCourseDialog courseId={courseId} courseUpdated={courseUpdated} setCourseUpdated={setCourseUpdated} openEditCourse={openEditCourse} onClose={handleCloseOpenEditCourse} headers={actions.getHeader()} />
       
     </>
   );

@@ -20,11 +20,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EditableProfileInformation(props){
   const classes = useStyles();
-  const {cookies,headers}=props;
+  const {user,header} = props;
   const [obj,setObj]=useState([]);
+  
   const {register,handleSubmit,formState: { errors },} = useForm();
+
   const onSubmit = (data,e) => {
-    putData(endP({email:cookies.name.email}).editUser,{phone:data.phone,link:data.facebook},headers);
+    putData(endP({email:user.email}).editUser,{phone:data.phone,link:data.facebook},header);
     if(data.phone){
       e.target[0].value='';
       e.target[0].placeholder=data.phone;
@@ -36,7 +38,7 @@ export default function EditableProfileInformation(props){
   };
   
   useEffect(() => {
-    fetchData(endP({email:cookies.name.email}).getUserByEmail, setObj);
+    fetchData(endP({email:user.email}).getUserByEmail, setObj);
   },[]);
 
   return (

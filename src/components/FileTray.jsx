@@ -10,6 +10,7 @@ import { app, db } from "@settings/base";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
 import FileItem from "./FileItem";
+import { resourceIsValid } from "@utils/useValidation";
 
 function FileTray(props) {
   const mode = {
@@ -150,8 +151,7 @@ function FileTray(props) {
     setSuccess(true);
 
     if (editMode) setEditMode(false);
-
-    props.closeFunction();
+    window.location.reload();
   };
 
   const changeEditMode = (value) => {
@@ -191,7 +191,11 @@ function FileTray(props) {
 
       <Button
         hidden={success || props.blockAllActions}
-        onClick={() => uploadFiles()}
+        onClick={
+          props.recurso && resourceIsValid(props.recurso, props.setters)
+            ? uploadFiles
+            : () => {}
+        }
         variant='contained'
         color='primary'
         style={{ margin: "5px" }}

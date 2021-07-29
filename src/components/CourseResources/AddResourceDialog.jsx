@@ -14,6 +14,7 @@ import PostButton from "./PostButton";
 import SelectOption from "./SelectOption";
 import useUserInfo from "@utils/useUserInfo";
 import FormDialog from "@common/FormDialog";
+import { dateIsValid, resourceIsValid } from "@utils/useValidation";
 
 function AddResourceDialog(props) {
   const classes = useStyles();
@@ -32,15 +33,33 @@ function AddResourceDialog(props) {
 
   const [, headers] = useUserInfo();
 
-  const [recurso, setRecurso] = useState({
+  const initialResource = {
     tipo: "A",
     titulo: "",
     descripcion: "",
     notaMax: 20,
-    fechaEntrega: new Date(),
+    fechaEntrega: null,
     grupal: grupal,
     id_curso: Number(courseId),
-  });
+  };
+
+  const [recurso, setRecurso] = useState(initialResource);
+
+  const [errorTitle, setErrorTitle] = useState(false);
+  const [errorDesc, setErrorDesc] = useState(false);
+  const [errorDate, setErrorDate] = useState(false);
+  const [helperTitle, setHelperTitle] = useState("");
+  const [helperDesc, setHelperDesc] = useState("");
+  const [helperDate, setHelperDate] = useState("");
+
+  const setters = {
+    setErrorTitle: setErrorTitle,
+    setErrorDesc: setErrorDesc,
+    setErrorDate: setErrorDate,
+    setHelperTitle: setHelperTitle,
+    setHelperDesc: setHelperDesc,
+    setHelperDate: setHelperDate,
+  };
 
   const handleChangeNota = (event) => {
     setNota(Number(event.target.value));
@@ -69,18 +88,29 @@ function AddResourceDialog(props) {
 
   const handleTextInputChange = (event) => {
     setRecurso({ ...recurso, [event.target.name]: event.target.value });
+    if (event.target.name === "titulo") {
+      setErrorTitle(false);
+      setHelperTitle("");
+    } else {
+      setErrorDesc(false);
+      setHelperDesc("");
+    }
+    resourceIsValid(recurso, setters);
   };
 
   const handleDateChange = (event) => {
-    console.log(event.target.value);
-
     setRecurso({ ...recurso, fechaEntrega: new Date(event.target.value) });
+    console.log(recurso.fechaEntrega);
+    setErrorDate(false);
+    setHelperDate("");
   };
 
   const simpleSubmit = async () => {
-    await postPub(recurso, headers);
-    props.setOpenAdd(false);
-    window.location.reload();
+    if (resourceIsValid(recurso, setters)) {
+      await postPub(recurso, headers);
+      props.setOpenAdd(false);
+      window.location.reload();
+    }
   };
 
   const menuItems = [
@@ -108,18 +138,29 @@ function AddResourceDialog(props) {
       name: "titulo",
       placeholder: "Ingrese un título...",
       rows: 1,
+      maxlength: 30,
+      helper: helperTitle,
+      error: errorTitle,
     },
     {
       label: "Descripción",
       name: "descripcion",
       placeholder: "Ingrese una descripcion...",
       rows: 4,
+      maxlength: 500,
+      helper: helperDesc,
+      error: errorDesc,
     },
   ];
 
+  const openDialog = () => {
+    setRecurso(initialResource);
+    props.setOpenAdd();
+  };
+
   return (
     <FormDialog
-      setOpen={props.setOpenAdd}
+      setOpen={openDialog}
       open={props.openAdd}
       size='md'
       title='Nuevo Recurso'
@@ -138,18 +179,22 @@ function AddResourceDialog(props) {
         <br />
         <div>
           <form noValidate autoComplete='off'>
+            {/* Map título y descripción */}
             {textFields.map((elem) => {
               return (
                 <TextField
+                  error={elem.error}
                   name={elem.name}
                   className={classes.tituloForm}
                   fullWidth={true}
                   id='standard-basic'
-                  label={elem.label}
+                  label={`${elem.label} (Máx. caracteres: ${elem.maxlength})`}
                   multiline={elem.rows > 1 ? true : false}
                   rows={elem.rows}
                   placeholder={elem.placeholder}
                   onChange={handleTextInputChange}
+                  inputProps={{ maxlength: elem.maxlength }}
+                  helperText={elem.helper}
                 />
               );
             })}
@@ -170,12 +215,13 @@ function AddResourceDialog(props) {
                 label='Fecha de entrega'
                 type='datetime-local'
                 format='yyyy-MM-ddThh:mm'
-                defaultValue={new Date().toString()}
                 className={classes.horaEntrega}
                 InputLabelProps={{
                   shrink: true,
                 }}
                 onChange={handleDateChange}
+                helperText={helperDate}
+                error={errorDate}
               />
             </>
           )}
@@ -194,10 +240,9 @@ function AddResourceDialog(props) {
               <FileTray
                 modeCreate={true}
                 mode={"p"}
+                recurso={recurso}
+                setters={setters}
                 createIdFunction={async () => await postPub(recurso, headers)}
-                closeFunction={() => {
-                  props.setOpenAdd(false);
-                }}
               />
             </div>
           </>

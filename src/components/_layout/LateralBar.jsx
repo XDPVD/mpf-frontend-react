@@ -1,38 +1,28 @@
 import BookIcon from "@material-ui/icons/Book";
-import EventIcon from "@material-ui/icons/Event";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import GroupIcon from "@material-ui/icons/Group";
 import SettingsIcon from "@material-ui/icons/Settings";
 import React from "react";
 
 import * as config from "@settings/config";
-import {
-  LateralBarButton as Option,
-  LateralBarContainer as Container,
-  LateralBarOptionsContainer as OptionsContainer,
-  ProfileImage,
-  Separator,
-} from "@styles/Styles";
 import useRedirectUrl from "@utils/useRedirectUrl";
-import { useCookies } from "react-cookie";
-import useUserInfo from "@utils/useUserInfo";
-import { useHistory } from "react-router-dom";
+import { useStyles } from "@components/_layout/_styles";
+import { Button } from "@material-ui/core";
+import { useUser } from "src/base/context/userContext";
 function LateralBar() {
+  const classes = useStyles();
+
   const [url, redirectTo] = useRedirectUrl();
-  const [, , removeCookie] = useCookies(["name", "userToken"]);
 
-  const history = useHistory();
+  const [user,actions] = useUser();
 
-  const [cookiesUser] = useUserInfo();
+  
+
   // Array of Buttons { IconComponent, url }
   const topButtons = [
     {
       component: <BookIcon />,
       url: config.urls.cursos,
-    },
-    {
-      component: <EventIcon />,
-      url: config.urls.calendario,
     },
     {
       component: <GroupIcon />,
@@ -46,46 +36,43 @@ function LateralBar() {
   };
 
   const closeSession = () => {
-    removeCookie("name");
-    removeCookie("userToken");
-    history.push("/login");
+    actions.removeUser();
   };
 
   return (
-    <Container>
-      <ProfileImage src={cookiesUser.name.imageUrl} />
+    <div className={classes.lateralBar}>
+      <img className={classes.profileImage} alt={"user"} src={user.imageUrl} />
 
-      <Separator />
+      <div className={classes.separator} />
 
       {/* Display buttons */}
-      <OptionsContainer>
-        {topButtons.map((e) => {
+      <div className={classes.lateralBarOptions}>
+        {topButtons.map((e,index) => {
           return (
-            <>
-              <Option
-                disabled={url === e.url}
-                onClick={() => redirectTo(e.url)}
-              >
-                {e.component}
-              </Option>
-            </>
+            <Button className={classes.lateralBarButton}
+              key={index}
+              disabled={url === e.url}
+              onClick={() => redirectTo(e.url)}
+            >
+              {e.component}
+            </Button>
           );
         })}
-      </OptionsContainer>
+      </div>
 
-      <OptionsContainer>
-        <Option
+      <div className={classes.lateralBarOptions}>
+        <Button className={classes.lateralBarButton}
           disabled={url === settingButton.url}
           onClick={() => redirectTo(settingButton.url)}
         >
           {settingButton.component}
-        </Option>
+        </Button>
 
-        <Option style={{ color: "red" }} onClick={closeSession}>
+        <Button style={{ color: "red" }} onClick={() => closeSession()}>
           <ExitToAppIcon />
-        </Option>
-      </OptionsContainer>
-    </Container>
+        </Button>
+      </div>
+    </div>
   );
 }
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -9,74 +9,80 @@ import * as config from "@settings/config";
 import Courses from "@pages/Courses";
 import Home from "@pages/Home";
 import Login from "@pages/Login";
-import { AppContainer as Container } from "@styles/Styles";
 
 import theme from "@styles/theme";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 
-import { UsuarioProvider, useUsuario } from "./base/context/usuario-context";
-
-import { createBrowserHistory } from "history";
+import { UserProvider } from "./base/context/userContext";
 import { CookiesProvider } from 'react-cookie';
-import { useCookies } from 'react-cookie';
-import Configuration from "@pages/Configuration";
+import { useStyles } from "@styles/Styles";
+import { useUser } from "./base/context/userContext";
 // Components
 
-export default function appWithContext() {return (<> <CookiesProvider><UsuarioProvider>
-  <App></App>
-</UsuarioProvider></CookiesProvider></>)}
+export default function appWithContext() {
+  return (
+  <CookiesProvider>
+    <UserProvider>
+      <App></App>
+    </UserProvider>
+  </CookiesProvider>
+)
+}
 
 function App() {
-  const { usuario } = useUsuario();
-  const [cookies, setCookie] = useCookies(['name','userToken']);
-  // TODO: Redirect /login
-  const history = createBrowserHistory();
-
-  const [cargar, setCargar] = useState(false);
+  const classes = useStyles();
+  
+  const [user, actions] = useUser();
 
   useEffect(() => {
-    console.log(cookies.name);
-  });
+    const checkCookies = async () =>{
+      let [userCookie, tokenCookie] = actions.getCookies();
+      console.log('checkCookies');
+      if (userCookie || tokenCookie) {
+        actions.removeUser();
+        await actions.saveUser(userCookie);
+        await actions.saveToken(tokenCookie);
+      }
+      
+    }
+    
+    console.log(user);
+    if(!user) checkCookies();
+  },[user, actions])
 
-  
+  useEffect(() => {
+    console.log('rerender app')
+  })
 
   return (
-    <div className='App'>
-      <Router history={history}>
+    <div className="App">
+      <Router>
         <ThemeProvider theme={theme}>
           <Header />
           <UpperBanner />
 
-          {!cookies.name ? (
-            <>
-              <Login />
-            </>
-          ) : (
+          { !user ? (<Login />) : (
             <>
               <LateralBar />
-              <Container>
+              <div className={classes.root}>
                 <Switch>
                   <Route exact path={config.urls.home}>
                     <Home />
                   </Route>
-
                   <Route exact path={config.urls.login}>
                     <Login />
                   </Route>
-
                   <Route path={config.urls.cursos}>
                     <Courses />
                   </Route>
-
-                  <Route path={config.urls.calendario}>Calendario</Route>
-
                   <Route path={config.urls.config}>
-                    <Configuration/>
+                    Configuracion
                   </Route>
-                  <Route path={config.urls.grupos}>Grupo</Route>
-
+                  <Route path={config.urls.grupos}>
+                    Grupo
+                  </Route>
                 </Switch>
-              </Container>
+              </div>
             </>
           )}
         </ThemeProvider>

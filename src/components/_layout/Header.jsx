@@ -1,31 +1,25 @@
 import React from "react";
 
-import {
-  HeaderContainer as Container,
-  Logo,
-  HeaderUserContainer as UserContainer,
-  ProfileImage,
-} from "@styles/Styles";
-
 import logo from "@assets/logo.svg";
 
-import useUserInfo from "@utils/useUserInfo";
+import { useStyles } from "@components/_layout/_styles";
+import { useUser } from "src/base/context/userContext";
 
 function Header() {
-  const [cookiesUser] = useUserInfo();
+  const user = useUser()[0];
+
+  const classes = useStyles();
   return (
-    <Container>
-      <Logo src={logo} />
+    <div className={classes.header}>
+      <img className={classes.headerLogo} alt="" src={logo} />
       {/* Email and UserIcon */}
-      {cookiesUser.name ? (
-        <UserContainer>
-          {cookiesUser.name.givenName}{" "}
-          <ProfileImage src={cookiesUser.name.imageUrl} />
-        </UserContainer>
-      ) : (
-        <></>
+      {user && (
+        <div className={classes.headerUser}>
+          {user.givenName}{" "}
+          <img className={classes.profileImage} alt="" src={user.imageUrl} />
+        </div>
       )}
-    </Container>
+    </div>
   );
 }
 

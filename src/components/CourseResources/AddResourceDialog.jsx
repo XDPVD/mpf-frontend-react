@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
-
 import { useStyles } from "./_styles";
 
-import FileTray from "@components/FileTray";
+import FileTray from "@components/_common/FileTray";
 
 import { useParams } from "react-router-dom";
 
@@ -12,13 +11,14 @@ import SelectTipo from "./SelectTipo";
 import GroupField from "@components/CourseResources/GroupField";
 import PostButton from "./PostButton";
 import SelectOption from "./SelectOption";
-import useUserInfo from "@utils/useUserInfo";
+
 import FormDialog from "@common/FormDialog";
-import { dateIsValid, resourceIsValid } from "@utils/useValidation";
+import { useUser } from "src/base/context/userContext";
+import { resourceIsValid } from "@utils/useValidation";
 
 function AddResourceDialog(props) {
   const classes = useStyles();
-
+  
   const { courseId } = useParams();
 
   const [grupal, setGrupal] = useState(false);
@@ -31,7 +31,7 @@ function AddResourceDialog(props) {
     nota: 20,
   });
 
-  const [, headers] = useUserInfo();
+  const actions = useUser()[1];
 
   const initialResource = {
     tipo: "A",
@@ -107,7 +107,7 @@ function AddResourceDialog(props) {
 
   const simpleSubmit = async () => {
     if (resourceIsValid(recurso, setters)) {
-      await postPub(recurso, headers);
+      await postPub(recurso, actions.getHeader());
       props.setOpenAdd(false);
       window.location.reload();
     }
@@ -242,7 +242,8 @@ function AddResourceDialog(props) {
                 mode={"p"}
                 recurso={recurso}
                 setters={setters}
-                createIdFunction={async () => await postPub(recurso, headers)}
+                createIdFunction={async () => await postPub(recurso, actions.getHeader())}
+                closeFunction={() => props.setOpenAdd(false)}
               />
             </div>
           </>

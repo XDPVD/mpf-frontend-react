@@ -5,24 +5,26 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { useStyles } from "./_styles";
 import { useParams } from "react-router-dom";
-import useUserInfo from "@utils/useUserInfo";
 import { useState } from "react";
 import { endP } from "@settings/config";
 import { postData } from "@utils/postData";
 import { fetchData } from "@utils/fetchData";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import FormDialog from "@common/FormDialog";
+import { useUser } from "src/base/context/userContext";
 
-export default function AddUserDialog({ open, setOpen }) {
+export default function AddUserDialog({ open, setOpen, course, reloadFunc }) {
   const { id } = useParams();
 
   const [code, setCode] = useState("");
   const [mail, setMail] = useState({ email: "" });
   const [isFetching, setIsFetching] = useState(false);
 
+  const actions = useUser()[1];
+
   useEffect(() => {
     fetchData(`/course/${id}/code`, setCode);
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     setIsFetching(false);
@@ -37,15 +39,45 @@ export default function AddUserDialog({ open, setOpen }) {
     setMail({ ...mail, [event.target.name]: event.target.value });
   };
 
-  const [, headers] = useUserInfo();
   async function addMail(event) {
     event.preventDefault();
+
+    let flag = course.creator.email === mail.email;
+    console.log(course);
+    if(mail.email === ''){
+      alert('Por favor, ingrese un email');
+      return;
+    }
+
+    if (flag){
+      alert('No puede agregarse asi mismo, ingrese un correo de algun alumno que no pertenezca a su curso');
+      return;
+    }
+
+    course.inscriptions.forEach(elem => {
+        flag = (elem.user.email === mail.email);
+    });
+
+    if(flag){
+      alert('No puede agregar a un alumno ya inscrito, vuelva a poner otro correo');
+      return;
+    }
+
+    await fetchData(`/user/byemail/${mail.email}`, (res) => { flag = (res.status === 404) ; console.log(res.status)});
+    
+    if(flag){
+      alert('El usuario no tiene un email registrado en nuestro sistema, ingrese otro o solicite al usuario registrarse en el sistema');
+      return;
+    }
 
     await postData(
       endP({ courseId: id, email: mail.email }).enrollCourseByMail,
       {},
-      headers
+      actions.getHeader() 
     );
+    
+    setOpen(false);
+    reloadFunc();
   }
 
   const classes = useStyles();

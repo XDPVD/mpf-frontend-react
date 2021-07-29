@@ -2,7 +2,7 @@ import React from "react";
 import { useStyles } from "./_styles";
 import { Button } from "@material-ui/core";
 
-import FileTray from "@components/FileTray";
+import FileTray from "@components/_common/FileTray";
 
 function ViewResourceDialog(props) {
   const classes = useStyles();

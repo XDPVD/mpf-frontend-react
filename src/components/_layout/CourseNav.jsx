@@ -10,22 +10,27 @@ import { endP } from "@settings/config";
 import AddResourceDialog from "@components/CourseResources/AddResourceDialog";
 import { useEffect } from "react";
 import { fetchData } from "@utils/fetchData";
-import useUserInfo from "@utils/useUserInfo";
+import { useUser } from "src/base/context/userContext";
+import { useLocation, useParams } from "react-router-dom";
 
 function CourseNav({ courseId }) {
   const classes = useStyles();
 
   const [, redirectTo] = useRedirectUrl();
 
-  const [, , isCreator] = useUserInfo();
+  const currentRoute = useLocation().pathname.split('/')[3];
+
+  
+
+  const actions = useUser()[1];
 
   const nav = ["Anuncios", "Materiales", "Tareas", "Exámenes", "Personas"];
   const routes = ["dash", "materiales", "tareas", "examenes", "personas"];
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedTab, setSelectedTab] = useState("dash");
   const [openAddMaterial, setOpenAddMaterial] = useState(false);
   const [course, setCourse] = useState({});
 
-  const [hiddenButton, setHiddenButton] = useState(false);
+  const [hiddenButton, setHiddenButton] = useState(true);
 
   useEffect(() => {
     fetchData(endP({ courseId }).getCourse, setCourse);
@@ -39,30 +44,31 @@ function CourseNav({ courseId }) {
     redirectTo("/cursos/" + courseId + "/" + routes[newValue]);
     setSelectedTab(newValue);
   };
-
+  
   useEffect(() => {
-    isCreator(courseId).then((res) => setHiddenButton(!res));
-  }, [isCreator, courseId]);
+    actions.isCreator(courseId).then((res) => setHiddenButton(!res));
+  }, [actions, courseId]);
 
   return (
     <>
       <Typography className={classes.courseTitle} variant='h3'>
         {course.name}
       </Typography>
-      <Tabs value={selectedTab} onChange={handleChange}>
-        {nav.map((item) => (
-          <Tab disableRipple label={item} className={classes.tab} />
-        ))}
+      <div className={classes.options}>
+        <Tabs  value={selectedTab} onChange={handleChange} >
+          {nav.map((item) => (
+            <Tab key={item} disableRipple label={item} className={classes.tab} />
+          ))}
+        </Tabs>
         <Button
-          hidden={hiddenButton}
-          className={classes.buttonAddMaterial}
-          onClick={handleClickOpenAddMaterial}
-          variant='contained'
-        >
-          <span style={{ "font-size": "20px", marginRight: "5px" }}>+</span>{" "}
-          Nuevo Recurso
+            hidden={hiddenButton}
+            className={classes.buttonAddMaterial}
+            onClick={handleClickOpenAddMaterial}
+          >
+            <span style={{ "fontSize": "20px", marginRight: "5px" }}>+</span>{" "}
+            Nuevo Recurso
         </Button>
-      </Tabs>
+      </div>
       <AddResourceDialog
         openAdd={openAddMaterial}
         setOpenAdd={setOpenAddMaterial}

@@ -84,7 +84,7 @@ function Courses() {
           </Button>
         </Container>
 
-        <CoursesList />
+        <CoursesList statusDialog={openAdd} />
       </Route>
       <Route path={`${config.urls.cursos}/:courseId`}>
         <Course />

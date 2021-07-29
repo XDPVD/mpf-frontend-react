@@ -16,23 +16,8 @@ export const courseUrls = {
   personas: "/personas",
 };
 
-// API endpoints
-export const endP = ({
-  courseId,
-  userId,
-  pubId,
-  commentId,
-  groupId,
-  email,
-  code,
-}) => {
-  console.log("endP commentId ", {
-    courseId,
-    userId,
-    pubId,
-    commentId,
-    groupId,
-  });
+export const endP = ({ courseId, userId, pubId, commentId, email, groupId}) => {
+  console.log("endP commentId ",{courseId, userId, pubId, commentId, email});
   return {
     createCourse: "/course",
     createGroup: `/group/create/${courseId}/default`,
@@ -40,7 +25,7 @@ export const endP = ({
     delegateUser: `/course/${courseId}/delegate/${userId}`,
     editUser: `user/${email}`,
     enrollCourseByMail: `/course/${courseId}/enroll/by_email/${email}`,
-    enrollMeByCode: `/course/${code}/enroll_me`,
+    enrollMeByCode: `/course/${courseId}/enroll_me`,
     getInscriptions: `/course/${courseId}/inscriptions`,
     getCourse: `/course/${courseId}`,
     getCourses: "/course",

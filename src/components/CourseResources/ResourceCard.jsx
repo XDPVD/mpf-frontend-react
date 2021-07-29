@@ -50,7 +50,7 @@ function ResourceCard(props) {
       <div className={classes.resourceContent}>
         <div className={classes.desc}>
           {iconsSwitch[props.kind]}
-          <div component='div' classNam={classes.cardContent}>
+          <div component='div'>
             <Typography className={classes.title}>
               {props.post.title}
             </Typography>

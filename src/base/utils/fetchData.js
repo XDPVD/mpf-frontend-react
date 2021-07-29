@@ -1,16 +1,14 @@
 import axios from "@settings/axios";
 import instance from "@settings/axios";
-export function fetchData(url, setState) {
-  axios
-    .get(url)
-    .then((res) => {
-      const response = res.data;
-      setState(response);
-      //console.log(response);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+export async function fetchData(url, setState) {
+  try{
+    let res = await axios.get(url)  
+    const response = res.data;
+    setState(response);
+  }
+  catch(e){
+    setState(e.response);
+  }
 }
 
 export function fetchingData(url, setState, setIsFetching) {

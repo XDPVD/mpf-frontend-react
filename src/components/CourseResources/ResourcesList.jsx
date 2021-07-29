@@ -8,7 +8,7 @@ import {
   getAllExamen,
 } from "@utils/fetchData";
 
-import { useRouteMatch } from "react-router-dom";
+import { useLocation, useRouteMatch } from "react-router-dom";
 import Loading from "@common/Loading";
 import NotFound from "@common/NotFound";
 
@@ -18,33 +18,33 @@ const ResourcesList = (props) => {
   const [loading, setLoading] = useState(true);
 
   const { id } = useRouteMatch().params;
+  const currentRoute = useLocation().pathname.split('/')[3];
 
   useEffect(() => {
     const fetchAnuncios = async () => {
       let res;
-      console.log("Kind -> ", props.kind);
-      switch (props.kind) {
-        case "A":
-          res = await getAllAnuncios(id);
-          break;
-        case "M":
+      console.log("Kind -> ", currentRoute);
+      switch (currentRoute) {
+        case "materiales":
           res = await getAllMaterial(id);
           break;
-        case "T":
+        case "dash":
+          res = await getAllAnuncios(id);
+          break;
+        case "tareas":
           res = await getAllTareas(id);
           break;
-        case "E":
+        case "examenes":
           res = await getAllExamen(id);
           break;
         default:
           break;
       }
-      console.log(res);
       setPosts(res.reverse());
       setLoading(false);
     };
     fetchAnuncios();
-  }, [props.kind, id]);
+  }, [currentRoute, id]);
 
   return (
     <div style={{ overflowY: "hidden" }}>
@@ -52,7 +52,7 @@ const ResourcesList = (props) => {
         <Loading />
       ) : (
         posts?.map((elem) => {
-          return <ResourceCard kind={props.kind} post={elem} />;
+          return <ResourceCard key={elem.id} kind={props.kind} post={elem} />;
         })
       )}
       {!loading && posts.length === 0 ? (

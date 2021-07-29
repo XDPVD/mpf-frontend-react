@@ -23,6 +23,7 @@ export const endP = ({ courseId, userId, pubId, commentId, email, groupId}) => {
     createGroup: `/group/create/${courseId}/default`,
     createUser: "/user",
     delegateUser: `/course/${courseId}/delegate/${userId}`,
+    editCourse: `/course/edit/${courseId}`,
     editUser: `user/${email}`,
     enrollCourseByMail: `/course/${courseId}/enroll/by_email/${email}`,
     enrollMeByCode: `/course/${courseId}/enroll_me`,

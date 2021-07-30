@@ -7,14 +7,15 @@ import useFiles from "@utils/useFiles";
 import DropZoneComp from "@components/_common/DropZoneComp";
 import FileList from "@components/_common/FileList";
 import { useStyles } from "./_styles";
+import { resourceIsValid } from "@utils/useValidation";
 
 function FileTray(props) {
   const classes = useStyles();
 
   // useFiles hook
-  const [loadFiles, , , ,uploadFiles] = useFiles(props);
+  const [loadFiles, , , , uploadFiles] = useFiles(props);
 
-  // reference pointing to an array (now null) 
+  // reference pointing to an array (now null)
   // that stores the previous files before editing
   const previousFiles = useRef();
 
@@ -32,47 +33,42 @@ function FileTray(props) {
 
   useEffect(() => {
     if (!editMode && !props.modeCreate) {
-      loadFiles()
-        .then((res) => {
-          setCurrentFiles(res);
-          setSuccess(res.length > 0)
-          setLoading(false);
-        });
-    }
-    else{
+      loadFiles().then((res) => {
+        setCurrentFiles(res);
+        setSuccess(res.length > 0);
+        setLoading(false);
+      });
+    } else {
       setLoading(false);
       //console.log('loading -> false');
     }
-    
   }, [editMode, loadFiles, props.modeCreate]);
 
   useEffect(() => {
     if (success) previousFiles.current = currentFiles;
-  },[success, currentFiles]);
+  }, [success, currentFiles]);
 
   const uploadEvent = async () => {
-
     setLoading(true);
 
     // set target_id
     let target_id = props.modeCreate
-    ? await props.createIdFunction()
-    : props.target_id;
+      ? await props.createIdFunction()
+      : props.target_id;
 
     // target_id (announcement) direct to close method
     if (target_id == null) return props.closeFunction();
     target_id = target_id.toString();
 
-    await uploadFiles({editMode, currentFiles, previousFiles, id: target_id});
+    await uploadFiles({ editMode, currentFiles, previousFiles, id: target_id });
 
     setCurrentFiles([]);
     setLoading(false);
     setSuccess(true);
 
     if (editMode) setEditMode(false);
-    
-    props.closeFunction();
 
+    props.closeFunction();
   };
 
   const changeEditMode = (value) => {
@@ -87,7 +83,7 @@ function FileTray(props) {
       previousFiles.current = null;
     }
   };
-  
+
   return (
     <>
       {loading ? (
@@ -98,11 +94,21 @@ function FileTray(props) {
         <></>
       )}
 
-      <DropZoneComp {...{ setCurrentFiles, success, blockAllActions:props.blockAllActions }}/>
+      <DropZoneComp
+        {...{
+          setCurrentFiles,
+          success,
+          blockAllActions: props.blockAllActions,
+        }}
+      />
 
       <Button
         hidden={success || props.blockAllActions}
-        onClick={() => uploadEvent()}
+        onClick={
+          props.recurso && resourceIsValid(props.recurso, props.setters)
+            ? uploadEvent
+            : () => {}
+        }
         variant='contained'
         color='primary'
         style={{ margin: "5px" }}
@@ -119,7 +125,7 @@ function FileTray(props) {
         Cancelar
       </Button>
 
-      <FileList {... {blockAllActions: props.blockAllActions, currentFiles}} />
+      <FileList {...{ blockAllActions: props.blockAllActions, currentFiles }} />
 
       <Button
         hidden={!success || props.blockAllActions}

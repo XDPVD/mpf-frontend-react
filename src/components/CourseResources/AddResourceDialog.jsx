@@ -18,7 +18,7 @@ import { resourceIsValid } from "@utils/useValidation";
 
 function AddResourceDialog(props) {
   const classes = useStyles();
-  
+
   const { courseId } = useParams();
 
   const [grupal, setGrupal] = useState(false);
@@ -242,7 +242,9 @@ function AddResourceDialog(props) {
                 mode={"p"}
                 recurso={recurso}
                 setters={setters}
-                createIdFunction={async () => await postPub(recurso, actions.getHeader())}
+                createIdFunction={async () =>
+                  await postPub(recurso, actions.getHeader())
+                }
                 closeFunction={() => props.setOpenAdd(false)}
               />
             </div>

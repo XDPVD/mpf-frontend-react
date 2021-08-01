@@ -12,6 +12,8 @@ module.exports = {
       "@settings": "./src/base/settings",
       "@layout": "./src/components/_layout",
       "@common": "./src/components/_common",
+      "@context": "./src/base/context",
+      "@mocks": "./src/mocks",
     })(config);
 
     return config;

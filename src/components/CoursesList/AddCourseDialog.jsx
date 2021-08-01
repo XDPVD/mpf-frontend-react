@@ -43,18 +43,24 @@ export default function AddCourseDialog({ open, setOpen, setOpenSB }) {
       return;
     }
 
+    if(curso.name.length > 15){
+      alert('ADVERTENCIA: El nombre del curso NO debe exceder de 25 (VEINTICINCO) caracteres, brinde otro nombre');
+      return;
+    }
+
     if(curso.description.length > 30){
       alert('ADVERTENCIA: La descripcion del curso NO debe exceder de 30 (TREINTA) caracteres');
       alert('Brinde otra descripcion mas corta')
       return;
     }
 
-
-
-    
     await postData(endP({ id_course }).createCourse, curso, actions.getHeader());
     setOpen(false);
     setOpenSB(true);
+    setCurso({
+      name: '',
+      description: '',
+    })
   }
 
   return (

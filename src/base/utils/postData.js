@@ -2,7 +2,7 @@ import instance from "@settings/axios";
 import { dateObjToString } from "@utils/convertDate";
 
 export async function postData(url, data, headers) {
-  console.log(url, data, headers);
+  
   let result = await instance({
     method: "POST",
     url: url,
@@ -10,7 +10,7 @@ export async function postData(url, data, headers) {
     data: data,
   });
 
-  console.log(url, " result POST -> ", result);
+  
   return result.data;
 }
 
@@ -85,7 +85,6 @@ export async function postPub(recurso, headers) {
   let res;
 
   try {
-    console.log(recurso);
     switch (recurso.tipo) {
       case "A":
         res = await postAnuncio(recurso, headers);

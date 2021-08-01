@@ -11,10 +11,11 @@ export const useStyles = makeStyles(({
     padding: [[15, 0, 5, 0]],
   },
   buttonAddMaterial: {
-    padding: [[5, 20]],
-    height: "36px",
-    right: "50px",
-    top: "0px",
+    position: 'absolute',
+    padding: '10 20 !important',
+    height: "40px !important",
+    right: "40px !important",
+    top: "0px !important",
     backgroundColor: "rgb(144, 224, 92) !important",
   },
   wrapper: {

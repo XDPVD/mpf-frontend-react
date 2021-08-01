@@ -25,8 +25,6 @@ function CourseNav({ courseId }) {
 
   const currentRoute = useLocation().pathname.split('/')[3];
 
-  
-
   const actions = useUser()[1];
 
   const nav = ["Anuncios", "Materiales", "Tareas", "Exámenes", "Personas"];
@@ -39,6 +37,7 @@ function CourseNav({ courseId }) {
   const [openEditCourse, setOpenEditCourse] = useState(false);
   const [hiddenButtonEditCourse, setHiddenButtonEditCourse] = useState(false);
   const [courseUpdated,setCourseUpdated]=useState(0);
+  
   const editCourse=()=>{
     console.log("cuc"+courseUpdated)
     setCourseUpdated(courseUpdated+1);

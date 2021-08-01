@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route, Switch, useHistory } from "react-router-dom";
 
 import Header from "@layout/Header";
 import LateralBar from "@layout/LateralBar";
 import UpperBanner from "@layout/UpperBanner";
 import * as config from "@settings/config";
 import Courses from "@pages/Courses";
-import Home from "@pages/Home";
 import Login from "@pages/Login";
 import Configuration from "@pages/Configuration";
 
@@ -22,11 +21,13 @@ import { useUser } from "./base/context/userContext";
 
 export default function appWithContext() {
   return (
-  <CookiesProvider>
-    <UserProvider>
-      <App />
-    </UserProvider>
-  </CookiesProvider>
+  <Router>      
+    <CookiesProvider>
+      <UserProvider>
+        <App />
+      </UserProvider>
+    </CookiesProvider>
+  </Router>
 )
 }
 
@@ -34,6 +35,8 @@ function App() {
   const classes = useStyles();
   
   const [user, actions] = useUser();
+
+  const history = useHistory();
 
   useEffect(() => {
     const checkCookies = async () =>{
@@ -43,33 +46,26 @@ function App() {
         actions.removeUser(); // set user null
         await actions.saveUser(userCookie); // save cookie without effects
         await actions.saveToken(tokenCookie);
-      }
-      
+        history.replace(config.urls.cursos);
+      } 
     }
-
     if(!user) checkCookies();
 
-  },[user, actions])
-
-  useEffect(() => {
-    console.log('rerender app')
-  })
-
+  },[user, actions, history])
+  
   return (
     <div className="App">
-      <Router>
+
         <ThemeProvider theme={theme}>
           <Header />
-          <UpperBanner />
-
-          { !user ? (<Login />) : (
-            <>
-              <LateralBar />
-              <div className={classes.root}>
-                <Switch>
-                  <Route exact path={config.urls.home}>
-                    <Home />
-                  </Route>
+          <UpperBanner />    
+            <div className={classes.root}>
+              <Switch>
+                <Route exact path='/login'>
+                  <Login />
+                </Route>
+                <PrivateRouter>
+                  <LateralBar />
                   <Route exact path={config.urls.login}>
                     <Login />
                   </Route>
@@ -82,12 +78,32 @@ function App() {
                   <Route path={config.urls.grupos}>
                     Grupo
                   </Route>
-                </Switch>
-              </div>
-            </>
-          )}
+                </PrivateRouter>
+              </Switch>
+            </div>
         </ThemeProvider>
-      </Router>
     </div>
   );
+}
+
+function PrivateRouter({ children, ...rest }){
+  const user = useUser()[0];
+
+  return (
+    <Route
+      { ...rest }
+      render = {() => 
+        user ? (
+          children
+        ) : (
+          <Redirect 
+            to={{
+              pathname: '/login'
+            }}
+          />
+        )
+      }
+    />
+  )
+
 }

@@ -60,7 +60,7 @@ export const getAllAnuncios = async (course_id) => {
         'method':'GET',
         'url':'/publication/announcement/'+course_id,
     });
-    
+      
     return res.data;
   }
 

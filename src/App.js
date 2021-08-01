@@ -15,7 +15,7 @@ import theme from "@styles/theme";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 
 import { UserProvider } from "./base/context/userContext";
-import { CookiesProvider } from 'react-cookie';
+import { CookiesProvider, useCookies } from 'react-cookie';
 import { useStyles } from "@styles/Styles";
 import { useUser } from "./base/context/userContext";
 // Components
@@ -24,7 +24,7 @@ export default function appWithContext() {
   return (
   <CookiesProvider>
     <UserProvider>
-      <App></App>
+      <App />
     </UserProvider>
   </CookiesProvider>
 )
@@ -38,17 +38,17 @@ function App() {
   useEffect(() => {
     const checkCookies = async () =>{
       let [userCookie, tokenCookie] = actions.getCookies();
-      console.log('checkCookies');
+      console.log('checkCookies ', userCookie, ' ', tokenCookie);
       if (userCookie || tokenCookie) {
-        actions.removeUser();
-        await actions.saveUser(userCookie);
+        actions.removeUser(); // set user null
+        await actions.saveUser(userCookie); // save cookie without effects
         await actions.saveToken(tokenCookie);
       }
       
     }
-    
-    console.log(user);
+
     if(!user) checkCookies();
+
   },[user, actions])
 
   useEffect(() => {

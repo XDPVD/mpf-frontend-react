@@ -13,8 +13,6 @@ function LoginPage() {
     const paperStyle = { padding: 60, height: '100  vh', width: 500, margin: '90px auto' }
     
     return ( 
-        <>
-
         <Grid container alignContent='space-between' >
 
           <Paper elevation = { 20 }
@@ -43,9 +41,9 @@ function LoginPage() {
           </Typography> 
           </Paper>
         </Grid>
-        </> 
-
     )
 }
+
+
 
 export default LoginPage;

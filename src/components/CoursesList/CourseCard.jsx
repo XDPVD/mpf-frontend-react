@@ -9,7 +9,6 @@ import Button from "@material-ui/core/Button";
 
 export default function CourseCard({ elem }) {
   const classes = useStyles();
-  console.log(elem);
   return (
     <Button style={{ width: "100%" }} disableRipple>
       <Link className={classes.courseLink} to={`/cursos/${elem.id}/dash`}>

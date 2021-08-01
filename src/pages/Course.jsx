@@ -6,11 +6,10 @@ import CourseUsers from "./CourseUsers";
 import CourseNav from "@layout/CourseNav";
 
 function Course() {
-  
   let prefix = "/cursos/:id";
-  
+
   const { courseId } = useParams();
-  
+
   const kinds = [
     {
       kind: "A",
@@ -37,10 +36,10 @@ function Course() {
   return (
     <>
       <CourseNav courseId={courseId} />
-      
-      <Redirect
+
+      {/* <Redirect
         to={config.urls.cursos + "/" + courseId + config.courseUrls.dashboard}
-      />
+      /> */}
 
       {kinds.map((elem) => {
         if (elem.customComponent)

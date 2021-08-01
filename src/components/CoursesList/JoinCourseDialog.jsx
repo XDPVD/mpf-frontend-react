@@ -22,8 +22,13 @@ function JoinCourseDialog({ open, setOpen, setOpenSB }) {
     event.preventDefault();
 
     setOpen(false);
-    await postData(endP({ code: code }).enrollMeByCode, {}, actions.getHeader());
+    await postData(
+      endP({ courseCode: code }).enrollMeByCode,
+      {},
+      actions.getHeader()
+    );
     setOpenSB(true);
+    window.location.reload();
   }
 
   return (

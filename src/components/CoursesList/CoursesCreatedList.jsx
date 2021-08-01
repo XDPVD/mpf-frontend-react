@@ -13,7 +13,11 @@ function CoursesCreatedList({ created }) {
     <List>
       {!checkNull(created) &&
         created.map((curso) => (
-          <Link key={curso.id} className={classes.courseLink} to={`/cursos/${curso.id}/dash`}>
+          <Link
+            key={curso.id}
+            className={classes.courseLink}
+            to={`/cursos/${curso.id}/dash`}
+          >
             <ListItem
               style={{
                 padding: "10px 8px",
@@ -22,6 +26,7 @@ function CoursesCreatedList({ created }) {
               }}
               button
               disableRipple
+              data-testid={`course-item-${curso.id}`}
             >
               <ListItemText>
                 <Typography variant='h6'>{curso.name}</Typography>

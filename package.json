@@ -59,5 +59,19 @@
     "eslint-import-resolver-webpack": "^0.13.1",
     "eslint-plugin-import": "^2.23.4",
     "jest": "^26.6.0"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "@components/(.*)": "<rootDir>/src/components/$1",
+      "@assets/(.*)": "<rootDir>/src/assets/$1",
+      "@pages/(.*)": "<rootDir>/src/pages/$1",
+      "@styles/(.*)": "<rootDir>/src/styles/$1",
+      "@utils/(.*)": "<rootDir>/src/base/utils/$1",
+      "@settings/(.*)": "<rootDir>/src/base/settings/$1",
+      "@layout/(.*)": "<rootDir>/src/components/_layout/$1",
+      "@common/(.*)": "<rootDir>/src/components/_common/$1",
+      "@context/(.*)": "<rootDir>/src/base/context/$1",
+      "@mocks/(.*)": "<rootDir>/src/mocks/$1"
+    }
   }
 }

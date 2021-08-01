@@ -37,6 +37,7 @@ function LateralBar() {
 
   const closeSession = () => {
     actions.removeUser();
+    
   };
 
   return (

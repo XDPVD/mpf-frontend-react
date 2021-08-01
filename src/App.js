@@ -24,7 +24,7 @@ export default function appWithContext() {
   return (
   <CookiesProvider>
     <UserProvider>
-      <App></App>
+      <App />
     </UserProvider>
   </CookiesProvider>
 )
@@ -48,8 +48,6 @@ function App() {
     }
 
     if(!user) checkCookies();
-
-    console.log(user);
 
   },[user, actions])
 

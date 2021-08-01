@@ -11,10 +11,11 @@ import Input from "@material-ui/core/Input";
 
 import { postData } from "@utils/postData";
 import { endP } from "@settings/config";
+import { useParams } from "react-router-dom";
 import FormDialog from "@common/FormDialog";
 import { useUser } from "src/base/context/userContext";
 
-import { isValid } from "src/base/utils/validations";
+import { isValid } from 'src/base/utils/validations';
 
 export default function AddCourseDialog({ open, setOpen, setOpenSB }) {
   const classes = useStyles();
@@ -25,22 +26,20 @@ export default function AddCourseDialog({ open, setOpen, setOpenSB }) {
     setCurso({ ...curso, [event.target.name]: event.target.value });
   };
 
+  const { id_course } = useParams();
+
   const actions = useUser()[1];
 
   async function enviarDatos(event) {
     event.preventDefault();
-
-    if (curso.name === "") {
-      alert(
-        "ERROR: Por favor, el nombre del curso es un campo obligatorio, por favor ingrese algun nombre"
-      );
+    
+    if(curso.name === ""){
+      alert('ERROR: Por favor, el nombre del curso es un campo obligatorio, por favor ingrese algun nombre');
       return;
     }
 
-    if (!isValid(curso.name)) {
-      alert(
-        "ERROR: No se permite caracteres especiales en el titulo, por favor, ingrese otro titulo"
-      );
+    if(!isValid(curso.name)){
+      alert('ERROR: No se permite caracteres especiales en el titulo, por favor, ingrese otro titulo');
       return;
     }
 

@@ -11,7 +11,6 @@ export default function Comments(props) {
 
   const [comments, setComments] = useState([]);
   const [isFetching, setFetching] = useState(true);
-
   const [openForm, setOpenForm] = useState(false);
 
   useEffect(() => {

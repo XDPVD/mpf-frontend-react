@@ -1,19 +1,22 @@
 import React from 'react'
 import { GoogleLogin } from 'react-google-login'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { useUser } from '../../base/context/userContext'
 import * as config from "@settings/config";
 
 function LoginButton() {
-    const userActions = useUser()[1]
-    const history = useHistory()
+    const userActions = useUser()[1];
+    const history = useHistory();
+    const location = useLocation();
+
+    let { fromOrigin } = location.state || { fromOrigin: { pathname: config.urls.cursos } };
 
     // function to get the googleResponse
     const responseGoogle = async ({ profileObj, tokenId }) => {
         await userActions.saveUser(profileObj)
         await userActions.saveToken(tokenId, true)
 
-        history.replace(config.urls.cursos);
+        history.replace(fromOrigin);
     }
 
     // nothing for now, but prefer change

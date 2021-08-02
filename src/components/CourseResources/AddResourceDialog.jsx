@@ -4,7 +4,7 @@ import { useStyles } from "./_styles";
 
 import FileTray from "@components/_common/FileTray";
 
-import { useParams } from "react-router-dom";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 
 import { postPub } from "@utils/postData";
 import SelectTipo from "./SelectTipo";
@@ -15,6 +15,7 @@ import SelectOption from "./SelectOption";
 import FormDialog from "@common/FormDialog";
 import { useUser } from "src/base/context/userContext";
 import { resourceIsValid } from "@utils/useValidation";
+import { dateObjToString } from "@utils/convertDate";
 
 function AddResourceDialog(props) {
   const classes = useStyles();
@@ -33,25 +34,26 @@ function AddResourceDialog(props) {
 
   const actions = useUser()[1];
 
+  const history = useHistory();
+  const location = useLocation();
+
   const initialResource = {
     tipo: "A",
     titulo: "",
     descripcion: "",
     notaMax: 20,
-    fechaEntrega: null,
+    fechaEntrega: new Date(new Date().getTime() + 3600000),
     grupal: grupal,
     id_curso: Number(courseId),
   };
-
   const [recurso, setRecurso] = useState(initialResource);
-
   const [errorTitle, setErrorTitle] = useState(false);
   const [errorDesc, setErrorDesc] = useState(false);
   const [errorDate, setErrorDate] = useState(false);
   const [helperTitle, setHelperTitle] = useState("");
   const [helperDesc, setHelperDesc] = useState("");
   const [helperDate, setHelperDate] = useState("");
-
+  
   const setters = {
     setErrorTitle: setErrorTitle,
     setErrorDesc: setErrorDesc,
@@ -65,7 +67,7 @@ function AddResourceDialog(props) {
     setNota(Number(event.target.value));
     setRecurso({ ...recurso, notaMax: Number(event.target.value) });
   };
-
+  
   const handleChangeGrupal = (event) => {
     let result = event.target.value === "true";
 
@@ -109,7 +111,9 @@ function AddResourceDialog(props) {
     if (resourceIsValid(recurso, setters)) {
       await postPub(recurso, actions.getHeader());
       props.setOpenAdd(false);
-      window.location.reload();
+      console.log(location.pathname);
+      history.push(location.pathname, { from: location.pathname });
+    
     }
   };
 
@@ -214,6 +218,9 @@ function AddResourceDialog(props) {
                 id='datetime-local'
                 label='Fecha de entrega'
                 type='datetime-local'
+                defaultValue={
+                  `${dateObjToString(recurso.fechaEntrega)[0]}T${dateObjToString(recurso.fechaEntrega)[1]}`
+                }
                 format='yyyy-MM-ddThh:mm'
                 className={classes.horaEntrega}
                 InputLabelProps={{
@@ -242,10 +249,15 @@ function AddResourceDialog(props) {
                 mode={"p"}
                 recurso={recurso}
                 setters={setters}
-                createIdFunction={async () =>
-                  await postPub(recurso, actions.getHeader())
+                createIdFunction={async () =>{
+                    console.log('async upload');
+                    await postPub(recurso, actions.getHeader())
+                } 
                 }
-                closeFunction={() => props.setOpenAdd(false)}
+                closeFunction={() => {
+                  props.setOpenAdd(false);
+                  history.go(0)
+                }}
               />
             </div>
           </>

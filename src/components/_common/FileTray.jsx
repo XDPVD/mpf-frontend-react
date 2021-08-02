@@ -48,7 +48,13 @@ function FileTray(props) {
     if (success) previousFiles.current = currentFiles;
   }, [success, currentFiles]);
 
+  console.log(
+      'resourceIsValid(props.recurso, props.setters) ',
+      resourceIsValid(props.recurso, props.setters)
+  );
+
   const uploadEvent = async () => {
+    
     setLoading(true);
 
     // set target_id

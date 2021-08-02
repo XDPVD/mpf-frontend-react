@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useStyles } from "./_styles";
+import React, { useEffect, useState } from 'react';
+import { useStyles } from './_styles';
 
-import { Button, CircularProgress } from "@material-ui/core";
+import { Button, CircularProgress } from '@material-ui/core';
 import {
   ExpandMore as ExpandMoreIcon,
   ExpandLess as ExpandLessIcon,
-} from "@material-ui/icons";
+} from '@material-ui/icons';
 
-import CommentCard from "./CommentCard";
+import CommentCard from './CommentCard';
 
-import { endP } from "@settings/config";
-import { fetchingData } from "@utils/fetchData";
+import { endP } from '@settings/config';
+import { fetchingData } from '@utils/fetchData';
 
 function CommentAnswers(props) {
   const classes = useStyles();

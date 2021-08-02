@@ -73,7 +73,14 @@
       "@layout/(.*)": "<rootDir>/src/components/_layout/$1",
       "@common/(.*)": "<rootDir>/src/components/_common/$1",
       "@context/(.*)": "<rootDir>/src/base/context/$1",
-      "@mocks/(.*)": "<rootDir>/src/mocks/$1"
+      "@mocks/(.*)": "<rootDir>/src/mocks/$1",
+      "@testing-project/(.*)": "<rootDir>/jest-project-test/$1"
     }
+  },
+  "jestSonar": {
+    "sonar56x": true,
+    "reportPath": "testResults",
+    "reportFile": "sonar-report.xml",
+    "indent": 4
   }
 }

@@ -4,7 +4,9 @@ export const dateStringToObj = (date, time) => {
     const [year, month, day] = date.split('-');
     const [hour, minutes,] =  time.split(':');
 
-    return new Date(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minutes));
+    let newDate = new Date(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minutes));
+
+    return new Date(Math.abs(newDate - 18000000));
 }
 
 export const dateObjToString = (date) => {

@@ -21,7 +21,7 @@ function ReplyForm(props) {
   };
 
   const postAnswer = async () => {
-    console.log("exec postAnswer");
+    
     let obj = props.isReplyMode
       ? { commentId: props.comment_id }
       : { pubId: props.pub_id };
@@ -29,9 +29,6 @@ function ReplyForm(props) {
     let urlPost = props.isReplyMode
       ? endP(obj).postAnswer
       : endP(obj).postComment;
-
-    console.log("postAnswer ", obj);
-    console.log("postAnswer urlPost ", urlPost);
 
     setFetching((prev) => true);
     await postData(urlPost, formValues, actions.getHeader());

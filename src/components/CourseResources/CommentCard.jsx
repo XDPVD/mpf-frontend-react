@@ -1,8 +1,8 @@
-import React from "react";
-import { Button, Grid } from "@material-ui/core";
-import { useStyles } from "./_styles";
+import React from 'react';
+import { Button, Grid } from '@material-ui/core';
+import { useStyles } from './_styles';
 
-import { dateStringToObj } from "@utils/convertDate";
+import { dateStringToObj } from '@utils/convertDate';
 
 function CommentCard(props) {
   const classes = useStyles();
@@ -10,7 +10,7 @@ function CommentCard(props) {
     <>
       <Grid
         className={`${classes.commentCard} ${
-          props.isAnswer ? classes.answerCard : ""
+          props.isAnswer ? classes.answerCard : ''
         }`}
         container
       >
@@ -19,12 +19,12 @@ function CommentCard(props) {
           container
           item
           xs={1}
-          justify='center'
+          justify="center"
         >
           <img
             className={classes.userIcon}
-            src='https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fpluspng.com%2Fimg-png%2Fpng-user-icon-circled-user-icon-2240.png&f=1&nofb=1'
-            alt='userIcon'
+            src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fpluspng.com%2Fimg-png%2Fpng-user-icon-circled-user-icon-2240.png&f=1&nofb=1"
+            alt="userIcon"
           />
         </Grid>
         <Grid className={classes.contAct} container item xs={11}>
@@ -37,7 +37,12 @@ function CommentCard(props) {
               props.comment.time
             ).toLocaleString()}
           </Grid>
-          <Grid className={classes.content} item xs={12}>
+          <Grid
+            className={classes.content}
+            data-testid="card-content"
+            item
+            xs={12}
+          >
             {props.comment.content}
           </Grid>
           {!props.isAnswer ? (

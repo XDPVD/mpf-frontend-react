@@ -33,7 +33,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
+    "test": "react-scripts test --watchAll=false --coverage --testResultsProcessor jest-sonar-reporter",
     "eject": "react-app-rewired eject",
     "js-isort": "js-isort"
   },
@@ -60,6 +60,7 @@
     "eslint-plugin-import": "^2.23.4",
     "jest": "^26.6.0",
     "jest-sonar-reporter": "^2.0.0",
+    "sonar-scanner": "^3.1.0",
     "sonarqube-scanner": "^2.8.1"
   },
   "jest": {

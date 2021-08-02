@@ -5,16 +5,16 @@ import {
   ListItemAvatar,
   ListItemSecondaryAction,
   ListItemText,
-} from "@material-ui/core";
-import FolderIcon from "@material-ui/icons/Folder";
-import React from "react";
+} from '@material-ui/core';
+import FolderIcon from '@material-ui/icons/Folder';
+import React from 'react';
 
-import DeleteIcon from "@material-ui/icons/Delete";
+import DeleteIcon from '@material-ui/icons/Delete';
 
 function FileItem({ file, deleteButton }) {
   return (
     <>
-      <ListItem>
+      <ListItem data-testid="list-item">
         <ListItemAvatar>
           <Avatar>
             <FolderIcon />
@@ -22,14 +22,14 @@ function FileItem({ file, deleteButton }) {
         </ListItemAvatar>
         <ListItemText
           primary={file.path}
-          secondary={file.size ? `${file.size} bytes` : ""}
+          secondary={file.size ? `${file.size} bytes` : ''}
         />
         <ListItemSecondaryAction>
-          <IconButton edge='end' aria-label='delete'>
+          <IconButton edge="end" aria-label="delete">
             <DeleteIcon hidden={!deleteButton} />
           </IconButton>
           {file.downloadUrl ? (
-            <a href={file.downloadUrl} target='_blank' rel='noreferrer'>
+            <a href={file.downloadUrl} target="_blank" rel="noreferrer">
               Descargar
             </a>
           ) : (

@@ -8,5 +8,6 @@ test('renders content', () => {
 			<App />
 		)
 		console.log(component)
+		expect(component.container).toHaveTextContent('Google')
 	}
 )

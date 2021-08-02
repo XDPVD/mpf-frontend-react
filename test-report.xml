@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/components/CourseResources/__tests__/CommentAnswers.test.js">
+    <testCase name="CommentAnswers should render the button to show comments" duration="237"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/components/CourseResources/__tests__/Comments.test.js">
+    <testCase name="Comments should render the comment" duration="241"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/components/CourseResources/__tests__/ResourceCard.test.js">
+    <testCase name="ResourceCard should render the resource card" duration="154"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/App.test.js">
+    <testCase name="renders content" duration="179"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/components/CourseUsers/__tests__/AddUserDialog.test.js">
+    <testCase name="AddUserDialog should render the dialog" duration="217"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/components/CoursesList/__tests__/AddCourseDialog.test.js">
+    <testCase name="AddCourseDialog should render the dialog" duration="212"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/components/CoursesList/__tests__/JoinCourseDialog.test.js">
+    <testCase name="JoinCourseDialog should render the dialog" duration="277"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/components/CourseResources/__tests__/AddResourceDialog.test.js">
+    <testCase name="AddResourceDialog should render the dialog" duration="649"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/components/CourseUsers/__tests__/GroupCard.test.js">
+    <testCase name="GroupCard should render the group card" duration="304"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/components/CoursesList/__tests__/BtnGroup.test.js">
+    <testCase name="BtnGroup should render two buttons" duration="150"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/components/CourseResources/__tests__/FileCard.test.js">
+    <testCase name="FileCard should render the file" duration="148"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/components/CourseResources/__tests__/GroupField.test.js">
+    <testCase name="GroupField should render the group field" duration="93"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/components/CourseUsers/AddUserDialog.test.jsx">
+    <testCase name="renders content" duration="116"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/components/CourseUsers/__tests__/UsersList.test.js">
+    <testCase name="UsersList should render the user" duration="48"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/components/CoursesList/__tests__/CourseCard.test.js">
+    <testCase name="CourseCard should render the card for the element specified" duration="52"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/components/_common/__tests__/FileItem.test.js">
+    <testCase name="FileItem should render file item" duration="92"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/components/CourseResources/__tests__/CommentCard.test.js">
+    <testCase name="CommentCard should render the card" duration="59"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/user/card.test.js">
+    <testCase name="debe seleccionar null después de acabarse el tiempo" duration="11"/>
+    <testCase name="debe limpiar al eliminarse" duration="10"/>
+    <testCase name="debe aceptar selecciones" duration="19"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/components/CoursesList/__tests__/CoursesCreatedList.test.js">
+    <testCase name="CoursesCreatedList should render two courses" duration="55"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/user/user.test.js">
+    <testCase name="renders user data" duration="19"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/hello/hello.test.js">
+    <testCase name="renders with or without a name" duration="14"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/user/toggle.test.js">
+    <testCase name="cambia el valor cuando se le hace clic" duration="21"/>
+  </file>
+  <file path="/Users/warevil/Documents/learn/g4/mpf-frontend-react/src/user/contact.test.js">
+    <testCase name="debe renderizar información de contacto" duration="10"/>
+  </file>
+</testExecutions>

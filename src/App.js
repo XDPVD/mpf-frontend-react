@@ -44,14 +44,12 @@ function App() {
 
     const history = useHistory();
 
-    
-
     useEffect(() => {
         const checkCookies = async () => {
             let [userCookie, tokenCookie] = actions.getCookies()
             console.log('checkCookies ', userCookie, ' ', tokenCookie)
             if (userCookie || tokenCookie) {
-                actions.removeUser() // set user null
+                console.log('user');
                 await actions.saveUser(userCookie) // save cookie without effects
                 await actions.saveToken(tokenCookie)
                 history.replace(config.urls.cursos)

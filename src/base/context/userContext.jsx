@@ -80,9 +80,9 @@ export function useUser() {
         context.setUser((prev) => ({ ...prev, token }));
       },
       removeUser: () => {
+        context.setUser(prev => null);
         removeCookie(cookieNames.USER);
         removeCookie(cookieNames.TOKEN);
-        context.setUser(null);
       },
       getHeader: () => ({
         "Access-Control-Allow-Origin": "*",

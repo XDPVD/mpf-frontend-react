@@ -4,7 +4,7 @@ import GroupIcon from "@material-ui/icons/Group";
 import SettingsIcon from "@material-ui/icons/Settings";
 import React from "react";
 
-import * as config from "@settings/config";
+import { URLS } from "@settings/urls";
 import useRedirectUrl from "@utils/useRedirectUrl";
 import { useStyles } from "@components/_layout/_styles";
 import { Button } from "@material-ui/core";
@@ -22,17 +22,17 @@ function LateralBar() {
   const topButtons = [
     {
       component: <BookIcon />,
-      url: config.urls.cursos,
+      url: URLS.cursos,
     },
     {
       component: <GroupIcon />,
-      url: config.urls.grupos,
+      url: URLS.grupos,
     },
   ];
 
   const settingButton = {
     component: <SettingsIcon />,
-    url: config.urls.config,
+    url: URLS.config,
   };
 
   const closeSession = () => {

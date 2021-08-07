@@ -6,23 +6,27 @@ import { useCallback } from 'react'
 
 
 
-function useFetch({ endpoint, headers }) {
-    const [data, setData] = useState(null)
-    const [loading, setLoading] = useState(false)
-    
+function useFetch(props) {
+    const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
+
     const fetchData = useCallback(async () => {
         try{
-            let res = await instance.get(endpoint);
+            let res = await instance.get(props.endpoint, { headers: props.headers });
             setData(res.data);
         }
         catch(e){
-            alert(e.response);
+            setError({
+                msg: e.response
+            });
         }
-    }, [endpoint]);
+    }, [props]);
 
     useEffect(() => {
         fetchData()
-    }, [fetchData])
+    }, [fetchData]);
+
+    return [data, error];
 }
 
 export default useFetch;

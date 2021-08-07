@@ -2,14 +2,14 @@ import React from 'react'
 import { GoogleLogin } from 'react-google-login'
 import { useHistory, useLocation } from 'react-router-dom'
 import { useUser } from '../../base/context/userContext'
-import * as config from "@settings/config";
+import { URLS } from "@settings/urls";
 
 function LoginButton() {
     const userActions = useUser()[1];
     const history = useHistory();
     const location = useLocation();
 
-    let { fromOrigin } = location.state || { fromOrigin: { pathname: config.urls.cursos } };
+    let { fromOrigin } = location.state || { fromOrigin: { pathname: URLS.COURSES } };
 
     // function to get the googleResponse
     const responseGoogle = async ({ profileObj, tokenId }) => {

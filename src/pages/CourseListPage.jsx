@@ -7,9 +7,9 @@ import JoinCourseDialog from "@components/CoursesList/JoinCourseDialog";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 
-import Course from "./Course";
+import Course from "./CourseDetailsPage";
 
-import * as config from "@settings/config";
+import { URLS } from "@settings/urls";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 
@@ -64,7 +64,7 @@ function Courses() {
 
   return (
     <>
-      <Route exact path={config.urls.cursos}>
+      <Route exact path={URLS.COURSES}>
         <Container maxWidth='xl' className={classes.wrapper}>
           <Button
             className={classes.btn}
@@ -86,7 +86,7 @@ function Courses() {
 
         <CoursesList statusDialog={openAdd} />
       </Route>
-      <Route path={`${config.urls.cursos}/:courseId`}>
+      <Route path={`${URLS.COURSES}/:courseId`}>
         <Course />
       </Route>
 

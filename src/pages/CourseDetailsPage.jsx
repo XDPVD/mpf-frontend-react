@@ -1,6 +1,6 @@
 import { Redirect, Route, useParams } from "react-router-dom";
 
-import * as config from "@settings/config";
+import { COURSE_URLS } from "../base/settings/urls";
 import CourseResources from "./CourseResources";
 import CourseUsers from "./CourseUsers";
 import CourseNav from "@layout/CourseNav";
@@ -13,22 +13,22 @@ function Course() {
   const kinds = [
     {
       kind: "A",
-      path: prefix + config.courseUrls.dashboard,
+      path: prefix + COURSE_URLS.dashboard,
     },
     {
       kind: "M",
-      path: prefix + config.courseUrls.material,
+      path: prefix + COURSE_URLS.MATERIAL,
     },
     {
       kind: "T",
-      path: prefix + config.courseUrls.tareas,
+      path: prefix + COURSE_URLS.TASKS,
     },
     {
       kind: "E",
-      path: prefix + config.courseUrls.examenes,
+      path: prefix + COURSE_URLS.EXAMS,
     },
     {
-      path: prefix + config.courseUrls.personas,
+      path: prefix + COURSE_URLS.PEOPLE,
       customComponent: <CourseUsers courseId={courseId} />,
     },
   ];
@@ -36,10 +36,6 @@ function Course() {
   return (
     <>
       <CourseNav courseId={courseId} />
-
-      {/* <Redirect
-        to={config.urls.cursos + "/" + courseId + config.courseUrls.dashboard}
-      /> */}
 
       {kinds.map((elem) => {
         if (elem.customComponent)

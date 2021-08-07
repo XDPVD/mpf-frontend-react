@@ -13,42 +13,18 @@ import Loading from "@common/Loading";
 import NotFound from "@common/NotFound";
 
 const ResourcesList = (props) => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]); // repace fetchData -> []
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // remove
 
-  const { id } = useRouteMatch().params;
+  const { id } = useRouteMatch().params; // refactor useParams
   const currentRoute = useLocation().pathname.split('/')[3];
 
-  useEffect(() => {
-    const fetchAnuncios = async () => {
-      let res;
-      console.log("Kind -> ", currentRoute);
-      switch (currentRoute) {
-        case "materiales":
-          res = await getAllMaterial(id);
-          break;
-        case "dash":
-          res = await getAllAnuncios(id);
-          break;
-        case "tareas":
-          res = await getAllTareas(id);
-          break;
-        case "examenes":
-          res = await getAllExamen(id);
-          break;
-        default:
-          break;
-      }
-      setPosts(res.reverse());
-      setLoading(false);
-    };
-    fetchAnuncios();
-  }, [currentRoute, id]);
+  
 
   return (
     <div style={{ overflowY: "hidden" }}>
-      {loading ? (
+      {/* {loading ? (
         <Loading />
       ) : (
         posts?.map((elem) => {
@@ -59,7 +35,7 @@ const ResourcesList = (props) => {
         <NotFound>No hay publicaciones para mostrar</NotFound>
       ) : (
         <></>
-      )}
+      )} */}
     </div>
   );
 };

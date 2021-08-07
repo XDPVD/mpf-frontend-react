@@ -11,13 +11,14 @@ import {
 import Header from '@layout/Header'
 import LateralBar from '@layout/LateralBar'
 import UpperBanner from '@layout/UpperBanner'
-import * as config from '@settings/config'
-import Courses from '@pages/Courses'
-import Login from '@pages/Login'
+import Courses from '@pages/CourseListPage'
+import Login from '@pages/LoginPage'
 import Configuration from '@pages/Configuration'
 
 import theme from '@styles/theme'
 import ThemeProvider from '@material-ui/styles/ThemeProvider'
+
+import { URLS } from './base/settings/urls';
 
 import { UserProvider } from './base/context/userContext'
 import { CookiesProvider, useCookies } from 'react-cookie'
@@ -45,6 +46,7 @@ function App() {
     const history = useHistory();
 
     useEffect(() => {
+        //TODO: FIX the login session
         const checkCookies = async () => {
             let [userCookie, tokenCookie] = actions.getCookies()
             console.log('checkCookies ', userCookie, ' ', tokenCookie)
@@ -52,11 +54,17 @@ function App() {
                 console.log('user');
                 await actions.saveUser(userCookie) // save cookie without effects
                 await actions.saveToken(tokenCookie)
-                history.replace(config.urls.cursos)
+                history.replace(URLS.COURSES)
             }
         }
         if (!user) checkCookies()
     }, [user, actions, history]);
+
+    const privatePages = [
+        { url: URLS.COURSES, Component: <Courses /> },
+        { url: URLS.CONFIG, Component: <Configuration /> },
+        { url: URLS.GROUPS, Component: <p>Grupos</p>  },
+    ]
 
     return (
         <div className="App">
@@ -69,17 +77,12 @@ function App() {
                             <Login />
                         </Route>
                         <PrivateRouter>
-                            <LateralBar />
-                            <Route exact path={config.urls.login}>
-                                <Login />
-                            </Route>
-                            <Route path={config.urls.cursos}>
-                                <Courses />
-                            </Route>
-                            <Route path={config.urls.config}>
-                                <Configuration />
-                            </Route>
-                            <Route path={config.urls.grupos}>Grupo</Route>
+                            <LateralBar / >
+                            { privatePages.map((page)=>(
+                                <Route exact path={page.url}>
+                                    {page.component}
+                                </Route>
+                            )) }
                         </PrivateRouter>
                     </Switch>
                 </div>

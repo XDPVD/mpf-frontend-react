@@ -13,7 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 
 import NotFound from "@common/NotFound";
-import { useUser } from "src/base/context/userContext";
+import { useUser } from "@context/userContext";
 
 export default function CoursesList(props) {
   const user = useUser()[0];

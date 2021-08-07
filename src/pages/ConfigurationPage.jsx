@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import NotEditableProfileInformation from "@components/Configuration/NotEditableProfileInformation";
 import EditableProfileInformation from "@components/Configuration/EditableProfileInformation";
-import { useUser } from "src/base/context/userContext";
+import { useUser } from "@context/userContext";
 
 
 const useStyles = makeStyles({

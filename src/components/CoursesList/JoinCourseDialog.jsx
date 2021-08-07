@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { postData } from "@utils/postData";
 import Button from "@material-ui/core/Button";
 import { endP } from "@settings/config";
-import { useUser } from "src/base/context/userContext";
+import { useUser } from "@context/userContext";
 
 function JoinCourseDialog({ open, setOpen, setOpenSB }) {
   let code = "";

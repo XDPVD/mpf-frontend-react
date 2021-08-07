@@ -13,7 +13,7 @@ import LateralBar from '@layout/LateralBar'
 import UpperBanner from '@layout/UpperBanner'
 import Courses from '@pages/CourseListPage'
 import Login from '@pages/LoginPage'
-import Configuration from '@pages/Configuration'
+import Configuration from '@pages/ConfigurationPage'
 
 import theme from '@styles/theme'
 import ThemeProvider from '@material-ui/styles/ThemeProvider'
@@ -41,6 +41,7 @@ export default function appWithContext() {
 function App() {
     const classes = useStyles();
 
+    // TODO: change a userReducer and useContext
     const [user, actions] = useUser();
 
     const history = useHistory();

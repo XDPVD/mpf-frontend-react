@@ -13,7 +13,7 @@ import PostButton from "./PostButton";
 import SelectOption from "./SelectOption";
 
 import FormDialog from "@common/FormDialog";
-import { useUser } from "src/base/context/userContext";
+import { useUser } from "@context/userContext";
 import { resourceIsValid } from "@utils/useValidation";
 import { dateObjToString } from "@utils/convertDate";
 

@@ -12,7 +12,7 @@ import { endP } from "@settings/config";
 import AddResourceDialog from "@components/CourseResources/AddResourceDialog";
 import { useEffect } from "react";
 import { fetchData } from "@utils/fetchData";
-import { useUser } from "src/base/context/userContext";
+import { useUser } from "@context/userContext";
 import { useLocation, useParams } from "react-router-dom";
 
 //mis imports

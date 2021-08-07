@@ -3,7 +3,7 @@ import React from "react";
 import logo from "@assets/logo.svg";
 
 import { useStyles } from "@components/_layout/_styles";
-import { useUser } from "src/base/context/userContext";
+import { useUser } from "@context/userContext";
 
 function Header() {
   const user = useUser()[0];

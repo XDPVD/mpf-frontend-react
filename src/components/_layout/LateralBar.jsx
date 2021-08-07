@@ -8,7 +8,7 @@ import { URLS } from "@settings/urls";
 import useRedirectUrl from "@utils/useRedirectUrl";
 import { useStyles } from "@components/_layout/_styles";
 import { Button } from "@material-ui/core";
-import { useUser } from "src/base/context/userContext";
+import { useUser } from "@context/userContext";
 function LateralBar() {
   const classes = useStyles();
 

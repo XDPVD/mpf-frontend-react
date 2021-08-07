@@ -11,7 +11,7 @@ import { fetchingData } from '@utils/fetchData';
 import { postData } from '@utils/postData';
 import { putData } from '@utils/putData';
 import Loading from '@common/Loading';
-import { useUser } from 'src/base/context/userContext';
+import { useUser } from '@context/userContext';
 import { Divider } from '@material-ui/core';
 import { checkNull } from '@utils/checkNull';
 import GroupCard from '@components/CourseUsers/GroupCard';

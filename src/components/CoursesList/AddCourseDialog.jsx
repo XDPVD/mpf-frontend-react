@@ -13,9 +13,9 @@ import { postData } from "@utils/postData";
 import { endP } from "@settings/config";
 import { useParams } from "react-router-dom";
 import FormDialog from "@common/FormDialog";
-import { useUser } from "src/base/context/userContext";
+import { useUser } from "@context/userContext";
 
-import { isValid } from 'src/base/utils/validations';
+import { isValid } from '@utils/validations';
 
 export default function AddCourseDialog({ open, setOpen, setOpenSB }) {
   const classes = useStyles();

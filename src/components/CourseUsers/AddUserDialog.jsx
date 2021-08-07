@@ -10,7 +10,7 @@ import { postData } from '@utils/postData';
 import { fetchData } from '@utils/fetchData';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FormDialog from '@common/FormDialog';
-import { useUser } from 'src/base/context/userContext';
+import { useUser } from '@context/userContext';
 
 export default function AddUserDialog({ open, setOpen, course, reloadFunc }) {
   const [code, setCode] = useState('');

@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <unitTest version="1">
-    <file path="/root/projects/learning-abc-react/src/App.test.js">
-        <testCase name="renders content" duration="663"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/components/CourseUsers/__tests__/UsersList.test.js">
+        <testCase name="UsersList should render the user" duration="216"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/components/_common/__tests__/FileItem.test.js">
-        <testCase name="FileItem should render file item" duration="236"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/components/CoursesList/__tests__/CourseCard.test.js">
+        <testCase name="CourseCard should render the card for the element specified" duration="211"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/components/CoursesList/__tests__/CourseCard.test.js">
-        <testCase name="CourseCard should render the card for the element specified" duration="186"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/components/CoursesList/__tests__/CoursesCreatedList.test.js">
+        <testCase name="CoursesCreatedList should render two courses" duration="174"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/components/CoursesList/__tests__/BtnGroup.test.js">
-        <testCase name="BtnGroup should render two buttons" duration="386"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/components/CoursesList/__tests__/BtnGroup.test.js">
+        <testCase name="BtnGroup should render two buttons" duration="334"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/components/CoursesList/__tests__/JoinCourseDialog.test.js">
-        <testCase name="JoinCourseDialog should render the dialog" duration="336"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/components/_common/__tests__/FileItem.test.js">
+        <testCase name="FileItem should render file item" duration="251"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/components/CoursesList/__tests__/AddCourseDialog.test.js">
-        <testCase name="AddCourseDialog should render the dialog" duration="297"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/components/CoursesList/__tests__/AddCourseDialog.test.js">
+        <testCase name="AddCourseDialog should render the dialog" duration="495"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/components/CoursesList/__tests__/CoursesCreatedList.test.js">
-        <testCase name="CoursesCreatedList should render two courses" duration="124"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/components/CourseResources/__tests__/FileCard.test.js">
+        <testCase name="FileCard should render the file" duration="378"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/components/CourseResources/__tests__/CommentCard.test.js">
-        <testCase name="CommentCard should render the card" duration="94"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/components/CourseUsers/__tests__/GroupCard.test.js">
+        <testCase name="GroupCard should render the group card" duration="369"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/components/CourseResources/__tests__/ResourceCard.test.js">
-        <testCase name="ResourceCard should render the resource card" duration="115"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/components/CoursesList/__tests__/JoinCourseDialog.test.js">
+        <testCase name="JoinCourseDialog should render the dialog" duration="652"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/components/CourseUsers/__tests__/GroupCard.test.js">
-        <testCase name="GroupCard should render the group card" duration="428"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/components/CourseUsers/__tests__/AddUserDialog.test.js">
+        <testCase name="AddUserDialog should render the dialog" duration="772"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/components/CourseUsers/__tests__/AddUserDialog.test.js">
-        <testCase name="AddUserDialog should render the dialog" duration="961"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/user/card.test.js">
+        <testCase name="debe seleccionar null después de acabarse el tiempo" duration="25"/>
+        <testCase name="debe limpiar al eliminarse" duration="15"/>
+        <testCase name="debe aceptar selecciones" duration="21"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/components/CourseResources/__tests__/GroupField.test.js">
-        <testCase name="GroupField should render the group field" duration="141"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/user/toggle.test.js">
+        <testCase name="cambia el valor cuando se le hace clic" duration="34"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/components/CourseUsers/__tests__/UsersList.test.js">
-        <testCase name="UsersList should render the user" duration="83"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/user/user.test.js">
+        <testCase name="renders user data" duration="45"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/components/CourseResources/__tests__/FileCard.test.js">
-        <testCase name="FileCard should render the file" duration="242"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/user/contact.test.js">
+        <testCase name="debe renderizar información de contacto" duration="32"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/components/CourseResources/__tests__/AddResourceDialog.test.js">
-        <testCase name="AddResourceDialog should render the dialog" duration="660"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/components/CourseResources/__tests__/CommentCard.test.js">
+        <testCase name="CommentCard should render the card" duration="87"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/components/CourseResources/__tests__/Comments.test.js">
-        <testCase name="Comments should render the comment" duration="282"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/components/CourseResources/__tests__/GroupField.test.js">
+        <testCase name="GroupField should render the group field" duration="170"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/components/CourseResources/__tests__/CommentAnswers.test.js">
-        <testCase name="CommentAnswers should render the button to show comments" duration="166"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/components/CourseUsers/AddUserDialog.test.jsx">
+        <testCase name="renders content" duration="183"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/components/CourseUsers/AddUserDialog.test.jsx">
-        <testCase name="renders content" duration="223"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/components/CourseResources/__tests__/AddResourceDialog.test.js">
+        <testCase name="AddResourceDialog should render the dialog" duration="534"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/user/card.test.js">
-        <testCase name="debe seleccionar null después de acabarse el tiempo" duration="18"/>
-        <testCase name="debe limpiar al eliminarse" duration="10"/>
-        <testCase name="debe aceptar selecciones" duration="14"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/components/CourseResources/__tests__/Comments.test.js">
+        <testCase name="Comments should render the comment" duration="243"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/user/toggle.test.js">
-        <testCase name="cambia el valor cuando se le hace clic" duration="62"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/components/CourseResources/__tests__/CommentAnswers.test.js">
+        <testCase name="CommentAnswers should render the button to show comments" duration="238"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/user/user.test.js">
-        <testCase name="renders user data" duration="16"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/components/CourseResources/__tests__/ResourceCard.test.js">
+        <testCase name="ResourceCard should render the resource card" duration="150"/>
     </file>
-    <file path="/root/projects/learning-abc-react/src/user/contact.test.js">
-        <testCase name="debe renderizar información de contacto" duration="22"/>
+    <file path="/home/miguel/Proyectos/mpf-frontend-react/src/App.test.js">
+        <testCase name="renders content" duration="204"/>
     </file>
 </unitTest>

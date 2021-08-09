@@ -9,6 +9,7 @@ function SelectOption({ valueSelected, handleOnChange }) {
           marginTop: "10px",
           minWidth: 50,
         }}
+        data-testid="select-option"
       >
         <InputLabel htmlFor='nota-simple'>Nota Máx.</InputLabel>
         <Select

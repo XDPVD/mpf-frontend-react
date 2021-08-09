@@ -44,6 +44,7 @@ function ReplyForm(props) {
         id='content-input'
         label='Escriba su respuesta'
         type='text'
+        data-testid="comment-input"
         multiline
         rows={4}
         value={formValues.content}

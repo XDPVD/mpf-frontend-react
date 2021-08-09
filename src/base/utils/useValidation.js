@@ -39,7 +39,6 @@ export function resourceIsValid(recurso, setters) {
         setters.setErrorDate,
         setters.setHelperDate,
         msgDate,
-        recurso.tipo
       );
     return false;
   }

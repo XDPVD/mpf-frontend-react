@@ -158,7 +158,14 @@ function CourseUsers({ courseId }) {
         </Grid>
 
         {/*LISTA DE GRUPOS************************/}
-        <Grid item className={classes.wrapper} xs={12} sm={6} md={7}>
+        <Grid
+          data-testid="group-grid"
+          item
+          className={classes.wrapper}
+          xs={12}
+          sm={6}
+          md={7}
+        >
           <div
             style={{
               borderBottom: '2px solid #ddd',

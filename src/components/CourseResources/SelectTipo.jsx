@@ -15,6 +15,7 @@ function SelectTipo({
         style={{
           minWidth: 120,
         }}
+        data-testid="select-tipo"
       >
         <InputLabel>Tipo</InputLabel>
         <Select

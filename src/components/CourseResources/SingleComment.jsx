@@ -9,6 +9,7 @@ function SingleComment(props) {
   return (
     <div key={props.comment.id} id={props.comment.id}>
       <CommentCard
+        data-testid="single-comment"
         onReplyMode={() => setReplyMode(true)}
         isReplyMode={isReplyMode}
         comment={props.comment}

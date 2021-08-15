@@ -5,30 +5,30 @@ import Typography from "@material-ui/core/Typography";
 import { postData } from "@utils/postData";
 import Button from "@material-ui/core/Button";
 import { endP } from "@settings/config";
-import { useUser } from "@context/userContext";
+import { useUser } from '@utils/useUser';
+import usePost from "../../base/utils/usePost";
+import useEndpoints from "../../base/utils/useEndpoints";
+import { useState } from "react";
 
 function JoinCourseDialog({ open, setOpen, setOpenSB }) {
-  let code = "";
+  const [code, setCode] = useState('');
 
   const actions = useUser()[1];
   const classes = useStyles();
 
+  const endpoints = useEndpoints({courseCode: code});
+  const joinCoursePost = usePost({ url: endpoints.post.enrollMeByCode, headers: actions.getHeader() });
+
   const handleCodeChange = (event) => {
-    code = event.target.value;
-    console.log(code);
+    setCode(event.target.value);
   };
 
   async function joinCourse(event) {
     event.preventDefault();
-
+    // TODO: To get better error consistency
+    await joinCoursePost();
     setOpen(false);
-    await postData(
-      endP({ courseCode: code }).enrollMeByCode,
-      {},
-      actions.getHeader()
-    );
     setOpenSB(true);
-    window.location.reload();
   }
 
   return (

@@ -1,79 +1,74 @@
-import BookIcon from "@material-ui/icons/Book";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import GroupIcon from "@material-ui/icons/Group";
-import SettingsIcon from "@material-ui/icons/Settings";
-import React from "react";
+import BookIcon from '@material-ui/icons/Book';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import GroupIcon from '@material-ui/icons/Group';
+import SettingsIcon from '@material-ui/icons/Settings';
+import React from 'react';
 
-import { URLS } from "@settings/urls";
-import useRedirectUrl from "@utils/useRedirectUrl";
-import { useStyles } from "@components/_layout/_styles";
-import { Button } from "@material-ui/core";
-import { useUser } from "@context/userContext";
+import { URLS } from '@settings/urls';
+import { useStyles } from '@components/_layout/_styles';
+import { Avatar, Button } from '@material-ui/core';
+import { useUser } from '@utils/useUser';
+import { useLocation } from 'react-router-dom';
 function LateralBar() {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  const [url, redirectTo] = useRedirectUrl();
+    const location = useLocation();
+    const [, actions] = useUser();
 
-  const [user,actions] = useUser();
+    // Array of Buttons { IconComponent, url }
+    const topButtons = [
+        {
+            url: URLS.COURSES,
+            component: <BookIcon />,
+        },
+        {
+            url: URLS.GROUPS,
+            component: <GroupIcon />,
+        },
+    ];
 
-  
+    const settingButton = {
+        component: <SettingsIcon />,
+        url: URLS.CONFIG,
+    };
 
-  // Array of Buttons { IconComponent, url }
-  const topButtons = [
-    {
-      component: <BookIcon />,
-      url: URLS.cursos,
-    },
-    {
-      component: <GroupIcon />,
-      url: URLS.grupos,
-    },
-  ];
+    // TODO: Refactor user managment
+    const closeSession = () => {
+        actions.logout();
+    };
 
-  const settingButton = {
-    component: <SettingsIcon />,
-    url: URLS.config,
-  };
+    // TODO disabled button
+    return (
+        <div className={classes.lateralBarContainer}>
+            <div className={classes.lateralBarTop}>
+                <Avatar src="https://i.picsum.photos/id/128/200/300.jpg?hmac=7to6-3CeagytIcDSNoyBUAgdzKPBMw3CYRpVrm7DBSA"></Avatar>
+                <div className={classes.separator} />
+                {topButtons.map((e, index) => {
+                    return (
+                        <Button
+                            className={classes.lateralBarButton}
+                            key={index}
+                            disabled={location.pathname.includes(e.url)}
+                        >
+                            {e.component}
+                        </Button>
+                    );
+                })}
+            </div>
 
-  const closeSession = () => {
-    actions.removeUser();
-  };
+            <div className={classes.lateralBarBottom}>
+                <Button
+                    className={classes.lateralBarButton}
+                >
+                    {settingButton.component}
+                </Button>
 
-  return (
-    <div className={classes.lateralBar}>
-      <img className={classes.profileImage} alt={"user"} src={user.imageUrl} />
-
-      <div className={classes.separator} />
-
-      {/* Display buttons */}
-      <div className={classes.lateralBarOptions}>
-        {topButtons.map((e,index) => {
-          return (
-            <Button className={classes.lateralBarButton}
-              key={index}
-              disabled={url === e.url}
-              onClick={() => redirectTo(e.url)}
-            >
-              {e.component}
-            </Button>
-          );
-        })}
-      </div>
-
-      <div className={classes.lateralBarOptions}>
-        <Button className={classes.lateralBarButton}
-          disabled={url === settingButton.url}
-          onClick={() => redirectTo(settingButton.url)}
-        >
-          {settingButton.component}
-        </Button>
-
-        <Button style={{ color: "red" }} onClick={() => closeSession()}>
-          <ExitToAppIcon />
-        </Button>
-      </div>
-    </div>
-  );
+                <Button style={{ color: 'red' }} onClick={() => closeSession()}>
+                    <ExitToAppIcon />
+                </Button>
+            </div>
+        </div>
+    );
 }
 
 export default LateralBar;

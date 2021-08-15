@@ -10,7 +10,7 @@ import {
 
 function LoginPage() {
     
-    const paperStyle = { padding: 60, height: '100  vh', width: 500, margin: '90px auto' }
+    const paperStyle = { padding: 60, height: '100vh', width: 500, margin: '90px auto' }
     
     return ( 
         <Grid container alignContent='space-between' >

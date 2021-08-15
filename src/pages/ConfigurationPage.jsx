@@ -1,20 +1,10 @@
 import React from "react";
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import NotEditableProfileInformation from "@components/Configuration/NotEditableProfileInformation";
 import EditableProfileInformation from "@components/Configuration/EditableProfileInformation";
-import { useUser } from "@context/userContext";
-
-
-const useStyles = makeStyles({
-  root: {
-    width: '100%',
-    maxWidth: 500,
-  },
-});
+import { useUser } from '@utils/useUser';
 
 export default function Configuration() {
-  const classes = useStyles();
   const [user, actions] = useUser();
 
   return (

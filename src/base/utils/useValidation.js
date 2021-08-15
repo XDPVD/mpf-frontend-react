@@ -1,3 +1,4 @@
+
 function validate(setError, setHelper, msg) {
   setError(true);
   setHelper(msg);
@@ -44,3 +45,4 @@ export function resourceIsValid(recurso, setters) {
     return false;
   }
 }
+

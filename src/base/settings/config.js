@@ -7,13 +7,13 @@ export const endP = ({
     groupId,
     courseCode,
 }) => {
-    console.log('endP commentId ', {
-        courseId,
-        userId,
-        pubId,
-        commentId,
-        email,
-    })
+    // console.log('endP commentId ', {
+    //     courseId,
+    //     userId,
+    //     pubId,
+    //     commentId,
+    //     email,
+    // })
     return {
         createCourse: '/course',
         createGroup: `/group/create/${courseId}/default`,

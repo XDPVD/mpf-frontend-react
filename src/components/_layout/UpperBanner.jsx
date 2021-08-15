@@ -4,11 +4,11 @@ import useDate from "@utils/useDate";
 
 function UpperBanner() {
   const classes = useStyles();
-  const date = useDate();
+  const formatToday = useDate()[1];
   return (
-    <div className={classes.wrapper}>
-      <Typography variant='subtitle2'>{date.full}</Typography>
-      <Typography variant='h2'>{date.time}</Typography>
+    <div className={classes.upperBannerContainer}>
+      <Typography variant='subtitle2'>{formatToday.date}</Typography>
+      <Typography variant='h3'>{formatToday.time}</Typography>
     </div>
   );
 }

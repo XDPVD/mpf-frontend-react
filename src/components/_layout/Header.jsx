@@ -1,26 +1,26 @@
-import React from "react";
+import React from 'react';
 
-import logo from "@assets/logo.svg";
+import logo from '@assets/logo.svg';
 
-import { useStyles } from "@components/_layout/_styles";
-import { useUser } from "@context/userContext";
+import Avatar from '@material-ui/core/Avatar';
+
+import { useStyles } from '@components/_layout/_styles';
 
 function Header() {
-  const user = useUser()[0];
-
-  const classes = useStyles();
-  return (
-    <div className={classes.header}>
-      <img className={classes.headerLogo} alt="" src={logo} />
-      {/* Email and UserIcon */}
-      {user && (
-        <div className={classes.headerUser}>
-          {user.givenName}{" "}
-          <img className={classes.profileImage} alt="" src={user.imageUrl} />
+    const classes = useStyles();
+    return (
+        <div className={classes.headerContainer}>
+            <div className={classes.headerLogo}>
+                <img alt="labc_logo" src={logo} />
+            </div>
+            <div className={classes.headerUserContainer}>
+                <p>username</p>
+                <Avatar src="https://i.picsum.photos/id/128/200/300.jpg?hmac=7to6-3CeagytIcDSNoyBUAgdzKPBMw3CYRpVrm7DBSA">
+                    Initial
+                </Avatar>
+            </div>
         </div>
-      )}
-    </div>
-  );
+    );
 }
 
 export default Header;

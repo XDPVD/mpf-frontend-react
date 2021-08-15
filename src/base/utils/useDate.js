@@ -1,8 +1,13 @@
+import { useMemo } from "react";
 import { useEffect, useState } from "react";
 
 const useDate = () => {
   const locale = "es";
-  const [today, setDate] = useState(new Date()); // Save the current date to be able to trigger an update
+
+  const todayObject = useMemo(() => (new Date()) , [])
+
+  const [today, setDate] = useState(todayObject); // Save the current date to be able to trigger an update
+  
   const options = {
     weekday: "long",
     year: "numeric",
@@ -19,17 +24,14 @@ const useDate = () => {
     };
   }, []);
 
-  const full = today.toLocaleDateString(locale, options).toLocaleUpperCase();
+  const date = today.toLocaleDateString(locale, options).toLocaleUpperCase();
 
   const time = today.toLocaleTimeString(locale, {
     hour: "numeric",
     minute: "numeric",
   });
 
-  return {
-    full,
-    time,
-  };
+  return [today, {date, time}];
 };
 
 export default useDate;

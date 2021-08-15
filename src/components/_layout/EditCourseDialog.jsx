@@ -14,7 +14,7 @@ import { useForm } from 'react-hook-form';
 export default function EditCourseDialog(props) {
   const {courseId,courseUpdated,setCourseUpdated,headers,onClose,openEditCourse } = props;
   const [obj,setObj]=useState([]);
-  const {register,handleSubmit,reset,formState: { errors },} = useForm();
+  const {register,handleSubmit,reset} = useForm();
   const [courseUpdatedDialog,setCourseUpdatedDialog]=useState(0);
 
   const resetState=async ()=>{

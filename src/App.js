@@ -1,29 +1,31 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 
 import {
     BrowserRouter as Router,
-    Redirect,
     Route,
     Switch,
     useHistory,
-} from 'react-router-dom'
+} from 'react-router-dom';
 
-import Header from '@layout/Header'
-import LateralBar from '@layout/LateralBar'
-import UpperBanner from '@layout/UpperBanner'
-import Courses from '@pages/CourseListPage'
-import Login from '@pages/LoginPage'
-import Configuration from '@pages/ConfigurationPage'
+import Header from '@layout/Header';
+import LateralBar from '@layout/LateralBar';
+import UpperBanner from '@layout/UpperBanner';
+import Courses from '@pages/CourseListPage';
+import Login from '@pages/LoginPage';
+import Configuration from '@pages/ConfigurationPage';
 
-import theme from '@styles/theme'
-import ThemeProvider from '@material-ui/styles/ThemeProvider'
+import theme from '@styles/theme';
+import ThemeProvider from '@material-ui/styles/ThemeProvider';
 
 import { URLS } from './base/settings/urls';
 
-import { UserProvider } from './base/context/userContext'
-import { CookiesProvider, useCookies } from 'react-cookie'
-import { useStyles } from '@styles/Styles'
-import { useUser } from './base/context/userContext'
+import { UserProvider } from './base/context/userContext';
+import { CookiesProvider } from 'react-cookie';
+import { useGlobalStyles } from '@styles/globalStyles';
+import { useUser } from '@utils/useUser';
+import CourseDetailsPage from './pages/CourseDetailsPage';
+
+import PrivateRouter from './components/_common/PrivateRouter';
 // Components
 
 export default function appWithContext() {
@@ -35,80 +37,60 @@ export default function appWithContext() {
                 </UserProvider>
             </CookiesProvider>
         </Router>
-    )
+    );
 }
 
 function App() {
-    const classes = useStyles();
-
+    // Use global styles
+    const classes = useGlobalStyles();
     // TODO: change a userReducer and useContext
     const [user, actions] = useUser();
-
+    // use history
     const history = useHistory();
 
     useEffect(() => {
-        //TODO: FIX the login session
-        const checkCookies = async () => {
-            let [userCookie, tokenCookie] = actions.getCookies()
-            console.log('checkCookies ', userCookie, ' ', tokenCookie)
-            if (userCookie || tokenCookie) {
-                console.log('user');
-                await actions.saveUser(userCookie) // save cookie without effects
-                await actions.saveToken(tokenCookie)
-                history.replace(URLS.COURSES)
-            }
+        if(user){
+            history.replace(history.location.state);
         }
-        if (!user) checkCookies()
-    }, [user, actions, history]);
+    },[user, history])
+
+    // if there is a cookie, the app login that info on its state
+    useEffect(() => {
+        let userCookie = actions.getCookies();
+        if(userCookie){
+            actions.login(userCookie)
+        }
+    },[actions])
 
     const privatePages = [
-        { url: URLS.COURSES, Component: <Courses /> },
+        { url: URLS.COURSES, Component: <Courses />, exact: true},
+        { url: URLS.COURSES + '/:courseId', Component: <CourseDetailsPage /> },
         { url: URLS.CONFIG, Component: <Configuration /> },
-        { url: URLS.GROUPS, Component: <p>Grupos</p>  },
-    ]
-
+        { url: URLS.GROUPS, Component: <p>Grupos</p> },
+    ];
     return (
-        <div className="App">
+        <div className={classes.appContainer}>
             <ThemeProvider theme={theme}>
                 <Header />
                 <UpperBanner />
-                <div className={classes.root}>
+                <div className={classes.pageContainer}>
                     <Switch>
                         <Route exact path="/login">
                             <Login />
                         </Route>
-                        <PrivateRouter>
-                            <LateralBar / >
-                            { privatePages.map((page)=>(
-                                <Route exact path={page.url}>
-                                    {page.component}
-                                </Route>
-                            )) }
-                        </PrivateRouter>
+                        {privatePages.map((page) => {
+                            return (
+                                <PrivateRouter exact={page.exact} path={page.url}>
+                                    <LateralBar />
+                                    {page.Component}
+                                </PrivateRouter>
+                            );
+                        })}
                     </Switch>
                 </div>
             </ThemeProvider>
         </div>
-    )
+    );
 }
 
-function PrivateRouter({ children, ...rest }) {
-    const user = useUser()[0]
 
-    return (
-        <Route
-            {...rest}
-            render={() =>
-                user ? (
-                    children
-                ) : (
-                    <Redirect
-                        to={{
-                            pathname: '/login',
-                        }}
-                    />
-                )
-            }
-        />
-    )
-}

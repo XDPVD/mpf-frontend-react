@@ -11,7 +11,7 @@ import { fetchingData } from '@utils/fetchData';
 import { postData } from '@utils/postData';
 import { putData } from '@utils/putData';
 import Loading from '@common/Loading';
-import { useUser } from '@context/userContext';
+import { useUser } from '@utils/useUser';
 import { Divider } from '@material-ui/core';
 import { checkNull } from '@utils/checkNull';
 import GroupCard from '@components/CourseUsers/GroupCard';
@@ -58,7 +58,7 @@ function CourseUsers({ courseId }) {
         setCourse,
         setIsFetching
       );
-      console.log(course);
+      
       await fetchingData(
         endP({ courseId }).getGroups,
         setGroups,
@@ -84,8 +84,8 @@ function CourseUsers({ courseId }) {
 
   // Función que nos permite bloquear TODOS los grupos
   async function lockAllGroups(event) {
-    event.preventDefault();
-    await putData(endP({ courseId }).lockAllGroups);
+      event.preventDefault();
+      await putData(endP({ courseId }).lockAllGroups);
   }
 
   // Mostramos usuarios por tipo

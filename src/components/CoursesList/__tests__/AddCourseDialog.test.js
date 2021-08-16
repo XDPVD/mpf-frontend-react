@@ -1,19 +1,23 @@
-import { render, screen } from "@testing-library/react";
-import AddCourseDialog from "../AddCourseDialog";
-import BaseComponent from "@mocks/BaseComponent";
+import { render, screen } from '@testing-library/react';
+import AddCourseDialog from '../AddCourseDialog';
+import BaseComponent from '@mocks/BaseComponent';
 
-describe("AddCourseDialog", () => {
-  beforeEach(() => {
-    render(
-      <BaseComponent>
-        <AddCourseDialog open={true} setOpen={() => {}} setOpenSB={() => {}} />
-      </BaseComponent>
-    );
-  });
+describe('AddCourseDialog', () => {
+    beforeEach(() => {
+        render(
+            <BaseComponent>
+                <AddCourseDialog
+                    open={true}
+                    setOpen={() => {}}
+                    setOpenSB={() => {}}
+                />
+            </BaseComponent>
+        );
+    });
 
-  it("should render the dialog", async () => {
-    const headingElement = screen.getByText(/Crear curso/i);
+    it('should render the dialog', async () => {
+        const headingElement = screen.getByText(/Crear curso/i);
 
-    expect(headingElement).toBeInTheDocument();
-  });
+        expect(headingElement).toBeInTheDocument();
+    });
 });

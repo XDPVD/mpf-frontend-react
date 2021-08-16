@@ -4,7 +4,6 @@ import useDate from "@utils/useDate";
 import { useGlobalStyles } from "../../styles/globalStyles";
 
 function UpperBanner() {
-  const classes = useStyles();
   const globalClasses = useGlobalStyles();
   const formatToday = useDate()[1];
   return (

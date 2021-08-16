@@ -7,7 +7,6 @@ import JoinCourseDialog from '@components/CoursesList/JoinCourseDialog';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
 import { Divider, Grid, Typography } from '@material-ui/core';
 import CoursesEnrolledList from '@components/CoursesList/CoursesEnrolledList';
 import useFetch from '../base/utils/useFetch';

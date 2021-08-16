@@ -10,8 +10,8 @@ import {
 import Header from '@layout/Header';
 import LateralBar from '@layout/LateralBar';
 import UpperBanner from '@layout/UpperBanner';
-import Courses from '@pages/CourseListPage';
-import Login from '@pages/LoginPage';
+import CoursesListPage from '@pages/CourseListPage';
+import LoginPage from '@pages/LoginPage';
 import Configuration from '@pages/ConfigurationPage';
 
 import theme from '@styles/theme';
@@ -28,19 +28,19 @@ import CourseDetailsPage from './pages/CourseDetailsPage';
 import PrivateRouter from './components/_common/PrivateRouter';
 // Components
 
-export default function appWithContext() {
+export default function App() {
     return (
         <Router>
             <CookiesProvider>
                 <UserProvider>
-                    <App />
+                    <AppContainer />
                 </UserProvider>
             </CookiesProvider>
         </Router>
     );
 }
 
-function App() {
+function AppContainer() {
     // Use global styles
     const classes = useGlobalStyles();
     // TODO: change a userReducer and useContext
@@ -63,20 +63,21 @@ function App() {
     },[actions])
 
     const privatePages = [
-        { url: URLS.COURSES, Component: <Courses />, exact: true},
+        { url: URLS.COURSES, Component: <CoursesListPage />, exact: true},
         { url: URLS.COURSES + '/:courseId', Component: <CourseDetailsPage /> },
         { url: URLS.CONFIG, Component: <Configuration /> },
         { url: URLS.GROUPS, Component: <p>Grupos</p> },
     ];
+
     return (
-        <div className={classes.appContainer}>
-            <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
+            <div className={classes.appContainer}>
                 <Header />
                 <UpperBanner />
                 <div className={classes.pageContainer}>
                     <Switch>
                         <Route exact path="/login">
-                            <Login />
+                            <LoginPage />
                         </Route>
                         {privatePages.map((page) => {
                             return (
@@ -88,8 +89,8 @@ function App() {
                         })}
                     </Switch>
                 </div>
-            </ThemeProvider>
-        </div>
+            </div>
+        </ThemeProvider>
     );
 }
 

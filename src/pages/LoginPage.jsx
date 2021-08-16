@@ -14,7 +14,6 @@ function LoginPage() {
     
     return ( 
         <Grid container alignContent='space-between' >
-
           <Paper elevation = { 20 }
             style = { paperStyle } 
           >

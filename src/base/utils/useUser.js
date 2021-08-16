@@ -3,7 +3,7 @@ import { getCourse } from '@utils/fetchData';
 import React, { useMemo } from 'react';
 import { useCookies } from 'react-cookie';
 import { UserContext } from '../context/userContext';
-import prettyLog from '../utils/prettyLog';
+
 const cookieNames = {
     USER: 'labc_user',
 };
@@ -21,6 +21,7 @@ export function useUser() {
     // use useCookies useState
     const [cookies, setCookie, removeCookie] = useCookies([cookieNames.USER,]);
     
+    // lacinia lectus. Nam in velit non ligula pretium porta. Integer
     const actions = useMemo(
         () => ({
             login: async (userInput, tokenInput) => {
@@ -42,9 +43,7 @@ export function useUser() {
                 context.setUser((prev) => ( userResult ));
             },
             logout: () => {
-                prettyLog('cookies ', cookies);
                 removeCookie(cookieNames.USER, { path: '/' });
-                prettyLog('cookies user after remove',cookies);
                 context.setUser((prev) => null);
             },
             getHeader: () => ({
@@ -54,7 +53,6 @@ export function useUser() {
             getCookies: () => {
                 return cookies.labc_user;
             },
-            // TODO: This is ugly
             isCreator: async (course_id) => {
                 let res = await getCourse(course_id);
                 return context.user.email === res.creator.email;
@@ -63,5 +61,6 @@ export function useUser() {
         [context, setCookie, removeCookie, cookies]
     );
 
+    // lacinia lectus. Nam in velit non ligula pretium porta. Integer
     return [context.user, actions];
 }

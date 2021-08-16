@@ -26,7 +26,7 @@ function DropZoneComp({ setCurrentFiles, success, blockAllActions }) {
             setCurrentFiles(files);
         },
     });
-
+    // at vehicula. Donec pharetra ultrices accumsan. Cras tempor arcu sed vehicula cursus. Aliquam vehicula erat non odio pulvi
     return (
         <div
             {...getRootProps({ className: "dropzone" })}

@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core'
 import React from 'react'
-
+// sed orci vel, pulvinar luctus justo. Morbi ullamcorper ac quam quis consequat. Proin imperdiet euismod cur
 const useStyles = makeStyles({
     loadingPage: {
         position: 'absolute',
@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     },
     
 })
-
+// sed orci vel, pulvinar luctus justo. Morbi ullamcorper ac quam quis consequat. Proin imperdiet euismod cur
 function LoadingPage() {
     const classes = useStyles();
     return (

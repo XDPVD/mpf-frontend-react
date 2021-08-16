@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useEffect, useState } from "react";
-
+//llentesque vehicula interdum lectus, ut accumsan eros fringilla at. Ut fringilla eros vitae leo consect
 const useDate = () => {
   const locale = "es";
 
@@ -8,6 +8,7 @@ const useDate = () => {
 
   const [today, setDate] = useState(todayObject); // Save the current date to be able to trigger an update
   
+  //llentesque vehicula interdum lectus, ut accumsan eros fringilla at. Ut fringilla eros vitae leo consect
   const options = {
     weekday: "long",
     year: "numeric",
@@ -24,6 +25,7 @@ const useDate = () => {
     };
   }, []);
 
+  //llentesque vehicula interdum lectus, ut accumsan eros fringilla at. Ut fringilla eros vitae leo consect
   const date = today.toLocaleDateString(locale, options).toLocaleUpperCase();
 
   const time = today.toLocaleTimeString(locale, {
@@ -34,4 +36,5 @@ const useDate = () => {
   return [today, {date, time}];
 };
 
+//non lacus. Praesent non sem volutpat nibh ultricies tincidunt quis a purus. Ut dapibus mi ut vul
 export default useDate;

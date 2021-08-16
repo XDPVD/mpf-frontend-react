@@ -4,6 +4,7 @@ import NotEditableProfileInformation from "@components/Configuration/NotEditable
 import EditableProfileInformation from "@components/Configuration/EditableProfileInformation";
 import { useUser } from '@utils/useUser';
 
+// et eu ex. Ut dignissim massa nisl, at facilisis nulla porta eu. Cras et quam 
 export default function Configuration() {
   const [user, actions] = useUser();
 

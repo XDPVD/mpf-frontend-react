@@ -9,6 +9,7 @@ import FileList from "@components/_common/FileList";
 import { useStyles } from "./_styles";
 import { resourceIsValid } from "@utils/useValidation";
 
+// Cras convallis ornare pretium. Nam porta rhoncus nunc, sed tincidunt justo gravida eu. Sed vitae ullamcorper elit, quis vulputate m
 function FileTray(props) {
   const classes = useStyles();
 
@@ -31,6 +32,7 @@ function FileTray(props) {
   // flag indicating the edition status
   const [editMode, setEditMode] = useState(false);
 
+  // Cras convallis ornare pretium. Nam porta rhoncus nunc, sed tincidunt justo gravida eu. Sed vitae ullamcorper elit, quis vulputate m
   useEffect(() => {
     if (!editMode && !props.modeCreate) {
       loadFiles().then((res) => {
@@ -43,16 +45,10 @@ function FileTray(props) {
       //console.log('loading -> false');
     }
   }, [editMode, loadFiles, props.modeCreate]);
-
+  // Cras convallis ornare pretium. Nam porta rhoncus nunc, sed tincidunt justo gravida eu. Sed vitae ullamcorper elit, quis vulputate m
   useEffect(() => {
     if (success) previousFiles.current = currentFiles;
   }, [success, currentFiles]);
-
-  console.log(
-      'resourceIsValid(props.recurso, props.setters) ',
-      resourceIsValid(props.recurso, props.setters)
-  );
-
   const uploadEvent = async () => {
     
     setLoading(true);
@@ -61,6 +57,8 @@ function FileTray(props) {
     let target_id = props.modeCreate
       ? await props.createIdFunction()
       : props.target_id;
+
+    
 
     // target_id (announcement) direct to close method
     if (target_id == null) return props.closeFunction();

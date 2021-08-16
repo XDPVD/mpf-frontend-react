@@ -11,16 +11,19 @@ import { fetchData } from "@utils/fetchData";
 import { putData } from "@utils/putData";
 import { useForm } from 'react-hook-form';
 
+// st. Proin et mauris ligula. Ut pretium ligula nec lorem commodo, vitae mo
 export default function EditCourseDialog(props) {
   const {courseId,courseUpdated,setCourseUpdated,headers,onClose,openEditCourse } = props;
   const [obj,setObj]=useState([]);
   const {register,handleSubmit,reset} = useForm();
   const [courseUpdatedDialog,setCourseUpdatedDialog]=useState(0);
 
+  // onvallis urna in tristique. Ut id risus sapien. Morbi facilisis mattis tempus. Aenean ut molestie
   const resetState=async ()=>{
     await setCourseUpdated(courseUpdated+1);
     await setCourseUpdatedDialog(courseUpdatedDialog+1);
   }
+  // um, ligula ante aliquam elit, in maximus nisi lectus sit amet massa. Sed euismod faucibus lacus sed congue. Quisque et massa purus. Sed placerat arcu eget quam sodales finibus. Vestibulum vitae rutrum leo, auct
   const onSubmit = (data,e) => {
     e.preventDefault();
     var nameObj=e.target[0].value;
@@ -43,11 +46,12 @@ export default function EditCourseDialog(props) {
     onClose();
   };
   
-
+  // m. Nam porta rhoncus nunc, sed tincidunt justo gravida eu. Sed vitae ullamcorper elit, quis vulpu
   useEffect(() => {
     fetchData(endP({courseId:courseId}).getCourse, setObj);
   },[courseUpdatedDialog, courseId]);
 
+  // que dolor felis, aliquam at condimentum luctus, blandit sit amet augue. Suspendiss
   return (
     <div>
       <Dialog open={openEditCourse} onClose={onClose} aria-labelledby="form-dialog-title">

@@ -13,6 +13,7 @@ import CoursesEnrolledList from '@components/CoursesList/CoursesEnrolledList';
 import useFetch from '../base/utils/useFetch';
 import useEndpoints from '../base/utils/useEndpoints';
 import { useUser } from '@utils/useUser';
+import { useGlobalStyles } from '../styles/globalStyles';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -27,7 +28,16 @@ const useStyles = makeStyles({
         '& > *': {
             marginLeft: '10px',
         },
+        height: '50px',
     },
+    coursesContainer:{
+        height: 'calc(100% - 50px)', 
+    },
+    listContainer:{
+        display: 'flex',
+        flexDirection: 'column',
+        maxHeight: '100%',
+    }
 });
 
 function CoursesListPage() {
@@ -35,6 +45,8 @@ function CoursesListPage() {
     const [openJoin, setOpenJoin] = useState(false);
     const [openSBCreate, setOpenSBCreate] = useState(false);
     const [openSBJoin, setOpenSBJoin] = useState(false);
+
+    const globalClasses = useGlobalStyles();
 
     const classes = useStyles();
 
@@ -64,8 +76,8 @@ function CoursesListPage() {
     const [courses] = useFetch({ endpoint: endPoints.get.getUserByEmail });
 
     return (
-        <>
-            <Container maxWidth="xl" className={classes.actionsContainer}>
+        <div className={globalClasses.genericContainer}>
+            <div className={classes.actionsContainer}>
                 <Button
                     variant="contained"
                     color="secondary"
@@ -80,23 +92,17 @@ function CoursesListPage() {
                 >
                     Unirse
                 </Button>
-            </Container>
+            </div>
             <Grid
                 container
-                xs={12}
-                spacing={2}
+                className={classes.coursesContainer}
                 alignContent="stretch"
-                style={{ maxHeight: '95%' }}
             >
                 <Grid
                     item
                     md={8}
                     xs={12}
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        maxHeight: '100%',
-                    }}
+                    className={classes.listContainer}
                 >
                     <Typography variant="h4">Lista de cursos</Typography>
                     <Divider
@@ -112,11 +118,7 @@ function CoursesListPage() {
                     item
                     md={4}
                     xs={12}
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        maxHeight: '100%',
-                    }}
+                    className={classes.listContainer}
                 >
                     <Typography variant="h4">Mis Cursos</Typography>
                     <Divider
@@ -157,7 +159,7 @@ function CoursesListPage() {
                     Inscripción satisfactoria al curso
                 </Alert>
             </Snackbar>
-        </>
+        </div>
     );
 }
 

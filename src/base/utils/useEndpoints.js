@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+// custom hook para generar los endpoints para su uso posterior
 function useEndpoints(props) {
     const endpoints = useMemo(() => {
         
@@ -78,6 +79,7 @@ function useEndpoints(props) {
         return endPoints;
     }, [props]);
 
+    // uso de memo para no estar generando muchos objetos por cada render
     return endpoints;
 }
 

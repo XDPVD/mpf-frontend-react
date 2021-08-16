@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
+// msan. Cras tempor arcu sed vehicula cursus. Ali
 export default function CourseCard({ course }) {
   const classes = useStyles();
   return (

@@ -3,7 +3,7 @@ import { useStyles } from './_styles';
 import { Button } from '@material-ui/core';
 
 import FileTray from '@components/_common/FileTray';
-
+// is urna in tristique. Ut id risus sapien. Morbi facilisis mattis tempus. Aenean ut molestie od
 function ViewResourceDialog(props) {
   const classes = useStyles();
 

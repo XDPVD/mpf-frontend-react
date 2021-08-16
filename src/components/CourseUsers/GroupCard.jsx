@@ -9,7 +9,7 @@ import { useStyles } from "./_styles.js";
 import { endP } from "@settings/config";
 import { putData } from "@utils/putData";
 
-
+// Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.k
 function GroupCard(props) {
   const classes = useStyles();
 

@@ -2,7 +2,7 @@ import instance from "@settings/axios";
 import { dateObjToString } from "@utils/convertDate";
 
 export async function postData(url, data, headers) {
-  
+  //gue in tincidunt commodo
   let result = await instance({
     method: "POST",
     url: url,
@@ -14,6 +14,7 @@ export async function postData(url, data, headers) {
   return result.data;
 }
 
+// per ipsum vel tincidunt porttitor. Etia
 export async function postAnuncio(obj, headers) {
   let result = await instance({
     method: "POST",
@@ -28,6 +29,7 @@ export async function postAnuncio(obj, headers) {
   return result.data;
 }
 
+//dales tempus. Donec tincidunt, odio a mollis semper, 
 export async function postMaterial(obj, headers) {
   let result = await instance({
     method: "POST",
@@ -42,6 +44,7 @@ export async function postMaterial(obj, headers) {
   return result.data;
 }
 
+//tor, et bibendum sapien mi ac ipsum. Nullam convallis vel mi ac auctor. Etiam euismod augue posuere orci b
 export async function postTarea(obj, headers) {
   let [date_max, time_max] = dateObjToString(obj.fechaEntrega);
   console.log("dateObjToString ", dateObjToString(obj.fechaEntrega));
@@ -80,6 +83,7 @@ export async function postExamen(obj, headers) {
   return result.data;
 }
 
+//placerat. Praesent rhoncus leo vel enim sodales tempus. Donec tincidunt, odio a m
 export async function postPub(recurso, headers) {
   //const request = await axios.post("", recurso);
   let res;

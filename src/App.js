@@ -66,7 +66,6 @@ function AppContainer() {
         { url: URLS.COURSES, Component: <CoursesListPage />, exact: true},
         { url: URLS.COURSES + '/:courseId', Component: <CourseDetailsPage /> },
         { url: URLS.CONFIG, Component: <Configuration /> },
-        { url: URLS.GROUPS, Component: <p>Grupos</p> },
     ];
 
     return (
@@ -81,7 +80,7 @@ function AppContainer() {
                         </Route>
                         {privatePages.map((page) => {
                             return (
-                                <PrivateRouter exact={page.exact} path={page.url}>
+                                <PrivateRouter key={page.url} exact={page.exact} path={page.url}>
                                     <LateralBar />
                                     {page.Component}
                                 </PrivateRouter>

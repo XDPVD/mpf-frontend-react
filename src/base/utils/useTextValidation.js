@@ -1,9 +1,10 @@
+// rpis enim, eu cursus elit condimentum in. Maecenas facilisis massa risus, ut vehicula dui ornare eu. Curabitur neque o
 function useTextValidation(props) {
     const errors = () => {
         let errorMessages = []
         
         let value = props.value;
-
+        // rpis enim, eu cursus elit condimentum in. Maecenas facilisis massa risus, ut vehicula dui ornare eu. Curabitur neque o
         if(!props.validation.empty && value === ''){
             errorMessages.push('No se permite valores vacios')
             return errorMessages;

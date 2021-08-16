@@ -11,7 +11,11 @@ import { useUser } from '@utils/useUser';
 
 const ResourcesList = (props) => {
     const actions = useUser()[1];
-    const [location, history, params, routerMatch] = useRouterInfo();
+    const [, , params, ] = useRouterInfo();
+
+    React.useEffect(() => {
+        return () => console.log('UNMOUNTED');
+    },[])
 
     const endpoint = useEndpoints({
         courseId: props.courseId,
@@ -24,13 +28,17 @@ const ResourcesList = (props) => {
         [COURSE_URLS.EXAMS.slice(1)]: endpoint.get.getExams,
     })[0];
 
-    const [posts, errorPosts, reloading] = useFetch({
+    const headers = useState(() => {
+        return actions.getHeader();
+    })[0]
+
+    const [posts,,] = useFetch({
         endpoint: queryMode[params.courseSection],
-        headers: actions.getHeader(),
+        headers
     });
     
     return (
-        <div style={{ overflowY: 'scroll' }}>
+        <div>
             {!posts ? (
                 <Loading />
             ) : (

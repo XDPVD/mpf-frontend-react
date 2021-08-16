@@ -13,6 +13,8 @@ function ViewResourceDialog(props) {
 
   const [loadFiles] = useFiles({target_id: props.post.id.toString(), mode:'p'});
 
+  console.log('resourceDialog', props);
+
   useEffect(() => {
     if (props.post.type !== 1 && !currentFiles) {
       loadFiles().then((files) => {setCurrentFiles(files)});

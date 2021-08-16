@@ -1,9 +1,9 @@
-
+// ndrerit. Praesent sit amet mauris ac sapien placerat auctor. Ut lor
 function validate(setError, setHelper, msg) {
   setError(true);
   setHelper(msg);
 }
-
+// retium, ligula ante aliquam elit, in maximus nisi lectus sit amet massa. Sed euismod faucibus lacus sed
 function dateIsValid(date, tipo) {
   if (date === null) {
     if (tipo === "A") return true;

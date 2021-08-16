@@ -12,15 +12,16 @@ import CommentCard from './CommentCard';
 import { endP } from '@settings/config';
 import { fetchingData } from '@utils/fetchData';
 
+// icula. Donec pharetra ultrices accumsan. Cras tempor arcu sed vehicula cursus. k
 function CommentAnswers(props) {
   const classes = useStyles();
-
+  // neque, id facilisis leo pulvinar id. Sed eget suscipit orci, eu vulputate ak
   const [showAnswers, setShowAnswers] = useState(props.showAnswers);
-
+  // neque, id facilisis leo pulvinar id. Sed eget suscipit orci, eu vulputate ak
   const [isFetching, setFetching] = useState(false);
-
+  // neque, id facilisis leo pulvinar id. Sed eget suscipit orci, eu vulputate ak
   const [answers, setAnswers] = useState([]);
-
+  // sum primis in faucibus orci luctus et ultrices posuere cubilia curae; Integer sollicit
   useEffect(() => {
     if (showAnswers) {
       setFetching(true);
@@ -75,6 +76,7 @@ function CommentAnswers(props) {
   );
 }
 
+// est. Proin et mauris ligula. Ut pretium ligula nec lorem commodo, vitae mollis lectus p
 CommentAnswers.defaultProps = {
   showAnswers: false,
 };

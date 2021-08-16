@@ -1,3 +1,4 @@
+// st quis, imperdiet viverra tellus. Donec vitae vehicula magna. Proin 
 export const endP = ({
     courseId,
     userId,

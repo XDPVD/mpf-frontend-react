@@ -20,7 +20,10 @@ function CoursesCreatedList(props) {
                 <Link
                     key={course.id}
                     className={classes.courseLink}
-                    to={`/cursos/${course.id}/dash`}
+                    to={{
+                        pathname: `/cursos/${course.id}/dash`,
+                        state: { owner: true }
+                    }}
                 >
                     <ListItem
                         style={{
@@ -30,15 +33,14 @@ function CoursesCreatedList(props) {
                             boxShadow: '0 0 2.5px 0px black',
                             height: '75px',
                             marginBottom: '15px',
+                            width: '95%',
+                            overflow: 'hidden'
                         }}
                         button
                         disableRipple
                         data-testid={`course-item-${course.id}`}
                     >
-                        <ListItemText style={{
-                          width: '100%',
-                          overflow: 'hidden'
-                        }}>
+                        <ListItemText>
                             <Typography variant="h6">{course.name}</Typography>
                             <Typography variant="subtitle2">
                                 {course.description}

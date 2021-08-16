@@ -22,7 +22,7 @@ import EditCourseDialog from './EditCourseDialog';
 import { IconButton } from '@material-ui/core';
 import { URLS } from '../../base/settings/urls';
 
-function CourseNav() {
+function CourseNav(props) {
     const classes = useStyles();
 
     const [, redirectTo] = useRedirectUrl();
@@ -84,8 +84,8 @@ function CourseNav() {
     }, [actions, courseId]);
     //solo el grid es mio y el ultimo dialog
     return (
-        <>
-            <Grid container direction="row" alignItems="center" spacing={2}>
+        <div>
+            <Grid container direction="row" alignItems="center">
                 <Grid item>
                     <Typography className={classes.courseTitle} variant="h3">
                         <IconButton onClick={() => history.push(URLS.COURSES)}>
@@ -95,15 +95,16 @@ function CourseNav() {
                     </Typography>
                 </Grid>
                 <Grid item>
-                    {/* <Button
+                    {props.isOwner && <Button
                         variant="contained"
                         color="primary"
                         hidden={hiddenButtonEditCourse}
                         startIcon={<EditIcon />}
                         onClick={handleClickOpenEditCourse}
+                        style={{'marginLeft':'20px'}}
                     >
                         Editar
-                    </Button> */}
+                    </Button>}
                 </Grid>
             </Grid>
             <Tabs value={selectedTab} onChange={handleChange}>
@@ -116,18 +117,19 @@ function CourseNav() {
                     />
                 })}
 
-                {/* <Button
+                { props.isOwner && <Button
                     hidden={hiddenButton}
                     className={classes.buttonAddMaterial}
                     onClick={handleClickOpenAddMaterial}
                     variant="contained"
                     color="#b2ff59"
+                    style={{'marginLeft':'auto'}}
                 >
                     <span style={{ 'font-size': '20px', marginRight: '5px' }}>
                         +
                     </span>{' '}
                     Nuevo Recurso
-                </Button> */}
+                </Button>}
             </Tabs>
 
             <AddResourceDialog
@@ -142,7 +144,7 @@ function CourseNav() {
                 onClose={handleCloseOpenEditCourse}
                 headers={actions.getHeader()}
             />
-        </>
+        </div>
     );
 }
 

@@ -111,9 +111,7 @@ function AddResourceDialog(props) {
     if (resourceIsValid(recurso, setters)) {
       await postPub(recurso, actions.getHeader());
       props.setOpenAdd(false);
-      console.log(location.pathname);
       history.push(location.pathname, { from: location.pathname });
-    
     }
   };
 
@@ -250,8 +248,8 @@ function AddResourceDialog(props) {
                 recurso={recurso}
                 setters={setters}
                 createIdFunction={async () =>{
-                    console.log('async upload');
-                    await postPub(recurso, actions.getHeader())
+                    let res = await postPub(recurso, actions.getHeader())
+                    return res;
                 } 
                 }
                 closeFunction={() => {

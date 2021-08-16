@@ -88,6 +88,7 @@ export default function AddCourseDialog({ open, setOpen, setOpenSB }) {
                                     />
                                     {titleErrors?.map((error) => (
                                         <Typography
+                                            key={error}
                                             style={{ color: 'red' }}
                                             variant="caption"
                                             display="block"
@@ -111,6 +112,7 @@ export default function AddCourseDialog({ open, setOpen, setOpenSB }) {
                                     />
                                     {descErrors?.map((error) => (
                                         <Typography
+                                            key={error}
                                             style={{ color: 'red' }}
                                             variant="caption"
                                             display="block"

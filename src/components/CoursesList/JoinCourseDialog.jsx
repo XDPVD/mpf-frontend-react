@@ -10,6 +10,8 @@ import usePost from "../../base/utils/usePost";
 import useEndpoints from "../../base/utils/useEndpoints";
 import { useState } from "react";
 
+
+// velit vitae, euismod pellentesque sem. Morbi auctor ligula ac vulputate vehk
 function JoinCourseDialog({ open, setOpen, setOpenSB }) {
   const [code, setCode] = useState('');
 

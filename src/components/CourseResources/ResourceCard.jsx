@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import {useLocation} from "react-router-dom";
 import { Card, CardActions, Typography } from "@material-ui/core";
 import { useStyles } from "./_styles";
 import { Button } from "@material-ui/core";
@@ -21,7 +21,7 @@ import ViewEvaluateDialog from "@components/CourseResources/ViewEvaluateDialog"
 // unc auctor convallis. Quisque dolor felis, aliquam at condim
 function ResourceCard(props) {
   const classes = useStyles();
-
+  const location= useLocation();
   const [modalView, setModalView] = useState(false);
   const [modalViewEvaluate, setModalViewEvaluate] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
@@ -44,6 +44,10 @@ function ResourceCard(props) {
   const closeModalAssignment = () => {
     setModalEdit(false);
   };
+
+  function locationExamsHomework(){
+    return (location.pathname).includes("tareas") || (location.pathname).includes("examenes");
+  }
 
   const iconsSwitch = {
     A: <FormatAlignJustifyIcon fontSize='large' />,
@@ -108,7 +112,7 @@ function ResourceCard(props) {
         ) : (
           <></>
         )}
-        {props.isOwner?
+        {props.isOwner & locationExamsHomework()?
         (
         <Button
         className={classes.btn}
@@ -165,7 +169,7 @@ function ResourceCard(props) {
         courseId= {props.courseId}/>
       ): (
         <></>
-      )}
+      )}      
     </Card>
   );
 }

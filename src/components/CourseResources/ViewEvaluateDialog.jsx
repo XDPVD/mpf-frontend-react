@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useStyles } from "./_styles";
 import { Button } from "@material-ui/core";
+import Grid from '@material-ui/core/Grid';
 import { endP } from '@settings/config';
 import { fetchData } from '@utils/fetchData';
 import UsersList from "@components/CourseUsers/UsersList";
@@ -14,10 +15,10 @@ function ViewEvaluateDialog(props) {
     const inscriptions= course.inscriptions;
     const users = inscriptions?.map((inscriptions) => inscriptions.user);
     return users    
-  }
+  }  
 
   useEffect(() => {
-    // Funciones para llamar al curso
+    // eau un  madas cadasdasd eeasdasda
     async function getData() {
         await fetchData(
             endP({ courseId }).getCourse,
@@ -45,6 +46,7 @@ function ViewEvaluateDialog(props) {
       <hr />
       <p align='left'>{props.post.description}</p>
       <hr />
+      
       <UsersList courseId={props.courseId} users={justUsers(course)} />
     </div>
   );

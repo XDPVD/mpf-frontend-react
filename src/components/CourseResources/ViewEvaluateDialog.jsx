@@ -1,25 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { CircularProgress } from "@material-ui/core";
 import { useStyles } from "./_styles";
 import { Button } from "@material-ui/core";
-import FileCard from "./FileCard";
-import Comments from "./Comments";
-import useFiles from "@utils/useFiles";
-
-function ViewResourceDialog(props) {
+import { endP } from '@settings/config';
+import { fetchData } from '@utils/fetchData';
+import UsersList from "@components/CourseUsers/UsersList";
+function ViewEvaluateDialog(props) {
   const classes = useStyles();
+  const {courseId}=props;
+  const [course, setCourse] = useState({});
 
-  const [currentFiles, setCurrentFiles] = useState(null);
-
-  const [loadFiles] = useFiles({target_id: props.post.id.toString(), mode:'p'});
-
-  console.log('resourceDialog', props);
+  console.log('viewEvaluateDialog', props);
+  function justUsers(course){
+    const inscriptions= course.inscriptions;
+    const users = inscriptions?.map((inscriptions) => inscriptions.user);
+    return users    
+  }
 
   useEffect(() => {
-    if (props.post.type !== 1 && !currentFiles) {
-      loadFiles().then((files) => {setCurrentFiles(files)});
+    // Funciones para llamar al curso
+    async function getData() {
+        await fetchData(
+            endP({ courseId }).getCourse,
+            setCourse
+        );
     }
-  });
+    getData(); 
+  }, []);
+
 
   return (
     <div className={classes.ventana}>
@@ -35,28 +42,12 @@ function ViewResourceDialog(props) {
           x
         </Button>
       </div>
-
       <hr />
       <p align='left'>{props.post.description}</p>
       <hr />
-
-      {props.post.type === 1 ? (
-        <></>
-      ) : !currentFiles ? (
-        <CircularProgress />
-      ) : currentFiles.length > 0 ? (
-        <></>
-      ) : (
-        <p>No hay archivos</p>
-      )}
-
-      {currentFiles?.map((file) => {
-        return <FileCard file={file} />;
-      })}
-      <hr />
-      <Comments post={props.post} />
+      <UsersList courseId={props.courseId} users={justUsers(course)} />
     </div>
   );
 }
 
-export default ViewResourceDialog;
+export default ViewEvaluateDialog;

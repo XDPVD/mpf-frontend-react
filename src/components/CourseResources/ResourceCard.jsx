@@ -161,7 +161,8 @@ function ResourceCard(props) {
       {modalViewEvaluate ? (
         <ViewEvaluateDialog 
         closeCallback={closeModalViewEvaluate}
-        post={props.post}/>
+        post={props.post}
+        courseId= {props.courseId}/>
       ): (
         <></>
       )}

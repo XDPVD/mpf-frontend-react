@@ -60,12 +60,13 @@ function ViewEvaluateDialog(props) {
       <hr />
       <p align='left'>{props.post.description}</p>
       <hr />
+      <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container>
         <Grid item xs={4}>
           <UsersList courseId={props.courseId} users={justUsers(course)} />
         </Grid>
         <Grid item xs={8}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          
             <Grid item xs={12}>
               <Grid container xs={12}>
                 <Grid item xs={4} justifyContent="center">
@@ -98,9 +99,10 @@ function ViewEvaluateDialog(props) {
               <a href="https://www.w3schools.com">Visit W3Schools</a>
               </Grid>
             </Grid>
-          </form>
+          
         </Grid>
       </Grid>
+      </form>
     </div>
   );
 }

@@ -27,6 +27,7 @@ function UsersList(props) {
             button
             disableRipple
             key={index}
+            onClick={(e)=>{console.log(e.currentTarget.textContent);}}
           >
             <ListItemAvatar className={classes.avatar}>
               <Avatar

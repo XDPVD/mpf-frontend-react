@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import {useLocation} from "react-router-dom";
 import { Card, CardActions, Typography } from "@material-ui/core";
 import { useStyles } from "./_styles";
 import { Button } from "@material-ui/core";
@@ -16,11 +16,14 @@ import DescriptionIcon from "@material-ui/icons/Description";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 
 import ViewAssignmentDialog from "@components/CourseResources/ViewAssignmentDialog";
+
+import ViewEvaluateDialog from "@components/CourseResources/ViewEvaluateDialog"
 // unc auctor convallis. Quisque dolor felis, aliquam at condim
 function ResourceCard(props) {
   const classes = useStyles();
-
+  const location= useLocation();
   const [modalView, setModalView] = useState(false);
+  const [modalViewEvaluate, setModalViewEvaluate] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
 
   let dateMax =
@@ -34,9 +37,17 @@ function ResourceCard(props) {
     setModalView(false);
   };
 
+  const closeModalViewEvaluate = () => {
+    setModalViewEvaluate(false);
+  };
+
   const closeModalAssignment = () => {
     setModalEdit(false);
   };
+
+  function locationExamsHomework(){
+    return (location.pathname).includes("tareas") || (location.pathname).includes("examenes");
+  }
 
   const iconsSwitch = {
     A: <FormatAlignJustifyIcon fontSize='large' />,
@@ -101,6 +112,23 @@ function ResourceCard(props) {
         ) : (
           <></>
         )}
+        {props.isOwner & locationExamsHomework()?
+        (
+        <Button
+        className={classes.btn}
+        size='large'
+        variant='contained'
+        color='primary'
+        onClick={() => {
+          setModalViewEvaluate(true);
+        }}
+        >
+          Evaluar
+        </Button>  
+        ):
+        (
+        <></>
+        )}
         <Button
           className={classes.btn}
           size='large'
@@ -134,6 +162,14 @@ function ResourceCard(props) {
       ) : (
         <></>
       )}
+      {modalViewEvaluate ? (
+        <ViewEvaluateDialog 
+        closeCallback={closeModalViewEvaluate}
+        post={props.post}
+        courseId= {props.courseId}/>
+      ): (
+        <></>
+      )}      
     </Card>
   );
 }

@@ -48,6 +48,8 @@ const ResourcesList = (props) => {
                             key={elem.id}
                             kind={props.kind}
                             post={elem}
+                            isOwner={props.isOwner}
+                            courseId= {props.courseId}
                         />
                     );
                 })

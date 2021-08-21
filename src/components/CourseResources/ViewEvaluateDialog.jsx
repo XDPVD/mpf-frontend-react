@@ -12,6 +12,7 @@ function ViewEvaluateDialog(props) {
   const classes = useStyles();
   const {courseId}=props;
   const [course, setCourse] = useState({});
+  const [selectedUserId, setSelectedUserId] = useState();
   const {
     register,
     handleSubmit,
@@ -59,11 +60,12 @@ function ViewEvaluateDialog(props) {
       </div>
       <hr />
       <p align='left'>{props.post.description}</p>
+      {selectedUserId}
       <hr />
       <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container>
         <Grid item xs={4}>
-          <UsersList courseId={props.courseId} users={justUsers(course)} />
+          <UsersList courseId={props.courseId} users={justUsers(course)} setSelectedUserId={setSelectedUserId} />
         </Grid>
         <Grid item xs={8}>
           

@@ -101,11 +101,11 @@ function CourseUsers({ courseId, isOwner }) {
         const delegate = new Array(course.delegate);
 
         if (tipo === 'Profesor') {
-            lista = <UsersList courseId={courseId} users={teacher} />;
+            lista = <UsersList courseId={courseId} users={teacher} setSelectedUserId={(a)=>{console.log(a);}}/>;
         } else if (tipo === 'Delegados') {
-            lista = <UsersList courseId={courseId} users={delegate} />;
+            lista = <UsersList courseId={courseId} users={delegate} setSelectedUserId={(a)=>{console.log(a);}} />;
         } else {
-            lista = <UsersList courseId={courseId} users={users} />;
+            lista = <UsersList courseId={courseId} users={users} setSelectedUserId={(a)=>{console.log(a);}} />;
         }
 
         return lista;

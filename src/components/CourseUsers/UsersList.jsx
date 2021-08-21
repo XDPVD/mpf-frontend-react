@@ -11,7 +11,6 @@ import NotFound from '@common/NotFound';
 function UsersList(props) {
   const classes = useStyles();
   const users = props.users;
-
   return (
     <List style={{ borderRadius: '10px' }}>
       {checkNull(users) ? (
@@ -27,6 +26,9 @@ function UsersList(props) {
             button
             disableRipple
             key={index}
+            value={user.email}
+            onClick={(e)=>{console.log(e.currentTarget.textContent);
+              console.log(user.id);props.setSelectedUserId(user.id);}}
           >
             <ListItemAvatar className={classes.avatar}>
               <Avatar

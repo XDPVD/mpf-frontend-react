@@ -15,6 +15,8 @@ function ViewEvaluateDialog(props) {
   const [course, setCourse] = useState({});
   const [userSubmissions, setUserSubmissions] = useState({});
   const [selectedUser, setSelectedUser] = useState({});
+  const [review,setReview]= useState("");
+  const [score,setScore]= useState(0);
   const {
     register,
     handleSubmit,
@@ -27,15 +29,15 @@ function ViewEvaluateDialog(props) {
     const users = inscriptions?.map((inscriptions) => inscriptions.user);
     return users;   
   }
-  /*
+  
   const compareUsers=()=>{
     for (const key in userSubmissions) {
       if(userSubmissions[key].user.id==selectedUser.id){
         return userSubmissions[key];
       }
-      return "No envio";
     }
-  };*/ 
+    return "No envio";
+  }; 
   const onSubmit = (data, e) => {
     //No saques el data :V por si a alguien se le ocurre
     e.preventDefault();
@@ -67,7 +69,14 @@ function ViewEvaluateDialog(props) {
   }, []);
   useEffect(() => {
     // eau un  madas caddadssadasdasd eeasdasda
-    
+    const result=compareUsers();
+    if(result=="No envio"){
+      setReview("No envio");}
+    else{
+      setReview("Envio");
+      setScore(result.calification);
+      
+    }
   }, [selectedUser]);
 
   return (
@@ -104,7 +113,7 @@ function ViewEvaluateDialog(props) {
               <Grid container xs={12}>
                 <Grid item xs={4} justifyContent="center">
                   <Typography variant="subtitle2" gutterBottom>
-                    Estado: Sin revisar
+                    Estado: {review}
                   </Typography>
                   <Typography variant="subtitle2" gutterBottom>
                     Alumno: {selectedUser.name}
@@ -117,7 +126,7 @@ function ViewEvaluateDialog(props) {
                     label="Calificación"
                     type="number" 
                     {...register('score', { pattern: /\d+/ })}
-                    placeholder={`0/${props.post.evaluation.score_max}`}>
+                    placeholder={`${score}/${props.post.evaluation.score_max}`}>
                     </TextField>
                   </Grid>
                 </Grid>

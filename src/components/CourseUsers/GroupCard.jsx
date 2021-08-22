@@ -30,7 +30,7 @@ function GroupCard(props) {
       <CardHeader className={classes.cardHeader} title={name} />
       <Divider />
       <CardContent className={classes.cardContent} disableSpacing>
-        <UsersList users={users} setSelectedUserId={(a)=>{console.log(a);}}/>
+        <UsersList users={users} setSelectedUser={(a)=>{console.log(a);}}/>
       </CardContent>
       <Divider />
       <CardActions className={classes.cardActions} disableSpacing>

@@ -12,7 +12,7 @@ function ViewEvaluateDialog(props) {
   const classes = useStyles();
   const {courseId}=props;
   const [course, setCourse] = useState({});
-  const [selectedUserId, setSelectedUserId] = useState();
+  const [selectedUser, setSelectedUser] = useState({});
   const {
     register,
     handleSubmit,
@@ -60,23 +60,28 @@ function ViewEvaluateDialog(props) {
       </div>
       <hr />
       <p align='left'>{props.post.description}</p>
-      {selectedUserId}
+      
       <hr />
       <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container>
         <Grid item xs={4}>
-          <UsersList courseId={props.courseId} users={justUsers(course)} setSelectedUserId={setSelectedUserId} />
+          <UsersList courseId={props.courseId} users={justUsers(course)} setSelectedUser={setSelectedUser} />
         </Grid>
         <Grid item xs={8}>
           
             <Grid item xs={12}>
+              {Object.keys(selectedUser).length === 0 ? (
+                <>Seleccione un alumno dentro de la lista</>
+              ):(
+              <>
+              
               <Grid container xs={12}>
                 <Grid item xs={4} justifyContent="center">
                   <Typography variant="subtitle2" gutterBottom>
                     Estado: Sin revisar
                   </Typography>
                   <Typography variant="subtitle2" gutterBottom>
-                    Alumno: Carlos Diego Tripita Galarza
+                    Alumno: {selectedUser.name}
                   </Typography>  
                 </Grid>
                 
@@ -96,6 +101,7 @@ function ViewEvaluateDialog(props) {
                   </Button>
                 </Grid>
               </Grid>
+              </>)}
               <hr/>
               <Grid>
               <a href="https://www.w3schools.com">Visit W3Schools</a>

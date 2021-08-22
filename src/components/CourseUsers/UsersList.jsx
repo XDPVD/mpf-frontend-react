@@ -28,7 +28,7 @@ function UsersList(props) {
             key={index}
             value={user.email}
             onClick={(e)=>{console.log(e.currentTarget.textContent);
-              console.log(user.id);props.setSelectedUserId(user.id);}}
+              console.log(user.id);props.setSelectedUser(user);}}
           >
             <ListItemAvatar className={classes.avatar}>
               <Avatar

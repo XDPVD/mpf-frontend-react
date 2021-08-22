@@ -71,7 +71,9 @@ function ViewEvaluateDialog(props) {
     // eau un  madas caddadssadasdasd eeasdasda
     const result=compareUsers();
     if(result=="No envio"){
-      setReview("No envio");}
+      setReview("No envio");
+      setScore(0);
+    }
     else{
       setReview("Envio");
       setScore(result.calification);

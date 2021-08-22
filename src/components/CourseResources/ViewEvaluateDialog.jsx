@@ -8,10 +8,12 @@ import { fetchData } from '@utils/fetchData';
 import { useForm } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import UsersList from "@components/CourseUsers/UsersList";
+import {postData} from "@utils/postData";
 function ViewEvaluateDialog(props) {
   const classes = useStyles();
-  const {courseId}=props;
+  const {courseId,headers,post}=props;
   const [course, setCourse] = useState({});
+  const [userSubmissions, setUserSubmissions] = useState({});
   const [selectedUser, setSelectedUser] = useState({});
   const {
     register,
@@ -23,15 +25,32 @@ function ViewEvaluateDialog(props) {
   function justUsers(course){
     const inscriptions= course.inscriptions;
     const users = inscriptions?.map((inscriptions) => inscriptions.user);
-    return users    
-  }  
-  const onSubmit = (data, e) => {
-    e.preventDefault();
-    if (data.score) {
-        e.target[0].value = '';
-        e.target[0].placeholder = data.score;
+    return users;   
+  }
+  /*
+  const compareUsers=()=>{
+    for (const key in userSubmissions) {
+      if(userSubmissions[key].user.id==selectedUser.id){
+        return userSubmissions[key];
+      }
+      return "No envio";
     }
-};
+  };*/ 
+  const onSubmit = (data, e) => {
+    //No saques el data :V por si a alguien se le ocurre
+    e.preventDefault();
+    const temp=e.target[0].value;
+    postData(
+      endP({ userId:selectedUser.id,publication_id:post.id,nota:temp}).calificateSubmission,
+      { userId:selectedUser.id,publication_id:post.id,nota:temp},
+      headers
+    );
+    if (temp) {
+        e.target[0].value = '';
+        e.target[0].placeholder = `${temp}/${props.post.evaluation.score_max}`;
+    }
+    console.log(userSubmissions);
+  };
   useEffect(() => {
     // eau un  madas cadasdasd eeasdasda
     async function getData() {
@@ -39,10 +58,17 @@ function ViewEvaluateDialog(props) {
             endP({ courseId }).getCourse,
             setCourse
         );
+        await fetchData(
+          endP({ publication_id:post.id }).getSubmissions,
+          setUserSubmissions
+        );
     }
     getData(); 
   }, []);
-
+  useEffect(() => {
+    // eau un  madas caddadssadasdasd eeasdasda
+    
+  }, [selectedUser]);
 
   return (
     <div className={classes.ventana}>
@@ -91,7 +117,7 @@ function ViewEvaluateDialog(props) {
                     label="Calificación"
                     type="number" 
                     {...register('score', { pattern: /\d+/ })}
-                    placeholder={"0/20"}>
+                    placeholder={`0/${props.post.evaluation.score_max}`}>
                     </TextField>
                   </Grid>
                 </Grid>

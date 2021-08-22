@@ -7,6 +7,9 @@ export const endP = ({
     email,
     groupId,
     courseCode,
+    submission_id,
+    nota,
+    publication_id,
 }) => {
     // console.log('endP commentId ', {
     //     courseId,
@@ -16,8 +19,10 @@ export const endP = ({
     //     email,
     // })
     return {
+        calificateSubmission:`/submission/calificate/${userId}/${publication_id}/${nota}`,
         createCourse: '/course',
         createGroup: `/group/create/${courseId}/default`,
+        createSubmission:'/submission',
         createUser: '/user',
         delegateUser: `/course/${courseId}/delegate/${userId}`,
         editCourse: `/course/edit/${courseId}`,
@@ -28,6 +33,7 @@ export const endP = ({
         getCourse: `/course/${courseId}`,
         getCourses: '/course',
         getGroups: `/group/${courseId}`,
+        getSubmissions:`/submission/${publication_id}`,
         getUser: `/user/${userId}`,
         getUserByEmail: `/user/byemail/${email}`,
         getUsers: '/user',

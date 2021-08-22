@@ -50,6 +50,7 @@ const ResourcesList = (props) => {
                             post={elem}
                             isOwner={props.isOwner}
                             courseId= {props.courseId}
+                            headers={actions.getHeader()}
                         />
                     );
                 })

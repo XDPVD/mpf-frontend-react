@@ -66,7 +66,7 @@ function ViewEvaluateDialog(props) {
         );
     }
     getData(); 
-  }, []);
+  }, [selectedUser]);
   useEffect(() => {
     // eau un  madas caddadssadasdasd eeasdasda
     const result=compareUsers();

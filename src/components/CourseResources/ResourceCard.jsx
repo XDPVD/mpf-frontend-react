@@ -25,7 +25,7 @@ function ResourceCard(props) {
   const [modalView, setModalView] = useState(false);
   const [modalViewEvaluate, setModalViewEvaluate] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
-
+  //dadasdasdadassssssssssssssssssd  ewewewew vdff ydaleu todalavidaSaveces dsdadada
   let dateMax =
     props.kind === "T" || props.kind === "E"
       ? new Date(

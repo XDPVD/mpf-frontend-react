@@ -29,7 +29,7 @@ function ViewEvaluateDialog(props) {
     const users = inscriptions?.map((inscriptions) => inscriptions.user);
     return users;   
   }
-  
+  //Compare submissions con el usuario seleccionado en la interfaz
   const compareUsers=()=>{
     for (const key in userSubmissions) {
       if(userSubmissions[key].user.id==selectedUser.id){
@@ -80,7 +80,7 @@ function ViewEvaluateDialog(props) {
       
     }
   }, [selectedUser]);
-
+  //Agrengando caomoaentarariaosdadasdajd ajiojadsjaodadiosajdad 
   return (
     <div className={classes.ventana}>
       <div className={classes.titleWrapper}>
@@ -121,7 +121,8 @@ function ViewEvaluateDialog(props) {
                     Alumno: {selectedUser.name}
                   </Typography>  
                 </Grid>
-                
+                {review=="No envio"?(<h6>El alumno tiene 0 porque no envio</h6>
+                ):(<>
                 <Grid container item xs={4} justifyContent="center" alignItems="center">
                   <Grid xs={12}>
                     <TextField
@@ -137,6 +138,7 @@ function ViewEvaluateDialog(props) {
                     Guardar calificaci&oacute;n
                   </Button>
                 </Grid>
+                </>)}
               </Grid>
               </>)}
               <hr/>
